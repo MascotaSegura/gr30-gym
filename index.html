@@ -31,8 +31,16 @@
   #mobileMenuOverlay.menu-closed { opacity: 0; pointer-events: none; visibility: hidden; }
   #mobileMenuOverlay.menu-open { opacity: 1; pointer-events: auto; visibility: visible; }
   header { will-change: transform; }
-  .marquee-track:hover {
-    /* animation-play-state: paused; ( handled by JS now ) */
+  @keyframes scrollMarquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-100% - 2rem)); }
+  }
+  .animate-marquee {
+    animation: scrollMarquee 30s linear infinite;
+    will-change: transform;
+  }
+  .marquee-track:hover .animate-marquee {
+    animation-play-state: paused;
   }
 </style>
 </head>
@@ -699,22 +707,20 @@
     const track = document.querySelector('.marquee-track');
     if (track) {
       const original = track.querySelector('.marquee-original');
-      for(let i=0; i<3; i++) {
+      if (original) {
+        // Prepare original for CSS animation
+        original.classList.add('animate-marquee', 'flex-shrink-0', 'w-max');
+        
+        // Track doesn't need w-max anymore since elements translate themselves
+        track.classList.remove('w-max');
+        track.classList.add('w-full');
+        
+        // Clone exactly once for seamless infinite CSS loop
         const clone = original.cloneNode(true);
         clone.classList.remove('marquee-original');
         clone.setAttribute('aria-hidden', 'true');
         track.appendChild(clone);
       }
-      
-      const marqueeAnim = gsap.to(track, {
-        xPercent: -50,
-        ease: "none",
-        duration: 25,
-        repeat: -1
-      });
-
-      track.addEventListener('mouseenter', () => marqueeAnim.pause());
-      track.addEventListener('mouseleave', () => marqueeAnim.play());
 
       gsap.from(".marquee-wrapper", {
         scrollTrigger: { trigger: "#resenas", start: "top 80%" },
