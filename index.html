@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GR30 GYM | Gimnasio Premium en Jilotepec — Pesas, Cardio y Clases</title>
+<meta name="description" content="GR30 Gimnasio en Jilotepec. Acceso a pesas, cardio, peso libre, Zumba e HIIT. Planes desde $420/mes. Entrenadores certificados disponibles desde las 6:00 AM.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['Inter', 'sans-serif'],
+        }
+      }
+    }
+  }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/index.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+<style>
+  html { scroll-padding-top: 80px; }
+  .hero-anim { visibility: hidden; opacity: 0; will-change: transform, opacity; }
+  #mobileMenuOverlay { transition: opacity 0.3s ease; }
+  #mobileMenuOverlay.menu-closed { opacity: 0; pointer-events: none; visibility: hidden; }
+  #mobileMenuOverlay.menu-open { opacity: 1; pointer-events: auto; visibility: visible; }
+  header { will-change: transform; }
+  @keyframes marqueeRight {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(0%); }
+  }
+  .animate-marquee-right {
+    animation: marqueeRight 45s linear infinite;
+    will-change: transform;
+  }
+  .marquee-track:hover {
+    animation-play-state: paused;
+  }
+</style>
+</head>
+<body class="font-sans antialiased text-gray-900 bg-white">
+<header class="w-full bg-white border-b border-gray-200 z-50 sticky top-0">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-20">
+      <div class="flex-shrink-0 flex items-center">
+        <a href="#inicio" class="block outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2">
+          <img src="assets/img/logo-principal.png" alt="GR30 Gym" fetchpriority="high" class="h-12 w-auto object-contain">
+        </a>
+      </div>
+      <nav class="hidden lg:flex space-x-6 xl:space-x-10">
+        <a href="#inicio" class="text-gray-900 hover:text-green-700 text-sm font-semibold tracking-wide transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2">INICIO</a>
+        <a href="#servicios" class="text-gray-900 hover:text-green-700 text-sm font-semibold tracking-wide transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2">SERVICIOS</a>
+        <a href="#entrenadores" class="text-gray-900 hover:text-green-700 text-sm font-semibold tracking-wide transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2">ENTRENADORES</a>
+        <a href="#resenas" class="text-gray-900 hover:text-green-700 text-sm font-semibold tracking-wide transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2">RESEÑAS</a>
+        <a href="#planes" class="text-gray-900 hover:text-green-700 text-sm font-semibold tracking-wide transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2">PLANES</a>
+        <a href="#contacto" class="text-gray-900 hover:text-green-700 text-sm font-semibold tracking-wide transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2">CONTACTO</a>
+      </nav>
+      <div class="flex items-center gap-4">
+        <a href="#contacto" class="hidden sm:inline-flex items-center bg-green-800 text-white px-6 py-2.5 text-sm font-bold tracking-wide hover:bg-green-900 transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2">INSCRÍBETE</a>
+        <button id="mobileMenuToggle" class="lg:hidden flex items-center p-3 -mr-3 text-gray-900 hover:text-green-700 transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenuOverlay">
+          <i class="ph-bold ph-list text-3xl" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+<div id="mobileMenuOverlay" role="dialog" aria-modal="true" aria-label="Menú de navegación" class="fixed inset-0 bg-gray-900 z-[60] overflow-y-auto menu-closed">
+  <div class="sticky top-0 w-full h-20 px-4 sm:px-6 lg:px-8 flex justify-end items-center bg-gray-900 z-10">
+    <button id="mobileMenuClose" class="flex items-center p-3 -mr-3 text-white hover:text-green-500 active:text-green-500 transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900" aria-label="Cerrar menú">
+      <i class="ph-bold ph-x text-3xl" aria-hidden="true"></i>
+    </button>
+  </div>
+  <nav class="flex flex-col text-center px-4 pb-12 pt-4 min-h-[calc(100svh-80px)] justify-center">
+    <a href="#inicio" class="mobile-link block w-full py-4 text-3xl font-black text-white uppercase tracking-widest hover:text-green-500 active:text-green-500 transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900">INICIO</a>
+    <a href="#servicios" class="mobile-link block w-full py-4 text-3xl font-black text-white uppercase tracking-widest hover:text-green-500 active:text-green-500 transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900">SERVICIOS</a>
+    <a href="#entrenadores" class="mobile-link block w-full py-4 text-3xl font-black text-white uppercase tracking-widest hover:text-green-500 active:text-green-500 transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900">ENTRENADORES</a>
+    <a href="#resenas" class="mobile-link block w-full py-4 text-3xl font-black text-white uppercase tracking-widest hover:text-green-500 active:text-green-500 transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900">RESEÑAS</a>
+    <a href="#planes" class="mobile-link block w-full py-4 text-3xl font-black text-white uppercase tracking-widest hover:text-green-500 active:text-green-500 transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900">PLANES</a>
+    <a href="#contacto" class="mobile-link block w-full py-4 text-3xl font-black text-white uppercase tracking-widest hover:text-green-500 active:text-green-500 transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900">CONTACTO</a>
+  </nav>
+</div>
+<a href="https://wa.me/526562295423" target="_blank" rel="noopener noreferrer" class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 lg:bottom-8 lg:right-8 z-30 bg-green-800 text-white w-14 h-14 hover:bg-gray-900 transition-colors duration-200 flex items-center justify-center group outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2" aria-label="Contactar por WhatsApp">
+  <i class="ph-bold ph-whatsapp-logo text-3xl leading-none ml-0.5 group-hover:scale-110 transition-transform duration-200"></i>
+</a>
+
+<main>
+<section id="inicio" class="relative w-full min-h-[calc(100svh-80px)] flex flex-col justify-center py-24">
+  <div class="absolute inset-0 w-full h-full">
+    <img src="assets/img/hero-background.png" alt="Instalaciones GR30" fetchpriority="high" decoding="async" class="w-full h-full object-cover object-center">
+  </div>
+  <div class="absolute inset-0 bg-gray-900/85 z-[1]"></div>
+  <div class="relative z-[2] max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center w-full">
+    <h1 class="hero-anim text-4xl sm:text-5xl lg:text-7xl font-extrabold text-white tracking-tighter leading-[1.1] mb-4 sm:mb-6 uppercase">
+      Ponte Activo con <br><span class="text-green-500">GR30.</span>
+    </h1>
+    <p class="hero-anim text-base sm:text-lg text-gray-300 mb-8 sm:mb-10 leading-relaxed font-medium max-w-2xl mx-auto px-2">
+      Precios accesibles, horario flexible. Contamos con todos los equipos necesarios para tus prácticas del día a día.
+    </p>
+    <div class="hero-anim flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center w-full px-6 sm:px-0">
+      <a href="#contacto" class="bg-green-800 text-white px-8 py-4 text-sm font-bold tracking-wide uppercase hover:bg-green-900 transition-colors duration-200 text-center outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900">Empieza Hoy</a>
+      <a href="#servicios" class="bg-transparent border-2 border-white text-white px-8 py-4 text-sm font-bold tracking-wide uppercase hover:bg-white hover:text-gray-900 transition-colors duration-200 text-center outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900">Qué Ofrecemos</a>
+    </div>
+  </div>
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
+    <a href="#servicios" class="block text-white/50 hover:text-white transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900" aria-label="Ir a servicios">
+      <i class="ph-bold ph-caret-double-down text-3xl"></i>
+    </a>
+  </div>
+</section>
+
+<section id="servicios" class="w-full bg-gray-900 text-white relative border-b border-gray-800">
+  <div class="servicios-pinned-container h-[calc(100svh-80px)] min-h-[450px] w-full relative overflow-hidden flex flex-col justify-between py-10 md:py-14 z-10">
+    <div class="absolute inset-0 w-full h-full z-0 bg-gray-900 pointer-events-none">
+      <img src="assets/img/servicio-pesas.png" alt="Área de pesas libres e integradas" loading="lazy" decoding="async" class="servicio-img img-1 absolute inset-0 w-full h-full object-cover">
+      <img src="assets/img/servicio-cardio.png" alt="Área de cardio con caminadoras y elípticas" loading="lazy" decoding="async" class="servicio-img img-2 absolute inset-0 w-full h-full object-cover">
+      <img src="assets/img/servicio-fuerza.png" alt="Área de fuerza con barras olímpicas y racks" loading="lazy" decoding="async" class="servicio-img img-3 absolute inset-0 w-full h-full object-cover">
+      <div class="absolute inset-0 bg-gray-900/50 z-10"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/70 to-gray-900/10 z-10"></div>
+    </div>
+    <div class="relative z-20 w-full max-w-7xl mx-auto text-center pointer-events-none px-4 sm:px-6 lg:px-8">
+      <h2 class="text-4xl font-extrabold tracking-tight uppercase mb-3 text-white" id="servicios-titulo" aria-live="polite">Qué <span class="text-green-500">Ofrecemos</span></h2>
+      <p id="servicios-sub" class="text-gray-300 text-lg sm:text-xl font-medium max-w-xl mx-auto leading-relaxed">Motivación, constancia y los mejores resultados. Contamos con todo el equipamiento que necesitas.</p>
+    </div>
+    <div class="relative z-20 w-full max-w-7xl mx-auto flex-grow flex items-end px-4 sm:px-6 lg:px-8">
+      <div class="relative w-full h-[180px] sm:h-[200px] md:h-[220px]">
+        <div class="servicio-info info-1 absolute bottom-0 left-0 w-full pointer-events-auto pr-20 sm:pr-24 lg:pr-0">
+          <h3 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white uppercase tracking-tighter leading-none mb-3 sm:mb-4 lg:mb-6 break-words">Pesas<span class="text-green-500">.</span></h3>
+          <p class="text-gray-200 text-lg sm:text-xl lg:text-2xl font-medium max-w-2xl leading-relaxed">El más completo equipo de pesas libres e integradas para tu desarrollo muscular.</p>
+        </div>
+        <div class="servicio-info info-2 absolute bottom-0 left-0 w-full pointer-events-auto pr-20 sm:pr-24 lg:pr-0">
+          <h3 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white uppercase tracking-tighter leading-none mb-3 sm:mb-4 lg:mb-6 break-words">Cardio<span class="text-green-500">.</span></h3>
+          <p class="text-gray-200 text-lg sm:text-xl lg:text-2xl font-medium max-w-2xl leading-relaxed">Caminadoras y elípticas de última generación con inclinación y programación de rutinas.</p>
+        </div>
+        <div class="servicio-info info-3 absolute bottom-0 left-0 w-full pointer-events-auto pr-20 sm:pr-24 lg:pr-0">
+          <h3 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white uppercase tracking-tighter leading-none mb-3 sm:mb-4 lg:mb-6 break-words">Peso Libre<span class="text-green-500">.</span></h3>
+          <p class="text-gray-200 text-lg sm:text-xl lg:text-2xl font-medium max-w-2xl leading-relaxed">Equipamiento pesado, racks y barras olímpicas para un entrenamiento sin límites.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="entrenadores" class="w-full py-24 bg-white border-b border-gray-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="mb-16 text-center">
+      <h2 class="text-4xl font-extrabold text-gray-900 tracking-tight uppercase mb-4">
+        Nuestros Entrenadores
+      </h2>
+      <p class="max-w-2xl mx-auto text-xl text-gray-600 leading-relaxed font-medium">
+        Expertos dedicados a llevarte a tu límite con <strong class="text-green-800">técnica</strong>, <strong class="text-green-800">seguridad</strong> y <strong class="text-green-800">resultados reales</strong>.
+      </p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+      <div>
+        <div class="w-full aspect-[3/4] bg-gray-200 mb-6 overflow-hidden relative">
+          <img src="assets/img/entrenador-1.png" alt="Entrenador Principal Carlos R." loading="lazy" decoding="async" class="w-full h-full object-cover object-top">
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 uppercase mb-1">Carlos R.</h3>
+        <p class="text-base text-gray-500 font-semibold uppercase tracking-wide mb-2">Especialista en Hipertrofia</p>
+        <p class="text-sm text-green-800 font-bold tracking-widest uppercase">Certificación NSCA-CPT</p>
+      </div>
+
+      <div>
+        <div class="w-full aspect-[3/4] bg-gray-200 mb-6 overflow-hidden relative">
+          <img src="assets/img/entrenador-2.png" alt="Entrenadora Funcional Mariana V." loading="lazy" decoding="async" class="w-full h-full object-cover object-top">
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 uppercase mb-1">Mariana V.</h3>
+        <p class="text-base text-gray-500 font-semibold uppercase tracking-wide mb-2">Entrenamiento Funcional</p>
+        <p class="text-sm text-green-800 font-bold tracking-widest uppercase">Coach Crossfit L2</p>
+      </div>
+
+      <div>
+        <div class="w-full aspect-[3/4] bg-gray-200 mb-6 overflow-hidden relative">
+          <img src="assets/img/entrenador-3.png" alt="Entrenador de Fuerza Luis H." loading="lazy" decoding="async" class="w-full h-full object-cover object-top">
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 uppercase mb-1">Luis H.</h3>
+        <p class="text-base text-gray-500 font-semibold uppercase tracking-wide mb-2">Powerlifting &amp; Fuerza</p>
+        <p class="text-sm text-green-800 font-bold tracking-widest uppercase">Campeón Nacional</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="resenas" class="w-full py-24 bg-gray-900 text-white border-b border-gray-800">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="mb-16 text-center">
+      <h2 class="text-4xl font-extrabold text-white tracking-tight uppercase mb-4">Lo que dicen <span class="text-green-500">de nosotros</span></h2>
+      <p class="max-w-2xl mx-auto text-xl text-gray-400 leading-relaxed font-medium">Resultados reales de personas reales. Sin filtros.</p>
+    </div>
+  </div>
+  
+  <div class="marquee-wrapper relative w-full overflow-hidden py-4">
+    <div class="absolute inset-y-0 left-0 w-12 sm:w-24 bg-gradient-to-r from-gray-900 to-transparent z-10 pointer-events-none"></div>
+    <div class="absolute inset-y-0 right-0 w-12 sm:w-24 bg-gradient-to-l from-gray-900 to-transparent z-10 pointer-events-none"></div>
+
+    <div class="marquee-track flex gap-8 w-max">
+      
+      <div class="marquee-original flex gap-8">
+        
+        <div class="w-[320px] sm:w-[420px] flex-shrink-0 border-2 border-gray-800 p-8 flex flex-col justify-between bg-gray-900 hover:border-green-500 transition-colors duration-300">
+          <div>
+            <div class="flex gap-1 mb-6">
+              <i class="ph-fill ph-star text-green-500 text-xl"></i>
+              <i class="ph-fill ph-star text-green-500 text-xl"></i>
+              <i class="ph-fill ph-star text-green-500 text-xl"></i>
+              <i class="ph-fill ph-star text-green-500 text-xl"></i>
+              <i class="ph-fill ph-star text-green-500 text-xl"></i>
+            </div>
+            <p class="text-xl text-gray-300 leading-relaxed font-medium mb-8">"El mejor equipamiento de Jilotepec. La zona de peso libre está brutal y los entrenadores de verdad te exigen al máximo."</p>
+          </div>
+          <div class="flex items-center gap-4 mt-6 pt-6 border-t border-gray-800">
+            <div class="w-12 h-12 flex-shrink-0 bg-gray-800 overflow-hidden">
+              <img src="assets/img/entrenador-1.png" alt="Avatar Javier M." loading="lazy" decoding="async" class="w-full h-full object-cover object-top">
+            </div>
+            <div>
+              <h4 class="text-lg font-bold text-white uppercase tracking-wide">Javier M.</h4>
+              <p class="text-sm text-gray-500 font-semibold uppercase">Atleta de Fuerza</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="w-[320px] sm:w-[420px] flex-shrink-0 border-2 border-gray-800 p-8 flex flex-col justify-between bg-gray-900 hover:border-green-500 transition-colors duration-300">
+          <div>
+            <div class="flex gap-1 mb-6">
+              <i class="ph-fill ph-star text-green-500 text-xl"></i>
+              <i class="ph-fill ph-star text-green-500 text-xl"></i>
+              <i class="ph-fill ph-star text-green-500 text-xl"></i>
+              <i class="ph-fill ph-star text-green-500 text-xl"></i>
+              <i class="ph-fill ph-star text-green-500 text-xl"></i>
+            </div>
+            <p class="text-xl text-gray-300 leading-relaxed font-medium mb-8">"Llevo 6 meses en las clases de HIIT y el cambio físico es increíble. El ambiente es cero tóxico y súper motivador."</p>
+          </div>
+          <div class="flex items-center gap-4 mt-6 pt-6 border-t border-gray-800">
+            <div class="w-12 h-12 flex-shrink-0 bg-gray-800 overflow-hidden">
+              <img src="assets/img/entrenador-2.png" alt="Avatar Sofía R." loading="lazy" decoding="async" class="w-full h-full object-cover object-top">
+            </div>
+            <div>
+              <h4 class="text-lg font-bold text-white uppercase tracking-wide">Sofía R.</h4>
+              <p class="text-sm text-gray-500 font-semibold uppercase">Miembro Activo</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="w-[320px] sm:w-[420px] flex-shrink-0 border-2 border-gray-800 p-8 flex flex-col justify-between bg-gray-900 hover:border-green-500 transition-colors duration-300">
+          <div>
+            <div class="flex gap-1 mb-6">
+              <i class="ph-fill ph-star text-green-500 text-xl"></i>
+              <i class="ph-fill ph-star text-green-500 text-xl"></i>
+              <i class="ph-fill ph-star text-green-500 text-xl"></i>
+              <i class="ph-fill ph-star text-green-500 text-xl"></i>
+              <i class="ph-fill ph-star text-green-500 text-xl"></i>
+            </div>
+            <p class="text-xl text-gray-300 leading-relaxed font-medium mb-8">"Por fin un gimnasio que abre a las 6:00 AM y tiene todo impecable. El plan general vale cada peso."</p>
+          </div>
+          <div class="flex items-center gap-4 mt-6 pt-6 border-t border-gray-800">
+            <div class="w-12 h-12 flex-shrink-0 bg-gray-800 overflow-hidden">
+              <img src="assets/img/entrenador-3.png" alt="Avatar Daniel C." loading="lazy" decoding="async" class="w-full h-full object-cover object-top">
+            </div>
+            <div>
+              <h4 class="text-lg font-bold text-white uppercase tracking-wide">Daniel C.</h4>
+              <p class="text-sm text-gray-500 font-semibold uppercase">Plan General</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="w-[320px] sm:w-[420px] flex-shrink-0 border-2 border-gray-800 p-8 flex flex-col justify-between bg-gray-900 hover:border-green-500 transition-colors duration-300">
+          <div>
+            <div class="flex gap-1 mb-6">
+              <i class="ph-fill ph-star text-green-500 text-xl"></i>
+              <i class="ph-fill ph-star text-green-500 text-xl"></i>
+              <i class="ph-fill ph-star text-green-500 text-xl"></i>
+              <i class="ph-fill ph-star text-green-500 text-xl"></i>
+              <i class="ph-fill ph-star text-green-500 text-xl"></i>
+            </div>
+            <p class="text-xl text-gray-300 leading-relaxed font-medium mb-8">"Las clases de Zumba tienen muchísima energía y los horarios son flexibles. Mi cardio mejoró impresionantemente."</p>
+          </div>
+          <div class="flex items-center gap-4 mt-6 pt-6 border-t border-gray-800">
+            <div class="w-12 h-12 flex-shrink-0 bg-gray-800 overflow-hidden">
+              <img src="assets/img/entrenador-1.png" alt="Avatar Ana L." loading="lazy" decoding="async" class="w-full h-full object-cover object-top">
+            </div>
+            <div>
+              <h4 class="text-lg font-bold text-white uppercase tracking-wide">Ana L.</h4>
+              <p class="text-sm text-gray-500 font-semibold uppercase">Clases de Zumba</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="w-[320px] sm:w-[420px] flex-shrink-0 border-2 border-gray-800 p-8 flex flex-col justify-between bg-gray-900 hover:border-green-500 transition-colors duration-300">
+          <div>
+            <div class="flex gap-1 mb-6">
+              <i class="ph-fill ph-star text-green-500 text-xl"></i>
+              <i class="ph-fill ph-star text-green-500 text-xl"></i>
+              <i class="ph-fill ph-star text-green-500 text-xl"></i>
+              <i class="ph-fill ph-star text-green-500 text-xl"></i>
+              <i class="ph-fill ph-star text-green-500 text-xl"></i>
+            </div>
+            <p class="text-xl text-gray-300 leading-relaxed font-medium mb-8">"El pase semanal es perfecto cuando vengo de visita. Instalaciones de primer nivel y ambiente inmejorable."</p>
+          </div>
+          <div class="flex items-center gap-4 mt-6 pt-6 border-t border-gray-800">
+            <div class="w-12 h-12 flex-shrink-0 bg-gray-800 overflow-hidden">
+              <img src="assets/img/entrenador-2.png" alt="Avatar Roberto G." loading="lazy" decoding="async" class="w-full h-full object-cover object-top">
+            </div>
+            <div>
+              <h4 class="text-lg font-bold text-white uppercase tracking-wide">Roberto G.</h4>
+              <p class="text-sm text-gray-500 font-semibold uppercase">Pase Semanal</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="planes" class="w-full py-24 bg-white border-b border-gray-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-extrabold text-gray-900 tracking-tight uppercase mb-4">Planes Gym</h2>
+      <p class="max-w-2xl mx-auto text-xl text-gray-600 leading-relaxed font-medium">No es solo un gym... es tu <strong class="text-green-800">cambio de vida</strong></p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+      <div class="border border-gray-200 p-8 flex flex-col bg-white hover:border-green-600 transition-colors duration-300">
+        <h3 class="text-2xl font-bold text-gray-900 uppercase mb-2">General</h3>
+        <div class="mb-6">
+          <span class="text-5xl font-extrabold text-green-800">$500</span>
+          <span class="text-gray-500 font-medium">/ Mensual</span>
+        </div>
+        <p class="text-gray-600 font-semibold mb-6">O pago semanal: $200</p>
+        <ul class="space-y-4 text-gray-600 mb-8 flex-grow">
+          <li class="flex items-center gap-3"><i class="ph-bold ph-check text-green-800"></i> Acceso total a pesas y cardio</li>
+          <li class="flex items-center gap-3"><i class="ph-bold ph-check text-green-800"></i> Entrenadores disponibles desde las 6:00 AM</li>
+        </ul>
+        <a href="#contacto" class="block w-full bg-gray-900 text-white text-center py-4 text-sm font-bold uppercase tracking-wide hover:bg-green-800 transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2">Empezar Hoy</a>
+      </div>
+      <div class="border border-gray-200 p-8 flex flex-col bg-white hover:border-green-600 transition-colors duration-300">
+        <h3 class="text-2xl font-bold text-gray-900 uppercase mb-2">Estudiantes</h3>
+        <div class="mb-6">
+          <span class="text-5xl font-extrabold text-green-800">$420</span>
+          <span class="text-gray-500 font-medium">/ Mensual</span>
+        </div>
+        <p class="text-gray-600 font-semibold mb-6">O pago semanal: $170</p>
+        <ul class="space-y-4 text-gray-600 mb-8 flex-grow">
+          <li class="flex items-center gap-3"><i class="ph-bold ph-check text-green-800"></i> Acceso total a pesas y cardio</li>
+          <li class="flex items-center gap-3"><i class="ph-bold ph-check text-green-800"></i> Requiere presentar credencial vigente</li>
+        </ul>
+        <a href="#contacto" class="block w-full bg-gray-900 text-white text-center py-4 text-sm font-bold uppercase tracking-wide hover:bg-green-800 transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2">Empezar Hoy</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="horarios" class="w-full py-24 bg-gray-900 text-white border-b border-gray-800">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-extrabold text-white tracking-tight uppercase mb-4">Horarios y Clases</h2>
+      <p class="max-w-2xl mx-auto text-xl text-gray-400 leading-relaxed font-medium">Encuentra tu ritmo. Horarios diseñados para tu estilo de vida.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div>
+        <div class="md:h-20 mb-6 flex flex-col justify-start">
+          <h3 class="text-xl font-bold text-green-500 uppercase flex items-center gap-2"><i class="ph-bold ph-clock text-2xl"></i> Horarios Gym</h3>
+        </div>
+        <div class="space-y-4 text-gray-300">
+          <div class="flex justify-between border-b border-gray-800 pb-3">
+            <span class="font-bold">Lunes a Viernes</span>
+            <span>6:00 AM – 9:00 PM</span>
+          </div>
+          <div class="flex justify-between border-b border-gray-800 pb-3">
+            <span class="font-bold">Sábados</span>
+            <span>8:30 AM – 1:00 PM</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="md:h-20 mb-6 flex flex-col justify-start">
+          <h3 class="text-xl font-bold text-green-500 uppercase mb-1 flex items-center gap-2"><i class="ph-bold ph-music-notes text-2xl"></i> Zumba</h3>
+          <p class="text-gray-500 text-sm font-semibold">$150 / semana</p>
+        </div>
+        <div class="space-y-4 text-gray-300">
+          <div class="flex justify-between border-b border-gray-800 pb-3">
+            <span class="font-bold">Lunes a Viernes</span>
+            <span>9:00 AM</span>
+          </div>
+          <div class="flex justify-between border-b border-gray-800 pb-3">
+            <span class="font-bold">Lunes a Viernes</span>
+            <span>6:00 PM</span>
+          </div>
+          <div class="flex justify-between border-b border-gray-800 pb-3">
+            <span class="font-bold">Lunes a Viernes</span>
+            <span>7:00 PM</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="md:h-20 mb-6 flex flex-col justify-start">
+          <h3 class="text-xl font-bold text-green-500 uppercase flex items-center gap-2"><i class="ph-bold ph-fire text-2xl"></i> HIIT</h3>
+        </div>
+        <div class="space-y-4 text-gray-300">
+          <div class="flex justify-between border-b border-gray-800 pb-3">
+            <span class="font-bold">Lunes a Viernes</span>
+            <span>5:10 PM</span>
+          </div>
+          <div class="flex justify-between border-b border-gray-800 pb-3">
+            <span class="font-bold">Lunes a Viernes</span>
+            <span>6:00 PM</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contacto" class="w-full bg-gray-900 text-white py-24 border-t border-gray-800">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <div>
+        <div class="mb-12">
+          <h2 class="text-4xl font-extrabold uppercase tracking-tight mb-4 text-white">Inscríbete <span class="text-green-500">Hoy</span></h2>
+          <p class="text-xl text-gray-400 leading-relaxed font-medium">
+            Déjanos tus datos y nos pondremos en contacto contigo para activar tu plan, agendar tu primera visita o resolver tus dudas.
+          </p>
+        </div>
+        <form id="leadForm" class="space-y-6" novalidate>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <label for="nombre" class="block text-sm font-bold uppercase tracking-wide text-gray-300 mb-2">Nombre Completo</label>
+              <input type="text" id="nombre" name="nombre" autocomplete="name" placeholder="Tu nombre" class="w-full bg-gray-800 border-2 border-gray-700 text-white px-4 py-4 outline-none focus-visible:border-green-500 focus:border-green-500 transition-colors duration-200 rounded-none" required>
+            </div>
+            <div>
+              <label for="telefono" class="block text-sm font-bold uppercase tracking-wide text-gray-300 mb-2">WhatsApp / Celular</label>
+              <input type="tel" id="telefono" name="telefono" autocomplete="tel" placeholder="10 dígitos" pattern="[0-9]{10}" inputmode="numeric" maxlength="10" class="w-full bg-gray-800 border-2 border-gray-700 text-white px-4 py-4 outline-none focus-visible:border-green-500 focus:border-green-500 transition-colors duration-200 rounded-none" required>
+            </div>
+          </div>
+          <div>
+            <label for="plan" class="block text-sm font-bold uppercase tracking-wide text-gray-300 mb-2">Plan de Interés</label>
+            <div class="relative">
+              <select id="plan" name="plan" autocomplete="off" class="w-full bg-gray-800 border-2 border-gray-700 text-white px-4 py-4 outline-none focus:border-green-500 transition-colors duration-200 appearance-none rounded-none cursor-pointer">
+                <option value="general" class="bg-gray-800">Plan General ($500/mes)</option>
+                <option value="estudiantes" class="bg-gray-800">Plan Estudiantes ($420/mes)</option>
+                <option value="zumba" class="bg-gray-800">Zumba ($150/sem)</option>
+                <option value="duda" class="bg-gray-800">Tengo una duda general</option>
+              </select>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500" aria-hidden="true">
+                <i class="ph-bold ph-caret-down text-xl"></i>
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="block w-full bg-green-800 text-white text-center py-4 text-sm font-bold uppercase tracking-wide hover:bg-green-900 transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900 disabled:opacity-60 disabled:cursor-not-allowed">
+            Enviar Solicitud
+          </button>
+        </form>
+        <div id="successMessage" style="display:none" class="flex-col items-start justify-center py-4">
+          <div class="inline-flex items-center justify-center w-16 h-16 bg-green-800 mb-6">
+            <i class="ph-bold ph-check text-3xl text-white"></i>
+          </div>
+          <h3 class="text-3xl font-extrabold uppercase tracking-tight text-white mb-4">¡Solicitud Recibida!</h3>
+          <p class="text-gray-400 text-lg leading-relaxed">Tus datos han sido registrados correctamente. Un asesor de GR30 se comunicará contigo a la brevedad.</p>
+        </div>
+      </div>
+      <div class="flex flex-col justify-center lg:pl-12 lg:border-l lg:border-gray-800">
+        <div class="mb-12">
+          <h3 class="text-sm font-bold uppercase tracking-wide text-gray-500 mb-4 flex items-center gap-2"><i class="ph-bold ph-map-pin text-xl text-green-500"></i> Ubicación</h3>
+          <address class="text-xl font-medium leading-relaxed not-italic text-white">
+            <a href="https://maps.google.com/?q=Jose+Mateos+Torres+y+Manuel+J+Cloutier,Jilotepec" target="_blank" rel="noopener noreferrer" class="hover:text-green-500 transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900 block">
+              Jose Mateos Torres y Manuel J Cloutier<br>
+              En Jilotepec (Grupo Rucobo)
+            </a>
+          </address>
+        </div>
+        <div class="mb-12">
+          <h3 class="text-sm font-bold uppercase tracking-wide text-gray-500 mb-4 flex items-center gap-2"><i class="ph-bold ph-envelope-simple text-xl text-green-500"></i> Email Directo</h3>
+          <a href="mailto:gym.gr30@gmail.com" class="text-xl font-medium hover:text-green-500 transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900">gym.gr30@gmail.com</a>
+        </div>
+        <div>
+          <h3 class="text-sm font-bold uppercase tracking-wide text-gray-500 mb-4 flex items-center gap-2"><i class="ph-bold ph-clock text-xl text-green-500"></i> Horario de Atención</h3>
+          <p class="text-xl font-medium leading-relaxed text-gray-300">Lunes a Viernes: 6:00 AM – 9:00 PM<br>Sábados: 8:30 AM – 1:00 PM</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="w-full bg-gray-900 border-t border-gray-800 py-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-sm text-gray-500 flex flex-col-reverse md:flex-row justify-between items-center gap-4 md:gap-6">
+      <p>&copy; 2026 Gimnasio GR30. Todos los derechos reservados.</p>
+      <div class="flex gap-5">
+        <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-white transition-colors outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900" aria-label="Instagram de GR30"><i class="ph-fill ph-instagram-logo text-2xl"></i></a>
+        <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-white transition-colors outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900" aria-label="Facebook de GR30"><i class="ph-fill ph-facebook-logo text-2xl"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+  const mobileMenuClose = document.getElementById('mobileMenuClose');
+  const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+
+  function openMenu() {
+    mobileMenuOverlay.classList.replace('menu-closed', 'menu-open');
+    mobileMenuToggle.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+    const firstLink = mobileMenuOverlay.querySelector('a, button');
+    if (firstLink) setTimeout(() => firstLink.focus(), 50);
+  }
+
+  function closeMenu() {
+    mobileMenuOverlay.classList.replace('menu-open', 'menu-closed');
+    mobileMenuToggle.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+    mobileMenuToggle.focus();
+  }
+
+  mobileMenuToggle.addEventListener('click', openMenu);
+  mobileMenuClose.addEventListener('click', closeMenu);
+  document.querySelectorAll('.mobile-link').forEach(link => link.addEventListener('click', closeMenu));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+
+  const leadForm = document.getElementById('leadForm');
+  leadForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (!this.checkValidity()) { this.reportValidity(); return; }
+    
+    const btn = this.querySelector('button[type="submit"]');
+    btn.disabled = true;
+    btn.textContent = 'ENVIANDO…';
+    
+    setTimeout(() => {
+      leadForm.style.display = 'none';
+      const successMsg = document.getElementById('successMessage');
+      successMsg.style.display = 'flex';
+    }, 500);
+  });
+
+</script>
+<script>
+  function revealAll() {
+    document.querySelectorAll('.hero-anim, section h2, section p, section .grid > *').forEach(el => {
+      el.style.visibility = 'visible';
+      el.style.opacity = '1';
+    });
+  }
+  try {
+    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+    
+    // Smooth Scroll Interception Premium
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const targetId = this.getAttribute('href');
+        if (targetId === '#' || targetId.startsWith('#_')) return;
+        const targetEl = document.querySelector(targetId);
+        if (targetEl) {
+          e.preventDefault();
+          gsap.to(window, {
+            duration: 1.2,
+            scrollTo: { y: targetEl, offsetY: 80 },
+            ease: "expo.inOut"
+          });
+        }
+      });
+    });
+
+    // Orquestación Hero Cinemática
+    const tlHero = gsap.timeline({ delay: 0.1 });
+    tlHero.from("header", { y: -80, autoAlpha: 0, duration: 0.8, ease: "power3.out" })
+          .from("#inicio img", { scale: 1.05, duration: 1.5, ease: "power2.out" }, "<")
+          .fromTo(".hero-anim", 
+            { y: 40, autoAlpha: 0 },
+            { y: 0, autoAlpha: 1, duration: 0.8, stagger: 0.15, ease: "power3.out" }, "-=1"
+          )
+          .from("#inicio .absolute.bottom-8", { autoAlpha: 0, y: -20, duration: 0.8, ease: "power3.out" }, "-=0.4");
+
+    const serviciosSection = document.getElementById('servicios');
+    const serviciosContainer = document.querySelector('.servicios-pinned-container');
+    if(serviciosSection && serviciosContainer) {
+      // Animación de entrada para el Header de Servicios (evita que aparezca de golpe)
+      gsap.from("#servicios-titulo, #servicios-sub", {
+        scrollTrigger: {
+          trigger: serviciosSection,
+          start: "top 85%"
+        },
+        y: 30,
+        autoAlpha: 0,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "power3.out"
+      });
+
+      const infos = gsap.utils.toArray('.servicio-info');
+      const imgs = gsap.utils.toArray('.servicio-img');
+      if (infos.length >= 3 && imgs.length >= 3) {
+        gsap.set(infos.slice(1), { autoAlpha: 0, y: 30 });
+        gsap.set(imgs.slice(1), { clipPath: 'inset(100% 0 0 0)' });
+        const mm = gsap.matchMedia();
+        mm.add("(min-width: 768px)", () => {
+          buildServiciosTimeline(gsap.timeline({
+            scrollTrigger: {
+              trigger: serviciosSection,
+              start: "top 80px",
+              end: "+=3000",
+              scrub: 1.5,
+              pin: true,
+              pinSpacing: true,
+              anticipatePin: 1
+            }
+          }));
+        });
+        mm.add("(max-width: 767px)", () => {
+          buildServiciosTimeline(gsap.timeline({
+            scrollTrigger: {
+              trigger: serviciosSection,
+              start: "top 80px",
+              end: "+=1000",
+              scrub: 1.5,
+              pin: true,
+              pinSpacing: true,
+              anticipatePin: 1
+            }
+          }));
+        });
+        function buildServiciosTimeline(tl) {
+          tl.to(infos[0], { autoAlpha: 0, y: -30, duration: 0.6 })
+            .to(imgs[1], { clipPath: 'inset(0% 0 0 0)', duration: 1 }, "<0.2")
+            .to(infos[1], { autoAlpha: 1, y: 0, duration: 0.6 }, "<0.4")
+            .to({}, {duration: 0.8})
+            .to(infos[1], { autoAlpha: 0, y: -30, duration: 0.6 })
+            .to(imgs[2], { clipPath: 'inset(0% 0 0 0)', duration: 1 }, "<0.2")
+            .to(infos[2], { autoAlpha: 1, y: 0, duration: 0.6 }, "<0.4")
+            .to({}, {duration: 0.8});
+        }
+      }
+    }
+    gsap.utils.toArray('section:not(#inicio):not(#servicios)').forEach(section => {
+      const grids = section.querySelectorAll('.grid');
+
+      // Solo capturamos encabezados que NO estén dentro de un .grid para evitar doble animación
+      const headers = Array.from(section.querySelectorAll('h2'))
+        .filter(el => !el.closest('.grid') && !el.closest('form') && !el.closest('#successMessage'));
+      const subtitles = Array.from(section.querySelectorAll('p.max-w-2xl, p.text-xl, p.text-gray-400'))
+        .filter(el => !el.closest('.grid') && !el.closest('form') && !el.closest('#successMessage'));
+      const introEls = [...headers, ...subtitles];
+
+      if (introEls.length) gsap.set(introEls, { y: 30, opacity: 0 });
+      if (grids.length) grids.forEach(grid => gsap.set(grid.children, { y: 30, opacity: 0 }));
+
+      const tl = gsap.timeline({ scrollTrigger: { trigger: section, start: 'top 80%' } });
+      if (introEls.length) tl.to(introEls, { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: 'power3.out' });
+      if (grids.length) grids.forEach(grid => tl.to(grid.children, { y: 0, opacity: 1, duration: 0.6, stagger: 0.15, ease: 'power3.out' }, '-=0.3'));
+    });
+
+    // ScrollSpy premium para iluminar navegación
+    const navLinks = document.querySelectorAll('header nav a');
+    const sections = document.querySelectorAll('section');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(link => {
+            link.classList.remove('text-green-700');
+            if (link.getAttribute('href') === '#' + entry.target.id) {
+              link.classList.add('text-green-700');
+            }
+          });
+        }
+      });
+    }, { threshold: 0, rootMargin: "-100px 0px -50% 0px" });
+    sections.forEach(sec => observer.observe(sec));
+
+    // Efectos Parallax Cinematográficos
+    gsap.to("#inicio img", {
+      yPercent: 15,
+      ease: "none",
+      scrollTrigger: {
+        trigger: "#inicio",
+        start: "top top",
+        end: "bottom top",
+        scrub: true
+      }
+    });
+
+    gsap.utils.toArray('.aspect-[3/4] img').forEach(img => {
+      gsap.set(img, { scale: 1.15 });
+      gsap.to(img, {
+        yPercent: 15,
+        ease: "none",
+        scrollTrigger: {
+          trigger: img.parentElement,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true
+        }
+      });
+    });
+
+    const track = document.querySelector('.marquee-track');
+    if (track) {
+      const original = track.querySelector('.marquee-original');
+      for(let i=0; i<3; i++) {
+        const clone = original.cloneNode(true);
+        clone.classList.remove('marquee-original');
+        clone.setAttribute('aria-hidden', 'true');
+        track.appendChild(clone);
+      }
+      track.classList.add('animate-marquee-right');
+      
+      gsap.from(".marquee-wrapper", {
+        scrollTrigger: { trigger: "#resenas", start: "top 80%" },
+        autoAlpha: 0,
+        y: 40,
+        duration: 1,
+        ease: "power3.out"
+      });
+    }
+
+  } catch (e) {
+    revealAll();
+  }
+</script>
+</body>
+</html>
