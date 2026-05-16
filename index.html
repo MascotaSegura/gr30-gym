@@ -31,16 +31,8 @@
   #mobileMenuOverlay.menu-closed { opacity: 0; pointer-events: none; visibility: hidden; }
   #mobileMenuOverlay.menu-open { opacity: 1; pointer-events: auto; visibility: visible; }
   header { will-change: transform; }
-  @keyframes marqueeRight {
-    0% { transform: translateX(-50%); }
-    100% { transform: translateX(0%); }
-  }
-  .animate-marquee-right {
-    animation: marqueeRight 45s linear infinite;
-    will-change: transform;
-  }
   .marquee-track:hover {
-    animation-play-state: paused;
+    /* animation-play-state: paused; ( handled by JS now ) */
   }
 </style>
 </head>
@@ -203,8 +195,9 @@
       
       <div class="marquee-original flex gap-8">
         
-        <div class="w-[320px] sm:w-[420px] flex-shrink-0 border-2 border-gray-800 p-8 flex flex-col justify-between bg-gray-900 hover:border-green-500 transition-colors duration-300">
-          <div>
+        <div class="w-[320px] sm:w-[420px] flex-shrink-0 border border-gray-800 p-8 flex flex-col justify-between bg-gray-800/40 hover:bg-gray-800 hover:border-green-500 transition-all duration-300 relative group">
+          <i class="ph-fill ph-quotes text-6xl text-gray-800 absolute top-4 right-6 group-hover:text-green-900/30 transition-colors duration-300 pointer-events-none"></i>
+          <div class="relative z-10">
             <div class="flex gap-1 mb-6">
               <i class="ph-fill ph-star text-green-500 text-xl"></i>
               <i class="ph-fill ph-star text-green-500 text-xl"></i>
@@ -214,19 +207,20 @@
             </div>
             <p class="text-xl text-gray-300 leading-relaxed font-medium mb-8">"El mejor equipamiento de Jilotepec. La zona de peso libre está brutal y los entrenadores de verdad te exigen al máximo."</p>
           </div>
-          <div class="flex items-center gap-4 mt-6 pt-6 border-t border-gray-800">
-            <div class="w-12 h-12 flex-shrink-0 bg-gray-800 overflow-hidden">
+          <div class="flex items-center gap-4 mt-6 pt-6 border-t border-gray-800/50 relative z-10">
+            <div class="w-12 h-12 flex-shrink-0 bg-gray-700 overflow-hidden rounded-full">
               <img src="assets/img/entrenador-1.png" alt="Avatar Javier M." loading="lazy" decoding="async" class="w-full h-full object-cover object-top">
             </div>
             <div>
               <h4 class="text-lg font-bold text-white uppercase tracking-wide">Javier M.</h4>
-              <p class="text-sm text-gray-500 font-semibold uppercase">Atleta de Fuerza</p>
+              <p class="text-sm text-gray-400 font-semibold uppercase">Atleta de Fuerza</p>
             </div>
           </div>
         </div>
 
-        <div class="w-[320px] sm:w-[420px] flex-shrink-0 border-2 border-gray-800 p-8 flex flex-col justify-between bg-gray-900 hover:border-green-500 transition-colors duration-300">
-          <div>
+        <div class="w-[320px] sm:w-[420px] flex-shrink-0 border border-gray-800 p-8 flex flex-col justify-between bg-gray-800/40 hover:bg-gray-800 hover:border-green-500 transition-all duration-300 relative group">
+          <i class="ph-fill ph-quotes text-6xl text-gray-800 absolute top-4 right-6 group-hover:text-green-900/30 transition-colors duration-300 pointer-events-none"></i>
+          <div class="relative z-10">
             <div class="flex gap-1 mb-6">
               <i class="ph-fill ph-star text-green-500 text-xl"></i>
               <i class="ph-fill ph-star text-green-500 text-xl"></i>
@@ -236,19 +230,20 @@
             </div>
             <p class="text-xl text-gray-300 leading-relaxed font-medium mb-8">"Llevo 6 meses en las clases de HIIT y el cambio físico es increíble. El ambiente es cero tóxico y súper motivador."</p>
           </div>
-          <div class="flex items-center gap-4 mt-6 pt-6 border-t border-gray-800">
-            <div class="w-12 h-12 flex-shrink-0 bg-gray-800 overflow-hidden">
+          <div class="flex items-center gap-4 mt-6 pt-6 border-t border-gray-800/50 relative z-10">
+            <div class="w-12 h-12 flex-shrink-0 bg-gray-700 overflow-hidden rounded-full">
               <img src="assets/img/entrenador-2.png" alt="Avatar Sofía R." loading="lazy" decoding="async" class="w-full h-full object-cover object-top">
             </div>
             <div>
               <h4 class="text-lg font-bold text-white uppercase tracking-wide">Sofía R.</h4>
-              <p class="text-sm text-gray-500 font-semibold uppercase">Miembro Activo</p>
+              <p class="text-sm text-gray-400 font-semibold uppercase">Miembro Activo</p>
             </div>
           </div>
         </div>
 
-        <div class="w-[320px] sm:w-[420px] flex-shrink-0 border-2 border-gray-800 p-8 flex flex-col justify-between bg-gray-900 hover:border-green-500 transition-colors duration-300">
-          <div>
+        <div class="w-[320px] sm:w-[420px] flex-shrink-0 border border-gray-800 p-8 flex flex-col justify-between bg-gray-800/40 hover:bg-gray-800 hover:border-green-500 transition-all duration-300 relative group">
+          <i class="ph-fill ph-quotes text-6xl text-gray-800 absolute top-4 right-6 group-hover:text-green-900/30 transition-colors duration-300 pointer-events-none"></i>
+          <div class="relative z-10">
             <div class="flex gap-1 mb-6">
               <i class="ph-fill ph-star text-green-500 text-xl"></i>
               <i class="ph-fill ph-star text-green-500 text-xl"></i>
@@ -258,19 +253,20 @@
             </div>
             <p class="text-xl text-gray-300 leading-relaxed font-medium mb-8">"Por fin un gimnasio que abre a las 6:00 AM y tiene todo impecable. El plan general vale cada peso."</p>
           </div>
-          <div class="flex items-center gap-4 mt-6 pt-6 border-t border-gray-800">
-            <div class="w-12 h-12 flex-shrink-0 bg-gray-800 overflow-hidden">
+          <div class="flex items-center gap-4 mt-6 pt-6 border-t border-gray-800/50 relative z-10">
+            <div class="w-12 h-12 flex-shrink-0 bg-gray-700 overflow-hidden rounded-full">
               <img src="assets/img/entrenador-3.png" alt="Avatar Daniel C." loading="lazy" decoding="async" class="w-full h-full object-cover object-top">
             </div>
             <div>
               <h4 class="text-lg font-bold text-white uppercase tracking-wide">Daniel C.</h4>
-              <p class="text-sm text-gray-500 font-semibold uppercase">Plan General</p>
+              <p class="text-sm text-gray-400 font-semibold uppercase">Plan General</p>
             </div>
           </div>
         </div>
 
-        <div class="w-[320px] sm:w-[420px] flex-shrink-0 border-2 border-gray-800 p-8 flex flex-col justify-between bg-gray-900 hover:border-green-500 transition-colors duration-300">
-          <div>
+        <div class="w-[320px] sm:w-[420px] flex-shrink-0 border border-gray-800 p-8 flex flex-col justify-between bg-gray-800/40 hover:bg-gray-800 hover:border-green-500 transition-all duration-300 relative group">
+          <i class="ph-fill ph-quotes text-6xl text-gray-800 absolute top-4 right-6 group-hover:text-green-900/30 transition-colors duration-300 pointer-events-none"></i>
+          <div class="relative z-10">
             <div class="flex gap-1 mb-6">
               <i class="ph-fill ph-star text-green-500 text-xl"></i>
               <i class="ph-fill ph-star text-green-500 text-xl"></i>
@@ -280,19 +276,20 @@
             </div>
             <p class="text-xl text-gray-300 leading-relaxed font-medium mb-8">"Las clases de Zumba tienen muchísima energía y los horarios son flexibles. Mi cardio mejoró impresionantemente."</p>
           </div>
-          <div class="flex items-center gap-4 mt-6 pt-6 border-t border-gray-800">
-            <div class="w-12 h-12 flex-shrink-0 bg-gray-800 overflow-hidden">
+          <div class="flex items-center gap-4 mt-6 pt-6 border-t border-gray-800/50 relative z-10">
+            <div class="w-12 h-12 flex-shrink-0 bg-gray-700 overflow-hidden rounded-full">
               <img src="assets/img/entrenador-1.png" alt="Avatar Ana L." loading="lazy" decoding="async" class="w-full h-full object-cover object-top">
             </div>
             <div>
               <h4 class="text-lg font-bold text-white uppercase tracking-wide">Ana L.</h4>
-              <p class="text-sm text-gray-500 font-semibold uppercase">Clases de Zumba</p>
+              <p class="text-sm text-gray-400 font-semibold uppercase">Clases de Zumba</p>
             </div>
           </div>
         </div>
 
-        <div class="w-[320px] sm:w-[420px] flex-shrink-0 border-2 border-gray-800 p-8 flex flex-col justify-between bg-gray-900 hover:border-green-500 transition-colors duration-300">
-          <div>
+        <div class="w-[320px] sm:w-[420px] flex-shrink-0 border border-gray-800 p-8 flex flex-col justify-between bg-gray-800/40 hover:bg-gray-800 hover:border-green-500 transition-all duration-300 relative group">
+          <i class="ph-fill ph-quotes text-6xl text-gray-800 absolute top-4 right-6 group-hover:text-green-900/30 transition-colors duration-300 pointer-events-none"></i>
+          <div class="relative z-10">
             <div class="flex gap-1 mb-6">
               <i class="ph-fill ph-star text-green-500 text-xl"></i>
               <i class="ph-fill ph-star text-green-500 text-xl"></i>
@@ -302,13 +299,13 @@
             </div>
             <p class="text-xl text-gray-300 leading-relaxed font-medium mb-8">"El pase semanal es perfecto cuando vengo de visita. Instalaciones de primer nivel y ambiente inmejorable."</p>
           </div>
-          <div class="flex items-center gap-4 mt-6 pt-6 border-t border-gray-800">
-            <div class="w-12 h-12 flex-shrink-0 bg-gray-800 overflow-hidden">
+          <div class="flex items-center gap-4 mt-6 pt-6 border-t border-gray-800/50 relative z-10">
+            <div class="w-12 h-12 flex-shrink-0 bg-gray-700 overflow-hidden rounded-full">
               <img src="assets/img/entrenador-2.png" alt="Avatar Roberto G." loading="lazy" decoding="async" class="w-full h-full object-cover object-top">
             </div>
             <div>
               <h4 class="text-lg font-bold text-white uppercase tracking-wide">Roberto G.</h4>
-              <p class="text-sm text-gray-500 font-semibold uppercase">Pase Semanal</p>
+              <p class="text-sm text-gray-400 font-semibold uppercase">Pase Semanal</p>
             </div>
           </div>
         </div>
@@ -708,8 +705,17 @@
         clone.setAttribute('aria-hidden', 'true');
         track.appendChild(clone);
       }
-      track.classList.add('animate-marquee-right');
       
+      const marqueeAnim = gsap.to(track, {
+        xPercent: -50,
+        ease: "none",
+        duration: 25,
+        repeat: -1
+      });
+
+      track.addEventListener('mouseenter', () => marqueeAnim.pause());
+      track.addEventListener('mouseleave', () => marqueeAnim.play());
+
       gsap.from(".marquee-wrapper", {
         scrollTrigger: { trigger: "#resenas", start: "top 80%" },
         autoAlpha: 0,
