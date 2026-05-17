@@ -145,44 +145,50 @@
   </div>
 </section>
 
-<section id="entrenadores" class="w-full py-24 bg-white border-b border-gray-200">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="mb-16 text-center">
-      <h2 class="text-4xl font-extrabold text-gray-900 tracking-tight uppercase mb-4">
-        Nuestros Entrenadores
-      </h2>
-      <p class="max-w-2xl mx-auto text-xl text-gray-600 leading-relaxed font-medium">
-        Expertos dedicados a llevarte a tu límite con <strong class="text-green-800">técnica</strong>, <strong class="text-green-800">seguridad</strong> y <strong class="text-green-800">resultados reales</strong>.
-      </p>
-    </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-      <div>
-        <div class="w-full aspect-[3/4] bg-gray-200 mb-6 overflow-hidden relative">
-          <img src="assets/img/entrenador-1.png" alt="Entrenador Principal Carlos R." loading="lazy" decoding="async" class="w-full h-full object-cover object-top">
-        </div>
-        <h3 class="text-2xl font-bold text-gray-900 uppercase mb-1">Carlos R.</h3>
-        <p class="text-base text-gray-500 font-semibold uppercase tracking-wide mb-2">Especialista en Hipertrofia</p>
-        <p class="text-sm text-green-800 font-bold tracking-widest uppercase">Certificación NSCA-CPT</p>
+<section id="entrenadores" class="w-full bg-white border-b border-gray-200 relative z-20">
+  <div class="entrenadores-pinned-container h-[calc(100svh-80px)] min-h-[500px] w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative overflow-hidden flex flex-col md:flex-row py-10 md:py-14 z-10 gap-8">
+    
+    <div class="w-full md:w-1/2 h-1/2 md:h-full relative flex flex-col justify-start md:justify-center items-center">
+      <div class="w-full mb-6 md:mb-10 text-center md:text-left z-30 pointer-events-none">
+        <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight uppercase mb-2">
+          Nuestros Entrenadores
+        </h2>
+        <p class="text-base md:text-lg text-gray-600 font-medium">
+          Técnica, seguridad y <strong class="text-green-800">resultados reales</strong>.
+        </p>
       </div>
 
-      <div>
-        <div class="w-full aspect-[3/4] bg-gray-200 mb-6 overflow-hidden relative">
-          <img src="assets/img/entrenador-2.png" alt="Entrenadora Funcional Mariana V." loading="lazy" decoding="async" class="w-full h-full object-cover object-top">
-        </div>
-        <h3 class="text-2xl font-bold text-gray-900 uppercase mb-1">Mariana V.</h3>
-        <p class="text-base text-gray-500 font-semibold uppercase tracking-wide mb-2">Entrenamiento Funcional</p>
-        <p class="text-sm text-green-800 font-bold tracking-widest uppercase">Coach Crossfit L2</p>
-      </div>
-
-      <div>
-        <div class="w-full aspect-[3/4] bg-gray-200 mb-6 overflow-hidden relative">
-          <img src="assets/img/entrenador-3.png" alt="Entrenador de Fuerza Luis H." loading="lazy" decoding="async" class="w-full h-full object-cover object-top">
-        </div>
-        <h3 class="text-2xl font-bold text-gray-900 uppercase mb-1">Luis H.</h3>
-        <p class="text-base text-gray-500 font-semibold uppercase tracking-wide mb-2">Powerlifting &amp; Fuerza</p>
-        <p class="text-sm text-green-800 font-bold tracking-widest uppercase">Campeón Nacional</p>
+      <div class="relative w-full max-w-sm md:max-w-md aspect-[3/4] overflow-hidden bg-gray-100 flex-shrink-0">
+        <img src="assets/img/entrenador-1.png" alt="Carlos R." loading="lazy" decoding="async" class="coach-img absolute inset-0 w-full h-full object-cover object-top z-10">
+        <img src="assets/img/entrenador-2.png" alt="Mariana V." loading="lazy" decoding="async" class="coach-img absolute inset-0 w-full h-full object-cover object-top z-20">
+        <img src="assets/img/entrenador-3.png" alt="Luis H." loading="lazy" decoding="async" class="coach-img absolute inset-0 w-full h-full object-cover object-top z-30">
       </div>
     </div>
+
+    <div class="w-full md:w-1/2 h-1/2 md:h-full relative flex items-start md:items-center pt-8 md:pt-0 pl-0 md:pl-8">
+      <div class="relative w-full h-[180px] md:h-[250px]">
+        
+        <div class="coach-info absolute top-0 left-0 w-full pointer-events-auto">
+          <h3 class="text-4xl sm:text-5xl md:text-6xl font-black text-gray-900 uppercase tracking-tighter leading-none mb-3">Carlos R<span class="text-green-500">.</span></h3>
+          <p class="text-xl md:text-2xl text-gray-600 font-semibold uppercase tracking-wide mb-3">Especialista en Hipertrofia</p>
+          <p class="inline-block bg-gray-900 text-white text-sm md:text-base font-bold tracking-widest uppercase px-4 py-2">Certificación NSCA-CPT</p>
+        </div>
+
+        <div class="coach-info absolute top-0 left-0 w-full pointer-events-auto">
+          <h3 class="text-4xl sm:text-5xl md:text-6xl font-black text-gray-900 uppercase tracking-tighter leading-none mb-3">Mariana V<span class="text-green-500">.</span></h3>
+          <p class="text-xl md:text-2xl text-gray-600 font-semibold uppercase tracking-wide mb-3">Entrenamiento Funcional</p>
+          <p class="inline-block bg-gray-900 text-white text-sm md:text-base font-bold tracking-widest uppercase px-4 py-2">Coach Crossfit L2</p>
+        </div>
+
+        <div class="coach-info absolute top-0 left-0 w-full pointer-events-auto">
+          <h3 class="text-4xl sm:text-5xl md:text-6xl font-black text-gray-900 uppercase tracking-tighter leading-none mb-3">Luis H<span class="text-green-500">.</span></h3>
+          <p class="text-xl md:text-2xl text-gray-600 font-semibold uppercase tracking-wide mb-3">Powerlifting &amp; Fuerza</p>
+          <p class="inline-block bg-gray-900 text-white text-sm md:text-base font-bold tracking-widest uppercase px-4 py-2">Campeón Nacional</p>
+        </div>
+
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -556,11 +562,13 @@
     
     let isHeroScrolling = false;
     let currentSlide = 0;
+    let currentCoach = 0;
     let isAnimatingSlide = false;
 
     const inicioSec = document.getElementById('inicio');
     const serviciosSec = document.getElementById('servicios');
     const entrenadoresSec = document.getElementById('entrenadores');
+    const resenasSec = document.getElementById('resenas');
 
     function getAbsoluteOffsetTop(el) {
       let top = 0;
@@ -602,6 +610,19 @@
           gsap.set(infos.slice(1), { autoAlpha: 0, y: 30 });
           gsap.set(imgs[0], { clipPath: 'inset(0% 0 0 0)' });
           gsap.set(imgs.slice(1), { clipPath: 'inset(100% 0 0 0)' });
+        }
+      }
+
+      // Reset coach state when navigating explicitly to entrenadores
+      if (targetEl.id === 'entrenadores') {
+        currentCoach = 0;
+        const cInfos = gsap.utils.toArray('.coach-info');
+        const cImgs = gsap.utils.toArray('.coach-img');
+        if (cInfos.length >= 3 && cImgs.length >= 3) {
+          gsap.set(cInfos[0], { autoAlpha: 1, y: 0 });
+          gsap.set(cInfos.slice(1), { autoAlpha: 0, y: 30 });
+          gsap.set(cImgs[0], { clipPath: 'inset(0% 0 0 0)' });
+          gsap.set(cImgs.slice(1), { clipPath: 'inset(100% 0 0 0)' });
         }
       }
 
@@ -763,21 +784,68 @@
           else if (currentSlide === 1) goToSlide(0, 'up');
           else if (currentSlide === 0) smoothScrollTo(inicioSec);
         }
-      } else if (isAtEntrenadores && delta < -5) {
-        let entrenadoresTop = getAbsoluteOffsetTop(entrenadoresSec) - 80;
-        if (window.scrollY <= entrenadoresTop + 15) {
-          e.preventDefault();
-          smoothScrollTo(serviciosSec);
-          currentSlide = 2;
-          const infos = gsap.utils.toArray('.servicio-info');
-          const imgs = gsap.utils.toArray('.servicio-img');
-          if (infos.length >= 3 && imgs.length >= 3) {
-            gsap.set(infos[2], { autoAlpha: 1, y: 0 });
-            gsap.set(infos.slice(0, 2), { autoAlpha: 0, y: 30 });
-            gsap.set(imgs[0], { clipPath: 'inset(0% 0 0 0)' });
-            gsap.set(imgs[1], { clipPath: 'inset(0% 0 0 0)' });
-            gsap.set(imgs[2], { clipPath: 'inset(0% 0 0 0)' });
+      } else if (isAtEntrenadores) {
+        e.preventDefault();
+        const cInfos = gsap.utils.toArray('.coach-info');
+        const cImgs = gsap.utils.toArray('.coach-img');
+
+        function goToCoach(index, direction) {
+          if (isAnimatingSlide || index === currentCoach) return;
+          isAnimatingSlide = true;
+          const tl = gsap.timeline({ onComplete: () => { currentCoach = index; isAnimatingSlide = false; } });
+          
+          if (index === 1 && direction === 'down') {
+            tl.to(cImgs[1], { clipPath: 'inset(0% 0 0 0)', duration: 0.8, ease: 'power2.inOut' }, 0)
+              .to(cInfos[0], { autoAlpha: 0, y: -40, duration: 0.6, ease: 'power2.inOut' }, 0)
+              .to(cInfos[1], { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power2.out' }, 0.2);
+          } else if (index === 2 && direction === 'down') {
+            tl.to(cImgs[2], { clipPath: 'inset(0% 0 0 0)', duration: 0.8, ease: 'power2.inOut' }, 0)
+              .to(cInfos[1], { autoAlpha: 0, y: -40, duration: 0.6, ease: 'power2.inOut' }, 0)
+              .to(cInfos[2], { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power2.out' }, 0.2);
+          } else if (index === 1 && direction === 'up') {
+            tl.to(cImgs[2], { clipPath: 'inset(100% 0 0 0)', duration: 0.8, ease: 'power2.inOut' }, 0)
+              .to(cInfos[2], { autoAlpha: 0, y: 40, duration: 0.6, ease: 'power2.inOut' }, 0)
+              .to(cInfos[1], { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power2.out' }, 0.2);
+          } else if (index === 0 && direction === 'up') {
+            tl.to(cImgs[1], { clipPath: 'inset(100% 0 0 0)', duration: 0.8, ease: 'power2.inOut' }, 0)
+              .to(cInfos[1], { autoAlpha: 0, y: 40, duration: 0.6, ease: 'power2.inOut' }, 0)
+              .to(cInfos[0], { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power2.out' }, 0.2);
           }
+        }
+
+        if (delta > 5) {
+          if (currentCoach === 0) goToCoach(1, 'down');
+          else if (currentCoach === 1) goToCoach(2, 'down');
+          else if (currentCoach === 2) smoothScrollTo(resenasSec);
+        } else if (delta < -5) {
+          if (currentCoach === 2) goToCoach(1, 'up');
+          else if (currentCoach === 1) goToCoach(0, 'up');
+          else if (currentCoach === 0) {
+            smoothScrollTo(serviciosSec);
+            currentSlide = 2;
+            const infos = gsap.utils.toArray('.servicio-info');
+            const imgs = gsap.utils.toArray('.servicio-img');
+            if (infos.length >= 3 && imgs.length >= 3) {
+              gsap.set(infos[2], { autoAlpha: 1, y: 0 });
+              gsap.set(infos.slice(0, 2), { autoAlpha: 0, y: 30 });
+              gsap.set(imgs[0], { clipPath: 'inset(0% 0 0 0)' });
+              gsap.set(imgs[1], { clipPath: 'inset(0% 0 0 0)' });
+              gsap.set(imgs[2], { clipPath: 'inset(0% 0 0 0)' });
+            }
+          }
+        }
+      } else if (isAtSection(resenasSec) && delta < -5) {
+        e.preventDefault();
+        smoothScrollTo(entrenadoresSec);
+        currentCoach = 2;
+        const cInfos = gsap.utils.toArray('.coach-info');
+        const cImgs = gsap.utils.toArray('.coach-img');
+        if (cInfos.length >= 3 && cImgs.length >= 3) {
+          gsap.set(cInfos[2], { autoAlpha: 1, y: 0 });
+          gsap.set(cInfos.slice(0, 2), { autoAlpha: 0, y: 30 });
+          gsap.set(cImgs[0], { clipPath: 'inset(0% 0 0 0)' });
+          gsap.set(cImgs[1], { clipPath: 'inset(0% 0 0 0)' });
+          gsap.set(cImgs[2], { clipPath: 'inset(0% 0 0 0)' });
         }
       }
     }
@@ -785,13 +853,9 @@
     function shouldPreventDefault(delta) {
       if (isHeroScrolling || isAnimatingSlide) return true;
       if (isAtSection(serviciosSec)) return true;
+      if (isAtSection(entrenadoresSec)) return true;
       if (isAtSection(inicioSec) && delta > 0) return true;
-      if (isAtSection(entrenadoresSec) && delta < 0) {
-        let entrenadoresTop = getAbsoluteOffsetTop(entrenadoresSec) - 80;
-        if (window.scrollY <= entrenadoresTop + 15) {
-          return true;
-        }
-      }
+      if (isAtSection(resenasSec) && delta < 0) return true;
       return false;
     }
 
@@ -818,20 +882,6 @@
       if (Math.abs(delta) < 8) return;
       handleGesture(delta, e);
     }, { passive: false });
-
-    gsap.utils.toArray('.aspect-[3/4] img').forEach(img => {
-      gsap.set(img, { scale: 1.15 });
-      gsap.to(img, {
-        yPercent: 15,
-        ease: "none",
-        scrollTrigger: {
-          trigger: img.parentElement,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true
-        }
-      });
-    });
 
     const track = document.querySelector('.marquee-track');
     if (track) {
