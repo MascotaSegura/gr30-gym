@@ -158,7 +158,7 @@
       </div>
     </div>
 
-    <div class="w-full md:w-1/2 flex flex-col justify-center px-6 sm:px-10 md:px-12 lg:px-16 py-8 md:py-14 flex-1 md:h-full">
+    <div class="w-full md:w-1/2 flex flex-col justify-center px-6 sm:px-10 md:px-12 lg:px-16 py-8 md:py-14 flex-1 md:h-full overflow-hidden">
       <div class="mb-6 md:mb-10 pointer-events-none">
         <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight uppercase mb-4">
           Nuestros Entrenadores
@@ -176,13 +176,13 @@
           <p class="inline-block bg-gray-900 text-white text-xs sm:text-sm font-bold tracking-widest uppercase px-4 py-2">Certificación NSCA-CPT</p>
         </div>
 
-        <div class="coach-info absolute top-0 left-0 w-full pointer-events-auto flex flex-col items-start" style="visibility: hidden; opacity: 0; transform: translateY(30px);">
+        <div class="coach-info absolute top-0 left-0 w-full pointer-events-auto flex flex-col items-start" style="visibility: hidden; opacity: 0;">
           <h3 class="text-4xl sm:text-5xl md:text-5xl lg:text-6xl font-black text-gray-900 uppercase tracking-tighter leading-none mb-2 md:mb-4">Mariana V<span class="text-green-500">.</span></h3>
           <p class="text-base sm:text-lg md:text-xl text-gray-600 font-semibold uppercase tracking-wide mb-4">Entrenamiento Funcional</p>
           <p class="inline-block bg-gray-900 text-white text-xs sm:text-sm font-bold tracking-widest uppercase px-4 py-2">Coach Crossfit L2</p>
         </div>
 
-        <div class="coach-info absolute top-0 left-0 w-full pointer-events-auto flex flex-col items-start" style="visibility: hidden; opacity: 0; transform: translateY(30px);">
+        <div class="coach-info absolute top-0 left-0 w-full pointer-events-auto flex flex-col items-start" style="visibility: hidden; opacity: 0;">
           <h3 class="text-4xl sm:text-5xl md:text-5xl lg:text-6xl font-black text-gray-900 uppercase tracking-tighter leading-none mb-2 md:mb-4">Luis H<span class="text-green-500">.</span></h3>
           <p class="text-base sm:text-lg md:text-xl text-gray-600 font-semibold uppercase tracking-wide mb-4">Powerlifting &amp; Fuerza</p>
           <p class="inline-block bg-gray-900 text-white text-xs sm:text-sm font-bold tracking-widest uppercase px-4 py-2">Campeón Nacional</p>
@@ -616,8 +616,9 @@
         const cInfos = gsap.utils.toArray('.coach-info');
         const cImgs = gsap.utils.toArray('.coach-img');
         if (cInfos.length >= 3 && cImgs.length >= 3) {
-          gsap.set(cInfos[0], { autoAlpha: 1, y: 0 });
-          gsap.set(cInfos.slice(1), { autoAlpha: 0, y: 30 });
+          const mob = window.innerWidth < 768;
+          gsap.set(cInfos[0], { autoAlpha: 1, xPercent: 0, yPercent: 0 });
+          gsap.set(cInfos.slice(1), { autoAlpha: 0, xPercent: mob ? 0 : 100, yPercent: mob ? 100 : 0 });
           gsap.set(cImgs[0], { clipPath: 'inset(0% 0 0 0)' });
           gsap.set(cImgs.slice(1), { clipPath: 'inset(100% 0 0 0)' });
         }
@@ -675,6 +676,15 @@
         gsap.set(infos.slice(1), { autoAlpha: 0, y: 30 });
         gsap.set(imgs.slice(1), { clipPath: 'inset(100% 0 0 0)' });
       }
+    }
+
+    const cInfosInit = gsap.utils.toArray('.coach-info');
+    const cImgsInit = gsap.utils.toArray('.coach-img');
+    if (cInfosInit.length >= 3 && cImgsInit.length >= 3) {
+      const mob = window.innerWidth < 768;
+      gsap.set(cImgsInit.slice(1), { clipPath: 'inset(100% 0 0 0)' });
+      gsap.set(cInfosInit[0], { autoAlpha: 1, xPercent: 0, yPercent: 0 });
+      gsap.set(cInfosInit.slice(1), { autoAlpha: 0, xPercent: mob ? 0 : 100, yPercent: mob ? 100 : 0 });
     }
     gsap.utils.toArray('section:not(#inicio):not(#servicios)').forEach(section => {
       const grids = section.querySelectorAll('.grid');
@@ -788,25 +798,21 @@
         function goToCoach(index, direction) {
           if (isAnimatingSlide || index === currentCoach) return;
           isAnimatingSlide = true;
+          const mob = window.innerWidth < 768;
+          const from = currentCoach;
+          const exitX  = mob ? 0   : (direction === 'down' ? -100 : 100);
+          const exitY  = mob ? (direction === 'down' ? -100 : 100) : 0;
+          const fromX  = mob ? 0   : (direction === 'down' ?  100 : -100);
+          const fromY  = mob ? (direction === 'down' ?  100 : -100) : 0;
           const tl = gsap.timeline({ onComplete: () => { currentCoach = index; isAnimatingSlide = false; } });
-          
-          if (index === 1 && direction === 'down') {
-            tl.to(cImgs[1], { clipPath: 'inset(0% 0 0 0)', duration: 0.8, ease: 'power2.inOut' }, 0)
-              .to(cInfos[0], { autoAlpha: 0, y: -40, duration: 0.6, ease: 'power2.inOut' }, 0)
-              .to(cInfos[1], { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power2.out' }, 0.2);
-          } else if (index === 2 && direction === 'down') {
-            tl.to(cImgs[2], { clipPath: 'inset(0% 0 0 0)', duration: 0.8, ease: 'power2.inOut' }, 0)
-              .to(cInfos[1], { autoAlpha: 0, y: -40, duration: 0.6, ease: 'power2.inOut' }, 0)
-              .to(cInfos[2], { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power2.out' }, 0.2);
-          } else if (index === 1 && direction === 'up') {
-            tl.to(cImgs[2], { clipPath: 'inset(100% 0 0 0)', duration: 0.8, ease: 'power2.inOut' }, 0)
-              .to(cInfos[2], { autoAlpha: 0, y: 40, duration: 0.6, ease: 'power2.inOut' }, 0)
-              .to(cInfos[1], { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power2.out' }, 0.2);
-          } else if (index === 0 && direction === 'up') {
-            tl.to(cImgs[1], { clipPath: 'inset(100% 0 0 0)', duration: 0.8, ease: 'power2.inOut' }, 0)
-              .to(cInfos[1], { autoAlpha: 0, y: 40, duration: 0.6, ease: 'power2.inOut' }, 0)
-              .to(cInfos[0], { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power2.out' }, 0.2);
+          if (direction === 'down') {
+            tl.to(cImgs[index], { clipPath: 'inset(0% 0 0 0)', duration: 0.7, ease: 'power2.inOut' }, 0);
+          } else {
+            tl.to(cImgs[from], { clipPath: 'inset(100% 0 0 0)', duration: 0.7, ease: 'power2.inOut' }, 0);
           }
+          tl.to(cInfos[from], { autoAlpha: 0, xPercent: exitX, yPercent: exitY, duration: 0.55, ease: 'power2.inOut' }, 0)
+            .set(cInfos[index], { xPercent: fromX, yPercent: fromY })
+            .to(cInfos[index], { autoAlpha: 1, xPercent: 0, yPercent: 0, duration: 0.55, ease: 'power2.out' }, 0.1);
         }
 
         if (delta > 5) {
@@ -837,8 +843,9 @@
         const cInfos = gsap.utils.toArray('.coach-info');
         const cImgs = gsap.utils.toArray('.coach-img');
         if (cInfos.length >= 3 && cImgs.length >= 3) {
-          gsap.set(cInfos[2], { autoAlpha: 1, y: 0 });
-          gsap.set(cInfos.slice(0, 2), { autoAlpha: 0, y: 30 });
+          const mob = window.innerWidth < 768;
+          gsap.set(cInfos[2], { autoAlpha: 1, xPercent: 0, yPercent: 0 });
+          gsap.set(cInfos.slice(0, 2), { autoAlpha: 0, xPercent: mob ? 0 : -100, yPercent: mob ? -100 : 0 });
           gsap.set(cImgs[0], { clipPath: 'inset(0% 0 0 0)' });
           gsap.set(cImgs[1], { clipPath: 'inset(0% 0 0 0)' });
           gsap.set(cImgs[2], { clipPath: 'inset(0% 0 0 0)' });
