@@ -89,9 +89,9 @@
   <i class="ph-bold ph-whatsapp-logo text-3xl leading-none ml-0.5 group-hover:scale-110 transition-transform duration-200"></i>
 </a>
 
-<main>
+<main class="overflow-x-hidden">
 <section id="inicio" class="relative w-full min-h-[calc(100svh-80px)] flex flex-col justify-center py-24">
-  <div class="absolute inset-0 w-full h-full">
+  <div class="absolute inset-0 w-full h-full overflow-hidden z-0">
     <img src="assets/img/hero-background.png" alt="Instalaciones GR30" fetchpriority="high" decoding="async" class="w-full h-full object-cover object-center">
   </div>
   <div class="absolute inset-0 bg-gray-900/85 z-[1]"></div>
@@ -114,30 +114,29 @@
   </div>
 </section>
 
-<section id="servicios" class="w-full bg-gray-900 text-white relative border-b border-gray-800">
+<section id="servicios" class="w-full bg-gray-900 text-white relative z-20 border-b border-gray-800">
   <div class="servicios-pinned-container h-[calc(100svh-80px)] min-h-[450px] w-full relative overflow-hidden flex flex-col justify-between py-10 md:py-14 z-10">
     <div class="absolute inset-0 w-full h-full z-0 bg-gray-900 pointer-events-none">
       <img src="assets/img/servicio-pesas.png" alt="Área de pesas libres e integradas" loading="lazy" decoding="async" class="servicio-img img-1 absolute inset-0 w-full h-full object-cover">
       <img src="assets/img/servicio-cardio.png" alt="Área de cardio con caminadoras y elípticas" loading="lazy" decoding="async" class="servicio-img img-2 absolute inset-0 w-full h-full object-cover">
       <img src="assets/img/servicio-fuerza.png" alt="Área de fuerza con barras olímpicas y racks" loading="lazy" decoding="async" class="servicio-img img-3 absolute inset-0 w-full h-full object-cover">
-      <div class="absolute inset-0 bg-gray-900/50 z-10"></div>
-      <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/70 to-gray-900/10 z-10"></div>
+      <div class="absolute inset-0 bg-gray-900/70 z-10"></div>
     </div>
     <div class="relative z-20 w-full max-w-7xl mx-auto text-center pointer-events-none px-4 sm:px-6 lg:px-8">
-      <h2 class="text-4xl font-extrabold tracking-tight uppercase mb-3 text-white" id="servicios-titulo" aria-live="polite">Qué <span class="text-green-500">Ofrecemos</span></h2>
-      <p id="servicios-sub" class="text-gray-300 text-lg sm:text-xl font-medium max-w-xl mx-auto leading-relaxed">Motivación, constancia y los mejores resultados. Contamos con todo el equipamiento que necesitas.</p>
+      <h2 class="text-4xl font-extrabold tracking-tight uppercase mb-4 text-white" id="servicios-titulo" aria-live="polite">Qué <span class="text-green-500">Ofrecemos</span></h2>
+      <p id="servicios-sub" class="text-gray-300 text-xl font-medium max-w-2xl mx-auto leading-relaxed">Motivación, constancia y los mejores resultados. Contamos con todo el equipamiento que necesitas.</p>
     </div>
     <div class="relative z-20 w-full max-w-7xl mx-auto flex-grow flex items-end px-4 sm:px-6 lg:px-8">
       <div class="relative w-full h-[180px] sm:h-[200px] md:h-[220px]">
-        <div class="servicio-info info-1 absolute bottom-0 left-0 w-full pointer-events-auto pr-20 sm:pr-24 lg:pr-0">
+        <div class="servicio-info info-1 absolute bottom-0 left-0 w-full pointer-events-auto">
           <h3 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white uppercase tracking-tighter leading-none mb-3 sm:mb-4 lg:mb-6 break-words">Pesas<span class="text-green-500">.</span></h3>
           <p class="text-gray-200 text-lg sm:text-xl lg:text-2xl font-medium max-w-2xl leading-relaxed">El más completo equipo de pesas libres e integradas para tu desarrollo muscular.</p>
         </div>
-        <div class="servicio-info info-2 absolute bottom-0 left-0 w-full pointer-events-auto pr-20 sm:pr-24 lg:pr-0">
+        <div class="servicio-info info-2 absolute bottom-0 left-0 w-full pointer-events-auto">
           <h3 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white uppercase tracking-tighter leading-none mb-3 sm:mb-4 lg:mb-6 break-words">Cardio<span class="text-green-500">.</span></h3>
           <p class="text-gray-200 text-lg sm:text-xl lg:text-2xl font-medium max-w-2xl leading-relaxed">Caminadoras y elípticas de última generación con inclinación y programación de rutinas.</p>
         </div>
-        <div class="servicio-info info-3 absolute bottom-0 left-0 w-full pointer-events-auto pr-20 sm:pr-24 lg:pr-0">
+        <div class="servicio-info info-3 absolute bottom-0 left-0 w-full pointer-events-auto">
           <h3 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white uppercase tracking-tighter leading-none mb-3 sm:mb-4 lg:mb-6 break-words">Peso Libre<span class="text-green-500">.</span></h3>
           <p class="text-gray-200 text-lg sm:text-xl lg:text-2xl font-medium max-w-2xl leading-relaxed">Equipamiento pesado, racks y barras olímpicas para un entrenamiento sin límites.</p>
         </div>
@@ -196,14 +195,13 @@
   </div>
   
   <div class="marquee-wrapper relative w-full overflow-hidden py-4">
-    <div class="absolute inset-y-0 left-0 w-12 sm:w-24 bg-gradient-to-r from-gray-900 to-transparent z-10 pointer-events-none"></div>
-    <div class="absolute inset-y-0 right-0 w-12 sm:w-24 bg-gradient-to-l from-gray-900 to-transparent z-10 pointer-events-none"></div>
+
 
     <div class="marquee-track flex gap-8 w-max">
       
       <div class="marquee-original flex gap-8">
         
-        <div class="w-[320px] sm:w-[420px] flex-shrink-0 border border-gray-800 p-8 flex flex-col justify-between bg-gray-800/40 hover:bg-gray-800 hover:border-green-500 transition-all duration-300 relative group">
+        <div class="w-[320px] sm:w-[420px] flex-shrink-0 border border-gray-800 p-8 flex flex-col justify-between bg-gray-800 hover:bg-gray-700 hover:border-green-500 transition-colors duration-300 relative group">
           <i class="ph-fill ph-quotes text-6xl text-gray-800 absolute top-4 right-6 group-hover:text-green-900/30 transition-colors duration-300 pointer-events-none"></i>
           <div class="relative z-10">
             <div class="flex gap-1 mb-6">
@@ -216,7 +214,7 @@
             <p class="text-xl text-gray-300 leading-relaxed font-medium mb-8">"El mejor equipamiento de Jilotepec. La zona de peso libre está brutal y los entrenadores de verdad te exigen al máximo."</p>
           </div>
           <div class="flex items-center gap-4 mt-6 pt-6 border-t border-gray-800/50 relative z-10">
-            <div class="w-12 h-12 flex-shrink-0 bg-gray-700 overflow-hidden rounded-full">
+            <div class="w-12 h-12 flex-shrink-0 bg-gray-700 overflow-hidden">
               <img src="assets/img/entrenador-1.png" alt="Avatar Javier M." loading="lazy" decoding="async" class="w-full h-full object-cover object-top">
             </div>
             <div>
@@ -226,7 +224,7 @@
           </div>
         </div>
 
-        <div class="w-[320px] sm:w-[420px] flex-shrink-0 border border-gray-800 p-8 flex flex-col justify-between bg-gray-800/40 hover:bg-gray-800 hover:border-green-500 transition-all duration-300 relative group">
+        <div class="w-[320px] sm:w-[420px] flex-shrink-0 border border-gray-800 p-8 flex flex-col justify-between bg-gray-800 hover:bg-gray-700 hover:border-green-500 transition-colors duration-300 relative group">
           <i class="ph-fill ph-quotes text-6xl text-gray-800 absolute top-4 right-6 group-hover:text-green-900/30 transition-colors duration-300 pointer-events-none"></i>
           <div class="relative z-10">
             <div class="flex gap-1 mb-6">
@@ -239,7 +237,7 @@
             <p class="text-xl text-gray-300 leading-relaxed font-medium mb-8">"Llevo 6 meses en las clases de HIIT y el cambio físico es increíble. El ambiente es cero tóxico y súper motivador."</p>
           </div>
           <div class="flex items-center gap-4 mt-6 pt-6 border-t border-gray-800/50 relative z-10">
-            <div class="w-12 h-12 flex-shrink-0 bg-gray-700 overflow-hidden rounded-full">
+            <div class="w-12 h-12 flex-shrink-0 bg-gray-700 overflow-hidden">
               <img src="assets/img/entrenador-2.png" alt="Avatar Sofía R." loading="lazy" decoding="async" class="w-full h-full object-cover object-top">
             </div>
             <div>
@@ -249,7 +247,7 @@
           </div>
         </div>
 
-        <div class="w-[320px] sm:w-[420px] flex-shrink-0 border border-gray-800 p-8 flex flex-col justify-between bg-gray-800/40 hover:bg-gray-800 hover:border-green-500 transition-all duration-300 relative group">
+        <div class="w-[320px] sm:w-[420px] flex-shrink-0 border border-gray-800 p-8 flex flex-col justify-between bg-gray-800 hover:bg-gray-700 hover:border-green-500 transition-colors duration-300 relative group">
           <i class="ph-fill ph-quotes text-6xl text-gray-800 absolute top-4 right-6 group-hover:text-green-900/30 transition-colors duration-300 pointer-events-none"></i>
           <div class="relative z-10">
             <div class="flex gap-1 mb-6">
@@ -262,7 +260,7 @@
             <p class="text-xl text-gray-300 leading-relaxed font-medium mb-8">"Por fin un gimnasio que abre a las 6:00 AM y tiene todo impecable. El plan general vale cada peso."</p>
           </div>
           <div class="flex items-center gap-4 mt-6 pt-6 border-t border-gray-800/50 relative z-10">
-            <div class="w-12 h-12 flex-shrink-0 bg-gray-700 overflow-hidden rounded-full">
+            <div class="w-12 h-12 flex-shrink-0 bg-gray-700 overflow-hidden">
               <img src="assets/img/entrenador-3.png" alt="Avatar Daniel C." loading="lazy" decoding="async" class="w-full h-full object-cover object-top">
             </div>
             <div>
@@ -272,7 +270,7 @@
           </div>
         </div>
 
-        <div class="w-[320px] sm:w-[420px] flex-shrink-0 border border-gray-800 p-8 flex flex-col justify-between bg-gray-800/40 hover:bg-gray-800 hover:border-green-500 transition-all duration-300 relative group">
+        <div class="w-[320px] sm:w-[420px] flex-shrink-0 border border-gray-800 p-8 flex flex-col justify-between bg-gray-800 hover:bg-gray-700 hover:border-green-500 transition-colors duration-300 relative group">
           <i class="ph-fill ph-quotes text-6xl text-gray-800 absolute top-4 right-6 group-hover:text-green-900/30 transition-colors duration-300 pointer-events-none"></i>
           <div class="relative z-10">
             <div class="flex gap-1 mb-6">
@@ -285,7 +283,7 @@
             <p class="text-xl text-gray-300 leading-relaxed font-medium mb-8">"Las clases de Zumba tienen muchísima energía y los horarios son flexibles. Mi cardio mejoró impresionantemente."</p>
           </div>
           <div class="flex items-center gap-4 mt-6 pt-6 border-t border-gray-800/50 relative z-10">
-            <div class="w-12 h-12 flex-shrink-0 bg-gray-700 overflow-hidden rounded-full">
+            <div class="w-12 h-12 flex-shrink-0 bg-gray-700 overflow-hidden">
               <img src="assets/img/entrenador-1.png" alt="Avatar Ana L." loading="lazy" decoding="async" class="w-full h-full object-cover object-top">
             </div>
             <div>
@@ -295,7 +293,7 @@
           </div>
         </div>
 
-        <div class="w-[320px] sm:w-[420px] flex-shrink-0 border border-gray-800 p-8 flex flex-col justify-between bg-gray-800/40 hover:bg-gray-800 hover:border-green-500 transition-all duration-300 relative group">
+        <div class="w-[320px] sm:w-[420px] flex-shrink-0 border border-gray-800 p-8 flex flex-col justify-between bg-gray-800 hover:bg-gray-700 hover:border-green-500 transition-colors duration-300 relative group">
           <i class="ph-fill ph-quotes text-6xl text-gray-800 absolute top-4 right-6 group-hover:text-green-900/30 transition-colors duration-300 pointer-events-none"></i>
           <div class="relative z-10">
             <div class="flex gap-1 mb-6">
@@ -308,7 +306,7 @@
             <p class="text-xl text-gray-300 leading-relaxed font-medium mb-8">"El pase semanal es perfecto cuando vengo de visita. Instalaciones de primer nivel y ambiente inmejorable."</p>
           </div>
           <div class="flex items-center gap-4 mt-6 pt-6 border-t border-gray-800/50 relative z-10">
-            <div class="w-12 h-12 flex-shrink-0 bg-gray-700 overflow-hidden rounded-full">
+            <div class="w-12 h-12 flex-shrink-0 bg-gray-700 overflow-hidden">
               <img src="assets/img/entrenador-2.png" alt="Avatar Roberto G." loading="lazy" decoding="async" class="w-full h-full object-cover object-top">
             </div>
             <div>
@@ -421,7 +419,7 @@
   </div>
 </section>
 
-<section id="contacto" class="w-full bg-gray-900 text-white py-24 border-t border-gray-800">
+<section id="contacto" class="w-full bg-gray-900 text-white py-24">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
       <div>
@@ -556,7 +554,33 @@
   try {
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
     
-    // Smooth Scroll Interception Premium
+    let isHeroScrolling = false;
+    function smoothScrollTo(targetEl) {
+      if (isHeroScrolling) return;
+      isHeroScrolling = true;
+
+      // Calcular el destino matemático:
+      // Si va al inicio (Hero), es 0 absoluto.
+      // Para cualquier otra sección (Servicios, Entrenadores, etc), respeta su offset natural.
+      let targetY = 0;
+      if (targetEl.id !== 'inicio') {
+        let el = targetEl;
+        while(el) {
+          targetY += el.offsetTop;
+          el = el.offsetParent;
+        }
+        targetY -= 80;
+      }
+
+      gsap.to(window, {
+        duration: 1.4,
+        scrollTo: { y: targetY, autoKill: false },
+        ease: "power3.inOut",
+        onComplete: () => { isHeroScrolling = false; },
+        onInterrupt: () => { isHeroScrolling = false; }
+      });
+    }
+
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         const targetId = this.getAttribute('href');
@@ -564,16 +588,12 @@
         const targetEl = document.querySelector(targetId);
         if (targetEl) {
           e.preventDefault();
-          gsap.to(window, {
-            duration: 1.2,
-            scrollTo: { y: targetEl, offsetY: 80 },
-            ease: "expo.inOut"
-          });
+          e.stopPropagation();
+          smoothScrollTo(targetEl);
         }
       });
     });
 
-    // Orquestación Hero Cinemática
     const tlHero = gsap.timeline({ delay: 0.1 });
     tlHero.from("header", { y: -80, autoAlpha: 0, duration: 0.8, ease: "power3.out" })
           .from("#inicio img", { scale: 1.05, duration: 1.5, ease: "power2.out" }, "<")
@@ -586,7 +606,6 @@
     const serviciosSection = document.getElementById('servicios');
     const serviciosContainer = document.querySelector('.servicios-pinned-container');
     if(serviciosSection && serviciosContainer) {
-      // Animación de entrada para el Header de Servicios (evita que aparezca de golpe)
       gsap.from("#servicios-titulo, #servicios-sub", {
         scrollTrigger: {
           trigger: serviciosSection,
@@ -611,10 +630,9 @@
               trigger: serviciosSection,
               start: "top 80px",
               end: "+=3000",
-              scrub: 1.5,
+              scrub: true,
               pin: true,
-              pinSpacing: true,
-              anticipatePin: 1
+              pinSpacing: true
             }
           }));
         });
@@ -624,10 +642,9 @@
               trigger: serviciosSection,
               start: "top 80px",
               end: "+=1000",
-              scrub: 1.5,
+              scrub: true,
               pin: true,
-              pinSpacing: true,
-              anticipatePin: 1
+              pinSpacing: true
             }
           }));
         });
@@ -646,7 +663,6 @@
     gsap.utils.toArray('section:not(#inicio):not(#servicios)').forEach(section => {
       const grids = section.querySelectorAll('.grid');
 
-      // Solo capturamos encabezados que NO estén dentro de un .grid para evitar doble animación
       const headers = Array.from(section.querySelectorAll('h2'))
         .filter(el => !el.closest('.grid') && !el.closest('form') && !el.closest('#successMessage'));
       const subtitles = Array.from(section.querySelectorAll('p.max-w-2xl, p.text-xl, p.text-gray-400'))
@@ -661,7 +677,6 @@
       if (grids.length) grids.forEach(grid => tl.to(grid.children, { y: 0, opacity: 1, duration: 0.6, stagger: 0.15, ease: 'power3.out' }, '-=0.3'));
     });
 
-    // ScrollSpy premium para iluminar navegación
     const navLinks = document.querySelectorAll('header nav a');
     const sections = document.querySelectorAll('section');
     const observer = new IntersectionObserver((entries) => {
@@ -678,17 +693,93 @@
     }, { threshold: 0, rootMargin: "-100px 0px -50% 0px" });
     sections.forEach(sec => observer.observe(sec));
 
-    // Efectos Parallax Cinematográficos
-    gsap.to("#inicio img", {
-      yPercent: 15,
-      ease: "none",
+    const inicioTl = gsap.timeline({
       scrollTrigger: {
-        trigger: "#inicio",
+        trigger: "body",
         start: "top top",
-        end: "bottom top",
+        end: () => "+=" + document.getElementById('inicio').offsetHeight,
         scrub: true
       }
     });
+
+    gsap.set("#inicio img, #inicio > div:nth-child(2), #inicio .relative.z-\\[2\\], #inicio .absolute.bottom-8", {
+      willChange: "transform"
+    });
+
+    inicioTl.fromTo("#inicio img", { yPercent: 0 }, { yPercent: 30, ease: "none", force3D: true, immediateRender: false }, 0)
+            .fromTo("#inicio > div:nth-child(2)", { backgroundColor: "rgba(17, 24, 39, 0.85)" }, { backgroundColor: "rgba(17, 24, 39, 1)", ease: "none", immediateRender: false }, 0)
+            .fromTo("#inicio .relative.z-\\[2\\], #inicio .absolute.bottom-8", { yPercent: 0, opacity: 1 }, { yPercent: -50, opacity: 0, ease: "none", force3D: true, immediateRender: false }, 0);
+
+    const inicioSec = document.getElementById('inicio');
+    const serviciosSec = document.getElementById('servicios');
+    inicioSec.classList.add('cursor-pointer');
+    
+    inicioSec.addEventListener('click', (e) => {
+      if (e.target.closest('a') || e.target.closest('button')) return;
+      if (!isHeroScrolling) smoothScrollTo(serviciosSec);
+    });
+
+    serviciosSec.addEventListener('click', (e) => {
+      if (e.target.closest('a') || e.target.closest('button')) return;
+      const pinThreshold = serviciosSec.offsetTop - 80;
+      if (!isHeroScrolling && window.scrollY <= pinThreshold + 5 && window.scrollY > 0) {
+        smoothScrollTo(inicioSec);
+      }
+    });
+
+    function getAbsoluteOffsetTop(el) {
+      let top = 0;
+      while(el) {
+        top += el.offsetTop;
+        el = el.offsetParent;
+      }
+      return top;
+    }
+
+    function handleSmartScroll(e, direction) {
+      if (isHeroScrolling) {
+        e.preventDefault();
+        return;
+      }
+      
+      const pinThreshold = getAbsoluteOffsetTop(serviciosSec) - 80;
+
+      // Scroll Down estando en Hero -> Salto a Servicios
+      if (direction === 'down' && window.scrollY < 100) {
+        e.preventDefault();
+        smoothScrollTo(serviciosSec);
+      }
+      // Scroll Up estando en tope de Servicios -> Salto a Hero
+      else if (direction === 'up' && window.scrollY <= pinThreshold + 5 && window.scrollY > 0) {
+        e.preventDefault();
+        smoothScrollTo(inicioSec);
+      }
+    }
+
+    const bindScrollEvents = (element) => {
+      element.addEventListener('wheel', (e) => {
+        if (isHeroScrolling) { e.preventDefault(); return; }
+        if (Math.abs(e.deltaY) > 5) handleSmartScroll(e, e.deltaY > 0 ? 'down' : 'up');
+      }, { passive: false });
+
+      let touchStartY = 0;
+      element.addEventListener('touchstart', (e) => {
+        touchStartY = e.touches[0].clientY;
+      }, { passive: true });
+
+      element.addEventListener('touchmove', (e) => {
+        if (isHeroScrolling) { e.preventDefault(); return; }
+        let touchEndY = e.touches[0].clientY;
+        if (touchStartY - touchEndY > 30) {
+          handleSmartScroll(e, 'down');
+        } else if (touchEndY - touchStartY > 30) {
+          handleSmartScroll(e, 'up');
+        }
+      }, { passive: false });
+    };
+
+    bindScrollEvents(inicioSec);
+    bindScrollEvents(serviciosSec);
 
     gsap.utils.toArray('.aspect-[3/4] img').forEach(img => {
       gsap.set(img, { scale: 1.15 });
@@ -708,14 +799,11 @@
     if (track) {
       const original = track.querySelector('.marquee-original');
       if (original) {
-        // Prepare original for CSS animation
         original.classList.add('animate-marquee', 'flex-shrink-0', 'w-max');
         
-        // Track doesn't need w-max anymore since elements translate themselves
         track.classList.remove('w-max');
         track.classList.add('w-full');
         
-        // Clone exactly once for seamless infinite CSS loop
         const clone = original.cloneNode(true);
         clone.classList.remove('marquee-original');
         clone.setAttribute('aria-hidden', 'true');
