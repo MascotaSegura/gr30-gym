@@ -147,11 +147,6 @@
 
 <section id="entrenadores" class="w-full bg-white border-b border-gray-200 relative z-20">
   <div class="entrenadores-pinned-container h-[calc(100svh-80px)] min-h-[580px] w-full relative overflow-hidden flex flex-col md:flex-row z-10">
-
-    <!-- ══════════════════════════════════
-         COLUMNA IZQUIERDA / TOP EN MÓVIL
-         Imagen cuadrada centrada
-    ═══════════════════════════════════════ -->
     <div class="w-full md:w-1/2 bg-gray-100 flex items-center justify-center flex-shrink-0 md:h-full h-[45%]">
       <div class="relative w-full h-full">
         <img src="assets/img/entrenador-1.png" alt="Carlos R." loading="lazy" decoding="async"
@@ -163,13 +158,7 @@
       </div>
     </div>
 
-    <!-- ══════════════════════════════════
-         COLUMNA DERECHA / BOTTOM EN MÓVIL
-         Título de sección + datos del entrenador
-    ═══════════════════════════════════════ -->
     <div class="w-full md:w-1/2 flex flex-col justify-center px-6 sm:px-10 md:px-12 lg:px-16 py-8 md:py-14 flex-1 md:h-full">
-
-      <!-- Título estático de la sección -->
       <div class="mb-6 md:mb-10 pointer-events-none">
         <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight uppercase mb-4">
           Nuestros Entrenadores
@@ -179,7 +168,6 @@
         </p>
       </div>
 
-      <!-- Tarjetas de entrenador: apiladas y animadas por JS -->
       <div class="relative w-full" style="min-height: 200px;">
 
         <div class="coach-info absolute top-0 left-0 w-full pointer-events-auto flex flex-col items-start">
@@ -215,9 +203,7 @@
   </div>
   
   <div class="marquee-wrapper relative w-full overflow-hidden">
-
-
-    <div class="marquee-track flex gap-8 w-max">
+    <div class="marquee-track flex gap-8">
       
       <div class="marquee-original flex gap-8">
         
@@ -603,7 +589,6 @@
       if (isHeroScrolling) return;
       isHeroScrolling = true;
 
-      // Calcular el destino matemático:
       let targetY = 0;
       if (targetEl.id !== 'inicio') {
         let el = targetEl;
@@ -614,7 +599,6 @@
         targetY -= 80;
       }
 
-      // Reset slide state when navigating explicitly to servicios
       if (targetEl.id === 'servicios') {
         currentSlide = 0;
         const infos = gsap.utils.toArray('.servicio-info');
@@ -627,7 +611,6 @@
         }
       }
 
-      // Reset coach state when navigating explicitly to entrenadores
       if (targetEl.id === 'entrenadores') {
         currentCoach = 0;
         const cInfos = gsap.utils.toArray('.coach-info');
@@ -691,7 +674,6 @@
       if (infos.length >= 3 && imgs.length >= 3) {
         gsap.set(infos.slice(1), { autoAlpha: 0, y: 30 });
         gsap.set(imgs.slice(1), { clipPath: 'inset(100% 0 0 0)' });
-        // No longer need ScrollTrigger pinning for slide-scrubbing. Custom gesture machine handles slides.
       }
     }
     gsap.utils.toArray('section:not(#inicio):not(#servicios)').forEach(section => {
