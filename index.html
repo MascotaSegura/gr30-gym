@@ -629,10 +629,16 @@
             scrollTrigger: {
               trigger: serviciosSection,
               start: "top 80px",
-              end: "+=3000",
+              end: "+=2000",
               scrub: true,
               pin: true,
-              pinSpacing: true
+              pinSpacing: true,
+              snap: {
+                snapTo: 0.5,
+                duration: { min: 0.3, max: 0.6 },
+                delay: 0.05,
+                ease: "power2.out"
+              }
             }
           }));
         });
@@ -641,22 +647,27 @@
             scrollTrigger: {
               trigger: serviciosSection,
               start: "top 80px",
-              end: "+=1000",
+              end: "+=1200",
               scrub: true,
               pin: true,
-              pinSpacing: true
+              pinSpacing: true,
+              snap: {
+                snapTo: 0.5,
+                duration: { min: 0.3, max: 0.6 },
+                delay: 0.05,
+                ease: "power2.out"
+              }
             }
           }));
         });
         function buildServiciosTimeline(tl) {
-          tl.to(infos[0], { autoAlpha: 0, y: -30, duration: 0.6 })
-            .to(imgs[1], { clipPath: 'inset(0% 0 0 0)', duration: 1 }, "<0.2")
-            .to(infos[1], { autoAlpha: 1, y: 0, duration: 0.6 }, "<0.4")
-            .to({}, {duration: 0.8})
-            .to(infos[1], { autoAlpha: 0, y: -30, duration: 0.6 })
-            .to(imgs[2], { clipPath: 'inset(0% 0 0 0)', duration: 1 }, "<0.2")
-            .to(infos[2], { autoAlpha: 1, y: 0, duration: 0.6 }, "<0.4")
-            .to({}, {duration: 0.8});
+          tl.to(imgs[1], { clipPath: 'inset(0% 0 0 0)', duration: 1.0, ease: 'power2.inOut' }, 0)
+            .to(infos[0], { autoAlpha: 0, y: -40, duration: 0.8, ease: 'power2.inOut' }, 0)
+            .to(infos[1], { autoAlpha: 1, y: 0, duration: 0.8, ease: 'power2.out' }, 0.2)
+            
+            .to(imgs[2], { clipPath: 'inset(0% 0 0 0)', duration: 1.0, ease: 'power2.inOut' }, 1.0)
+            .to(infos[1], { autoAlpha: 0, y: -40, duration: 0.8, ease: 'power2.inOut' }, 1.0)
+            .to(infos[2], { autoAlpha: 1, y: 0, duration: 0.8, ease: 'power2.out' }, 1.2);
         }
       }
     }
