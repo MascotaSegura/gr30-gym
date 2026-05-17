@@ -682,11 +682,12 @@
     const cImgsInit = gsap.utils.toArray('.coach-img');
     if (cInfosInit.length >= 3 && cImgsInit.length >= 3) {
       const mob = window.innerWidth < 768;
+      gsap.set(cImgsInit[0], { clipPath: 'inset(0% 0 0 0)' });
       gsap.set(cImgsInit.slice(1), { clipPath: 'inset(100% 0 0 0)' });
       gsap.set(cInfosInit[0], { autoAlpha: 1, xPercent: 0, yPercent: 0 });
       gsap.set(cInfosInit.slice(1), { autoAlpha: 0, xPercent: mob ? 0 : 100, yPercent: mob ? 100 : 0 });
     }
-    gsap.utils.toArray('section:not(#inicio):not(#servicios)').forEach(section => {
+    gsap.utils.toArray('section:not(#inicio):not(#servicios):not(#entrenadores)').forEach(section => {
       const grids = section.querySelectorAll('.grid');
 
       const headers = Array.from(section.querySelectorAll('h2'))
@@ -810,8 +811,8 @@
           } else {
             tl.to(cImgs[from], { clipPath: 'inset(100% 0 0 0)', duration: 0.7, ease: 'power2.inOut' }, 0);
           }
+          gsap.set(cInfos[index], { xPercent: fromX, yPercent: fromY, autoAlpha: 0 });
           tl.to(cInfos[from], { autoAlpha: 0, xPercent: exitX, yPercent: exitY, duration: 0.55, ease: 'power2.inOut' }, 0)
-            .set(cInfos[index], { xPercent: fromX, yPercent: fromY })
             .to(cInfos[index], { autoAlpha: 1, xPercent: 0, yPercent: 0, duration: 0.55, ease: 'power2.out' }, 0.1);
         }
 
@@ -879,6 +880,7 @@
     window.addEventListener('touchmove', (e) => {
       let touchEndY = e.touches[0].clientY;
       let delta = touchStartY - touchEndY;
+      touchStartY = touchEndY;
       if (shouldPreventDefault(delta)) {
         e.preventDefault();
       }
