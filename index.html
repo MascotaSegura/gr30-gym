@@ -736,30 +736,21 @@
       return top;
     }
 
-    function handleSmartScroll(e, direction) {
-      if (isHeroScrolling) {
-        e.preventDefault();
-        return;
-      }
-      
-      const pinThreshold = getAbsoluteOffsetTop(serviciosSec) - 80;
-
-      // Scroll Down estando en Hero -> Salto a Servicios
-      if (direction === 'down' && window.scrollY < 100) {
-        e.preventDefault();
-        smoothScrollTo(serviciosSec);
-      }
-      // Scroll Up estando en tope de Servicios -> Salto a Hero
-      else if (direction === 'up' && window.scrollY <= pinThreshold + 5 && window.scrollY > 0) {
-        e.preventDefault();
-        smoothScrollTo(inicioSec);
-      }
-    }
-
     const bindScrollEvents = (element) => {
       element.addEventListener('wheel', (e) => {
         if (isHeroScrolling) { e.preventDefault(); return; }
-        if (Math.abs(e.deltaY) > 5) handleSmartScroll(e, e.deltaY > 0 ? 'down' : 'up');
+        
+        let delta = e.deltaY;
+        if (element.id === 'inicio' && delta > 5) {
+          e.preventDefault();
+          smoothScrollTo(serviciosSec);
+        } else if (element.id === 'servicios') {
+          const pinThreshold = getAbsoluteOffsetTop(serviciosSec) - 80;
+          if (window.scrollY <= pinThreshold + 5 && delta < -5) {
+            e.preventDefault();
+            smoothScrollTo(inicioSec);
+          }
+        }
       }, { passive: false });
 
       let touchStartY = 0;
@@ -769,11 +760,19 @@
 
       element.addEventListener('touchmove', (e) => {
         if (isHeroScrolling) { e.preventDefault(); return; }
+        
         let touchEndY = e.touches[0].clientY;
-        if (touchStartY - touchEndY > 30) {
-          handleSmartScroll(e, 'down');
-        } else if (touchEndY - touchStartY > 30) {
-          handleSmartScroll(e, 'up');
+        let delta = touchStartY - touchEndY;
+        
+        if (element.id === 'inicio' && delta > 5) {
+          e.preventDefault();
+          smoothScrollTo(serviciosSec);
+        } else if (element.id === 'servicios') {
+          const pinThreshold = getAbsoluteOffsetTop(serviciosSec) - 80;
+          if (window.scrollY <= pinThreshold + 5 && delta < -5) {
+            e.preventDefault();
+            smoothScrollTo(inicioSec);
+          }
         }
       }, { passive: false });
     };
