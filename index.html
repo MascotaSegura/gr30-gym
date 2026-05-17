@@ -148,42 +148,48 @@
 <section id="entrenadores" class="w-full bg-white border-b border-gray-200 relative z-20">
   <div class="entrenadores-pinned-container h-[calc(100svh-80px)] min-h-[500px] w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative overflow-hidden flex flex-col md:flex-row py-10 md:py-14 z-10 gap-8">
     
-    <div class="w-full md:w-1/2 h-1/2 md:h-full relative flex flex-col justify-start md:justify-center items-center">
+    <div class="w-full md:w-1/2 flex flex-col justify-start md:justify-center items-center">
       <div class="w-full mb-6 md:mb-10 text-center md:text-left z-30 pointer-events-none">
-        <h2 class="text-4xl font-extrabold text-gray-900 tracking-tight uppercase mb-4">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight uppercase mb-2 md:mb-4">
           Nuestros Entrenadores
         </h2>
-        <p class="text-xl text-gray-600 leading-relaxed font-medium">
+        <p class="text-lg sm:text-xl text-gray-600 leading-relaxed font-medium">
           Técnica, seguridad y <strong class="text-green-800">resultados reales</strong>.
         </p>
       </div>
 
-      <div class="relative w-full max-w-sm md:max-w-md aspect-[3/4] overflow-hidden bg-gray-100 flex-shrink-0">
+      <div class="relative w-full max-w-[260px] sm:max-w-[320px] md:max-w-md aspect-square overflow-hidden bg-gray-100 flex-shrink-0">
         <img src="assets/img/entrenador-1.png" alt="Carlos R." loading="lazy" decoding="async" class="coach-img absolute inset-0 w-full h-full object-cover object-top z-10">
         <img src="assets/img/entrenador-2.png" alt="Mariana V." loading="lazy" decoding="async" class="coach-img absolute inset-0 w-full h-full object-cover object-top z-20">
         <img src="assets/img/entrenador-3.png" alt="Luis H." loading="lazy" decoding="async" class="coach-img absolute inset-0 w-full h-full object-cover object-top z-30">
       </div>
     </div>
 
-    <div class="w-full md:w-1/2 h-1/2 md:h-full relative flex items-start md:items-center pl-0 md:pl-8">
-      <div class="relative w-full h-[180px] md:h-[250px]">
+    <div class="w-full md:w-1/2 flex-1 md:flex-none md:h-full relative flex items-start md:items-center pl-0 md:pl-12 mt-6 md:mt-0">
+      <div class="relative w-full h-[180px] md:h-[250px] text-center md:text-left">
         
-        <div class="coach-info absolute top-0 left-0 w-full pointer-events-auto">
-          <h3 class="text-4xl sm:text-5xl md:text-6xl font-black text-gray-900 uppercase tracking-tighter leading-none mb-3">Carlos R<span class="text-green-500">.</span></h3>
-          <p class="text-xl md:text-2xl text-gray-600 font-semibold uppercase tracking-wide mb-3">Especialista en Hipertrofia</p>
-          <p class="inline-block bg-gray-900 text-white text-sm md:text-base font-bold tracking-widest uppercase px-4 py-2">Certificación NSCA-CPT</p>
+        <div class="coach-info absolute top-0 left-0 w-full pointer-events-auto flex flex-col items-center md:items-start">
+          <h3 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-gray-900 uppercase tracking-tighter leading-none mb-2 md:mb-4">Carlos R<span class="text-green-500">.</span></h3>
+          <p class="text-lg sm:text-xl md:text-2xl text-gray-600 font-semibold uppercase tracking-wide mb-3 md:mb-5">Especialista en Hipertrofia</p>
+          <div class="flex justify-center md:justify-start w-full">
+            <p class="inline-block bg-gray-900 text-white text-xs sm:text-sm md:text-base font-bold tracking-widest uppercase px-4 py-2">Certificación NSCA-CPT</p>
+          </div>
         </div>
 
-        <div class="coach-info absolute top-0 left-0 w-full pointer-events-auto">
-          <h3 class="text-4xl sm:text-5xl md:text-6xl font-black text-gray-900 uppercase tracking-tighter leading-none mb-3">Mariana V<span class="text-green-500">.</span></h3>
-          <p class="text-xl md:text-2xl text-gray-600 font-semibold uppercase tracking-wide mb-3">Entrenamiento Funcional</p>
-          <p class="inline-block bg-gray-900 text-white text-sm md:text-base font-bold tracking-widest uppercase px-4 py-2">Coach Crossfit L2</p>
+        <div class="coach-info absolute top-0 left-0 w-full pointer-events-auto flex flex-col items-center md:items-start" style="visibility: hidden; opacity: 0; transform: translateY(30px);">
+          <h3 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-gray-900 uppercase tracking-tighter leading-none mb-2 md:mb-4">Mariana V<span class="text-green-500">.</span></h3>
+          <p class="text-lg sm:text-xl md:text-2xl text-gray-600 font-semibold uppercase tracking-wide mb-3 md:mb-5">Entrenamiento Funcional</p>
+          <div class="flex justify-center md:justify-start w-full">
+            <p class="inline-block bg-gray-900 text-white text-xs sm:text-sm md:text-base font-bold tracking-widest uppercase px-4 py-2">Coach Crossfit L2</p>
+          </div>
         </div>
 
-        <div class="coach-info absolute top-0 left-0 w-full pointer-events-auto">
-          <h3 class="text-4xl sm:text-5xl md:text-6xl font-black text-gray-900 uppercase tracking-tighter leading-none mb-3">Luis H<span class="text-green-500">.</span></h3>
-          <p class="text-xl md:text-2xl text-gray-600 font-semibold uppercase tracking-wide mb-3">Powerlifting &amp; Fuerza</p>
-          <p class="inline-block bg-gray-900 text-white text-sm md:text-base font-bold tracking-widest uppercase px-4 py-2">Campeón Nacional</p>
+        <div class="coach-info absolute top-0 left-0 w-full pointer-events-auto flex flex-col items-center md:items-start" style="visibility: hidden; opacity: 0; transform: translateY(30px);">
+          <h3 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-gray-900 uppercase tracking-tighter leading-none mb-2 md:mb-4">Luis H<span class="text-green-500">.</span></h3>
+          <p class="text-lg sm:text-xl md:text-2xl text-gray-600 font-semibold uppercase tracking-wide mb-3 md:mb-5">Powerlifting &amp; Fuerza</p>
+          <div class="flex justify-center md:justify-start w-full">
+            <p class="inline-block bg-gray-900 text-white text-xs sm:text-sm md:text-base font-bold tracking-widest uppercase px-4 py-2">Campeón Nacional</p>
+          </div>
         </div>
 
       </div>
