@@ -555,13 +555,33 @@
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
     
     let isHeroScrolling = false;
+    let currentSlide = 0;
+    let isAnimatingSlide = false;
+
+    const inicioSec = document.getElementById('inicio');
+    const serviciosSec = document.getElementById('servicios');
+    const entrenadoresSec = document.getElementById('entrenadores');
+
+    function getAbsoluteOffsetTop(el) {
+      let top = 0;
+      while(el) {
+        top += el.offsetTop;
+        el = el.offsetParent;
+      }
+      return top;
+    }
+
+    function isAtSection(sectionEl) {
+      if (!sectionEl) return false;
+      const targetY = getAbsoluteOffsetTop(sectionEl) - 80;
+      return Math.abs(window.scrollY - targetY) < 15;
+    }
+
     function smoothScrollTo(targetEl) {
       if (isHeroScrolling) return;
       isHeroScrolling = true;
 
       // Calcular el destino matemático:
-      // Si va al inicio (Hero), es 0 absoluto.
-      // Para cualquier otra sección (Servicios, Entrenadores, etc), respeta su offset natural.
       let targetY = 0;
       if (targetEl.id !== 'inicio') {
         let el = targetEl;
@@ -572,10 +592,23 @@
         targetY -= 80;
       }
 
+      // Reset slide state when navigating explicitly to servicios
+      if (targetEl.id === 'servicios') {
+        currentSlide = 0;
+        const infos = gsap.utils.toArray('.servicio-info');
+        const imgs = gsap.utils.toArray('.servicio-img');
+        if (infos.length >= 3 && imgs.length >= 3) {
+          gsap.set(infos[0], { autoAlpha: 1, y: 0 });
+          gsap.set(infos.slice(1), { autoAlpha: 0, y: 30 });
+          gsap.set(imgs[0], { clipPath: 'inset(0% 0 0 0)' });
+          gsap.set(imgs.slice(1), { clipPath: 'inset(100% 0 0 0)' });
+        }
+      }
+
       gsap.to(window, {
-        duration: 1.4,
+        duration: 1.0,
         scrollTo: { y: targetY, autoKill: false },
-        ease: "power3.inOut",
+        ease: "power2.inOut",
         onComplete: () => { isHeroScrolling = false; },
         onInterrupt: () => { isHeroScrolling = false; }
       });
@@ -623,52 +656,7 @@
       if (infos.length >= 3 && imgs.length >= 3) {
         gsap.set(infos.slice(1), { autoAlpha: 0, y: 30 });
         gsap.set(imgs.slice(1), { clipPath: 'inset(100% 0 0 0)' });
-        const mm = gsap.matchMedia();
-        mm.add("(min-width: 768px)", () => {
-          buildServiciosTimeline(gsap.timeline({
-            scrollTrigger: {
-              trigger: serviciosSection,
-              start: "top 80px",
-              end: "+=2000",
-              scrub: true,
-              pin: true,
-              pinSpacing: true,
-              snap: {
-                snapTo: 0.5,
-                duration: { min: 0.3, max: 0.6 },
-                delay: 0.05,
-                ease: "power2.out"
-              }
-            }
-          }));
-        });
-        mm.add("(max-width: 767px)", () => {
-          buildServiciosTimeline(gsap.timeline({
-            scrollTrigger: {
-              trigger: serviciosSection,
-              start: "top 80px",
-              end: "+=1200",
-              scrub: true,
-              pin: true,
-              pinSpacing: true,
-              snap: {
-                snapTo: 0.5,
-                duration: { min: 0.3, max: 0.6 },
-                delay: 0.05,
-                ease: "power2.out"
-              }
-            }
-          }));
-        });
-        function buildServiciosTimeline(tl) {
-          tl.to(imgs[1], { clipPath: 'inset(0% 0 0 0)', duration: 1.0, ease: 'power2.inOut' }, 0)
-            .to(infos[0], { autoAlpha: 0, y: -40, duration: 0.8, ease: 'power2.inOut' }, 0)
-            .to(infos[1], { autoAlpha: 1, y: 0, duration: 0.8, ease: 'power2.out' }, 0.2)
-            
-            .to(imgs[2], { clipPath: 'inset(0% 0 0 0)', duration: 1.0, ease: 'power2.inOut' }, 1.0)
-            .to(infos[1], { autoAlpha: 0, y: -40, duration: 0.8, ease: 'power2.inOut' }, 1.0)
-            .to(infos[2], { autoAlpha: 1, y: 0, duration: 0.8, ease: 'power2.out' }, 1.2);
-        }
+        // No longer need ScrollTrigger pinning for slide-scrubbing. Custom gesture machine handles slides.
       }
     }
     gsap.utils.toArray('section:not(#inicio):not(#servicios)').forEach(section => {
@@ -721,75 +709,96 @@
             .fromTo("#inicio > div:nth-child(2)", { backgroundColor: "rgba(17, 24, 39, 0.85)" }, { backgroundColor: "rgba(17, 24, 39, 1)", ease: "none", immediateRender: false }, 0)
             .fromTo("#inicio .relative.z-\\[2\\], #inicio .absolute.bottom-8", { yPercent: 0, opacity: 1 }, { yPercent: -50, opacity: 0, ease: "none", force3D: true, immediateRender: false }, 0);
 
-    const inicioSec = document.getElementById('inicio');
-    const serviciosSec = document.getElementById('servicios');
-    inicioSec.classList.add('cursor-pointer');
-    
-    inicioSec.addEventListener('click', (e) => {
-      if (e.target.closest('a') || e.target.closest('button')) return;
-      if (!isHeroScrolling) smoothScrollTo(serviciosSec);
-    });
+    function handleGesture(delta, e) {
+      if (isHeroScrolling || isAnimatingSlide) { e.preventDefault(); return; }
 
-    serviciosSec.addEventListener('click', (e) => {
-      if (e.target.closest('a') || e.target.closest('button')) return;
-      const pinThreshold = serviciosSec.offsetTop - 80;
-      if (!isHeroScrolling && window.scrollY <= pinThreshold + 5 && window.scrollY > 0) {
-        smoothScrollTo(inicioSec);
-      }
-    });
+      const isAtInicio = isAtSection(inicioSec);
+      const isAtServicios = isAtSection(serviciosSec);
+      const isAtEntrenadores = isAtSection(entrenadoresSec);
 
-    function getAbsoluteOffsetTop(el) {
-      let top = 0;
-      while(el) {
-        top += el.offsetTop;
-        el = el.offsetParent;
+      if (isAtInicio && delta > 5) {
+        e.preventDefault();
+        smoothScrollTo(serviciosSec);
+      } else if (isAtServicios) {
+        e.preventDefault();
+        const infos = gsap.utils.toArray('.servicio-info');
+        const imgs = gsap.utils.toArray('.servicio-img');
+
+        function goToSlide(index, direction) {
+          if (isAnimatingSlide || index === currentSlide) return;
+          isAnimatingSlide = true;
+
+          const tl = gsap.timeline({
+            onComplete: () => {
+              currentSlide = index;
+              isAnimatingSlide = false;
+            }
+          });
+
+          if (index === 1 && direction === 'down') {
+            tl.to(imgs[1], { clipPath: 'inset(0% 0 0 0)', duration: 0.8, ease: 'power2.inOut' }, 0)
+              .to(infos[0], { autoAlpha: 0, y: -40, duration: 0.6, ease: 'power2.inOut' }, 0)
+              .to(infos[1], { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power2.out' }, 0.2);
+          } else if (index === 2 && direction === 'down') {
+            tl.to(imgs[2], { clipPath: 'inset(0% 0 0 0)', duration: 0.8, ease: 'power2.inOut' }, 0)
+              .to(infos[1], { autoAlpha: 0, y: -40, duration: 0.6, ease: 'power2.inOut' }, 0)
+              .to(infos[2], { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power2.out' }, 0.2);
+          } else if (index === 1 && direction === 'up') {
+            tl.to(imgs[2], { clipPath: 'inset(100% 0 0 0)', duration: 0.8, ease: 'power2.inOut' }, 0)
+              .to(infos[2], { autoAlpha: 0, y: 40, duration: 0.6, ease: 'power2.inOut' }, 0)
+              .to(infos[1], { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power2.out' }, 0.2);
+          } else if (index === 0 && direction === 'up') {
+            tl.to(imgs[1], { clipPath: 'inset(100% 0 0 0)', duration: 0.8, ease: 'power2.inOut' }, 0)
+              .to(infos[1], { autoAlpha: 0, y: 40, duration: 0.6, ease: 'power2.inOut' }, 0)
+              .to(infos[0], { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power2.out' }, 0.2);
+          }
+        }
+
+        if (delta > 5) {
+          if (currentSlide === 0) goToSlide(1, 'down');
+          else if (currentSlide === 1) goToSlide(2, 'down');
+          else if (currentSlide === 2) smoothScrollTo(entrenadoresSec);
+        } else if (delta < -5) {
+          if (currentSlide === 2) goToSlide(1, 'up');
+          else if (currentSlide === 1) goToSlide(0, 'up');
+          else if (currentSlide === 0) smoothScrollTo(inicioSec);
+        }
+      } else if (isAtEntrenadores && delta < -5) {
+        let entrenadoresTop = getAbsoluteOffsetTop(entrenadoresSec) - 80;
+        if (window.scrollY <= entrenadoresTop + 15) {
+          e.preventDefault();
+          smoothScrollTo(serviciosSec);
+          currentSlide = 2;
+          const infos = gsap.utils.toArray('.servicio-info');
+          const imgs = gsap.utils.toArray('.servicio-img');
+          if (infos.length >= 3 && imgs.length >= 3) {
+            gsap.set(infos[2], { autoAlpha: 1, y: 0 });
+            gsap.set(infos.slice(0, 2), { autoAlpha: 0, y: 30 });
+            gsap.set(imgs[0], { clipPath: 'inset(0% 0 0 0)' });
+            gsap.set(imgs[1], { clipPath: 'inset(0% 0 0 0)' });
+            gsap.set(imgs[2], { clipPath: 'inset(0% 0 0 0)' });
+          }
+        }
       }
-      return top;
     }
 
-    const bindScrollEvents = (element) => {
-      element.addEventListener('wheel', (e) => {
-        if (isHeroScrolling) { e.preventDefault(); return; }
-        
-        let delta = e.deltaY;
-        if (element.id === 'inicio' && delta > 5) {
-          e.preventDefault();
-          smoothScrollTo(serviciosSec);
-        } else if (element.id === 'servicios') {
-          const pinThreshold = getAbsoluteOffsetTop(serviciosSec) - 80;
-          if (window.scrollY <= pinThreshold + 5 && delta < -5) {
-            e.preventDefault();
-            smoothScrollTo(inicioSec);
-          }
-        }
-      }, { passive: false });
+    window.addEventListener('wheel', (e) => {
+      let delta = e.deltaY;
+      if (Math.abs(delta) < 5) return;
+      handleGesture(delta, e);
+    }, { passive: false });
 
-      let touchStartY = 0;
-      element.addEventListener('touchstart', (e) => {
-        touchStartY = e.touches[0].clientY;
-      }, { passive: true });
+    let touchStartY = 0;
+    window.addEventListener('touchstart', (e) => {
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
 
-      element.addEventListener('touchmove', (e) => {
-        if (isHeroScrolling) { e.preventDefault(); return; }
-        
-        let touchEndY = e.touches[0].clientY;
-        let delta = touchStartY - touchEndY;
-        
-        if (element.id === 'inicio' && delta > 5) {
-          e.preventDefault();
-          smoothScrollTo(serviciosSec);
-        } else if (element.id === 'servicios') {
-          const pinThreshold = getAbsoluteOffsetTop(serviciosSec) - 80;
-          if (window.scrollY <= pinThreshold + 5 && delta < -5) {
-            e.preventDefault();
-            smoothScrollTo(inicioSec);
-          }
-        }
-      }, { passive: false });
-    };
-
-    bindScrollEvents(inicioSec);
-    bindScrollEvents(serviciosSec);
+    window.addEventListener('touchmove', (e) => {
+      let touchEndY = e.touches[0].clientY;
+      let delta = touchStartY - touchEndY;
+      if (Math.abs(delta) < 8) return;
+      handleGesture(delta, e);
+    }, { passive: false });
 
     gsap.utils.toArray('.aspect-[3/4] img').forEach(img => {
       gsap.set(img, { scale: 1.15 });
