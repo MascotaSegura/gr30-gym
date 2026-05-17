@@ -782,8 +782,24 @@
       }
     }
 
+    function shouldPreventDefault(delta) {
+      if (isHeroScrolling || isAnimatingSlide) return true;
+      if (isAtSection(serviciosSec)) return true;
+      if (isAtSection(inicioSec) && delta > 0) return true;
+      if (isAtSection(entrenadoresSec) && delta < 0) {
+        let entrenadoresTop = getAbsoluteOffsetTop(entrenadoresSec) - 80;
+        if (window.scrollY <= entrenadoresTop + 15) {
+          return true;
+        }
+      }
+      return false;
+    }
+
     window.addEventListener('wheel', (e) => {
       let delta = e.deltaY;
+      if (shouldPreventDefault(delta)) {
+        e.preventDefault();
+      }
       if (Math.abs(delta) < 5) return;
       handleGesture(delta, e);
     }, { passive: false });
@@ -796,6 +812,9 @@
     window.addEventListener('touchmove', (e) => {
       let touchEndY = e.touches[0].clientY;
       let delta = touchStartY - touchEndY;
+      if (shouldPreventDefault(delta)) {
+        e.preventDefault();
+      }
       if (Math.abs(delta) < 8) return;
       handleGesture(delta, e);
     }, { passive: false });
