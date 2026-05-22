@@ -43,7 +43,7 @@
   </div>
 </header>
 
-<div id="mobileMenu" aria-hidden="true" class="fixed inset-0 bg-brand-black z-[55] translate-x-full flex flex-col justify-center px-8 sm:px-12">
+<div id="mobileMenu" aria-hidden="true" class="fixed inset-0 bg-brand-black z-[55] invisible flex flex-col justify-center px-8 sm:px-12">
   <nav class="flex flex-col gap-6 sm:gap-8">
     <a href="#inicio" class="mobile-link text-5xl sm:text-6xl font-display font-bold tracking-tighter text-white hover:text-brand-green active:text-brand-green transition-colors w-max">INICIO</a>
     <a href="#servicios" class="mobile-link text-5xl sm:text-6xl font-display font-bold tracking-tighter text-white hover:text-brand-green active:text-brand-green transition-colors w-max">SERVICIOS</a>
@@ -79,8 +79,8 @@
   </section>
 
   <section id="servicios" class="w-full min-h-[100svh] overflow-hidden bg-brand-white flex flex-col">
-    <div class="servicios-wrapper flex flex-1">
-      <div class="w-screen flex-shrink-0 flex flex-col lg:flex-row">
+    <div class="servicios-wrapper flex flex-col lg:flex-row flex-1">
+      <div class="w-full lg:w-screen flex-shrink-0 flex flex-col lg:flex-row">
         <div class="flex-1 lg:w-[50%] bg-brand-black flex flex-col justify-center px-6 lg:px-12 pt-[100px] pb-12 lg:pb-0 border-b-4 lg:border-b-0 lg:border-r-4 border-brand-white">
           <h2 class="text-[clamp(3.5rem,8vw,6rem)] font-display font-bold text-brand-white uppercase tracking-tighter leading-none mb-6">Zona de<br><span class="text-brand-green">Pesas.</span></h2>
           <p class="text-lg lg:text-xl font-medium text-brand-white max-w-lg">Máquinas articuladas y peso integrado de última generación para aislar cada músculo con precisión biomécanica pura.</p>
@@ -89,7 +89,7 @@
           <img src="assets/img/servicio-pesas.webp" alt="Pesas" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover object-center">
         </div>
       </div>
-      <div class="w-screen flex-shrink-0 flex flex-col lg:flex-row">
+      <div class="w-full lg:w-screen flex-shrink-0 flex flex-col lg:flex-row">
         <div class="flex-1 lg:w-[50%] bg-brand-green flex flex-col justify-center px-6 lg:px-12 pt-[100px] pb-12 lg:pb-0 border-b-4 lg:border-b-0 lg:border-r-4 border-brand-black">
           <h2 class="text-[clamp(3.5rem,8vw,6rem)] font-display font-bold text-brand-black uppercase tracking-tighter leading-none mb-6">Aérobico<br>&amp; Cardio.</h2>
           <p class="text-lg lg:text-xl font-medium text-brand-black max-w-lg">Cintas de correr, elípticas y escaladoras industriales para llevar tu resistencia cardiovascular al extremo absoluto.</p>
@@ -98,7 +98,7 @@
           <img src="assets/img/servicio-cardio.webp" alt="Cardio" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover object-center">
         </div>
       </div>
-      <div class="w-screen flex-shrink-0 flex flex-col lg:flex-row">
+      <div class="w-full lg:w-screen flex-shrink-0 flex flex-col lg:flex-row">
         <div class="flex-1 lg:w-[50%] bg-brand-white flex flex-col justify-center px-6 lg:px-12 pt-[100px] pb-12 lg:pb-0 border-b-4 lg:border-b-0 lg:border-r-4 border-brand-black">
           <h2 class="text-[clamp(3.5rem,8vw,6rem)] font-display font-bold text-brand-black uppercase tracking-tighter leading-none mb-6">Peso Libre<br><span class="bg-brand-green text-brand-black px-2 -ml-2 inline-block mt-2">&amp; Funcional.</span></h2>
           <p class="text-lg lg:text-xl font-medium text-brand-black max-w-lg">Racks de potencia, plataformas olímpicas y equipo táctico. Sin restricciones de espacio ni de peso.</p>
@@ -292,8 +292,9 @@
   const mobileLinks = document.querySelectorAll('.mobile-link');
   let menuOpen = false;
 
+  gsap.set(mobileMenu, { xPercent: 100, autoAlpha: 1 });
   const tlMenu = gsap.timeline({ paused: true, defaults: { ease: "power4.inOut" } });
-  tlMenu.to(mobileMenu, { x: 0, duration: 0.5 })
+  tlMenu.to(mobileMenu, { xPercent: 0, duration: 0.5 })
         .fromTo(mobileLinks, { x: -30, autoAlpha: 0 }, { x: 0, autoAlpha: 1, stagger: 0.05, duration: 0.4 }, "-=0.3");
 
   function toggleMenu() {
@@ -342,17 +343,20 @@
 
   const servContainer = document.querySelector(".servicios-wrapper");
   if (servContainer) {
-    ScrollTrigger.create({
-      trigger: "#servicios",
-      start: "top top",
-      end: () => `+=${servContainer.scrollWidth - window.innerWidth}`,
-      pin: true,
-      animation: gsap.to(servContainer, {
-        x: () => -(servContainer.scrollWidth - window.innerWidth),
-        ease: "none"
-      }),
-      scrub: 0.5,
-      invalidateOnRefresh: true
+    let mm = gsap.matchMedia();
+    mm.add("(min-width: 1024px)", () => {
+      ScrollTrigger.create({
+        trigger: "#servicios",
+        start: "top top",
+        end: () => `+=${servContainer.scrollWidth - window.innerWidth}`,
+        pin: true,
+        animation: gsap.to(servContainer, {
+          x: () => -(servContainer.scrollWidth - window.innerWidth),
+          ease: "none"
+        }),
+        scrub: 0.5,
+        invalidateOnRefresh: true
+      });
     });
   }
 
