@@ -17,10 +17,10 @@
 
 <header class="fixed top-0 left-0 w-full bg-brand-white z-[60] flex items-center justify-between px-6 lg:px-12 py-5" id="mainHeader">
   <a href="#inicio" class="text-3xl font-display font-bold tracking-tighter uppercase flex items-center gap-3 group" aria-label="Inicio">
-    <div class="w-10 h-10 bg-brand-green flex items-center justify-center text-brand-black transition-colors group-hover:bg-brand-black group-hover:text-white">
+    <div class="w-10 h-10 bg-brand-green flex items-center justify-center text-brand-black transition-colors group-hover:bg-brand-black group-hover:text-white group-active:bg-brand-black group-active:text-white">
       <span class="text-2xl leading-none">G</span>
     </div>
-    <span class="text-brand-black">GR30<span class="text-brand-green group-hover:text-brand-black transition-colors">.</span></span>
+    <span class="text-brand-black">GR30<span class="text-brand-green group-hover:text-brand-black group-active:text-brand-black transition-colors">.</span></span>
   </a>
 
   <nav class="hidden lg:flex items-center gap-8 xl:gap-12">
@@ -31,25 +31,25 @@
   </nav>
 
   <div class="flex items-center gap-6">
-    <a href="#contacto" class="hidden sm:inline-block bg-brand-green text-brand-black font-display font-bold text-xs xl:text-sm tracking-widest uppercase px-6 xl:px-8 py-3.5 hover:bg-brand-black hover:text-white transition-colors">
+    <a href="#contacto" class="hidden sm:inline-block bg-brand-green text-brand-black font-display font-bold text-xs xl:text-sm tracking-widest uppercase px-6 xl:px-8 py-3.5 hover:bg-brand-black hover:text-white active:bg-brand-black active:text-white transition-colors">
       Únete Ahora
     </a>
     
-    <button id="menuBtn" aria-label="Abrir menú" aria-expanded="false" class="lg:hidden w-12 h-12 flex flex-col items-center justify-center gap-[6px] bg-brand-black text-white hover:bg-brand-green hover:text-brand-black transition-colors z-[60]">
-      <div class="w-6 h-[2px] bg-current transition-transform origin-center" id="bar1"></div>
-      <div class="w-6 h-[2px] bg-current transition-transform origin-center" id="bar2"></div>
-      <div class="w-6 h-[2px] bg-current transition-transform origin-center" id="bar3"></div>
+    <button id="menuBtn" aria-label="Abrir menú" aria-expanded="false" class="lg:hidden w-12 h-12 flex flex-col items-center justify-center gap-[6px] bg-brand-black text-white hover:bg-brand-green hover:text-brand-black active:bg-brand-green active:text-brand-black transition-colors z-[60]">
+      <div class="w-6 h-[2px] bg-current origin-center" id="bar1"></div>
+      <div class="w-6 h-[2px] bg-current origin-center" id="bar2"></div>
+      <div class="w-6 h-[2px] bg-current origin-center" id="bar3"></div>
     </button>
   </div>
 </header>
 
 <div id="mobileMenu" aria-hidden="true" class="fixed inset-0 bg-brand-black z-[55] translate-x-full flex flex-col justify-center px-8 sm:px-12">
   <nav class="flex flex-col gap-6 sm:gap-8">
-    <a href="#inicio" class="mobile-link text-5xl sm:text-6xl font-display font-bold tracking-tighter text-white hover:text-brand-green transition-colors w-max">INICIO</a>
-    <a href="#servicios" class="mobile-link text-5xl sm:text-6xl font-display font-bold tracking-tighter text-white hover:text-brand-green transition-colors w-max">SERVICIOS</a>
-    <a href="#entrenadores" class="mobile-link text-5xl sm:text-6xl font-display font-bold tracking-tighter text-white hover:text-brand-green transition-colors w-max">STAFF</a>
-    <a href="#resenas" class="mobile-link text-5xl sm:text-6xl font-display font-bold tracking-tighter text-white hover:text-brand-green transition-colors w-max">RESEÑAS</a>
-    <a href="#contacto" class="mobile-link text-5xl sm:text-6xl font-display font-bold tracking-tighter text-brand-green hover:text-white transition-colors mt-6 sm:mt-8 w-max">CONTACTO</a>
+    <a href="#inicio" class="mobile-link text-5xl sm:text-6xl font-display font-bold tracking-tighter text-white hover:text-brand-green active:text-brand-green transition-colors w-max">INICIO</a>
+    <a href="#servicios" class="mobile-link text-5xl sm:text-6xl font-display font-bold tracking-tighter text-white hover:text-brand-green active:text-brand-green transition-colors w-max">SERVICIOS</a>
+    <a href="#entrenadores" class="mobile-link text-5xl sm:text-6xl font-display font-bold tracking-tighter text-white hover:text-brand-green active:text-brand-green transition-colors w-max">STAFF</a>
+    <a href="#resenas" class="mobile-link text-5xl sm:text-6xl font-display font-bold tracking-tighter text-white hover:text-brand-green active:text-brand-green transition-colors w-max">RESEÑAS</a>
+    <a href="#contacto" class="mobile-link text-5xl sm:text-6xl font-display font-bold tracking-tighter text-brand-green hover:text-white active:text-white transition-colors mt-6 sm:mt-8 w-max">CONTACTO</a>
   </nav>
 </div>
 
@@ -65,7 +65,7 @@
       <p class="max-w-xl text-[clamp(0.875rem,2vw,1.125rem)] font-medium text-brand-black leading-snug lg:leading-relaxed mb-6 lg:mb-10">
         Instalaciones de nivel competitivo. Peso libre, HIIT y cardio. Entrena como un atleta, no como un cliente más.
       </p>
-      <a href="#servicios" class="inline-flex bg-brand-black text-white px-8 py-5 font-display font-bold uppercase tracking-widest text-sm hover:bg-brand-green hover:text-brand-black transition-colors w-max">
+      <a href="#servicios" class="inline-flex bg-brand-black text-white px-8 py-5 font-display font-bold uppercase tracking-widest text-sm hover:bg-brand-green hover:text-brand-black active:bg-brand-green active:text-brand-black transition-colors w-max">
         Ver Instalaciones
       </a>
     </div>
@@ -100,7 +100,7 @@
       </div>
       <div class="w-screen flex-shrink-0 flex flex-col lg:flex-row">
         <div class="flex-1 lg:w-[50%] bg-brand-white flex flex-col justify-center px-6 lg:px-12 pt-[100px] lg:pt-[120px] pb-12 lg:pb-0 border-b-4 lg:border-b-0 lg:border-r-4 border-brand-black">
-          <h2 class="text-[clamp(3.5rem,8vw,6rem)] font-display font-bold text-brand-black uppercase tracking-tighter leading-none mb-6">Peso Libre<br><span class="bg-brand-green text-brand-black px-2 inline-block mt-2">& Funcional.</span></h2>
+          <h2 class="text-[clamp(3.5rem,8vw,6rem)] font-display font-bold text-brand-black uppercase tracking-tighter leading-none mb-6">Peso Libre<br><span class="bg-brand-green text-brand-black px-2 -ml-2 inline-block mt-2">& Funcional.</span></h2>
           <p class="text-lg lg:text-xl font-medium text-brand-black max-w-lg">Racks de potencia, plataformas olímpicas y equipo táctico. Sin restricciones de espacio ni de peso.</p>
         </div>
         <div class="flex-1 lg:w-[50%] bg-brand-black relative min-h-[40svh] lg:min-h-0">
@@ -155,7 +155,7 @@
         <div class="marquee-group flex gap-8 pr-8 items-center">
           <div class="w-[300px] sm:w-[450px] bg-brand-white p-8 sm:p-12 border-4 border-brand-black flex-shrink-0 whitespace-normal">
             <p class="text-brand-black font-display font-bold text-xl sm:text-2xl leading-tight">"El mejor ambiente, el equipo no falla. Puro entrenamiento serio."</p>
-            <p class="mt-6 bg-brand-black text-white px-2 py-1 inline-block font-bold tracking-widest uppercase text-sm">— Mario C.</p>
+            <p class="mt-6 bg-brand-black text-white px-2 py-1 inline-block font-bold tracking-widest uppercase text-sm -ml-2">— Mario C.</p>
           </div>
           <div class="w-[300px] sm:w-[450px] bg-brand-black p-8 sm:p-12 border-4 border-brand-black flex-shrink-0 whitespace-normal">
             <p class="text-brand-white font-display font-bold text-xl sm:text-2xl leading-tight">"Entrenadores de verdad que te corrigen y te exigen."</p>
@@ -163,7 +163,7 @@
           </div>
           <div class="w-[300px] sm:w-[450px] bg-brand-white p-8 sm:p-12 border-4 border-brand-black flex-shrink-0 whitespace-normal">
             <p class="text-brand-black font-display font-bold text-xl sm:text-2xl leading-tight">"Máquinas limpias y peso suficiente. No tienes que hacer fila."</p>
-            <p class="mt-6 bg-brand-black text-white px-2 py-1 inline-block font-bold tracking-widest uppercase text-sm">— David V.</p>
+            <p class="mt-6 bg-brand-black text-white px-2 py-1 inline-block font-bold tracking-widest uppercase text-sm -ml-2">— David V.</p>
           </div>
           <div class="w-[300px] sm:w-[450px] bg-brand-black p-8 sm:p-12 border-4 border-brand-black flex-shrink-0 whitespace-normal">
             <p class="text-brand-white font-display font-bold text-xl sm:text-2xl leading-tight">"Desde que entré a GR30 mis levantamientos se han duplicado."</p>
@@ -177,40 +177,40 @@
   <section id="planes" class="w-full bg-brand-white py-24 px-6 lg:px-12 text-brand-black">
     <h2 class="text-[clamp(4rem,10vw,8rem)] font-display font-bold uppercase leading-none mb-16 tracking-tighter">Planes.</h2>
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-      <div class="border-4 border-brand-black p-8 sm:p-12 flex flex-col justify-between hover:bg-brand-black hover:text-brand-white transition-colors group">
+      <div tabindex="0" class="border-4 border-brand-black p-8 sm:p-12 flex flex-col justify-between hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white active:bg-brand-black active:text-brand-white transition-colors group cursor-pointer">
         <div>
           <h3 class="text-3xl font-display font-bold uppercase mb-2">Visita Diaria</h3>
-          <p class="text-6xl font-display font-bold mb-10 bg-brand-green text-brand-black inline-block px-3 py-1 tracking-tighter">$70<span class="text-2xl text-current tracking-normal">mxn</span></p>
+          <p class="text-6xl font-display font-bold mb-10 bg-brand-green text-brand-black inline-block px-3 py-1 tracking-tighter -ml-3">$70<span class="text-2xl text-current tracking-normal">mxn</span></p>
           <ul class="space-y-6 font-medium mb-16 text-lg">
-            <li class="flex gap-4 items-start"><span class="text-brand-black group-hover:text-brand-white font-bold">■</span> Acceso total a pesas y cardio</li>
-            <li class="flex gap-4 items-start"><span class="text-brand-black group-hover:text-brand-white font-bold">■</span> Uso de regaderas</li>
+            <li class="flex gap-4 items-start"><span class="text-brand-black group-hover:text-brand-white group-focus:text-brand-white group-active:text-brand-white font-bold">■</span> Acceso total a pesas y cardio</li>
+            <li class="flex gap-4 items-start"><span class="text-brand-black group-hover:text-brand-white group-focus:text-brand-white group-active:text-brand-white font-bold">■</span> Uso de regaderas</li>
           </ul>
         </div>
-        <a href="#contacto" class="w-full py-5 text-center bg-brand-black text-brand-white group-hover:bg-brand-white group-hover:text-brand-black hover:!bg-brand-green hover:!text-brand-black font-display font-bold uppercase tracking-widest text-sm transition-colors">Elegir Plan</a>
+        <a href="#contacto" class="w-full py-5 text-center bg-brand-black text-brand-white group-hover:bg-brand-white group-hover:text-brand-black group-focus:bg-brand-white group-focus:text-brand-black group-active:bg-brand-white group-active:text-brand-black hover:!bg-brand-green hover:!text-brand-black active:!bg-brand-green active:!text-brand-black transition-colors font-display font-bold uppercase tracking-widest text-sm">Elegir Plan</a>
       </div>
-      <div class="border-4 border-brand-black bg-brand-green text-brand-black p-8 sm:p-12 flex flex-col justify-between hover:bg-brand-black hover:text-brand-white transition-colors group">
+      <div tabindex="0" class="border-4 border-brand-black bg-brand-green text-brand-black p-8 sm:p-12 flex flex-col justify-between hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white active:bg-brand-black active:text-brand-white transition-colors group cursor-pointer">
         <div>
           <h3 class="text-3xl font-display font-bold uppercase mb-2">Mensual</h3>
-          <p class="text-6xl font-display font-bold mb-10 text-brand-black group-hover:text-brand-green tracking-tighter">$450<span class="text-2xl text-current tracking-normal">mxn</span></p>
+          <p class="text-6xl font-display font-bold mb-10 text-brand-black group-hover:text-brand-green group-focus:text-brand-green group-active:text-brand-green tracking-tighter">$450<span class="text-2xl text-current tracking-normal">mxn</span></p>
           <ul class="space-y-6 font-medium mb-16 text-lg">
-            <li class="flex gap-4 items-start"><span class="text-brand-black group-hover:text-brand-green font-bold">■</span> Acceso 100% ilimitado</li>
-            <li class="flex gap-4 items-start"><span class="text-brand-black group-hover:text-brand-green font-bold">■</span> Asesoría en rutina básica</li>
-            <li class="flex gap-4 items-start"><span class="text-brand-black group-hover:text-brand-green font-bold">■</span> Clases de Zumba incluidas</li>
+            <li class="flex gap-4 items-start"><span class="text-brand-black group-hover:text-brand-green group-focus:text-brand-green group-active:text-brand-green font-bold">■</span> Acceso 100% ilimitado</li>
+            <li class="flex gap-4 items-start"><span class="text-brand-black group-hover:text-brand-green group-focus:text-brand-green group-active:text-brand-green font-bold">■</span> Asesoría en rutina básica</li>
+            <li class="flex gap-4 items-start"><span class="text-brand-black group-hover:text-brand-green group-focus:text-brand-green group-active:text-brand-green font-bold">■</span> Clases de Zumba incluidas</li>
           </ul>
         </div>
-        <a href="#contacto" class="w-full py-5 text-center bg-brand-black text-brand-white group-hover:bg-brand-white group-hover:text-brand-black hover:!bg-brand-green hover:!text-brand-black font-display font-bold uppercase tracking-widest text-sm transition-colors">Elegir Plan</a>
+        <a href="#contacto" class="w-full py-5 text-center bg-brand-black text-brand-white group-hover:bg-brand-white group-hover:text-brand-black group-focus:bg-brand-white group-focus:text-brand-black group-active:bg-brand-white group-active:text-brand-black hover:!bg-brand-green hover:!text-brand-black active:!bg-brand-green active:!text-brand-black transition-colors font-display font-bold uppercase tracking-widest text-sm">Elegir Plan</a>
       </div>
-      <div class="border-4 border-brand-black p-8 sm:p-12 flex flex-col justify-between hover:bg-brand-black hover:text-brand-white transition-colors group">
+      <div tabindex="0" class="border-4 border-brand-black p-8 sm:p-12 flex flex-col justify-between hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white active:bg-brand-black active:text-brand-white transition-colors group cursor-pointer">
         <div>
           <h3 class="text-3xl font-display font-bold uppercase mb-2">Anual</h3>
-          <p class="text-6xl font-display font-bold mb-10 bg-brand-green text-brand-black inline-block px-3 py-1 tracking-tighter">$4,500<span class="text-2xl text-current tracking-normal">mxn</span></p>
+          <p class="text-6xl font-display font-bold mb-10 bg-brand-green text-brand-black inline-block px-3 py-1 tracking-tighter -ml-3">$4,500<span class="text-2xl text-current tracking-normal">mxn</span></p>
           <ul class="space-y-6 font-medium mb-16 text-lg">
-            <li class="flex gap-4 items-start"><span class="text-brand-black group-hover:text-brand-white font-bold">■</span> Todos los beneficios mensuales</li>
-            <li class="flex gap-4 items-start"><span class="text-brand-black group-hover:text-brand-white font-bold">■</span> Ahorras 2 meses completos</li>
-            <li class="flex gap-4 items-start"><span class="text-brand-black group-hover:text-brand-white font-bold">■</span> Congelamiento de tarifa</li>
+            <li class="flex gap-4 items-start"><span class="text-brand-black group-hover:text-brand-white group-focus:text-brand-white group-active:text-brand-white font-bold">■</span> Todos los beneficios mensuales</li>
+            <li class="flex gap-4 items-start"><span class="text-brand-black group-hover:text-brand-white group-focus:text-brand-white group-active:text-brand-white font-bold">■</span> Ahorras 2 meses completos</li>
+            <li class="flex gap-4 items-start"><span class="text-brand-black group-hover:text-brand-white group-focus:text-brand-white group-active:text-brand-white font-bold">■</span> Congelamiento de tarifa</li>
           </ul>
         </div>
-        <a href="#contacto" class="w-full py-5 text-center bg-brand-black text-brand-white group-hover:bg-brand-white group-hover:text-brand-black hover:!bg-brand-green hover:!text-brand-black font-display font-bold uppercase tracking-widest text-sm transition-colors">Elegir Plan</a>
+        <a href="#contacto" class="w-full py-5 text-center bg-brand-black text-brand-white group-hover:bg-brand-white group-hover:text-brand-black group-focus:bg-brand-white group-focus:text-brand-black group-active:bg-brand-white group-active:text-brand-black hover:!bg-brand-green hover:!text-brand-black active:!bg-brand-green active:!text-brand-black transition-colors font-display font-bold uppercase tracking-widest text-sm">Elegir Plan</a>
       </div>
     </div>
   </section>
@@ -247,7 +247,7 @@
             <label for="telefono" class="sr-only">Tu Teléfono</label>
             <input type="tel" id="telefono" aria-label="Tu Teléfono" placeholder="Tu Teléfono" class="w-full bg-transparent border-b-4 border-brand-black py-4 text-2xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green focus:px-4 text-brand-black placeholder-brand-black/50 placeholder:uppercase transition-all" required>
           </div>
-          <button type="submit" class="w-full bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest py-6 mt-4 hover:bg-brand-green hover:text-brand-black transition-colors text-lg">
+          <button type="submit" class="w-full bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest py-6 mt-4 hover:bg-brand-green hover:text-brand-black active:bg-brand-green active:text-brand-black transition-colors text-lg">
             Enviar Solicitud
           </button>
         </form>
@@ -256,10 +256,10 @@
     
     <footer class="border-t-4 border-brand-green pt-12 flex flex-col md:flex-row justify-between items-center gap-8">
       <a href="#inicio" class="text-4xl font-display font-bold tracking-tighter uppercase flex items-center gap-3 group" aria-label="Inicio">
-        <div class="w-12 h-12 bg-brand-green flex items-center justify-center text-brand-black transition-colors group-hover:bg-brand-white group-hover:text-brand-black">
+        <div class="w-12 h-12 bg-brand-green flex items-center justify-center text-brand-black transition-colors group-hover:bg-brand-white group-hover:text-brand-black group-active:bg-brand-white group-active:text-brand-black">
           <span class="text-3xl leading-none">G</span>
         </div>
-        <span class="text-brand-white">GR30<span class="text-brand-green transition-colors group-hover:text-brand-white">.</span></span>
+        <span class="text-brand-white">GR30<span class="text-brand-green transition-colors group-hover:text-brand-white group-active:text-brand-white">.</span></span>
       </a>
       <p class="font-bold text-brand-white uppercase tracking-widest text-xs lg:text-sm text-center md:text-right">
         © 2024 GR30 Gimnasio.<br class="md:hidden"> Todos los derechos reservados.
@@ -302,9 +302,9 @@
     if (menuOpen) {
       mobileMenu.setAttribute('aria-hidden', 'false');
       document.querySelector('main').setAttribute('inert', '');
-      gsap.to(b1, { y: 7, rotation: 45, duration: 0.3, ease: "power2.inOut" });
+      gsap.to(b1, { y: 8, rotation: 45, duration: 0.3, ease: "power2.inOut" });
       gsap.to(b2, { autoAlpha: 0, duration: 0.3 });
-      gsap.to(b3, { y: -7, rotation: -45, duration: 0.3, ease: "power2.inOut" });
+      gsap.to(b3, { y: -8, rotation: -45, duration: 0.3, ease: "power2.inOut" });
       tlMenu.play();
       document.body.style.overflow = 'hidden';
     } else {
