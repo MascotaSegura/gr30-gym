@@ -24,10 +24,10 @@
   </a>
 
   <nav class="hidden lg:flex items-center gap-8 xl:gap-12">
-    <a href="#inicio" class="font-display font-bold text-sm tracking-[0.2em] uppercase text-brand-black hover:underline decoration-4 decoration-brand-green underline-offset-4 transition-colors">Inicio</a>
-    <a href="#servicios" class="font-display font-bold text-sm tracking-[0.2em] uppercase text-brand-black hover:underline decoration-4 decoration-brand-green underline-offset-4 transition-colors">Servicios</a>
-    <a href="#entrenadores" class="font-display font-bold text-sm tracking-[0.2em] uppercase text-brand-black hover:underline decoration-4 decoration-brand-green underline-offset-4 transition-colors">Entrenadores</a>
-    <a href="#resenas" class="font-display font-bold text-sm tracking-[0.2em] uppercase text-brand-black hover:underline decoration-4 decoration-brand-green underline-offset-4 transition-colors">Reseñas</a>
+    <a href="#inicio" class="font-display font-bold text-sm tracking-[0.2em] uppercase text-brand-black hover:underline decoration-4 decoration-brand-green underline-offset-4">Inicio</a>
+    <a href="#servicios" class="font-display font-bold text-sm tracking-[0.2em] uppercase text-brand-black hover:underline decoration-4 decoration-brand-green underline-offset-4">Servicios</a>
+    <a href="#entrenadores" class="font-display font-bold text-sm tracking-[0.2em] uppercase text-brand-black hover:underline decoration-4 decoration-brand-green underline-offset-4">Entrenadores</a>
+    <a href="#resenas" class="font-display font-bold text-sm tracking-[0.2em] uppercase text-brand-black hover:underline decoration-4 decoration-brand-green underline-offset-4">Reseñas</a>
   </nav>
 
   <div class="flex items-center gap-6">
@@ -78,9 +78,9 @@
     </div>
   </section>
 
-  <section id="servicios" class="w-full min-h-[100svh] overflow-hidden bg-brand-white flex flex-col">
-    <div class="servicios-wrapper flex flex-1">
-      <div class="w-screen flex-shrink-0 flex flex-col lg:flex-row">
+  <section id="servicios" class="w-full lg:min-h-[100svh] lg:overflow-hidden bg-brand-white flex flex-col">
+    <div class="servicios-wrapper flex flex-col lg:flex-row w-full lg:w-max">
+      <div class="w-full lg:w-screen flex-shrink-0 flex flex-col lg:flex-row">
         <div class="flex-1 lg:w-[50%] bg-brand-black flex flex-col justify-center px-6 lg:px-12 pt-[100px] lg:pt-[120px] pb-12 lg:pb-0 border-b-4 lg:border-b-0 lg:border-r-4 border-brand-white">
           <h2 class="text-[clamp(3.5rem,8vw,6rem)] font-display font-bold text-brand-white uppercase tracking-tighter leading-none mb-6">Zona de<br><span class="text-brand-green">Pesas.</span></h2>
           <p class="text-lg lg:text-xl font-medium text-brand-white max-w-lg">Máquinas articuladas y peso integrado de última generación para aislar cada músculo con precisión biomecánica pura.</p>
@@ -89,8 +89,8 @@
           <img src="assets/img/servicio-pesas.webp" alt="Pesas" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover object-center">
         </div>
       </div>
-      <div class="w-screen flex-shrink-0 flex flex-col lg:flex-row">
-        <div class="flex-1 lg:w-[50%] bg-brand-green flex flex-col justify-center px-6 lg:px-12 pt-[100px] lg:pt-[120px] pb-12 lg:pb-0 border-b-4 lg:border-b-0 lg:border-r-4 border-brand-black">
+      <div class="w-full lg:w-screen flex-shrink-0 flex flex-col lg:flex-row">
+        <div class="flex-1 lg:w-[50%] bg-brand-green flex flex-col justify-center px-6 lg:px-12 pt-12 lg:pt-[120px] pb-12 lg:pb-0 border-b-4 lg:border-b-0 lg:border-r-4 border-brand-black">
           <h2 class="text-[clamp(3.5rem,8vw,6rem)] font-display font-bold text-brand-black uppercase tracking-tighter leading-none mb-6">Aérobico<br>& Cardio.</h2>
           <p class="text-lg lg:text-xl font-medium text-brand-black max-w-lg">Cintas de correr, elípticas y escaladoras industriales para llevar tu resistencia cardiovascular al extremo absoluto.</p>
         </div>
@@ -98,8 +98,8 @@
           <img src="assets/img/servicio-cardio.webp" alt="Cardio" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover object-center">
         </div>
       </div>
-      <div class="w-screen flex-shrink-0 flex flex-col lg:flex-row">
-        <div class="flex-1 lg:w-[50%] bg-brand-white flex flex-col justify-center px-6 lg:px-12 pt-[100px] lg:pt-[120px] pb-12 lg:pb-0 border-b-4 lg:border-b-0 lg:border-r-4 border-brand-black">
+      <div class="w-full lg:w-screen flex-shrink-0 flex flex-col lg:flex-row">
+        <div class="flex-1 lg:w-[50%] bg-brand-white flex flex-col justify-center px-6 lg:px-12 pt-12 lg:pt-[120px] pb-12 lg:pb-0 border-b-4 lg:border-b-0 lg:border-r-4 border-brand-black">
           <h2 class="text-[clamp(3.5rem,8vw,6rem)] font-display font-bold text-brand-black uppercase tracking-tighter leading-none mb-6">Peso Libre<br><span class="bg-brand-green text-brand-black px-2 -ml-2 inline-block mt-2">& Funcional.</span></h2>
           <p class="text-lg lg:text-xl font-medium text-brand-black max-w-lg">Racks de potencia, plataformas olímpicas y equipo táctico. Sin restricciones de espacio ni de peso.</p>
         </div>
@@ -342,17 +342,20 @@
 
   const servContainer = document.querySelector(".servicios-wrapper");
   if (servContainer) {
-    ScrollTrigger.create({
-      trigger: "#servicios",
-      start: "top top",
-      end: () => `+=${servContainer.scrollWidth - window.innerWidth}`,
-      pin: true,
-      animation: gsap.to(servContainer, {
-        x: () => -(servContainer.scrollWidth - window.innerWidth),
-        ease: "none"
-      }),
-      scrub: 0.5,
-      invalidateOnRefresh: true
+    let mm = gsap.matchMedia();
+    mm.add("(min-width: 1024px)", () => {
+      ScrollTrigger.create({
+        trigger: "#servicios",
+        start: "top top",
+        end: () => `+=${servContainer.scrollWidth - window.innerWidth}`,
+        pin: true,
+        animation: gsap.to(servContainer, {
+          x: () => -(servContainer.scrollWidth - window.innerWidth),
+          ease: "none"
+        }),
+        scrub: 0.5,
+        invalidateOnRefresh: true
+      });
     });
   }
 
