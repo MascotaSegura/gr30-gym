@@ -31,11 +31,11 @@
   </nav>
 
   <div class="flex items-center gap-6">
-    <a href="#contacto" class="hidden sm:inline-block bg-brand-green text-brand-black font-display font-bold text-xs xl:text-sm tracking-widest uppercase px-6 xl:px-8 py-3.5 hover:bg-brand-black hover:text-white active:bg-brand-black active:text-white transition-colors">
+    <a href="#contacto" class="hidden sm:inline-block bg-brand-green text-brand-black font-display font-bold text-xs xl:text-sm tracking-widest uppercase px-6 xl:px-8 py-3.5 hover:bg-brand-black hover:text-white focus:bg-brand-black focus:text-white focus:outline-none active:bg-brand-black active:text-white transition-colors">
       Únete Ahora
     </a>
     
-    <button id="menuBtn" aria-label="Abrir menú" aria-expanded="false" class="lg:hidden w-12 h-12 flex flex-col items-center justify-center gap-[6px] bg-brand-black text-white hover:bg-brand-green hover:text-brand-black active:bg-brand-green active:text-brand-black transition-colors z-[60]">
+    <button id="menuBtn" aria-label="Abrir menú" aria-expanded="false" class="lg:hidden w-12 h-12 flex flex-col items-center justify-center gap-[6px] bg-brand-black text-white hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors z-[60]">
       <div class="w-6 h-[2px] bg-current origin-center" id="bar1"></div>
       <div class="w-6 h-[2px] bg-current origin-center" id="bar2"></div>
       <div class="w-6 h-[2px] bg-current origin-center" id="bar3"></div>
@@ -65,7 +65,7 @@
       <p class="max-w-xl text-[clamp(0.875rem,2vw,1.125rem)] font-medium text-brand-black leading-snug lg:leading-relaxed mb-6 lg:mb-10">
         Instalaciones de nivel competitivo. Peso libre, HIIT y cardio. Entrena como un atleta, no como un cliente más.
       </p>
-      <a href="#servicios" class="inline-flex bg-brand-black text-white px-8 py-5 font-display font-bold uppercase tracking-widest text-sm hover:bg-brand-green hover:text-brand-black active:bg-brand-green active:text-brand-black transition-colors w-max">
+      <a href="#servicios" class="inline-flex bg-brand-black text-white px-8 py-5 font-display font-bold uppercase tracking-widest text-sm hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors w-max">
         Ver Instalaciones
       </a>
     </div>
@@ -215,8 +215,8 @@
     </div>
   </section>
 
-  <section id="contacto" class="w-full bg-brand-black text-brand-white pt-24 px-6 lg:px-12 pb-12">
-    <div class="flex flex-col xl:flex-row gap-16 xl:gap-24 mb-24">
+  <section id="contacto" class="w-full bg-brand-black text-brand-white pt-24 px-6 lg:px-12 pb-24">
+    <div class="flex flex-col xl:flex-row gap-16 xl:gap-24">
       <div class="flex-1">
         <h2 class="text-[clamp(4rem,10vw,8rem)] font-display font-bold uppercase leading-none mb-8 tracking-tighter text-brand-green">Únete.</h2>
         <p class="text-xl lg:text-2xl font-medium text-brand-white mb-12 max-w-lg leading-snug">
@@ -247,25 +247,25 @@
             <label for="telefono" class="sr-only">Tu Teléfono</label>
             <input type="tel" id="telefono" aria-label="Tu Teléfono" placeholder="Tu Teléfono" class="w-full bg-transparent border-b-4 border-brand-black py-4 text-2xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green focus:px-4 text-brand-black placeholder-brand-black/50 placeholder:uppercase transition-all" required>
           </div>
-          <button type="submit" class="w-full bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest py-6 mt-4 hover:bg-brand-green hover:text-brand-black active:bg-brand-green active:text-brand-black transition-colors text-lg">
+          <button type="submit" class="w-full bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest py-6 mt-4 hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors text-lg">
             Enviar Solicitud
           </button>
         </form>
       </div>
     </div>
-    
-    <footer class="border-t-4 border-brand-green pt-12 flex flex-col md:flex-row justify-between items-center gap-8">
-      <a href="#inicio" class="text-4xl font-display font-bold tracking-tighter uppercase flex items-center gap-3 group" aria-label="Inicio">
-        <div class="w-12 h-12 bg-brand-green flex items-center justify-center text-brand-black transition-colors group-hover:bg-brand-white group-hover:text-brand-black group-active:bg-brand-white group-active:text-brand-black">
-          <span class="text-3xl leading-none">G</span>
-        </div>
-        <span class="text-brand-white">GR30<span class="text-brand-green transition-colors group-hover:text-brand-white group-active:text-brand-white">.</span></span>
-      </a>
-      <p class="font-bold text-brand-white uppercase tracking-widest text-xs lg:text-sm text-center md:text-right">
-        © 2024 GR30 Gimnasio.<br class="md:hidden"> Todos los derechos reservados.
-      </p>
-    </footer>
   </section>
+    
+  <footer class="w-full bg-brand-black text-brand-white border-t-4 border-brand-green pt-12 pb-12 px-6 lg:px-12 flex flex-col md:flex-row justify-between items-center gap-8">
+    <a href="#inicio" class="text-4xl font-display font-bold tracking-tighter uppercase flex items-center gap-3 group focus:outline-none" aria-label="Inicio">
+      <div class="w-12 h-12 bg-brand-green flex items-center justify-center text-brand-black transition-colors group-hover:bg-brand-white group-hover:text-brand-black group-focus:bg-brand-white group-focus:text-brand-black group-active:bg-brand-white group-active:text-brand-black">
+        <span class="text-3xl leading-none">G</span>
+      </div>
+      <span class="text-brand-white">GR30<span class="text-brand-green transition-colors group-hover:text-brand-white group-focus:text-brand-white group-active:text-brand-white">.</span></span>
+    </a>
+    <p class="font-bold text-brand-white uppercase tracking-widest text-xs lg:text-sm text-center md:text-right">
+      © 2024 GR30 Gimnasio.<br class="md:hidden"> Todos los derechos reservados.
+    </p>
+  </footer>
 </main>
 
 <script>
