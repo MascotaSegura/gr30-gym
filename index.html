@@ -8,65 +8,26 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        fontFamily: {
-          sans: ['Inter', 'sans-serif'],
-          display: ['Space Grotesk', 'sans-serif'],
-        },
-        colors: {
-          brand: {
-            black: '#0f172a',
-            white: '#ffffff',
-            green: '#22c55e'
-          }
-        }
-      }
-    }
-  }
-</script>
+<link rel="stylesheet" href="assets/css/style.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
-<style>
-  html { scroll-behavior: smooth; }
-  body { background-color: #ffffff; color: #0f172a; overflow-x: hidden; }
-  
-  * {
-    box-shadow: none !important;
-    border-radius: 0 !important;
-  }
-  
-  a:focus-visible, button:focus-visible {
-    outline: 4px solid #22c55e !important; 
-    outline-offset: 2px !important;
-  }
-  input:focus-visible {
-    outline: none !important;
-  }
-
-</style>
 </head>
 <body class="font-sans antialiased selection:bg-brand-green selection:text-brand-black">
 
 <header class="fixed top-0 left-0 w-full bg-brand-white z-[60] flex items-center justify-between px-6 lg:px-12 py-5" id="mainHeader">
-  <div class="flex items-center">
-    <a href="#inicio" class="text-3xl font-display font-bold tracking-tighter uppercase flex items-center gap-3 group" aria-label="Inicio">
-      <div class="w-10 h-10 bg-brand-green flex items-center justify-center text-brand-black transition-colors group-hover:bg-brand-black group-hover:text-white">
-        <span class="text-2xl leading-none">G</span>
-      </div>
-      <span class="text-brand-black">GR30<span class="text-brand-green group-hover:text-brand-black transition-colors">.</span></span>
-    </a>
-  </div>
+  <a href="#inicio" class="text-3xl font-display font-bold tracking-tighter uppercase flex items-center gap-3 group" aria-label="Inicio">
+    <div class="w-10 h-10 bg-brand-green flex items-center justify-center text-brand-black transition-colors group-hover:bg-brand-black group-hover:text-white">
+      <span class="text-2xl leading-none">G</span>
+    </div>
+    <span class="text-brand-black">GR30<span class="text-brand-green group-hover:text-brand-black transition-colors">.</span></span>
+  </a>
 
   <nav class="hidden lg:flex items-center gap-8 xl:gap-12">
-    <a href="#inicio" class="font-display font-bold text-sm tracking-[0.2em] uppercase text-brand-black hover:text-brand-green transition-colors">Inicio</a>
-    <a href="#servicios" class="font-display font-bold text-sm tracking-[0.2em] uppercase text-brand-black hover:text-brand-green transition-colors">Servicios</a>
-    <a href="#entrenadores" class="font-display font-bold text-sm tracking-[0.2em] uppercase text-brand-black hover:text-brand-green transition-colors">Entrenadores</a>
-    <a href="#resenas" class="font-display font-bold text-sm tracking-[0.2em] uppercase text-brand-black hover:text-brand-green transition-colors">Reseñas</a>
+    <a href="#inicio" class="font-display font-bold text-sm tracking-[0.2em] uppercase text-brand-black hover:underline decoration-4 decoration-brand-green underline-offset-4 transition-colors">Inicio</a>
+    <a href="#servicios" class="font-display font-bold text-sm tracking-[0.2em] uppercase text-brand-black hover:underline decoration-4 decoration-brand-green underline-offset-4 transition-colors">Servicios</a>
+    <a href="#entrenadores" class="font-display font-bold text-sm tracking-[0.2em] uppercase text-brand-black hover:underline decoration-4 decoration-brand-green underline-offset-4 transition-colors">Entrenadores</a>
+    <a href="#resenas" class="font-display font-bold text-sm tracking-[0.2em] uppercase text-brand-black hover:underline decoration-4 decoration-brand-green underline-offset-4 transition-colors">Reseñas</a>
   </nav>
 
   <div class="flex items-center gap-6">
@@ -93,8 +54,8 @@
 </div>
 
 <main>
-  <section id="inicio" class="relative w-full h-[100svh] bg-brand-white flex flex-col lg:flex-row overflow-hidden">
-    <div class="flex-1 lg:w-[55%] flex flex-col justify-center px-6 lg:px-12 pt-[84px] lg:pt-[120px] pb-6 lg:pb-0 z-10 relative">
+  <section id="inicio" class="relative w-full min-h-[100svh] bg-brand-white flex flex-col lg:flex-row overflow-hidden">
+    <div class="flex-1 lg:w-[55%] flex flex-col justify-center px-6 lg:px-12 pt-[100px] lg:pt-[120px] pb-12 lg:pb-0 z-10 relative">
       <h1 class="font-display font-bold text-brand-black uppercase tracking-tighter flex flex-col mb-4 lg:mb-8">
         <span class="text-[clamp(3.5rem,10vw,8rem)] leading-[0.85] mb-1 lg:mb-2">Fuerza</span>
         <span class="text-[clamp(3.5rem,10vw,8rem)] leading-[0.85] mb-1 lg:mb-2">Sin</span>
@@ -108,9 +69,9 @@
         Ver Instalaciones
       </a>
     </div>
-    <div class="flex-1 lg:w-[45%] relative bg-brand-black flex items-end overflow-hidden">
+    <div class="flex-1 lg:w-[45%] relative bg-brand-black flex items-end overflow-hidden min-h-[40svh] lg:min-h-0">
       <div class="w-full h-full relative">
-        <img src="assets/img/hero-background.png" alt="Instalaciones GR30" fetchpriority="high" decoding="sync" class="absolute inset-0 w-full h-full object-cover object-center">
+        <img src="assets/img/hero-background.webp" alt="Instalaciones GR30" fetchpriority="high" decoding="sync" class="absolute inset-0 w-full h-full object-cover object-center">
       </div>
       <div class="absolute bottom-0 left-0 bg-brand-white text-brand-black p-4 sm:p-6 lg:p-8 z-20 w-32 sm:w-40 lg:w-48">
         <p class="font-display font-bold text-[0.65rem] lg:text-xs tracking-[0.2em] uppercase mb-1 lg:mb-2 bg-brand-black text-brand-white inline-block px-1">Horario</p>
@@ -119,33 +80,33 @@
     </div>
   </section>
 
-  <section id="servicios" class="w-full h-[100svh] overflow-hidden bg-brand-white">
-    <div class="servicios-wrapper flex w-[300%] h-full">
-      <div class="w-1/3 h-full flex flex-col lg:flex-row">
-        <div class="flex-1 lg:w-[50%] bg-brand-black flex flex-col justify-center px-6 lg:px-12 pt-[84px] lg:pt-[120px] border-b-4 lg:border-b-0 lg:border-r-4 border-brand-white">
+  <section id="servicios" class="w-full min-h-[100svh] overflow-hidden bg-brand-white flex flex-col">
+    <div class="servicios-wrapper flex flex-1">
+      <div class="w-screen flex-shrink-0 flex flex-col lg:flex-row">
+        <div class="flex-1 lg:w-[50%] bg-brand-black flex flex-col justify-center px-6 lg:px-12 pt-[100px] lg:pt-[120px] pb-12 lg:pb-0 border-b-4 lg:border-b-0 lg:border-r-4 border-brand-white">
           <h2 class="text-[clamp(3.5rem,8vw,6rem)] font-display font-bold text-brand-white uppercase tracking-tighter leading-none mb-6">Zona de<br><span class="text-brand-green">Pesas.</span></h2>
           <p class="text-lg lg:text-xl font-medium text-brand-white max-w-lg">Máquinas articuladas y peso integrado de última generación para aislar cada músculo con precisión biomecánica pura.</p>
         </div>
-        <div class="flex-1 lg:w-[50%] bg-brand-black relative">
-          <img src="assets/img/servicio-pesas.png" alt="Pesas" loading="lazy" decoding="async" class="w-full h-full object-cover object-center">
+        <div class="flex-1 lg:w-[50%] bg-brand-black relative min-h-[40svh] lg:min-h-0">
+          <img src="assets/img/servicio-pesas.webp" alt="Pesas" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover object-center">
         </div>
       </div>
-      <div class="w-1/3 h-full flex flex-col lg:flex-row">
-        <div class="flex-1 lg:w-[50%] bg-brand-green flex flex-col justify-center px-6 lg:px-12 pt-[84px] lg:pt-[120px] border-b-4 lg:border-b-0 lg:border-r-4 border-brand-black">
+      <div class="w-screen flex-shrink-0 flex flex-col lg:flex-row">
+        <div class="flex-1 lg:w-[50%] bg-brand-green flex flex-col justify-center px-6 lg:px-12 pt-[100px] lg:pt-[120px] pb-12 lg:pb-0 border-b-4 lg:border-b-0 lg:border-r-4 border-brand-black">
           <h2 class="text-[clamp(3.5rem,8vw,6rem)] font-display font-bold text-brand-black uppercase tracking-tighter leading-none mb-6">Aérobico<br>& Cardio.</h2>
           <p class="text-lg lg:text-xl font-medium text-brand-black max-w-lg">Cintas de correr, elípticas y escaladoras industriales para llevar tu resistencia cardiovascular al extremo absoluto.</p>
         </div>
-        <div class="flex-1 lg:w-[50%] bg-brand-black relative">
-          <img src="assets/img/servicio-cardio.png" alt="Cardio" loading="lazy" decoding="async" class="w-full h-full object-cover object-center">
+        <div class="flex-1 lg:w-[50%] bg-brand-black relative min-h-[40svh] lg:min-h-0">
+          <img src="assets/img/servicio-cardio.webp" alt="Cardio" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover object-center">
         </div>
       </div>
-      <div class="w-1/3 h-full flex flex-col lg:flex-row">
-        <div class="flex-1 lg:w-[50%] bg-brand-white flex flex-col justify-center px-6 lg:px-12 pt-[84px] lg:pt-[120px] border-b-4 lg:border-b-0 lg:border-r-4 border-brand-black">
+      <div class="w-screen flex-shrink-0 flex flex-col lg:flex-row">
+        <div class="flex-1 lg:w-[50%] bg-brand-white flex flex-col justify-center px-6 lg:px-12 pt-[100px] lg:pt-[120px] pb-12 lg:pb-0 border-b-4 lg:border-b-0 lg:border-r-4 border-brand-black">
           <h2 class="text-[clamp(3.5rem,8vw,6rem)] font-display font-bold text-brand-black uppercase tracking-tighter leading-none mb-6">Peso Libre<br><span class="bg-brand-green text-brand-black px-2 inline-block mt-2">& Funcional.</span></h2>
           <p class="text-lg lg:text-xl font-medium text-brand-black max-w-lg">Racks de potencia, plataformas olímpicas y equipo táctico. Sin restricciones de espacio ni de peso.</p>
         </div>
-        <div class="flex-1 lg:w-[50%] bg-brand-black relative">
-          <img src="assets/img/servicio-fuerza.png" alt="Peso Libre" loading="lazy" decoding="async" class="w-full h-full object-cover object-center">
+        <div class="flex-1 lg:w-[50%] bg-brand-black relative min-h-[40svh] lg:min-h-0">
+          <img src="assets/img/servicio-fuerza.webp" alt="Peso Libre" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover object-center">
         </div>
       </div>
     </div>
@@ -156,7 +117,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
       <div class="flex flex-col">
         <div class="w-full aspect-square bg-brand-white mb-6">
-          <img src="assets/img/entrenador-1.png" alt="Fernando" loading="lazy" decoding="async" class="w-full h-full object-cover object-center">
+          <img src="assets/img/entrenador-1.webp" alt="Fernando" loading="lazy" decoding="async" class="w-full h-full object-cover object-center">
         </div>
         <h3 class="text-3xl font-display font-bold uppercase mb-2">Fernando R.</h3>
         <p class="text-brand-green font-bold tracking-widest uppercase text-sm mb-4">Fuerza Pura</p>
@@ -164,7 +125,7 @@
       </div>
       <div class="flex flex-col">
         <div class="w-full aspect-square bg-brand-white mb-6">
-          <img src="assets/img/entrenador-2.png" alt="Daniela" loading="lazy" decoding="async" class="w-full h-full object-cover object-center">
+          <img src="assets/img/entrenador-2.webp" alt="Daniela" loading="lazy" decoding="async" class="w-full h-full object-cover object-center">
         </div>
         <h3 class="text-3xl font-display font-bold uppercase mb-2">Daniela M.</h3>
         <p class="text-brand-green font-bold tracking-widest uppercase text-sm mb-4">Acondicionamiento</p>
@@ -172,7 +133,7 @@
       </div>
       <div class="flex flex-col">
         <div class="w-full aspect-square bg-brand-white mb-6">
-          <img src="assets/img/entrenador-3.png" alt="Carlos" loading="lazy" decoding="async" class="w-full h-full object-cover object-center">
+          <img src="assets/img/entrenador-3.webp" alt="Carlos" loading="lazy" decoding="async" class="w-full h-full object-cover object-center">
         </div>
         <h3 class="text-3xl font-display font-bold uppercase mb-2">Carlos T.</h3>
         <p class="text-brand-green font-bold tracking-widest uppercase text-sm mb-4">Fisioterapia</p>
@@ -180,7 +141,7 @@
       </div>
       <div class="flex flex-col">
         <div class="w-full aspect-square bg-brand-white mb-6">
-          <img src="assets/img/entrenador-4.png" alt="Laura" loading="lazy" decoding="async" class="w-full h-full object-cover object-center">
+          <img src="assets/img/entrenador-4.webp" alt="Laura" loading="lazy" decoding="async" class="w-full h-full object-cover object-center">
         </div>
         <h3 class="text-3xl font-display font-bold uppercase mb-2">Laura G.</h3>
         <p class="text-brand-green font-bold tracking-widest uppercase text-sm mb-4">Zumba & Ritmos</p>
@@ -190,6 +151,7 @@
   </section>
 
   <section id="resenas" class="w-full bg-brand-green py-24 overflow-hidden">
+    <h2 class="sr-only">Reseñas de miembros</h2>
     <div class="marquee-container flex whitespace-nowrap">
       <div class="marquee-content flex">
         <div class="marquee-group flex gap-8 pr-8 items-center">
@@ -222,11 +184,11 @@
           <h3 class="text-3xl font-display font-bold uppercase mb-2">Visita Diaria</h3>
           <p class="text-6xl font-display font-bold mb-10 bg-brand-green text-brand-black inline-block px-3 py-1 tracking-tighter">$70<span class="text-2xl text-current tracking-normal">mxn</span></p>
           <ul class="space-y-6 font-medium mb-16 text-lg">
-            <li class="flex gap-4 items-start"><span class="text-brand-black font-bold">■</span> Acceso total a pesas y cardio</li>
-            <li class="flex gap-4 items-start"><span class="text-brand-black font-bold">■</span> Uso de regaderas</li>
+            <li class="flex gap-4 items-start"><span class="text-brand-black group-hover:text-brand-white font-bold">■</span> Acceso total a pesas y cardio</li>
+            <li class="flex gap-4 items-start"><span class="text-brand-black group-hover:text-brand-white font-bold">■</span> Uso de regaderas</li>
           </ul>
         </div>
-        <a href="#contacto" class="w-full py-5 text-center bg-brand-black text-brand-white group-hover:bg-brand-white group-hover:text-brand-black font-display font-bold uppercase tracking-widest text-sm transition-colors">Elegir Plan</a>
+        <a href="#contacto" class="w-full py-5 text-center bg-brand-black text-brand-white group-hover:bg-brand-white group-hover:text-brand-black hover:!bg-brand-green hover:!text-brand-black font-display font-bold uppercase tracking-widest text-sm transition-colors">Elegir Plan</a>
       </div>
       <div class="border-4 border-brand-black bg-brand-green text-brand-black p-8 sm:p-12 flex flex-col justify-between hover:bg-brand-black hover:text-brand-white transition-colors group">
         <div>
@@ -238,19 +200,19 @@
             <li class="flex gap-4 items-start"><span class="text-brand-black group-hover:text-brand-green font-bold">■</span> Clases de Zumba incluidas</li>
           </ul>
         </div>
-        <a href="#contacto" class="w-full py-5 text-center bg-brand-black text-brand-white group-hover:bg-brand-white group-hover:text-brand-black font-display font-bold uppercase tracking-widest text-sm transition-colors">Elegir Plan</a>
+        <a href="#contacto" class="w-full py-5 text-center bg-brand-black text-brand-white group-hover:bg-brand-white group-hover:text-brand-black hover:!bg-brand-green hover:!text-brand-black font-display font-bold uppercase tracking-widest text-sm transition-colors">Elegir Plan</a>
       </div>
       <div class="border-4 border-brand-black p-8 sm:p-12 flex flex-col justify-between hover:bg-brand-black hover:text-brand-white transition-colors group">
         <div>
           <h3 class="text-3xl font-display font-bold uppercase mb-2">Anual</h3>
           <p class="text-6xl font-display font-bold mb-10 bg-brand-green text-brand-black inline-block px-3 py-1 tracking-tighter">$4,500<span class="text-2xl text-current tracking-normal">mxn</span></p>
           <ul class="space-y-6 font-medium mb-16 text-lg">
-            <li class="flex gap-4 items-start"><span class="text-brand-black font-bold">■</span> Todos los beneficios mensuales</li>
-            <li class="flex gap-4 items-start"><span class="text-brand-black font-bold">■</span> Ahorras 2 meses completos</li>
-            <li class="flex gap-4 items-start"><span class="text-brand-black font-bold">■</span> Congelamiento de tarifa</li>
+            <li class="flex gap-4 items-start"><span class="text-brand-black group-hover:text-brand-white font-bold">■</span> Todos los beneficios mensuales</li>
+            <li class="flex gap-4 items-start"><span class="text-brand-black group-hover:text-brand-white font-bold">■</span> Ahorras 2 meses completos</li>
+            <li class="flex gap-4 items-start"><span class="text-brand-black group-hover:text-brand-white font-bold">■</span> Congelamiento de tarifa</li>
           </ul>
         </div>
-        <a href="#contacto" class="w-full py-5 text-center bg-brand-black text-brand-white group-hover:bg-brand-white group-hover:text-brand-black font-display font-bold uppercase tracking-widest text-sm transition-colors">Elegir Plan</a>
+        <a href="#contacto" class="w-full py-5 text-center bg-brand-black text-brand-white group-hover:bg-brand-white group-hover:text-brand-black hover:!bg-brand-green hover:!text-brand-black font-display font-bold uppercase tracking-widest text-sm transition-colors">Elegir Plan</a>
       </div>
     </div>
   </section>
@@ -279,8 +241,14 @@
       </div>
       <div class="flex-1 bg-brand-white p-8 lg:p-16 text-brand-black">
         <form id="contactForm" class="flex flex-col gap-10">
-          <input type="text" aria-label="Tu Nombre" placeholder="Tu Nombre" class="w-full bg-transparent border-b-4 border-brand-black py-4 text-2xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green focus:px-4 text-brand-black placeholder-brand-black/50 placeholder:uppercase transition-all" required>
-          <input type="tel" aria-label="Tu Teléfono" placeholder="Tu Teléfono" class="w-full bg-transparent border-b-4 border-brand-black py-4 text-2xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green focus:px-4 text-brand-black placeholder-brand-black/50 placeholder:uppercase transition-all" required>
+          <div>
+            <label for="nombre" class="sr-only">Tu Nombre</label>
+            <input type="text" id="nombre" aria-label="Tu Nombre" placeholder="Tu Nombre" class="w-full bg-transparent border-b-4 border-brand-black py-4 text-2xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green focus:px-4 text-brand-black placeholder-brand-black/50 placeholder:uppercase transition-all" required>
+          </div>
+          <div>
+            <label for="telefono" class="sr-only">Tu Teléfono</label>
+            <input type="tel" id="telefono" aria-label="Tu Teléfono" placeholder="Tu Teléfono" class="w-full bg-transparent border-b-4 border-brand-black py-4 text-2xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green focus:px-4 text-brand-black placeholder-brand-black/50 placeholder:uppercase transition-all" required>
+          </div>
           <button type="submit" class="w-full bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest py-6 mt-4 hover:bg-brand-green hover:text-brand-black transition-colors text-lg">
             Enviar Solicitud
           </button>
@@ -289,11 +257,11 @@
     </div>
     
     <footer class="border-t-4 border-brand-green pt-12 flex flex-col md:flex-row justify-between items-center gap-8">
-      <a href="#inicio" class="text-4xl font-display font-bold tracking-tighter uppercase flex items-center gap-3" aria-label="Inicio">
-        <div class="w-12 h-12 bg-brand-green flex items-center justify-center text-brand-black">
+      <a href="#inicio" class="text-4xl font-display font-bold tracking-tighter uppercase flex items-center gap-3 group" aria-label="Inicio">
+        <div class="w-12 h-12 bg-brand-green flex items-center justify-center text-brand-black transition-colors group-hover:bg-brand-white group-hover:text-brand-black">
           <span class="text-3xl leading-none">G</span>
         </div>
-        <span class="text-brand-white">GR30<span class="text-brand-green">.</span></span>
+        <span class="text-brand-white">GR30<span class="text-brand-green transition-colors group-hover:text-brand-white">.</span></span>
       </a>
       <p class="font-bold text-brand-white uppercase tracking-widest text-xs lg:text-sm text-center md:text-right">
         © 2024 GR30 Gimnasio.<br class="md:hidden"> Todos los derechos reservados.
@@ -335,6 +303,7 @@
     menuBtn.setAttribute('aria-expanded', menuOpen);
     if (menuOpen) {
       mobileMenu.setAttribute('aria-hidden', 'false');
+      document.querySelector('main').setAttribute('inert', '');
       gsap.to(b1, { y: 7, rotation: 45, duration: 0.3, ease: "power2.inOut" });
       gsap.to(b2, { autoAlpha: 0, duration: 0.3 });
       gsap.to(b3, { y: -7, rotation: -45, duration: 0.3, ease: "power2.inOut" });
@@ -342,6 +311,7 @@
       document.body.style.overflow = 'hidden';
     } else {
       mobileMenu.setAttribute('aria-hidden', 'true');
+      document.querySelector('main').removeAttribute('inert');
       gsap.to(b1, { y: 0, rotation: 0, duration: 0.3, ease: "power2.inOut" });
       gsap.to(b2, { autoAlpha: 1, duration: 0.3 });
       gsap.to(b3, { y: 0, rotation: 0, duration: 0.3, ease: "power2.inOut" });
@@ -419,12 +389,14 @@
       
       setTimeout(() => {
         btn.innerText = "Solicitud Enviada";
+        btn.classList.remove('bg-brand-black', 'text-brand-white');
         btn.classList.add('bg-brand-green', 'text-brand-black');
         contactForm.reset();
         
         setTimeout(() => {
           btn.innerText = originalText;
           btn.classList.remove('bg-brand-green', 'text-brand-black');
+          btn.classList.add('bg-brand-black', 'text-brand-white');
           btn.disabled = false;
           inputs.forEach(input => input.disabled = false);
         }, 3000);

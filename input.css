@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  
+  --color-brand-black: #0f172a;
+  --color-brand-white: #ffffff;
+  --color-brand-green: #22c55e;
+}
+
+html { scroll-behavior: smooth; }
+body { background-color: #ffffff; color: #0f172a; overflow-x: hidden; }
+
+* {
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+a:focus-visible, button:focus-visible {
+  outline: 4px solid #22c55e !important; 
+  outline-offset: 2px !important;
+}
+input:focus-visible {
+  outline: none !important;
+}
