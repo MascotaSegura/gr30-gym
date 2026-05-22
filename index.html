@@ -112,34 +112,34 @@
 
   <section id="entrenadores" class="w-full bg-brand-black text-brand-white py-24 px-6 lg:px-12">
     <h2 class="text-[clamp(4rem,10vw,8rem)] font-display font-bold uppercase leading-none mb-16 tracking-tighter">El Staff.</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
-      <div class="flex flex-col">
+    <div class="flex overflow-x-auto md:grid md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 lg:gap-12 snap-x snap-mandatory pb-8 md:pb-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+      <div class="flex flex-col min-w-[85vw] sm:min-w-[60vw] md:min-w-0 snap-center trainer-card">
         <div class="w-full aspect-square bg-brand-white mb-6">
-          <img src="assets/img/entrenador-1.webp" alt="Fernando" loading="lazy" decoding="async" class="w-full h-full object-cover object-center">
+          <img src="assets/img/entrenador-1.webp" alt="Fernando" loading="lazy" decoding="async" class="w-full h-full object-cover object-center grayscale hover:grayscale-0 transition-all duration-500">
         </div>
         <h3 class="text-3xl font-display font-bold uppercase mb-2">Fernando R.</h3>
         <p class="text-brand-green font-bold tracking-widest uppercase text-sm mb-4">Fuerza Pura</p>
         <p class="font-medium">Certificado en powerlifting y halterofilia.</p>
       </div>
-      <div class="flex flex-col">
+      <div class="flex flex-col min-w-[85vw] sm:min-w-[60vw] md:min-w-0 snap-center trainer-card">
         <div class="w-full aspect-square bg-brand-white mb-6">
-          <img src="assets/img/entrenador-2.webp" alt="Daniela" loading="lazy" decoding="async" class="w-full h-full object-cover object-center">
+          <img src="assets/img/entrenador-2.webp" alt="Daniela" loading="lazy" decoding="async" class="w-full h-full object-cover object-center grayscale hover:grayscale-0 transition-all duration-500">
         </div>
         <h3 class="text-3xl font-display font-bold uppercase mb-2">Daniela M.</h3>
         <p class="text-brand-green font-bold tracking-widest uppercase text-sm mb-4">Acondicionamiento</p>
         <p class="font-medium">Especialista en HIIT, velocidad y resistencia funcional.</p>
       </div>
-      <div class="flex flex-col">
+      <div class="flex flex-col min-w-[85vw] sm:min-w-[60vw] md:min-w-0 snap-center trainer-card">
         <div class="w-full aspect-square bg-brand-white mb-6">
-          <img src="assets/img/entrenador-3.webp" alt="Carlos" loading="lazy" decoding="async" class="w-full h-full object-cover object-center">
+          <img src="assets/img/entrenador-3.webp" alt="Carlos" loading="lazy" decoding="async" class="w-full h-full object-cover object-center grayscale hover:grayscale-0 transition-all duration-500">
         </div>
         <h3 class="text-3xl font-display font-bold uppercase mb-2">Carlos T.</h3>
         <p class="text-brand-green font-bold tracking-widest uppercase text-sm mb-4">Fisioterapia</p>
         <p class="font-medium">Rehabilitación de lesiones y biomecánica correctiva.</p>
       </div>
-      <div class="flex flex-col">
+      <div class="flex flex-col min-w-[85vw] sm:min-w-[60vw] md:min-w-0 snap-center trainer-card">
         <div class="w-full aspect-square bg-brand-white mb-6">
-          <img src="assets/img/entrenador-4.webp" alt="Laura" loading="lazy" decoding="async" class="w-full h-full object-cover object-center">
+          <img src="assets/img/entrenador-4.webp" alt="Laura" loading="lazy" decoding="async" class="w-full h-full object-cover object-center grayscale hover:grayscale-0 transition-all duration-500">
         </div>
         <h3 class="text-3xl font-display font-bold uppercase mb-2">Laura G.</h3>
         <p class="text-brand-green font-bold tracking-widest uppercase text-sm mb-4">Zumba & Ritmos</p>
@@ -399,6 +399,21 @@
           inputs.forEach(input => input.disabled = false);
         }, 3000);
       }, 1000);
+    });
+  }
+
+  const trainerCards = gsap.utils.toArray('.trainer-card');
+  if (trainerCards.length > 0) {
+    ScrollTrigger.create({
+      trigger: "#entrenadores",
+      start: "top 75%",
+      animation: gsap.from(trainerCards, {
+        y: 40,
+        autoAlpha: 0,
+        stagger: 0.1,
+        duration: 0.8,
+        ease: "power3.out"
+      })
     });
   }
 </script>
