@@ -3,3 +3,7 @@ node_modules/
 dist/
 .env
 .gemini/
+temp_font/
+test_logo.html
+__pycache__/
+*.pyc

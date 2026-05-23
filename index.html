@@ -3,12 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GR30 GYM | Premium Flat Design</title>
+<title>GR30 Gym - Elevate Your Fitness</title>
 <meta name="description" content="GR30 Gym. Instalaciones de nivel competitivo, peso libre, HIIT y cardio. Entrena como un atleta, no como un cliente más.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" type="image/svg+xml" href="assets/img/logos/gr30_logo_transparent_light.svg">
+<link rel="icon" type="image/x-icon" href="assets/img/logos/gr30_logo_transparent_light_highres.ico">
+<link rel="apple-touch-icon" href="assets/img/favicon-192.png">
+<link rel="manifest" href="/manifest.json">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
@@ -521,6 +525,17 @@
         }, 3000);
       }, 1000);
     });
-  }</script>
+  }
+
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js').then(registration => {
+        console.log('SW registered: ', registration.scope);
+      }).catch(registrationError => {
+        console.log('SW registration failed: ', registrationError);
+      });
+    });
+  }
+</script>
 </body>
 </html>

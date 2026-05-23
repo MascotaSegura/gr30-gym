@@ -20,7 +20,9 @@
   "homepage": "https://github.com/MascotaSegura/gr30-gym#readme",
   "devDependencies": {
     "@tailwindcss/cli": "^4.3.0",
+    "puppeteer": "^25.0.4",
     "sharp": "^0.34.5",
     "tailwindcss": "^4.3.0"
-  }
+  },
+  "dependencies": {}
 }
