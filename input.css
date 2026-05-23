@@ -9,7 +9,7 @@
   --color-brand-green: #22c55e;
 }
 
-html { scroll-behavior: smooth; }
+/* Eliminado scroll-behavior: smooth para evitar conflictos con GSAP ScrollToPlugin */
 body { background-color: #ffffff; color: #0f172a; overflow-x: hidden; }
 
 * {
