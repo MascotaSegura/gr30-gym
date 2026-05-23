@@ -31,6 +31,14 @@ input:invalid, textarea:invalid, select:invalid {
   outline: none !important;
 }
 
+/* Custom Summary marker removal for FAQ */
+details > summary {
+  list-style: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
 /* Staff Carousel */
 .staff-title {
   padding-left: 1.5rem;
