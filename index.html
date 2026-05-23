@@ -12,13 +12,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
-<style>
-  /* Suppress native browser error borders on invalid inputs to maintain Flat Design */
-  input:invalid, textarea:invalid, select:invalid {
-    box-shadow: none !important;
-    outline: none !important;
-  }
-</style>
+
 </head>
 <body class="font-sans antialiased selection:bg-brand-green selection:text-brand-black overflow-x-hidden">
 
@@ -61,12 +55,12 @@
 </div>
 
 <main>
-  <section id="inicio" class="relative w-full min-h-[100svh] pt-20 bg-brand-white flex flex-col lg:flex-row overflow-hidden">
+  <section id="inicio" class="relative w-full min-h-[100svh] pt-20 bg-brand-white flex flex-col lg:flex-row">
     <div class="flex-1 lg:w-[55%] flex flex-col px-6 lg:px-12 py-12 lg:py-24 z-10 relative">
       <h1 class="font-display font-bold text-brand-black uppercase tracking-tighter flex flex-col mb-4 lg:mb-8">
         <span class="text-[clamp(3.5rem,10vw,8rem)] leading-none mb-1 lg:mb-2">Fuerza</span>
         <span class="text-[clamp(3.5rem,10vw,8rem)] leading-none mb-1 lg:mb-2">Sin</span>
-        <span class="text-[clamp(3.5rem,10vw,8rem)] leading-none bg-brand-green text-brand-black px-2 py-1 -ml-2 w-max mt-1">Excusas.</span>
+        <span class="text-[clamp(3.5rem,10vw,8rem)] leading-none bg-brand-green text-brand-black px-2 py-1 -ml-2 inline-block mt-1">Excusas.</span>
       </h1>
       
       <p class="max-w-xl text-[clamp(0.875rem,2vw,1.125rem)] font-medium text-brand-black leading-snug lg:leading-relaxed mb-6 lg:mb-10">
@@ -119,121 +113,7 @@
   </section>
 
   
-  <section id="entrenadores" class="w-full bg-brand-black text-brand-white py-24 overflow-hidden">
-    <style>
-      .staff-title {
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
-        margin-bottom: 4rem;
-        font-size: clamp(4rem, 10vw, 8rem);
-        font-weight: 700;
-        text-transform: uppercase;
-        line-height: 1;
-        letter-spacing: -0.05em;
-        font-family: var(--font-display);
-        color: var(--color-brand-green);
-      }
-      .staff-carousel {
-        display: flex;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        gap: 1.5rem;
-        padding-right: 0;
-        scroll-padding-left: 1.5rem;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-      }
-      .staff-carousel::-webkit-scrollbar {
-        display: none;
-      }
-      .staff-carousel::before,
-      .staff-carousel::after {
-        content: '';
-        display: block;
-        min-width: 0.1px; /* Fallback for browsers that collapse 0-width items */
-        width: 0; 
-        flex-shrink: 0;
-      }
-      /* On mobile, use explicit spacer size to avoid iOS scroll-padding bugs */
-      .staff-carousel::before {
-        min-width: 0; /* Let gap handle the left space before first card */
-      }
-      .staff-card {
-        flex: 0 0 85vw;
-        scroll-snap-align: start;
-        display: flex;
-        flex-direction: column;
-        border: 4px solid var(--color-brand-black);
-        background-color: var(--color-brand-white);
-        color: var(--color-brand-black);
-        transition: background-color 0.3s;
-      }
-      .staff-card:hover, .staff-card:focus-within {
-        background-color: var(--color-brand-green);
-      }
-      .staff-card-img {
-        width: 100%;
-        aspect-ratio: 4 / 3;
-        overflow: hidden;
-        position: relative;
-        background: var(--color-brand-white);
-      }
-      .staff-card-img img {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: top;
-      }
-      .staff-card-body {
-        padding: 1.5rem;
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-        justify-content: space-between;
-      }
-      @media (min-width: 768px) {
-        .staff-title {
-          padding-left: 1.5rem;
-          padding-right: 1.5rem;
-        }
-        .staff-carousel {
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap: 2rem;
-          overflow-x: visible;
-          padding-left: 1.5rem;
-          padding-right: 1.5rem;
-        }
-        .staff-carousel::before,
-        .staff-carousel::after {
-          display: none;
-        }
-        .staff-card {
-          width: 100%;
-          flex: none;
-        }
-      }
-      @media (min-width: 1024px) {
-        .staff-title {
-          padding-left: 3rem;
-          padding-right: 3rem;
-        }
-        .staff-carousel {
-          grid-template-columns: repeat(4, 1fr);
-          padding-left: 3rem;
-          padding-right: 3rem;
-        }
-        .staff-card-img {
-          aspect-ratio: 1 / 1;
-        }
-        .staff-card-body {
-          padding: 2rem;
-        }
-      }
-    </style>
-
+  <section id="entrenadores" class="w-full bg-brand-black text-brand-white py-24">
     <h2 class="staff-title">Staff.</h2>
 
     <div class="staff-carousel">
@@ -300,7 +180,7 @@
             <p class="text-brand-black font-display font-bold text-xl sm:text-2xl leading-tight">"El mejor ambiente, el equipo no falla. Puro entrenamiento serio."</p>
             <p class="mt-6 bg-brand-black text-brand-white px-2 py-1 inline-block font-bold tracking-widest uppercase text-sm -ml-2">— Mario C.</p>
           </div>
-          <div class="w-[300px] sm:w-[450px] bg-brand-black p-8 sm:p-12 border-4 border-brand-black flex-shrink-0 whitespace-normal">
+          <div class="w-[300px] sm:w-[450px] bg-brand-black p-8 sm:p-12 border-4 border-brand-white flex-shrink-0 whitespace-normal">
             <p class="text-brand-white font-display font-bold text-xl sm:text-2xl leading-tight">"Entrenadores de verdad que te corrigen y te exigen."</p>
             <p class="mt-6 bg-brand-green text-brand-black px-2 py-1 inline-block font-bold tracking-widest uppercase text-sm -ml-2">— Lucía S.</p>
           </div>
@@ -308,7 +188,7 @@
             <p class="text-brand-black font-display font-bold text-xl sm:text-2xl leading-tight">"Máquinas limpias y peso suficiente. No tienes que hacer fila."</p>
             <p class="mt-6 bg-brand-black text-brand-white px-2 py-1 inline-block font-bold tracking-widest uppercase text-sm -ml-2">— David V.</p>
           </div>
-          <div class="w-[300px] sm:w-[450px] bg-brand-black p-8 sm:p-12 border-4 border-brand-black flex-shrink-0 whitespace-normal">
+          <div class="w-[300px] sm:w-[450px] bg-brand-black p-8 sm:p-12 border-4 border-brand-white flex-shrink-0 whitespace-normal">
             <p class="text-brand-white font-display font-bold text-xl sm:text-2xl leading-tight">"Desde que entré a GR30 mis levantamientos se han duplicado."</p>
             <p class="mt-6 bg-brand-green text-brand-black px-2 py-1 inline-block font-bold tracking-widest uppercase text-sm -ml-2">— Ana B.</p>
           </div>
@@ -320,7 +200,7 @@
   <section id="planes" class="w-full bg-brand-white py-24 px-6 lg:px-12 text-brand-black">
     <h2 class="text-[clamp(4rem,10vw,8rem)] font-display font-bold uppercase leading-none mb-16 tracking-tighter">Planes.</h2>
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-      <div tabindex="0" class="border-4 border-brand-black p-8 sm:p-12 flex flex-col justify-between hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white focus:outline-none active:bg-brand-black active:text-brand-white transition-colors group cursor-pointer">
+      <div tabindex="0" class="border-4 border-brand-black p-8 sm:p-12 flex flex-col justify-between hover:bg-brand-black hover:text-brand-white hover:border-brand-white focus:bg-brand-black focus:text-brand-white focus:border-brand-white focus:outline-none active:bg-brand-black active:text-brand-white active:border-brand-white transition-colors group cursor-pointer">
         <div>
           <h3 class="text-3xl font-display font-bold uppercase mb-2">Visita Diaria</h3>
           <p class="text-6xl font-display font-bold mb-6 bg-brand-green text-brand-black inline-block px-3 py-1 tracking-tighter -ml-3">$70<span class="text-2xl text-current tracking-normal">mxn</span></p>
@@ -331,7 +211,7 @@
         </div>
         <a href="#contacto" class="w-full py-5 text-center bg-brand-black text-brand-white group-hover:bg-brand-white group-hover:text-brand-black group-focus:bg-brand-white group-focus:text-brand-black group-active:bg-brand-white group-active:text-brand-black hover:!bg-brand-green hover:!text-brand-black focus:!bg-brand-green focus:!text-brand-black focus:outline-none active:!bg-brand-green active:!text-brand-black transition-colors font-display font-bold uppercase tracking-widest text-sm">Elegir Plan</a>
       </div>
-      <div tabindex="0" class="border-4 border-brand-black bg-brand-green text-brand-black p-8 sm:p-12 flex flex-col justify-between hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white focus:outline-none active:bg-brand-black active:text-brand-white transition-colors group cursor-pointer">
+      <div tabindex="0" class="border-4 border-brand-black bg-brand-green text-brand-black p-8 sm:p-12 flex flex-col justify-between hover:bg-brand-black hover:text-brand-white hover:border-brand-white focus:bg-brand-black focus:text-brand-white focus:border-brand-white focus:outline-none active:bg-brand-black active:text-brand-white active:border-brand-white transition-colors group cursor-pointer">
         <div>
           <h3 class="text-3xl font-display font-bold uppercase mb-2">Mensual</h3>
           <p class="text-6xl font-display font-bold mb-6 text-brand-black group-hover:text-brand-green group-focus:text-brand-green group-active:text-brand-green tracking-tighter">$450<span class="text-2xl text-current tracking-normal">mxn</span></p>
@@ -343,7 +223,7 @@
         </div>
         <a href="#contacto" class="w-full py-5 text-center bg-brand-black text-brand-white group-hover:bg-brand-white group-hover:text-brand-black group-focus:bg-brand-white group-focus:text-brand-black group-active:bg-brand-white group-active:text-brand-black hover:!bg-brand-green hover:!text-brand-black focus:!bg-brand-green focus:!text-brand-black focus:outline-none active:!bg-brand-green active:!text-brand-black transition-colors font-display font-bold uppercase tracking-widest text-sm">Elegir Plan</a>
       </div>
-      <div tabindex="0" class="border-4 border-brand-black p-8 sm:p-12 flex flex-col justify-between hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white focus:outline-none active:bg-brand-black active:text-brand-white transition-colors group cursor-pointer">
+      <div tabindex="0" class="border-4 border-brand-black p-8 sm:p-12 flex flex-col justify-between hover:bg-brand-black hover:text-brand-white hover:border-brand-white focus:bg-brand-black focus:text-brand-white focus:border-brand-white focus:outline-none active:bg-brand-black active:text-brand-white active:border-brand-white transition-colors group cursor-pointer">
         <div>
           <h3 class="text-3xl font-display font-bold uppercase mb-2">Anual</h3>
           <p class="text-6xl font-display font-bold mb-6 bg-brand-green text-brand-black inline-block px-3 py-1 tracking-tighter -ml-3">$4,500<span class="text-2xl text-current tracking-normal">mxn</span></p>
@@ -384,11 +264,11 @@
         <form id="contactForm" class="flex flex-col gap-8">
           <div>
             <label for="nombre" class="sr-only">Tu Nombre</label>
-            <input type="text" id="nombre" aria-label="Tu Nombre" placeholder="Tu Nombre" class="w-full bg-transparent border-b-4 border-brand-black px-4 py-4 text-2xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green text-brand-black placeholder:text-brand-black/50 placeholder:uppercase transition-all" required>
+            <input type="text" id="nombre" aria-label="Tu Nombre" placeholder="Tu Nombre" class="w-full bg-transparent border-b-4 border-brand-black px-4 py-4 text-2xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green text-brand-black placeholder:text-gray-500 placeholder:uppercase transition-all" required>
           </div>
           <div>
             <label for="telefono" class="sr-only">Tu Teléfono</label>
-            <input type="tel" id="telefono" aria-label="Tu Teléfono" placeholder="Tu Teléfono" class="w-full bg-transparent border-b-4 border-brand-black px-4 py-4 text-2xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green text-brand-black placeholder:text-brand-black/50 placeholder:uppercase transition-all" required>
+            <input type="tel" id="telefono" aria-label="Tu Teléfono" placeholder="Tu Teléfono" class="w-full bg-transparent border-b-4 border-brand-black px-4 py-4 text-2xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green text-brand-black placeholder:text-gray-500 placeholder:uppercase transition-all" required>
           </div>
           <button type="submit" class="w-full bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest py-6 hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors text-lg">
             Enviar Solicitud
