@@ -1,4 +1,5 @@
 import os
+os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from fontTools.ttLib import TTFont
 from fontTools.pens.svgPathPen import SVGPathPen
 from PIL import Image, ImageDraw, ImageFont

@@ -9,7 +9,6 @@
   --color-brand-green: #22c55e;
 }
 
-/* Eliminado scroll-behavior: smooth para evitar conflictos con GSAP ScrollToPlugin */
 body { background-color: #ffffff; color: #0f172a; overflow-x: hidden; }
 
 * {
@@ -25,13 +24,11 @@ input:focus-visible {
   outline: none !important;
 }
 
-/* Suppress native browser error borders on invalid inputs to maintain Flat Design */
 input:invalid, textarea:invalid, select:invalid {
   box-shadow: none !important;
   outline: none !important;
 }
 
-/* Custom Summary marker removal for FAQ */
 details > summary {
   list-style: none;
 }
@@ -39,7 +36,6 @@ details > summary::-webkit-details-marker {
   display: none;
 }
 
-/* Staff Carousel */
 .staff-title {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
@@ -73,9 +69,8 @@ details > summary::-webkit-details-marker {
   width: 0; 
   flex-shrink: 0;
 }
-/* On mobile, use explicit spacer size to avoid iOS scroll-padding bugs */
 .staff-carousel::before {
-  min-width: 0; /* Let gap handle the left space before first card */
+  min-width: 0;
 }
 .staff-card {
   flex: 0 0 85vw;

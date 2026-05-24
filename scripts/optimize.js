@@ -2,7 +2,7 @@ const fs = require('fs');
 const sharp = require('sharp');
 const path = require('path');
 
-const imgDir = path.join(__dirname, 'assets', 'img');
+const imgDir = path.join(__dirname, '..', 'assets', 'img');
 fs.readdir(imgDir, (err, files) => {
   if (err) throw err;
   files.forEach(file => {

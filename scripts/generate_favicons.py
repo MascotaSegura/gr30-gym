@@ -1,4 +1,5 @@
 import os
+os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import requests
 from fontTools.ttLib import TTFont
 import fontTools.varLib.mutator
