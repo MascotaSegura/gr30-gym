@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GR30 - Panel de Administración</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+<link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png">
+</head>
+<body class="font-sans antialiased selection:bg-brand-green selection:text-brand-black bg-brand-white text-brand-black min-h-screen flex flex-col md:flex-row overflow-x-hidden">
+  
+  <!-- Sidebar -->
+  <aside class="w-full md:w-64 bg-brand-black text-brand-white flex flex-col md:min-h-screen border-b-4 md:border-b-0 md:border-r-4 border-brand-black">
+    <div class="p-6 border-b-4 border-brand-white flex justify-between items-center md:block">
+      <a href="index.html" class="text-3xl font-display font-bold tracking-tighter uppercase flex items-center gap-3 group focus:outline-none focus:ring-4 focus:ring-brand-green">
+        <div class="w-10 h-10 bg-brand-green flex items-center justify-center text-brand-black group-hover:bg-brand-white transition-colors">
+          <span class="text-2xl leading-none">G</span>
+        </div>
+        <span>GR30.</span>
+      </a>
+      <!-- Mobile Menu Toggle (Mock) -->
+      <button class="md:hidden w-10 h-10 bg-brand-white text-brand-black font-bold flex items-center justify-center border-2 border-brand-white focus:outline-none focus:ring-4 focus:ring-brand-green">
+        M
+      </button>
+    </div>
+    
+    <nav class="flex-1 flex flex-col p-6 gap-4 hidden md:flex">
+      <a href="#" class="px-4 py-3 bg-brand-green text-brand-black font-bold uppercase tracking-widest text-sm border-4 border-brand-green focus:outline-none focus:border-brand-white">Dashboard</a>
+      <a href="#" class="px-4 py-3 bg-transparent text-brand-white font-bold uppercase tracking-widest text-sm border-4 border-transparent hover:border-brand-white focus:outline-none focus:border-brand-white transition-colors">Staff</a>
+      <a href="#" class="px-4 py-3 bg-transparent text-brand-white font-bold uppercase tracking-widest text-sm border-4 border-transparent hover:border-brand-white focus:outline-none focus:border-brand-white transition-colors">Miembros</a>
+      <a href="#" class="px-4 py-3 bg-transparent text-brand-white font-bold uppercase tracking-widest text-sm border-4 border-transparent hover:border-brand-white focus:outline-none focus:border-brand-white transition-colors">Planes</a>
+    </nav>
+    
+    <div class="p-6 border-t-4 border-brand-white hidden md:block">
+      <p class="font-bold uppercase tracking-widest text-xs text-brand-green">Admin Demo V1.0</p>
+    </div>
+  </aside>
+  
+  <!-- Main Content -->
+  <main class="flex-1 flex flex-col min-w-0">
+    <!-- Header -->
+    <header class="bg-brand-white border-b-4 border-brand-black p-6 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+      <h1 class="text-3xl font-display font-bold uppercase tracking-tighter">Dashboard General</h1>
+      <div class="flex items-center gap-4">
+        <span class="font-bold uppercase tracking-widest text-sm hidden sm:inline-block">Administrador</span>
+        <button class="w-10 h-10 bg-brand-black text-brand-white flex items-center justify-center font-bold border-2 border-brand-black hover:bg-brand-green hover:text-brand-black transition-colors focus:outline-none focus:ring-4 focus:ring-brand-green">
+          A
+        </button>
+      </div>
+    </header>
+    
+    <!-- Dashboard Content -->
+    <div class="p-6 lg:p-12 overflow-y-auto">
+      
+      <!-- Metrics -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        <div tabindex="0" class="border-4 border-brand-black p-6 bg-brand-white hover:bg-brand-black hover:text-brand-white transition-colors group focus:outline-none focus:border-brand-green">
+          <h2 class="text-sm font-bold uppercase tracking-widest mb-2 text-brand-black group-hover:text-brand-green group-focus:text-brand-green transition-colors">Miembros Activos</h2>
+          <p class="text-5xl font-display font-bold">142</p>
+        </div>
+        <div tabindex="0" class="border-4 border-brand-black p-6 bg-brand-black text-brand-white hover:bg-brand-green hover:text-brand-black transition-colors group focus:outline-none focus:bg-brand-green focus:text-brand-black focus:border-brand-black">
+          <h2 class="text-sm font-bold uppercase tracking-widest mb-2 text-brand-white group-hover:text-brand-black group-focus:text-brand-black transition-colors">Staff en Turno</h2>
+          <p class="text-5xl font-display font-bold">4</p>
+        </div>
+        <div tabindex="0" class="border-4 border-brand-black p-6 bg-brand-white hover:bg-brand-black hover:text-brand-white transition-colors group focus:outline-none focus:border-brand-green">
+          <h2 class="text-sm font-bold uppercase tracking-widest mb-2 text-brand-black group-hover:text-brand-green group-focus:text-brand-green transition-colors">Ingresos (Mes)</h2>
+          <p class="text-5xl font-display font-bold">$63,900</p>
+        </div>
+      </div>
+      
+      <!-- Tables Section -->
+      <div class="grid grid-cols-1 xl:grid-cols-2 gap-12">
+        
+        <!-- Staff Table -->
+        <section>
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+            <h2 class="text-2xl font-display font-bold uppercase">Staff Registrado</h2>
+            <button class="bg-brand-green text-brand-black px-6 py-3 text-xs font-bold uppercase tracking-widest border-4 border-brand-green hover:bg-brand-black hover:text-brand-white hover:border-brand-black transition-colors focus:outline-none focus:ring-4 focus:ring-brand-black">
+              Añadir Staff
+            </button>
+          </div>
+          <div class="border-4 border-brand-black overflow-x-auto bg-brand-white">
+            <table class="w-full text-left border-collapse min-w-[500px]">
+              <thead>
+                <tr class="bg-brand-black text-brand-white border-b-4 border-brand-black">
+                  <th class="p-4 font-bold uppercase tracking-widest text-sm">Nombre</th>
+                  <th class="p-4 font-bold uppercase tracking-widest text-sm">Especialidad</th>
+                  <th class="p-4 font-bold uppercase tracking-widest text-sm text-right">Acción</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="border-b-4 border-brand-black hover:bg-gray-100 transition-colors">
+                  <td class="p-4 font-bold">Fernando R.</td>
+                  <td class="p-4 text-sm font-medium">Fuerza Pura</td>
+                  <td class="p-4 text-right">
+                    <button class="text-brand-green font-bold uppercase tracking-widest text-xs hover:text-brand-white bg-brand-black px-3 py-2 border-2 border-brand-black hover:border-brand-green focus:outline-none focus:border-brand-green transition-colors">Editar</button>
+                  </td>
+                </tr>
+                <tr class="border-b-4 border-brand-black hover:bg-gray-100 transition-colors">
+                  <td class="p-4 font-bold">Daniela M.</td>
+                  <td class="p-4 text-sm font-medium">Acondicionamiento</td>
+                  <td class="p-4 text-right">
+                    <button class="text-brand-green font-bold uppercase tracking-widest text-xs hover:text-brand-white bg-brand-black px-3 py-2 border-2 border-brand-black hover:border-brand-green focus:outline-none focus:border-brand-green transition-colors">Editar</button>
+                  </td>
+                </tr>
+                <tr class="border-b-4 border-brand-black hover:bg-gray-100 transition-colors">
+                  <td class="p-4 font-bold">Carlos T.</td>
+                  <td class="p-4 text-sm font-medium">Fisioterapia</td>
+                  <td class="p-4 text-right">
+                    <button class="text-brand-green font-bold uppercase tracking-widest text-xs hover:text-brand-white bg-brand-black px-3 py-2 border-2 border-brand-black hover:border-brand-green focus:outline-none focus:border-brand-green transition-colors">Editar</button>
+                  </td>
+                </tr>
+                <tr class="hover:bg-gray-100 transition-colors">
+                  <td class="p-4 font-bold">Laura G.</td>
+                  <td class="p-4 text-sm font-medium">Ritmos Intensos</td>
+                  <td class="p-4 text-right">
+                    <button class="text-brand-green font-bold uppercase tracking-widest text-xs hover:text-brand-white bg-brand-black px-3 py-2 border-2 border-brand-black hover:border-brand-green focus:outline-none focus:border-brand-green transition-colors">Editar</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+        
+        <!-- Members Table -->
+        <section>
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+            <h2 class="text-2xl font-display font-bold uppercase">Miembros Recientes</h2>
+            <button class="bg-brand-black text-brand-white px-6 py-3 text-xs font-bold uppercase tracking-widest border-4 border-brand-black hover:bg-brand-green hover:text-brand-black hover:border-brand-green transition-colors focus:outline-none focus:ring-4 focus:ring-brand-green">
+              Ver Todos
+            </button>
+          </div>
+          <div class="border-4 border-brand-black overflow-x-auto bg-brand-white">
+            <table class="w-full text-left border-collapse min-w-[500px]">
+              <thead>
+                <tr class="bg-brand-black text-brand-white border-b-4 border-brand-black">
+                  <th class="p-4 font-bold uppercase tracking-widest text-sm">Miembro</th>
+                  <th class="p-4 font-bold uppercase tracking-widest text-sm">Plan</th>
+                  <th class="p-4 font-bold uppercase tracking-widest text-sm text-right">Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="border-b-4 border-brand-black hover:bg-gray-100 transition-colors">
+                  <td class="p-4 font-bold">Mario C.</td>
+                  <td class="p-4 text-sm font-medium">Mensual</td>
+                  <td class="p-4 text-right"><span class="bg-brand-green text-brand-black font-bold uppercase tracking-widest text-xs px-2 py-1 inline-block border-2 border-brand-green">Activo</span></td>
+                </tr>
+                <tr class="border-b-4 border-brand-black hover:bg-gray-100 transition-colors">
+                  <td class="p-4 font-bold">Lucía S.</td>
+                  <td class="p-4 text-sm font-medium">Anual</td>
+                  <td class="p-4 text-right"><span class="bg-brand-green text-brand-black font-bold uppercase tracking-widest text-xs px-2 py-1 inline-block border-2 border-brand-green">Activo</span></td>
+                </tr>
+                <tr class="border-b-4 border-brand-black hover:bg-gray-100 transition-colors">
+                  <td class="p-4 font-bold">David V.</td>
+                  <td class="p-4 text-sm font-medium">Visita Diaria</td>
+                  <td class="p-4 text-right"><span class="bg-brand-black text-brand-white font-bold uppercase tracking-widest text-xs px-2 py-1 inline-block border-2 border-brand-black">Expirado</span></td>
+                </tr>
+                <tr class="hover:bg-gray-100 transition-colors">
+                  <td class="p-4 font-bold">Ana B.</td>
+                  <td class="p-4 text-sm font-medium">Mensual</td>
+                  <td class="p-4 text-right"><span class="bg-brand-green text-brand-black font-bold uppercase tracking-widest text-xs px-2 py-1 inline-block border-2 border-brand-green">Activo</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+        
+      </div>
+      
+    </div>
+  </main>
+</body>
+</html>
