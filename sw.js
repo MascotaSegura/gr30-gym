@@ -6,7 +6,9 @@ const urlsToCache = [
   '/manifest.json',
   '/assets/img/favicon-192.png',
   '/assets/img/favicon-512.png',
-  '/assets/img/logos/gr30_logo_transparent_light.svg'
+  '/assets/img/favicon.svg',
+  '/assets/img/favicon.ico',
+  '/assets/img/apple-touch-icon.png'
 ];
 
 self.addEventListener('install', event => {
