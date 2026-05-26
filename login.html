@@ -14,12 +14,12 @@
 </head>
 <body class="bg-brand-white font-sans antialiased selection:bg-brand-green selection:text-brand-black text-brand-black min-h-screen flex flex-col overflow-x-hidden">
 
-  <header class="w-full flex justify-between items-center px-6 lg:px-12 py-8 z-50 relative">
-    <a href="index.html" class="text-3xl font-display font-bold tracking-tighter uppercase flex items-center gap-3 group focus:outline-none w-max z-10" aria-label="Ir al inicio">
-      <div class="w-12 h-12 bg-brand-green text-brand-black flex items-center justify-center flex-shrink-0 group-hover:bg-brand-black group-hover:text-brand-white group-focus:bg-brand-black group-focus:text-brand-white transition-colors">
-        <span class="text-3xl leading-none">G</span>
+  <header class="w-full bg-brand-white border-b-4 border-brand-black flex items-center justify-between px-6 lg:px-12 py-5 flex-shrink-0 z-50 relative">
+    <a href="index.html" class="text-3xl font-display font-bold tracking-tighter uppercase flex items-center gap-3 group focus:outline-none" aria-label="Ir al inicio">
+      <div class="w-10 h-10 bg-brand-green text-brand-black flex items-center justify-center flex-shrink-0 group-hover:bg-brand-black group-hover:text-brand-white group-focus:bg-brand-black group-focus:text-brand-white group-active:bg-brand-black group-active:text-brand-white transition-colors">
+        <span class="text-2xl leading-none">G</span>
       </div>
-      <span class="text-brand-black">GR30<span class="text-brand-green transition-colors">.</span></span>
+      <span class="text-brand-black">GR30<span class="text-brand-green group-hover:text-brand-black group-active:text-brand-black transition-colors">.</span></span>
     </a>
   </header>
 
@@ -38,10 +38,10 @@
             <label class="block font-display font-bold uppercase tracking-widest text-xs sm:text-sm text-brand-black mb-2" for="log-pass">Contraseña</label>
             <input type="password" id="log-pass" class="w-full bg-brand-white border-4 border-brand-black px-4 py-4 sm:px-6 sm:py-5 text-lg sm:text-xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green text-brand-black placeholder:text-brand-black/50 placeholder:uppercase transition-all" placeholder="TU CONTRASEÑA" required>
           </div>
-          <button type="submit" class="w-full bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest py-5 text-sm md:text-base hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors mt-2">Iniciar Sesión</button>
+          <button type="submit" class="w-full bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest py-5 text-sm md:text-base hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors">Iniciar Sesión</button>
         </form>
         <div class="flex flex-col gap-4 items-center">
-          <button type="button" onclick="setScreen('register')" class="text-brand-black font-display font-bold uppercase tracking-widest text-xs hover:underline focus:underline focus:outline-none decoration-2 underline-offset-4 transition-all">¿Eres nuevo? Crea tu cuenta.</button>
+          <button type="button" onclick="setScreen('register')" class="text-brand-black font-display font-bold uppercase tracking-widest text-xs hover:underline focus:underline focus:outline-none decoration-4 decoration-brand-green underline-offset-4 transition-all">¿Eres nuevo? Crea tu cuenta.</button>
         </div>
       </div>
 
@@ -57,10 +57,10 @@
             <label class="block font-display font-bold uppercase tracking-widest text-xs sm:text-sm text-brand-black mb-2" for="reg-email">Correo Electrónico</label>
             <input type="email" id="reg-email" class="w-full bg-brand-white border-4 border-brand-black px-4 py-4 sm:px-6 sm:py-5 text-lg sm:text-xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green text-brand-black placeholder:text-brand-black/50 placeholder:uppercase transition-all" placeholder="TU@CORREO.COM" required>
           </div>
-          <button type="submit" class="w-full bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest py-5 text-sm md:text-base hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors mt-2">Continuar</button>
+          <button type="submit" class="w-full bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest py-5 text-sm md:text-base hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors">Continuar</button>
         </form>
         <div class="flex flex-col gap-4 items-center">
-          <button type="button" onclick="setScreen('login')" class="text-brand-black font-display font-bold uppercase tracking-widest text-xs hover:underline focus:underline focus:outline-none decoration-2 underline-offset-4 transition-all">¿Ya tienes cuenta? Inicia sesión.</button>
+          <button type="button" onclick="setScreen('login')" class="text-brand-black font-display font-bold uppercase tracking-widest text-xs hover:underline focus:underline focus:outline-none decoration-4 decoration-brand-green underline-offset-4 transition-all">¿Ya tienes cuenta? Inicia sesión.</button>
         </div>
       </div>
 
@@ -71,20 +71,31 @@
           En GR30 utilizamos reconocimiento facial y detección de vida (liveness detection) para verificar tu identidad de forma segura. Asegúrate de tener buena iluminación.
         </p>
         <button type="button" onclick="startFaceVer()" class="w-full bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest py-5 text-sm md:text-base hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors">Activar Cámara</button>
-        <button type="button" onclick="setScreen('register')" class="mt-6 flex items-center gap-2 mx-auto text-brand-black font-display font-bold uppercase tracking-widest text-xs hover:underline focus:underline focus:outline-none decoration-2 underline-offset-4 transition-all"><i class="ph-bold ph-arrow-left text-lg"></i> Volver Atrás</button>
+        <button type="button" onclick="setScreen('register')" class="mt-6 flex items-center gap-2 mx-auto text-brand-black font-display font-bold uppercase tracking-widest text-xs hover:underline focus:underline focus:outline-none decoration-4 decoration-brand-green underline-offset-4 transition-all"><i class="ph-bold ph-arrow-left text-lg"></i> Volver Atrás</button>
       </div>
 
       <!-- SCREEN FACE CAPTURE -->
-      <div id="screen-face-capture" class="screen hidden flex-col text-center w-full">
-        <h1 class="text-[clamp(3.5rem,8vw,5rem)] leading-none font-display font-bold uppercase tracking-tighter text-brand-black mb-10">Escáner.</h1>
-        <div class="w-full flex flex-col border-4 border-brand-black mb-8">
-          <div class="relative w-full aspect-[4/3] bg-brand-black overflow-hidden border-b-4 border-brand-black">
-            <video id="webcam" class="w-full h-full object-cover transform scale-x-[-1]" autoplay playsinline></video>
-          </div>
-          <div id="face-hud" class="w-full bg-brand-black p-6 flex flex-col items-center justify-center transition-colors duration-300">
-            <p id="face-inst" class="text-brand-green font-display font-bold uppercase tracking-widest text-lg sm:text-xl">Cargando Modelo...</p>
-            <p id="face-status" class="text-brand-white font-bold tracking-widest uppercase text-xs mt-2 opacity-80">Esperando Cámara</p>
-          </div>
+      <div id="screen-face-capture" class="screen hidden fixed inset-0 z-[100] bg-brand-black flex-col text-center w-full h-full">
+        <!-- Header -->
+        <div class="w-full bg-brand-white border-b-4 border-brand-black flex items-center justify-between px-6 lg:px-12 py-5 flex-shrink-0 relative z-10">
+          <h1 class="text-3xl sm:text-4xl leading-none font-display font-bold uppercase tracking-tighter text-brand-black">Biometría.</h1>
+          <button type="button" onclick="stopCam(); window.setScreen('face-intro')" class="w-12 h-12 bg-brand-black text-brand-white hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center justify-center transition-colors focus:outline-none flex-shrink-0">
+            <i class="ph-bold ph-x text-2xl"></i>
+          </button>
+        </div>
+        
+        <!-- Video Container -->
+        <div class="relative flex-1 w-full overflow-hidden bg-brand-black flex flex-col justify-center items-center">
+          <video id="webcam" class="absolute inset-0 w-full h-full object-cover transform scale-x-[-1]" autoplay playsinline></video>
+          
+          <!-- Guide Overlay -->
+          <div class="relative w-[80vw] max-w-sm aspect-[3/4] border-4 border-brand-green pointer-events-none"></div>
+        </div>
+
+        <!-- HUD -->
+        <div id="face-hud" class="w-full bg-brand-white p-6 sm:p-8 flex flex-col items-center justify-center transition-colors duration-300 relative z-10">
+          <p id="face-inst" class="text-brand-black font-display font-bold uppercase tracking-widest text-xl sm:text-2xl text-center">Cargando Modelo...</p>
+          <p id="face-status" class="text-brand-black font-bold tracking-widest uppercase text-sm mt-2 text-center">Esperando Cámara</p>
         </div>
       </div>
 
@@ -104,7 +115,7 @@
             <label class="block font-display font-bold uppercase tracking-widest text-xs sm:text-sm text-brand-black mb-2" for="confirm-pass">Confirmar Contraseña</label>
             <input type="password" id="confirm-pass" class="w-full bg-brand-white border-4 border-brand-black px-4 py-4 sm:px-6 sm:py-5 text-lg sm:text-xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green text-brand-black placeholder:text-brand-black/50 placeholder:uppercase transition-all" placeholder="REPITE TU CONTRASEÑA" required>
           </div>
-          <button type="submit" class="w-full bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest py-5 text-sm md:text-base hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors mt-2">Finalizar Registro</button>
+          <button type="submit" class="w-full bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest py-5 text-sm md:text-base hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors">Finalizar Registro</button>
         </form>
       </div>
 
@@ -172,6 +183,11 @@
     window.startFaceVer = async function() {
       window.setScreen('face-capture');
       captureState = 'INIT';
+      
+      document.getElementById("face-inst").className = "text-brand-black font-display font-bold uppercase tracking-widest text-xl sm:text-2xl text-center";
+      document.getElementById("face-status").className = "text-brand-black font-bold tracking-widest uppercase text-sm mt-2 text-center";
+      document.getElementById("face-hud").className = "w-full bg-brand-white p-6 sm:p-8 flex flex-col items-center justify-center transition-colors duration-300 relative z-10";
+      
       updateInst();
       
       try {
@@ -179,9 +195,7 @@
         video.srcObject = stream;
         video.addEventListener("loadeddata", predictWebcam);
       } catch (err) {
-        document.getElementById("face-inst").innerText = "ERROR DE CÁMARA";
-        document.getElementById("face-inst").classList.add("text-red-500");
-        document.getElementById("face-inst").classList.remove("text-brand-green");
+        document.getElementById("face-inst").innerText = "ERROR DE ACCESO A CÁMARA";
       }
     };
 
@@ -208,10 +222,10 @@
       }
       if(captureState === 'SUCCESS') {
         inst.innerText = "¡IDENTIDAD VERIFICADA!";
-        inst.className = "text-brand-black font-display font-bold uppercase tracking-widest text-lg sm:text-xl";
+        inst.className = "text-brand-black font-display font-bold uppercase tracking-widest text-xl sm:text-2xl text-center";
         status.innerText = "PROCESO COMPLETADO";
-        status.className = "text-brand-black font-bold tracking-widest uppercase text-xs mt-2 opacity-100";
-        hud.className = "w-full bg-brand-green p-6 flex flex-col items-center justify-center transition-colors duration-300";
+        status.className = "text-brand-black font-bold tracking-widest uppercase text-sm mt-2 text-center";
+        hud.className = "w-full bg-brand-green p-6 sm:p-8 flex flex-col items-center justify-center transition-colors duration-300 relative z-10";
       }
     }
 
