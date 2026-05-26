@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GR30 Gym - Autenticación</title>
+<meta name="description" content="Acceso a GR30 Gym. Fuerza sin excusas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png">
+</head>
+<body class="bg-brand-white font-sans antialiased selection:bg-brand-green selection:text-brand-black text-brand-black min-h-screen flex flex-col overflow-x-hidden">
+
+  <!-- Minimal Header matching index flat design -->
+  <header class="w-full flex justify-between items-center px-6 lg:px-12 py-8 z-50 relative">
+    <a href="index.html" class="text-3xl font-display font-bold tracking-tighter uppercase flex items-center gap-3 group focus:outline-none w-max z-10" aria-label="Ir al inicio">
+      <div class="w-12 h-12 bg-brand-green text-brand-black flex items-center justify-center flex-shrink-0 group-hover:bg-brand-black group-hover:text-brand-white group-focus:bg-brand-black group-focus:text-brand-white transition-colors">
+        <span class="text-3xl leading-none">G</span>
+      </div>
+      <span class="text-brand-black">GR30<span class="text-brand-green transition-colors">.</span></span>
+    </a>
+  </header>
+
+  <!-- Centralized, clean, flat form area without split panels or container borders -->
+  <main class="flex-1 flex flex-col justify-center items-center px-6 py-12 relative w-full max-w-2xl mx-auto">
+    <div class="w-full relative z-10">
+      
+      <!-- SCREEN LOGIN -->
+      <div id="screen-login" class="screen flex flex-col">
+        <h1 class="text-[clamp(4rem,10vw,6rem)] leading-none font-display font-bold uppercase tracking-tighter text-brand-black mb-12">Acceso.</h1>
+        <form onsubmit="gotoScreen(event, 'welcome')" class="flex flex-col gap-8">
+          <div>
+            <label class="block font-display font-bold uppercase tracking-widest text-sm text-brand-black mb-4" for="log-name">Nombre</label>
+            <input type="text" id="log-name" class="w-full bg-brand-white text-brand-black border-4 border-brand-black px-6 py-5 text-xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green placeholder:text-brand-black/50 placeholder:uppercase transition-all" placeholder="EJ. JUAN PÉREZ" required>
+          </div>
+          <div>
+            <label class="block font-display font-bold uppercase tracking-widest text-sm text-brand-black mb-4" for="log-pass">Contraseña</label>
+            <input type="password" id="log-pass" class="w-full bg-brand-white text-brand-black border-4 border-brand-black px-6 py-5 text-xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green placeholder:text-brand-black/50 placeholder:uppercase transition-all" placeholder="TU CONTRASEÑA" required>
+          </div>
+          <button type="submit" class="w-full py-6 text-center bg-brand-black text-brand-white hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors font-display font-bold uppercase tracking-widest text-lg mt-4 disabled:opacity-50 disabled:pointer-events-none">Iniciar Sesión</button>
+        </form>
+        <div class="mt-6 flex flex-col gap-4">
+          <button onclick="setScreen('register')" class="w-full py-6 text-center bg-brand-white text-brand-black border-4 border-brand-black hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white focus:outline-none active:bg-brand-black active:text-brand-white transition-colors font-display font-bold uppercase tracking-widest text-lg disabled:opacity-50 disabled:pointer-events-none">Crear Cuenta</button>
+        </div>
+      </div>
+
+      <!-- SCREEN REGISTER -->
+      <div id="screen-register" class="screen hidden flex-col">
+        <h1 class="text-[clamp(4rem,10vw,6rem)] leading-none font-display font-bold uppercase tracking-tighter text-brand-black mb-12">Registro.</h1>
+        <form onsubmit="gotoScreen(event, 'welcome')" class="flex flex-col gap-8">
+          <div>
+            <label class="block font-display font-bold uppercase tracking-widest text-sm text-brand-black mb-4" for="reg-name">Nombre</label>
+            <input type="text" id="reg-name" class="w-full bg-brand-white text-brand-black border-4 border-brand-black px-6 py-5 text-xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green placeholder:text-brand-black/50 placeholder:uppercase transition-all" placeholder="EJ. JUAN PÉREZ" required>
+          </div>
+          <div>
+            <label class="block font-display font-bold uppercase tracking-widest text-sm text-brand-black mb-4" for="reg-email">Correo</label>
+            <input type="email" id="reg-email" class="w-full bg-brand-white text-brand-black border-4 border-brand-black px-6 py-5 text-xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green placeholder:text-brand-black/50 placeholder:uppercase transition-all" placeholder="TU@CORREO.COM" required>
+          </div>
+          <div>
+            <label class="block font-display font-bold uppercase tracking-widest text-sm text-brand-black mb-4" for="reg-pass">Contraseña</label>
+            <input type="password" id="reg-pass" class="w-full bg-brand-white text-brand-black border-4 border-brand-black px-6 py-5 text-xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green placeholder:text-brand-black/50 placeholder:uppercase transition-all" placeholder="MÍN. 8 CARACTERES" required>
+          </div>
+          <button type="submit" class="w-full py-6 text-center bg-brand-black text-brand-white hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors font-display font-bold uppercase tracking-widest text-lg mt-4 disabled:opacity-50 disabled:pointer-events-none">Crear Cuenta</button>
+        </form>
+        <div class="mt-6 flex flex-col gap-4">
+          <button onclick="setScreen('phone')" class="w-full py-6 text-center bg-brand-white text-brand-black border-4 border-brand-black hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white focus:outline-none active:bg-brand-black active:text-brand-white transition-colors font-display font-bold uppercase tracking-widest text-lg disabled:opacity-50 disabled:pointer-events-none">O Verificar por Número</button>
+          <button onclick="setScreen('login')" class="w-full py-6 text-center bg-brand-white text-brand-black border-4 border-brand-black hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white focus:outline-none active:bg-brand-black active:text-brand-white transition-colors font-display font-bold uppercase tracking-widest text-lg disabled:opacity-50 disabled:pointer-events-none">Ya tengo cuenta</button>
+        </div>
+      </div>
+
+      <!-- SCREEN PHONE -->
+      <div id="screen-phone" class="screen hidden flex-col">
+        <h1 class="text-[clamp(4rem,10vw,6rem)] leading-none font-display font-bold uppercase tracking-tighter text-brand-black mb-12">Verificar.</h1>
+        
+        <div id="phone-step-1" class="flex flex-col">
+          <form onsubmit="sendCode(event)" class="flex flex-col gap-8">
+            <div>
+              <label class="block font-display font-bold uppercase tracking-widest text-sm text-brand-black mb-4" for="ver-phone">Teléfono</label>
+              <input type="tel" id="ver-phone" class="w-full bg-brand-white text-brand-black border-4 border-brand-black px-6 py-5 text-xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green placeholder:text-brand-black/50 placeholder:uppercase transition-all" placeholder="EJ. 555-0199" required>
+            </div>
+            <button type="submit" class="w-full py-6 text-center bg-brand-black text-brand-white hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors font-display font-bold uppercase tracking-widest text-lg mt-4 disabled:opacity-50 disabled:pointer-events-none">Enviar Código SMS</button>
+          </form>
+          <div class="mt-6 flex flex-col gap-4">
+            <button onclick="setScreen('register')" class="w-full py-6 text-center bg-brand-white text-brand-black border-4 border-brand-black hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white focus:outline-none active:bg-brand-black active:text-brand-white transition-colors font-display font-bold uppercase tracking-widest text-lg disabled:opacity-50 disabled:pointer-events-none">Volver Atrás</button>
+          </div>
+        </div>
+
+        <div id="phone-step-2" class="hidden flex-col">
+          <div class="bg-brand-green text-brand-black p-6 mb-12 border-4 border-brand-black font-display font-bold uppercase tracking-widest text-sm text-center">
+            Código enviado a tu teléfono
+          </div>
+          <form onsubmit="gotoScreen(event, 'welcome')" class="flex flex-col gap-8">
+            <div>
+              <label class="block font-display font-bold uppercase tracking-widest text-sm text-brand-black mb-4" for="ver-code">Código de 4 dígitos</label>
+              <input type="text" id="ver-code" maxlength="4" class="w-full bg-brand-white text-brand-black border-4 border-brand-black px-6 py-5 text-4xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green placeholder:text-brand-black/50 text-center transition-all" placeholder="0000" required>
+            </div>
+            <button type="submit" class="w-full py-6 text-center bg-brand-black text-brand-white hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors font-display font-bold uppercase tracking-widest text-lg mt-4 disabled:opacity-50 disabled:pointer-events-none">Validar Código</button>
+          </form>
+          <div class="mt-6 flex flex-col gap-4">
+            <button onclick="resetPhoneStep()" class="w-full py-6 text-center bg-brand-white text-brand-black border-4 border-brand-black hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white focus:outline-none active:bg-brand-black active:text-brand-white transition-colors font-display font-bold uppercase tracking-widest text-lg disabled:opacity-50 disabled:pointer-events-none">Cambiar Teléfono</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCREEN WELCOME -->
+      <div id="screen-welcome" class="screen hidden flex-col justify-center items-center text-center py-12">
+        <div class="w-32 h-32 bg-brand-green text-brand-black border-4 border-brand-black flex items-center justify-center font-display font-bold text-6xl mb-12">
+          ✓
+        </div>
+        <h1 class="text-[clamp(4rem,10vw,6rem)] leading-none font-display font-bold uppercase tracking-tighter text-brand-black mb-8">¡Bienvenido!</h1>
+        <p class="text-2xl font-medium text-brand-black mb-16">
+          Autenticación exitosa. Entra al dashboard.
+        </p>
+        <a href="admin.html" class="inline-block w-full py-6 text-center bg-brand-black text-brand-white hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors font-display font-bold uppercase tracking-widest text-lg">Ir al Dashboard</a>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    function setScreen(screenName) {
+      document.querySelectorAll('.screen').forEach(el => {
+        el.classList.add('hidden');
+        el.classList.remove('flex');
+      });
+      const target = document.getElementById('screen-' + screenName);
+      if (target) {
+        target.classList.remove('hidden');
+        target.classList.add('flex');
+      }
+
+      if (screenName === 'phone') {
+        resetPhoneStep();
+      }
+    }
+
+    function gotoScreen(e, screenName) {
+      if (e) e.preventDefault();
+      setScreen(screenName);
+    }
+
+    function sendCode(e) {
+      if (e) e.preventDefault();
+      document.getElementById('phone-step-1').classList.add('hidden');
+      document.getElementById('phone-step-1').classList.remove('flex');
+      document.getElementById('phone-step-2').classList.remove('hidden');
+      document.getElementById('phone-step-2').classList.add('flex');
+      setTimeout(() => {
+        document.getElementById('ver-code').focus();
+      }, 50);
+    }
+
+    function resetPhoneStep() {
+      document.getElementById('phone-step-1').classList.remove('hidden');
+      document.getElementById('phone-step-1').classList.add('flex');
+      document.getElementById('phone-step-2').classList.add('hidden');
+      document.getElementById('phone-step-2').classList.remove('flex');
+      document.getElementById('ver-phone').value = '';
+      document.getElementById('ver-code').value = '';
+    }
+  </script>
+</body>
+</html>
