@@ -15,6 +15,7 @@
 <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png">
 <link rel="manifest" href="/manifest.json">
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
@@ -46,10 +47,8 @@
       Únete Ahora
     </a>
     
-    <button id="menuBtn" aria-label="Abrir menú" aria-expanded="false" class="lg:hidden w-12 h-12 flex flex-col items-center justify-center gap-[6px] bg-brand-black text-brand-white   hover:bg-brand-green hover:text-brand-black  focus:bg-brand-green focus:text-brand-black  focus:outline-none active:bg-brand-green active:text-brand-black  transition-colors z-[60]">
-      <div class="w-6 h-[2px] bg-current origin-center" id="bar1"></div>
-      <div class="w-6 h-[2px] bg-current origin-center" id="bar2"></div>
-      <div class="w-6 h-[2px] bg-current origin-center" id="bar3"></div>
+    <button id="menuBtn" aria-label="Abrir menú" aria-expanded="false" class="lg:hidden w-12 h-12 flex items-center justify-center bg-brand-black text-brand-white hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors z-[60]">
+      <i id="menuIcon" class="ph-bold ph-list text-3xl"></i>
     </button>
   </div>
 </header>
@@ -229,8 +228,8 @@
           <h3 class="text-3xl font-display font-bold uppercase mb-2">Visita Diaria</h3>
           <p class="text-5xl sm:text-6xl font-display font-bold mb-6 bg-brand-green text-brand-black inline-block px-3 py-1 tracking-tighter -ml-3 break-all">$70<span class="text-xl sm:text-2xl text-current tracking-normal">mxn</span></p>
           <ul class="space-y-6 font-medium mb-8 text-lg">
-            <li class="flex gap-4 items-start"><span class="text-brand-black group-hover:text-brand-white group-focus:text-brand-white group-active:text-brand-white font-bold">■</span> Acceso total a pesas y cardio</li>
-            <li class="flex gap-4 items-start"><span class="text-brand-black group-hover:text-brand-white group-focus:text-brand-white group-active:text-brand-white font-bold">■</span> Uso de regaderas</li>
+            <li class="flex gap-4 items-start"><i class="ph-bold ph-check text-xl mt-1 text-brand-black group-hover:text-brand-white group-focus:text-brand-white group-active:text-brand-white"></i> Acceso total a pesas y cardio</li>
+            <li class="flex gap-4 items-start"><i class="ph-bold ph-check text-xl mt-1 text-brand-black group-hover:text-brand-white group-focus:text-brand-white group-active:text-brand-white"></i> Uso de regaderas</li>
           </ul>
         </div>
         <a href="#contacto" class="w-full py-5 text-center   bg-brand-black text-brand-white group-hover:bg-brand-white group-hover:text-brand-black  group-focus:bg-brand-white group-focus:text-brand-black  group-active:bg-brand-white group-active:text-brand-black  hover:!bg-brand-green hover:!text-brand-black  focus:!bg-brand-green focus:!text-brand-black  focus:outline-none active:!bg-brand-green active:!text-brand-black  transition-colors font-display font-bold uppercase tracking-widest text-sm md:text-base">Elegir Plan</a>
@@ -240,9 +239,9 @@
           <h3 class="text-3xl font-display font-bold uppercase mb-2">Mensual</h3>
           <p class="text-5xl sm:text-6xl font-display font-bold mb-6 text-brand-black group-hover:text-brand-green group-focus:text-brand-green group-active:text-brand-green tracking-tighter break-all">$450<span class="text-xl sm:text-2xl text-current tracking-normal">mxn</span></p>
           <ul class="space-y-6 font-medium mb-8 text-lg">
-            <li class="flex gap-4 items-start"><span class="text-brand-black group-hover:text-brand-green group-focus:text-brand-green group-active:text-brand-green font-bold">■</span> Acceso 100% ilimitado</li>
-            <li class="flex gap-4 items-start"><span class="text-brand-black group-hover:text-brand-green group-focus:text-brand-green group-active:text-brand-green font-bold">■</span> Asesoría en rutina básica</li>
-            <li class="flex gap-4 items-start"><span class="text-brand-black group-hover:text-brand-green group-focus:text-brand-green group-active:text-brand-green font-bold">■</span> Clases de Zumba incluidas</li>
+            <li class="flex gap-4 items-start"><i class="ph-bold ph-check text-xl mt-1 text-brand-black group-hover:text-brand-green group-focus:text-brand-green group-active:text-brand-green"></i> Acceso 100% ilimitado</li>
+            <li class="flex gap-4 items-start"><i class="ph-bold ph-check text-xl mt-1 text-brand-black group-hover:text-brand-green group-focus:text-brand-green group-active:text-brand-green"></i> Asesoría en rutina básica</li>
+            <li class="flex gap-4 items-start"><i class="ph-bold ph-check text-xl mt-1 text-brand-black group-hover:text-brand-green group-focus:text-brand-green group-active:text-brand-green"></i> Clases de Zumba incluidas</li>
           </ul>
         </div>
         <a href="#contacto" class="w-full py-5 text-center   bg-brand-black text-brand-white group-hover:bg-brand-white group-hover:text-brand-black  group-focus:bg-brand-white group-focus:text-brand-black  group-active:bg-brand-white group-active:text-brand-black  hover:!bg-brand-green hover:!text-brand-black  focus:!bg-brand-green focus:!text-brand-black  focus:outline-none active:!bg-brand-green active:!text-brand-black  transition-colors font-display font-bold uppercase tracking-widest text-sm md:text-base">Elegir Plan</a>
@@ -252,9 +251,9 @@
           <h3 class="text-3xl font-display font-bold uppercase mb-2">Anual</h3>
           <p class="text-5xl sm:text-6xl font-display font-bold mb-6 bg-brand-green text-brand-black inline-block px-3 py-1 tracking-tighter -ml-3 break-all">$4,500<span class="text-xl sm:text-2xl text-current tracking-normal">mxn</span></p>
           <ul class="space-y-6 font-medium mb-8 text-lg">
-            <li class="flex gap-4 items-start"><span class="text-brand-black group-hover:text-brand-white group-focus:text-brand-white group-active:text-brand-white font-bold">■</span> Todos los beneficios mensuales</li>
-            <li class="flex gap-4 items-start"><span class="text-brand-black group-hover:text-brand-white group-focus:text-brand-white group-active:text-brand-white font-bold">■</span> Ahorras 2 meses completos</li>
-            <li class="flex gap-4 items-start"><span class="text-brand-black group-hover:text-brand-white group-focus:text-brand-white group-active:text-brand-white font-bold">■</span> Congelamiento de tarifa</li>
+            <li class="flex gap-4 items-start"><i class="ph-bold ph-check text-xl mt-1 text-brand-black group-hover:text-brand-white group-focus:text-brand-white group-active:text-brand-white"></i> Todos los beneficios mensuales</li>
+            <li class="flex gap-4 items-start"><i class="ph-bold ph-check text-xl mt-1 text-brand-black group-hover:text-brand-white group-focus:text-brand-white group-active:text-brand-white"></i> Ahorras 2 meses completos</li>
+            <li class="flex gap-4 items-start"><i class="ph-bold ph-check text-xl mt-1 text-brand-black group-hover:text-brand-white group-focus:text-brand-white group-active:text-brand-white"></i> Congelamiento de tarifa</li>
           </ul>
         </div>
         <a href="#contacto" class="w-full py-5 text-center   bg-brand-black text-brand-white group-hover:bg-brand-white group-hover:text-brand-black  group-focus:bg-brand-white group-focus:text-brand-black  group-active:bg-brand-white group-active:text-brand-black  hover:!bg-brand-green hover:!text-brand-black  focus:!bg-brand-green focus:!text-brand-black  focus:outline-none active:!bg-brand-green active:!text-brand-black  transition-colors font-display font-bold uppercase tracking-widest text-sm md:text-base">Elegir Plan</a>
@@ -270,8 +269,8 @@
         <details class="group bg-brand-white border-4 border-brand-black p-6 open:bg-brand-green transition-colors cursor-pointer focus-within:outline-none focus-within:outline focus-within:outline-4 focus-within:outline-brand-black focus-within:outline-offset-2">
           <summary class="font-display font-bold text-lg sm:text-xl lg:text-2xl uppercase flex justify-between items-center list-none custom-summary">
             <span>¿Puedo cancelar en cualquier momento?</span>
-            <span class="text-3xl leading-none group-open:hidden">+</span>
-            <span class="text-3xl leading-none hidden group-open:block">-</span>
+            <i class="ph-bold ph-plus text-3xl group-open:hidden"></i>
+            <i class="ph-bold ph-minus text-3xl hidden group-open:block"></i>
           </summary>
           <div class="pt-6 mt-6   font-medium text-lg leading-relaxed">
             Sí, los planes mensuales se pueden cancelar sin penalización avisando con 5 días de anticipación al próximo ciclo de cobro.
@@ -281,8 +280,8 @@
         <details class="group bg-brand-white border-4 border-brand-black p-6 open:bg-brand-black open:text-brand-white transition-colors cursor-pointer focus-within:outline-none focus-within:outline focus-within:outline-4 focus-within:outline-brand-green focus-within:outline-offset-2">
           <summary class="font-display font-bold text-lg sm:text-xl lg:text-2xl uppercase flex justify-between items-center list-none custom-summary">
             <span>¿Hay estacionamiento disponible?</span>
-            <span class="text-3xl leading-none group-open:hidden text-brand-black group-open:text-brand-white">+</span>
-            <span class="text-3xl leading-none hidden group-open:block text-brand-white">-</span>
+            <i class="ph-bold ph-plus text-3xl text-brand-black group-open:text-brand-white group-open:hidden"></i>
+            <i class="ph-bold ph-minus text-3xl text-brand-white hidden group-open:block"></i>
           </summary>
           <div class="pt-6 mt-6   font-medium text-lg leading-relaxed text-brand-white">
             Contamos con estacionamiento subterráneo gratuito para socios por hasta 3 horas validando tu ticket en recepción.
@@ -292,8 +291,8 @@
         <details class="group bg-brand-white border-4 border-brand-black p-6 open:bg-brand-green transition-colors cursor-pointer focus-within:outline-none focus-within:outline focus-within:outline-4 focus-within:outline-brand-black focus-within:outline-offset-2">
           <summary class="font-display font-bold text-lg sm:text-xl lg:text-2xl uppercase flex justify-between items-center list-none custom-summary">
             <span>¿Las clases grupales tienen costo extra?</span>
-            <span class="text-3xl leading-none group-open:hidden">+</span>
-            <span class="text-3xl leading-none hidden group-open:block">-</span>
+            <i class="ph-bold ph-plus text-3xl group-open:hidden"></i>
+            <i class="ph-bold ph-minus text-3xl hidden group-open:block"></i>
           </summary>
           <div class="pt-6 mt-6   font-medium text-lg leading-relaxed">
             No. Zumba, HIIT y Acondicionamiento están 100% incluidas en tu membresía Mensual y Anual.
@@ -376,7 +375,7 @@
       <p class="font-bold text-brand-white uppercase tracking-widest text-xs lg:text-sm text-center md:text-left">
         © 2024 GR30 Gimnasio. Todos los derechos reservados.
       </p>
-      <a href="#inicio" class="bg-brand-white text-brand-black px-6 py-3 font-bold text-xs xl:text-sm uppercase tracking-widest hover:bg-brand-green hover:text-brand-black transition-colors     focus:outline-none focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black ">Volver arriba ↑</a>
+      <a href="#inicio" class="bg-brand-white text-brand-black px-6 py-3 font-bold text-xs xl:text-sm uppercase tracking-widest hover:bg-brand-green hover:text-brand-black transition-colors focus:outline-none focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center gap-2">Volver arriba <i class="ph-bold ph-arrow-up text-lg"></i></a>
     </div>
   </footer>
 </main>
@@ -399,9 +398,6 @@
 
   const menuBtn = document.getElementById('menuBtn');
   const mobileMenu = document.getElementById('mobileMenu');
-  const b1 = document.getElementById('bar1');
-  const b2 = document.getElementById('bar2');
-  const b3 = document.getElementById('bar3');
   const mobileLinks = document.querySelectorAll('.mobile-link');
   let menuOpen = false;
 
@@ -413,20 +409,17 @@
   function toggleMenu() {
     menuOpen = !menuOpen;
     menuBtn.setAttribute('aria-expanded', menuOpen);
+    const menuIcon = document.getElementById('menuIcon');
     if (menuOpen) {
       mobileMenu.setAttribute('aria-hidden', 'false');
       document.querySelector('main').setAttribute('inert', '');
-      gsap.to(b1, { y: 8, rotation: 45, duration: 0.3, ease: "power2.inOut" });
-      gsap.to(b2, { autoAlpha: 0, duration: 0.3 });
-      gsap.to(b3, { y: -8, rotation: -45, duration: 0.3, ease: "power2.inOut" });
+      menuIcon.className = "ph-bold ph-x text-3xl";
       tlMenu.play();
       document.body.style.overflow = 'hidden';
     } else {
       mobileMenu.setAttribute('aria-hidden', 'true');
       document.querySelector('main').removeAttribute('inert');
-      gsap.to(b1, { y: 0, rotation: 0, duration: 0.3, ease: "power2.inOut" });
-      gsap.to(b2, { autoAlpha: 1, duration: 0.3 });
-      gsap.to(b3, { y: 0, rotation: 0, duration: 0.3, ease: "power2.inOut" });
+      menuIcon.className = "ph-bold ph-list text-3xl";
       tlMenu.reverse();
       document.body.style.overflow = '';
     }

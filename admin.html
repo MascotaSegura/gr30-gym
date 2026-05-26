@@ -11,14 +11,11 @@
 <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
 <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png">
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
 <style>
   /* ===== PANTALLAS ===== */
   .screen { display: none; }
   .screen.active { display: block; }
-  #admin-bar1, #admin-bar2, #admin-bar3 { transition: transform 0.3s ease, opacity 0.3s ease; }
-  button[aria-expanded="true"] #admin-bar1 { transform: translateY(8px) rotate(45deg); }
-  button[aria-expanded="true"] #admin-bar2 { opacity: 0; }
-  button[aria-expanded="true"] #admin-bar3 { transform: translateY(-8px) rotate(-45deg); }
 </style>
 </head>
 <body class="font-sans antialiased selection:bg-brand-green selection:text-brand-black bg-brand-white text-brand-black min-h-screen flex flex-col md:flex-row overflow-x-hidden">
@@ -32,18 +29,16 @@
       <span class="text-brand-black">GR30<span class="text-brand-green group-hover:text-brand-black group-active:text-brand-black transition-colors">.</span></span>
     </a>
     
-    <button id="mobileMenuBtn" aria-label="Abrir menú" aria-expanded="false" class="md:hidden w-12 h-12 flex flex-col items-center justify-center gap-[6px] bg-brand-black text-brand-white hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black transition-colors focus:outline-none">
-      <div class="w-6 h-[2px] bg-current origin-center" id="admin-bar1"></div>
-      <div class="w-6 h-[2px] bg-current origin-center" id="admin-bar2"></div>
-      <div class="w-6 h-[2px] bg-current origin-center" id="admin-bar3"></div>
+    <button id="mobileMenuBtn" aria-label="Abrir menú" aria-expanded="false" class="md:hidden w-12 h-12 flex items-center justify-center bg-brand-black text-brand-white hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black transition-colors focus:outline-none">
+      <i id="adminMenuIcon" class="ph-bold ph-list text-3xl"></i>
     </button>
   </div>
 
   <nav id="sidebar-nav" class="hidden md:flex flex-1 flex-col p-6 gap-4">
-    <button data-screen="dashboard" class="nav-btn w-full text-left px-6 py-4 font-display font-bold text-sm tracking-widest uppercase transition-colors focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black" aria-current="page">Dashboard</button>
-    <button data-screen="staff" class="nav-btn w-full text-left px-6 py-4 font-display font-bold text-sm tracking-widest uppercase transition-colors focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black">Staff</button>
-    <button data-screen="miembros" class="nav-btn w-full text-left px-6 py-4 font-display font-bold text-sm tracking-widest uppercase transition-colors focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black">Miembros</button>
-    <button data-screen="planes" class="nav-btn w-full text-left px-6 py-4 font-display font-bold text-sm tracking-widest uppercase transition-colors focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black">Planes</button>
+    <button data-screen="dashboard" class="nav-btn w-full text-left px-6 py-4 font-display font-bold text-sm tracking-widest uppercase transition-colors focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center gap-3" aria-current="page"><i class="ph-bold ph-squares-four text-xl"></i> Dashboard</button>
+    <button data-screen="staff" class="nav-btn w-full text-left px-6 py-4 font-display font-bold text-sm tracking-widest uppercase transition-colors focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center gap-3"><i class="ph-bold ph-users text-xl"></i> Staff</button>
+    <button data-screen="miembros" class="nav-btn w-full text-left px-6 py-4 font-display font-bold text-sm tracking-widest uppercase transition-colors focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center gap-3"><i class="ph-bold ph-identification-card text-xl"></i> Miembros</button>
+    <button data-screen="planes" class="nav-btn w-full text-left px-6 py-4 font-display font-bold text-sm tracking-widest uppercase transition-colors focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center gap-3"><i class="ph-bold ph-clipboard-text text-xl"></i> Planes</button>
   </nav>
 
   <div class="p-6 hidden md:block">
@@ -56,7 +51,7 @@
   <header class="bg-brand-white border-b-4 border-brand-black p-6 lg:p-8 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-6 flex-shrink-0">
     <h1 id="page-title" class="text-4xl sm:text-5xl lg:text-6xl font-display font-bold uppercase tracking-tighter text-brand-black leading-none">Dashboard.</h1>
     <div class="flex items-center gap-4">
-      <span class="font-display font-bold uppercase tracking-widest text-xs hidden sm:inline-block bg-brand-black text-brand-white px-2 py-1">Administrador</span>
+      <span class="font-display font-bold uppercase tracking-widest text-xs hidden sm:inline-block bg-brand-black text-brand-white px-2 py-1"><i class="ph-bold ph-shield-check mr-1 text-sm align-middle pb-[2px]"></i> Administrador</span>
       <div class="w-12 h-12 bg-brand-green text-brand-black flex items-center justify-center font-display font-bold text-xl select-none">A</div>
     </div>
   </header>
@@ -65,15 +60,18 @@
   <div id="screen-dashboard" class="screen active p-6 lg:p-12">
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-      <div class="bg-brand-white text-brand-black border-4 border-brand-black p-8 hover:bg-brand-black hover:text-brand-white group transition-colors">
+      <div class="bg-brand-white text-brand-black border-4 border-brand-black p-8 hover:bg-brand-black hover:text-brand-white group transition-colors flex flex-col items-start">
+        <i class="ph-bold ph-users text-4xl mb-4 group-hover:text-brand-green transition-colors"></i>
         <p class="text-xs font-display font-bold uppercase tracking-widest mb-4 bg-brand-black text-brand-white group-hover:bg-brand-white group-hover:text-brand-black inline-block px-2 py-1">Miembros Activos</p>
         <p class="text-6xl lg:text-7xl font-display font-bold tracking-tighter">142</p>
       </div>
-      <div class="bg-brand-green text-brand-black border-4 border-brand-black p-8 hover:bg-brand-black hover:text-brand-white group transition-colors">
+      <div class="bg-brand-green text-brand-black border-4 border-brand-black p-8 hover:bg-brand-black hover:text-brand-white group transition-colors flex flex-col items-start">
+        <i class="ph-bold ph-user-circle-gear text-4xl mb-4 group-hover:text-brand-green transition-colors"></i>
         <p class="text-xs font-display font-bold uppercase tracking-widest mb-4 bg-brand-black text-brand-white group-hover:bg-brand-white group-hover:text-brand-black inline-block px-2 py-1">Staff en Turno</p>
         <p class="text-6xl lg:text-7xl font-display font-bold tracking-tighter">4</p>
       </div>
-      <div class="bg-brand-white text-brand-black border-4 border-brand-black p-8 hover:bg-brand-black hover:text-brand-white group transition-colors">
+      <div class="bg-brand-white text-brand-black border-4 border-brand-black p-8 hover:bg-brand-black hover:text-brand-white group transition-colors flex flex-col items-start">
+        <i class="ph-bold ph-currency-dollar text-4xl mb-4 group-hover:text-brand-green transition-colors"></i>
         <p class="text-xs font-display font-bold uppercase tracking-widest mb-4 bg-brand-black text-brand-white group-hover:bg-brand-white group-hover:text-brand-black inline-block px-2 py-1">Ingresos (Mes)</p>
         <div class="flex items-baseline gap-2">
           <p class="text-6xl lg:text-7xl font-display font-bold tracking-tighter">$63k</p>
@@ -86,8 +84,8 @@
       <section class="bg-brand-white  ">
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-6">
           <h2 class="text-3xl font-display font-bold uppercase tracking-tighter">Staff Registrado.</h2>
-          <button onclick="openModal('staff-form')" class="w-full sm:w-auto font-display font-bold uppercase tracking-widest text-xs xl:text-sm bg-brand-black text-brand-white border-4 border-brand-black px-6 py-3 hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black transition-colors focus:outline-none">
-            + Añadir
+          <button onclick="openModal('staff-form')" class="w-full sm:w-auto font-display font-bold uppercase tracking-widest text-xs xl:text-sm bg-brand-black text-brand-white border-4 border-brand-black px-6 py-3 hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black transition-colors focus:outline-none flex items-center justify-center gap-2">
+            <i class="ph-bold ph-plus text-base mt-[-2px]"></i> Añadir
           </button>
         </div>
         <div class="overflow-x-auto border-4 border-brand-black">
@@ -137,8 +135,8 @@
     <div class="bg-brand-white  ">
       <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-6">
         <h2 class="text-4xl font-display font-bold uppercase tracking-tighter text-brand-black">Staff Registrado.</h2>
-        <button onclick="openModal('staff-form')" class="w-full sm:w-auto font-display font-bold uppercase tracking-widest text-xs xl:text-sm bg-brand-black text-brand-white border-4 border-brand-black px-6 py-3 hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black transition-colors focus:outline-none">
-          + Añadir Staff
+        <button onclick="openModal('staff-form')" class="w-full sm:w-auto font-display font-bold uppercase tracking-widest text-xs xl:text-sm bg-brand-black text-brand-white border-4 border-brand-black px-6 py-3 hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black transition-colors focus:outline-none flex items-center justify-center gap-2">
+          <i class="ph-bold ph-plus text-base mt-[-2px]"></i> Añadir Staff
         </button>
       </div>
       <div class="overflow-x-auto border-4 border-brand-black">
@@ -164,8 +162,8 @@
     <div class="bg-brand-white  ">
       <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-6">
         <h2 class="text-4xl font-display font-bold uppercase tracking-tighter text-brand-black">Directorio.</h2>
-        <button onclick="openModal('member-form')" class="w-full sm:w-auto font-display font-bold uppercase tracking-widest text-xs xl:text-sm bg-brand-black text-brand-white border-4 border-brand-black px-6 py-3 hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black transition-colors focus:outline-none">
-          + Añadir Miembro
+        <button onclick="openModal('member-form')" class="w-full sm:w-auto font-display font-bold uppercase tracking-widest text-xs xl:text-sm bg-brand-black text-brand-white border-4 border-brand-black px-6 py-3 hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black transition-colors focus:outline-none flex items-center justify-center gap-2">
+          <i class="ph-bold ph-plus text-base mt-[-2px]"></i> Añadir Miembro
         </button>
       </div>
       <div class="overflow-x-auto border-4 border-brand-black">
@@ -191,8 +189,8 @@
   <div id="screen-planes" class="screen p-6 lg:p-12">
     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 sm:mb-12 gap-6">
       <h2 class="text-4xl sm:text-5xl font-display font-bold uppercase tracking-tighter text-brand-black">Planes Disponibles</h2>
-      <button onclick="openModal('plan-form', null)" class="w-full sm:w-auto font-display font-bold uppercase tracking-widest text-xs xl:text-sm bg-brand-black text-brand-white border-4 border-brand-black px-6 py-3 hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black transition-colors focus:outline-none">
-        + Añadir Plan
+      <button onclick="openModal('plan-form', null)" class="w-full sm:w-auto font-display font-bold uppercase tracking-widest text-xs xl:text-sm bg-brand-black text-brand-white border-4 border-brand-black px-6 py-3 hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black transition-colors focus:outline-none flex items-center justify-center gap-2">
+        <i class="ph-bold ph-plus text-base mt-[-2px]"></i> Añadir Plan
       </button>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="planes-container">
@@ -208,7 +206,7 @@
     <div class="p-6 sm:p-8 flex items-center justify-between bg-brand-black text-brand-white">
       <h2 id="modal-title" class="text-2xl sm:text-3xl font-display font-bold uppercase tracking-tighter pr-4">Modal</h2>
       <button onclick="closeModal()" aria-label="Cerrar modal" class="text-brand-white hover:text-brand-green focus:text-brand-green active:text-brand-green transition-colors focus:outline-none text-3xl font-display font-bold leading-none px-2 flex-shrink-0">
-        X
+        <i class="ph-bold ph-x"></i>
       </button>
     </div>
     
@@ -301,14 +299,17 @@ document.querySelectorAll('.nav-btn').forEach(btn => {
 
 document.getElementById('mobileMenuBtn').addEventListener('click', function() {
   const nav = document.getElementById('sidebar-nav');
+  const icon = document.getElementById('adminMenuIcon');
   const isHidden = nav.classList.contains('hidden');
   if (isHidden) {
     nav.classList.remove('hidden');
     nav.classList.add('flex');
+    icon.className = "ph-bold ph-x text-3xl";
     this.setAttribute('aria-expanded', 'true');
   } else {
     nav.classList.add('hidden');
     nav.classList.remove('flex');
+    icon.className = "ph-bold ph-list text-3xl";
     this.setAttribute('aria-expanded', 'false');
   }
 });
@@ -414,7 +415,7 @@ function renderPlanes() {
           <h3 class="text-3xl font-display font-bold uppercase mb-2">${p.nombre}</h3>
           ${priceHTML}
           <ul class="space-y-6 font-medium mb-8 text-lg">
-            ${p.beneficios.map(b => `<li class="flex gap-4 items-start"><span class="${bulletCls}">■</span> ${b}</li>`).join('')}
+            ${p.beneficios.map(b => `<li class="flex gap-4 items-start"><i class="ph-bold ph-check text-xl mt-1 ${bulletCls}"></i> ${b}</li>`).join('')}
           </ul>
         </div>
         <button onclick="openModal('plan-form', ${p.id})" class="w-full py-5 text-center bg-brand-black text-brand-white border-4 border-brand-black group-hover:bg-brand-white group-hover:text-brand-black group-focus:bg-brand-white group-focus:text-brand-black group-active:bg-brand-white group-active:text-brand-black hover:!bg-brand-green hover:!text-brand-black focus:!bg-brand-green focus:!text-brand-black focus:outline-none active:!bg-brand-green active:!text-brand-black transition-colors font-display font-bold uppercase tracking-widest text-sm md:text-base">Editar Plan</button>

@@ -6,7 +6,7 @@
     --font-sans: "Inter", sans-serif;
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
-    --color-gray-500: oklch(55.1% 0.027 264.364);
+    --color-red-500: oklch(63.7% 0.237 25.331);
     --spacing: 0.25rem;
     --container-xs: 20rem;
     --container-md: 28rem;
@@ -308,6 +308,12 @@
   .mt-6 {
     margin-top: calc(var(--spacing) * 6);
   }
+  .mt-\[-2px\] {
+    margin-top: -2px;
+  }
+  .mr-1 {
+    margin-right: calc(var(--spacing) * 1);
+  }
   .mr-2 {
     margin-right: calc(var(--spacing) * 2);
   }
@@ -325,6 +331,9 @@
   }
   .mb-8 {
     margin-bottom: calc(var(--spacing) * 8);
+  }
+  .mb-10 {
+    margin-bottom: calc(var(--spacing) * 10);
   }
   .mb-12 {
     margin-bottom: calc(var(--spacing) * 12);
@@ -359,6 +368,9 @@
   .inline-flex {
     display: inline-flex;
   }
+  .aspect-\[4\/3\] {
+    aspect-ratio: 4/3;
+  }
   .h-4 {
     height: calc(var(--spacing) * 4);
   }
@@ -374,11 +386,8 @@
   .h-16 {
     height: calc(var(--spacing) * 16);
   }
-  .h-32 {
-    height: calc(var(--spacing) * 32);
-  }
-  .h-\[2px\] {
-    height: 2px;
+  .h-24 {
+    height: calc(var(--spacing) * 24);
   }
   .h-full {
     height: 100%;
@@ -398,9 +407,6 @@
   .w-4 {
     width: calc(var(--spacing) * 4);
   }
-  .w-6 {
-    width: calc(var(--spacing) * 6);
-  }
   .w-8 {
     width: calc(var(--spacing) * 8);
   }
@@ -412,6 +418,9 @@
   }
   .w-16 {
     width: calc(var(--spacing) * 16);
+  }
+  .w-24 {
+    width: calc(var(--spacing) * 24);
   }
   .w-32 {
     width: calc(var(--spacing) * 32);
@@ -461,9 +470,6 @@
   .border-collapse {
     border-collapse: collapse;
   }
-  .origin-center {
-    transform-origin: center;
-  }
   .translate-y-0 {
     --tw-translate-y: calc(var(--spacing) * 0);
     translate: var(--tw-translate-x) var(--tw-translate-y);
@@ -471,6 +477,10 @@
   .translate-y-24 {
     --tw-translate-y: calc(var(--spacing) * 24);
     translate: var(--tw-translate-x) var(--tw-translate-y);
+  }
+  .scale-x-\[-1\] {
+    --tw-scale-x: -1;
+    scale: var(--tw-scale-x) var(--tw-scale-y);
   }
   .transform {
     transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
@@ -529,9 +539,6 @@
   .gap-16 {
     gap: calc(var(--spacing) * 16);
   }
-  .gap-\[6px\] {
-    gap: 6px;
-  }
   .space-y-6 {
     :where(& > :not(:last-child)) {
       --tw-space-y-reverse: 0;
@@ -584,9 +591,6 @@
   .bg-brand-white {
     background-color: var(--color-brand-white);
   }
-  .bg-current {
-    background-color: currentcolor;
-  }
   .object-cover {
     object-fit: cover;
   }
@@ -635,9 +639,6 @@
   .py-5 {
     padding-block: calc(var(--spacing) * 5);
   }
-  .py-6 {
-    padding-block: calc(var(--spacing) * 6);
-  }
   .py-8 {
     padding-block: calc(var(--spacing) * 8);
   }
@@ -674,6 +675,9 @@
   .pb-24 {
     padding-bottom: calc(var(--spacing) * 24);
   }
+  .pb-\[2px\] {
+    padding-bottom: 2px;
+  }
   .text-center {
     text-align: center;
   }
@@ -682,6 +686,9 @@
   }
   .text-right {
     text-align: right;
+  }
+  .align-middle {
+    vertical-align: middle;
   }
   .font-display {
     font-family: var(--font-display);
@@ -709,6 +716,10 @@
     font-size: var(--text-6xl);
     line-height: var(--tw-leading, var(--text-6xl--line-height));
   }
+  .text-base {
+    font-size: var(--text-base);
+    line-height: var(--tw-leading, var(--text-base--line-height));
+  }
   .text-lg {
     font-size: var(--text-lg);
     line-height: var(--tw-leading, var(--text-lg--line-height));
@@ -731,6 +742,9 @@
   .text-\[clamp\(0\.875rem\,2vw\,1\.125rem\)\] {
     font-size: clamp(0.875rem, 2vw, 1.125rem);
   }
+  .text-\[clamp\(3\.5rem\,8vw\,5rem\)\] {
+    font-size: clamp(3.5rem, 8vw, 5rem);
+  }
   .text-\[clamp\(3\.5rem\,8vw\,6rem\)\] {
     font-size: clamp(3.5rem, 8vw, 6rem);
   }
@@ -739,9 +753,6 @@
   }
   .text-\[clamp\(3rem\,8vw\,6rem\)\] {
     font-size: clamp(3rem, 8vw, 6rem);
-  }
-  .text-\[clamp\(4rem\,10vw\,6rem\)\] {
-    font-size: clamp(4rem, 10vw, 6rem);
   }
   .text-\[clamp\(4rem\,10vw\,8rem\)\] {
     font-size: clamp(4rem, 10vw, 8rem);
@@ -807,11 +818,17 @@
   .text-current {
     color: currentcolor;
   }
+  .text-red-500 {
+    color: var(--color-red-500);
+  }
   .uppercase {
     text-transform: uppercase;
   }
   .decoration-brand-green {
     text-decoration-color: var(--color-brand-green);
+  }
+  .decoration-2 {
+    text-decoration-thickness: 2px;
   }
   .decoration-4 {
     text-decoration-thickness: 4px;
@@ -826,13 +843,11 @@
   .opacity-0 {
     opacity: 0%;
   }
+  .opacity-80 {
+    opacity: 80%;
+  }
   .opacity-100 {
     opacity: 100%;
-  }
-  .transition {
-    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, content-visibility, overlay, pointer-events;
-    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
-    transition-duration: var(--tw-duration, var(--default-transition-duration));
   }
   .transition-all {
     transition-property: all;
@@ -1218,16 +1233,6 @@
   .active\:text-brand-white {
     &:active {
       color: var(--color-brand-white);
-    }
-  }
-  .disabled\:pointer-events-none {
-    &:disabled {
-      pointer-events: none;
-    }
-  }
-  .disabled\:opacity-50 {
-    &:disabled {
-      opacity: 50%;
     }
   }
   .sm\:right-8 {
@@ -1775,6 +1780,21 @@ details > summary::-webkit-details-marker {
   inherits: false;
   initial-value: 0;
 }
+@property --tw-scale-x {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+@property --tw-scale-y {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+@property --tw-scale-z {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
 @property --tw-rotate-x {
   syntax: "*";
   inherits: false;
@@ -1832,6 +1852,9 @@ details > summary::-webkit-details-marker {
       --tw-translate-x: 0;
       --tw-translate-y: 0;
       --tw-translate-z: 0;
+      --tw-scale-x: 1;
+      --tw-scale-y: 1;
+      --tw-scale-z: 1;
       --tw-rotate-x: initial;
       --tw-rotate-y: initial;
       --tw-rotate-z: initial;
