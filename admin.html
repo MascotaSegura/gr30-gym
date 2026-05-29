@@ -17,6 +17,15 @@
   .screen { display: none; }
   .screen.active { display: block; }
 </style>
+<script>
+    if (localStorage.getItem('gr30_session') !== 'admin') {
+      window.location.href = 'login.html';
+    }
+    function logoutAdmin() {
+      localStorage.removeItem('gr30_session');
+      window.location.href = 'login.html';
+    }
+  </script>
 </head>
 <body class="font-sans antialiased selection:bg-brand-green selection:text-brand-black bg-brand-white text-brand-black min-h-screen flex flex-col md:flex-row overflow-x-hidden">
 
@@ -35,10 +44,11 @@
   </div>
 
   <nav id="sidebar-nav" class="hidden md:flex flex-1 flex-col p-6 gap-4">
-    <button data-screen="dashboard" class="nav-btn w-full text-left px-6 py-4 font-display font-bold text-sm tracking-widest uppercase transition-colors focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center gap-3" aria-current="page"><i class="ph-bold ph-squares-four text-xl"></i> Dashboard</button>
-    <button data-screen="staff" class="nav-btn w-full text-left px-6 py-4 font-display font-bold text-sm tracking-widest uppercase transition-colors focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center gap-3"><i class="ph-bold ph-users text-xl"></i> Staff</button>
-    <button data-screen="miembros" class="nav-btn w-full text-left px-6 py-4 font-display font-bold text-sm tracking-widest uppercase transition-colors focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center gap-3"><i class="ph-bold ph-identification-card text-xl"></i> Miembros</button>
-    <button data-screen="planes" class="nav-btn w-full text-left px-6 py-4 font-display font-bold text-sm tracking-widest uppercase transition-colors focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center gap-3"><i class="ph-bold ph-clipboard-text text-xl"></i> Planes</button>
+    <button data-screen="dashboard" class="nav-btn w-full text-left px-6 py-4 border-4 border-transparent hover:border-brand-black font-display font-bold text-sm tracking-widest uppercase transition-colors focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center gap-3" aria-current="page"><i class="ph-bold ph-squares-four text-xl"></i> Dashboard</button>
+    <button data-screen="staff" class="nav-btn w-full text-left px-6 py-4 border-4 border-transparent hover:border-brand-black font-display font-bold text-sm tracking-widest uppercase transition-colors focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center gap-3"><i class="ph-bold ph-users text-xl"></i> Staff</button>
+    <button data-screen="miembros" class="nav-btn w-full text-left px-6 py-4 border-4 border-transparent hover:border-brand-black font-display font-bold text-sm tracking-widest uppercase transition-colors focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center gap-3"><i class="ph-bold ph-identification-card text-xl"></i> Miembros</button>
+    <button data-screen="pagos" class="nav-btn w-full text-left px-6 py-4 border-4 border-transparent hover:border-brand-black font-display font-bold text-sm tracking-widest uppercase transition-colors focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center gap-3"><i class="ph-bold ph-currency-dollar text-xl"></i> Pagos</button>
+    <button data-screen="planes" class="nav-btn w-full text-left px-6 py-4 border-4 border-transparent hover:border-brand-black font-display font-bold text-sm tracking-widest uppercase transition-colors focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center gap-3"><i class="ph-bold ph-clipboard-text text-xl"></i> Planes</button>
   </nav>
 
   <div class="p-6 hidden md:block">
@@ -84,7 +94,7 @@
       <section class="bg-brand-white  ">
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-6">
           <h2 class="text-3xl font-display font-bold uppercase tracking-tighter">Staff Registrado.</h2>
-          <button onclick="openModal('staff-form')" class="w-full sm:w-auto font-display font-bold uppercase tracking-widest text-xs xl:text-sm bg-brand-black text-brand-white border-4 border-brand-black px-6 py-3 hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black transition-colors focus:outline-none flex items-center justify-center gap-2">
+          <button onclick="openModal('staff-form')" class="w-full sm:w-auto text-center border-4 border-brand-black bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:border-brand-green hover:text-brand-black focus:bg-brand-green focus:border-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:border-brand-green active:text-brand-black transition-colors flex items-center justify-center gap-2 flex-shrink-0">
             <i class="ph-bold ph-plus text-base mt-[-2px]"></i> Añadir
           </button>
         </div>
@@ -107,7 +117,7 @@
       <section class="bg-brand-white  ">
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-6">
           <h2 class="text-3xl font-display font-bold uppercase tracking-tighter">Miembros</h2>
-          <button onclick="setScreen('miembros')" class="w-full sm:w-auto font-display font-bold uppercase tracking-widest text-xs xl:text-sm bg-brand-white text-brand-black border-4 border-brand-black px-6 py-3 hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white active:bg-brand-black active:text-brand-white transition-colors focus:outline-none">
+          <button onclick="setScreen('miembros')" class="w-full sm:w-auto text-center border-4 border-brand-black bg-brand-white text-brand-black font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white focus:outline-none active:bg-brand-black active:text-brand-white transition-colors">
             Ver Todos
           </button>
         </div>
@@ -135,7 +145,7 @@
     <div class="bg-brand-white  ">
       <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-6">
         <h2 class="text-4xl font-display font-bold uppercase tracking-tighter text-brand-black">Staff Registrado.</h2>
-        <button onclick="openModal('staff-form')" class="w-full sm:w-auto font-display font-bold uppercase tracking-widest text-xs xl:text-sm bg-brand-black text-brand-white border-4 border-brand-black px-6 py-3 hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black transition-colors focus:outline-none flex items-center justify-center gap-2">
+        <button onclick="openModal('staff-form')" class="w-full sm:w-auto text-center border-4 border-brand-black bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:border-brand-green hover:text-brand-black focus:bg-brand-green focus:border-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:border-brand-green active:text-brand-black transition-colors flex items-center justify-center gap-2 flex-shrink-0">
           <i class="ph-bold ph-plus text-base mt-[-2px]"></i> Añadir Staff
         </button>
       </div>
@@ -160,18 +170,24 @@
 
   <div id="screen-miembros" class="screen p-6 lg:p-12">
     <div class="bg-brand-white  ">
-      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-6">
-        <h2 class="text-4xl font-display font-bold uppercase tracking-tighter text-brand-black">Directorio.</h2>
-        <button onclick="openModal('member-form')" class="w-full sm:w-auto font-display font-bold uppercase tracking-widest text-xs xl:text-sm bg-brand-black text-brand-white border-4 border-brand-black px-6 py-3 hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black transition-colors focus:outline-none flex items-center justify-center gap-2">
-          <i class="ph-bold ph-plus text-base mt-[-2px]"></i> Añadir Miembro
-        </button>
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-6 gap-6">
+        <div class="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
+          <div class="flex items-center w-full sm:w-64 bg-brand-white border-4 border-brand-black focus-within:bg-brand-green transition-colors group">
+            <div class="pl-4 pr-2 flex items-center justify-center pointer-events-none text-brand-black/50 group-focus-within:text-brand-black transition-colors">
+              <i class="ph-bold ph-magnifying-glass text-xl"></i>
+            </div>
+            <input type="text" id="search-miembros" placeholder="Buscar miembro..." class="block w-full py-3 pr-4 bg-transparent text-brand-black font-display font-bold tracking-wide focus:outline-none placeholder:text-brand-black/50 text-sm">
+          </div>
+          <button onclick="openModal('member-form')" class="w-full sm:w-auto text-center border-4 border-brand-black bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:border-brand-green hover:text-brand-black focus:bg-brand-green focus:border-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:border-brand-green active:text-brand-black transition-colors flex items-center justify-center gap-2 flex-shrink-0">
+            <i class="ph-bold ph-plus text-base mt-[-2px]"></i> Añadir Miembro
+          </button>
+        </div>
       </div>
       <div class="overflow-x-auto border-4 border-brand-black">
         <table class="w-full text-left border-collapse min-w-[700px]">
           <thead>
             <tr class="bg-brand-black text-brand-white  ">
               <th class="p-6 font-display font-bold text-lg uppercase tracking-widest  ">Miembro</th>
-              <th class="p-6 font-display font-bold text-lg uppercase tracking-widest  ">Teléfono</th>
               <th class="p-6 font-display font-bold text-lg uppercase tracking-widest  ">Plan</th>
               <th class="p-6 font-display font-bold text-lg uppercase tracking-widest   text-left">Estado</th>
               <th class="p-6 font-display font-bold text-lg uppercase tracking-widest text-right">Acción</th>
@@ -186,11 +202,49 @@
   </div>
 
 
+  <div id="screen-pagos" class="screen p-6 lg:p-12">
+    <div class="bg-brand-white">
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-end mb-6 gap-6">
+        <div class="flex items-center w-full md:w-80 bg-brand-white border-4 border-brand-black focus-within:bg-brand-green transition-colors group">
+          <div class="pl-4 pr-2 flex items-center justify-center pointer-events-none text-brand-black/50 group-focus-within:text-brand-black transition-colors">
+            <i class="ph-bold ph-magnifying-glass text-xl"></i>
+          </div>
+          <input type="text" id="search-pagos" placeholder="Buscar por nombre o teléfono..." class="block w-full py-3 pr-4 bg-transparent text-brand-black font-display font-bold tracking-wide focus:outline-none placeholder:text-brand-black/50 text-sm">
+        </div>
+      </div>
+
+      <!-- Alertas de Atraso -->
+      <div id="alertas-pagos" class="mb-8 hidden flex-col gap-4">
+        <h3 class="font-display font-bold uppercase tracking-widest text-lg flex items-center gap-2"><i class="ph-bold ph-warning text-2xl text-brand-black"></i> Pagos Atrasados</h3>
+        <div id="alertas-container" class="flex flex-col gap-3">
+          <!-- JS populate -->
+        </div>
+      </div>
+
+      <div class="overflow-x-auto border-4 border-brand-black">
+        <table class="w-full text-left border-collapse min-w-[600px]">
+          <thead>
+            <tr class="bg-brand-black text-brand-white">
+              <th class="p-6 font-display font-bold text-lg uppercase tracking-widest">Miembro</th>
+              <th class="p-6 font-display font-bold text-lg uppercase tracking-widest">Estado</th>
+              <th class="p-6 font-display font-bold text-lg uppercase tracking-widest">Vencimiento</th>
+              <th class="p-6 font-display font-bold text-lg uppercase tracking-widest text-right">Acción</th>
+            </tr>
+          </thead>
+          <tbody id="pagos-table-body" class="font-medium text-lg text-brand-black">
+            <!-- poblado por JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
   <div id="screen-planes" class="screen p-6 lg:p-12">
     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 sm:mb-12 gap-6">
-      <h2 class="text-4xl sm:text-5xl font-display font-bold uppercase tracking-tighter text-brand-black">Planes Disponibles</h2>
-      <button onclick="openModal('plan-form', null)" class="w-full sm:w-auto font-display font-bold uppercase tracking-widest text-xs xl:text-sm bg-brand-black text-brand-white border-4 border-brand-black px-6 py-3 hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black transition-colors focus:outline-none flex items-center justify-center gap-2">
-        <i class="ph-bold ph-plus text-base mt-[-2px]"></i> Añadir Plan
+      <h2 class="text-4xl sm:text-5xl font-display font-bold uppercase tracking-tighter text-brand-black flex items-center gap-3"><i class="ph-bold ph-clipboard-text"></i> Planes Disponibles</h2>
+      <button onclick="openModal('plan-form', null)" class="w-full sm:w-auto text-center border-4 border-brand-black bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:border-brand-green hover:text-brand-black focus:bg-brand-green focus:border-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:border-brand-green active:text-brand-black transition-colors flex items-center justify-center gap-2 flex-shrink-0">
+        <i class="ph-bold ph-plus text-base mt-[-2px]"></i> Crear Plan
       </button>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="planes-container">
@@ -217,507 +271,9 @@
 
 <div id="toast" role="status" aria-live="polite" class="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-8 sm:bottom-8 sm:max-w-md bg-brand-green text-brand-black font-display font-bold uppercase tracking-widest text-sm sm:text-lg px-6 py-4 sm:px-8 sm:py-5 z-[200] translate-y-24 opacity-0 transition-all duration-300 pointer-events-none text-center sm:text-left border-4 border-brand-black"></div>
 
-<script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/supabase.js"></script>
+<script src="assets/js/admin.js"></script>
 
-let staffData = [
-  { id: 1, avatar: 'FR', imagen: 'assets/img/entrenador-1.webp', nombre: 'Fernando R.', especialidad: 'Fuerza Pura',      turno: 'Mañana' },
-  { id: 2, avatar: 'DM', imagen: 'assets/img/entrenador-2.webp', nombre: 'Daniela M.',  especialidad: 'Acondicionamiento', turno: 'Tarde' },
-  { id: 3, avatar: 'CT', imagen: 'assets/img/entrenador-3.webp', nombre: 'Carlos T.',   especialidad: 'Fisioterapia',       turno: 'Mañana' },
-  { id: 4, avatar: 'LG', imagen: 'assets/img/entrenador-4.webp', nombre: 'Laura G.',    especialidad: 'Ritmos Intensos',    turno: 'Noche' },
-];
-
-let membersData = [
-  { id: 1, nombre: 'Mario C.',  telefono: '555-1001', plan: 'Mensual',      activo: true },
-  { id: 2, nombre: 'Lucía S.',  telefono: '555-1002', plan: 'Anual',        activo: true },
-  { id: 3, nombre: 'David V.',  telefono: '555-1003', plan: 'Visita Diaria', activo: false },
-  { id: 4, nombre: 'Ana B.',    telefono: '555-1004', plan: 'Mensual',      activo: true },
-  { id: 5, nombre: 'Pedro M.',  telefono: '555-1005', plan: 'Mensual',      activo: true },
-];
-
-let planesData = [
-  {
-    id: 1, 
-    nombre: 'Visita Diaria', 
-    precio: '$70', 
-    periodo: 'Unico', 
-    destacado: false, 
-    beneficios: ['Acceso total a pesas y cardio', 'Uso de regaderas']
-  },
-  {
-    id: 2, 
-    nombre: 'Mensual', 
-    precio: '$450', 
-    periodo: 'Mes', 
-    destacado: true, 
-    beneficios: ['Acceso 100% ilimitado', 'Asesoría en rutina', 'Clases de Zumba incluidas']
-  },
-  {
-    id: 3, 
-    nombre: 'Anual', 
-    precio: '$4,500', 
-    periodo: 'Año', 
-    destacado: false, 
-    beneficios: ['Todos los beneficios mensuales', 'Ahorras 2 meses completos', 'Congelamiento de tarifa']
-  }
-];
-
-
-const screenTitles = {
-  dashboard: 'Dashboard.',
-  staff:     'Staff.',
-  miembros:  'Directorio.',
-  planes:    'Planes.',
-};
-
-function setScreen(name) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  const targetScreen = document.getElementById('screen-' + name);
-  if (targetScreen) targetScreen.classList.add('active');
-  
-  const titleEl = document.getElementById('page-title');
-  if (titleEl) titleEl.textContent = screenTitles[name] || name;
-
-  document.querySelectorAll('.nav-btn').forEach(btn => {
-    const isActive = btn.dataset.screen === name;
-    btn.classList.toggle('bg-brand-black', isActive);
-    btn.classList.toggle('text-brand-white', isActive);
-    btn.setAttribute('aria-current', isActive ? 'page' : 'false');
-  });
-
-  if (window.innerWidth < 768) {
-    document.getElementById('sidebar-nav').classList.add('hidden');
-    document.getElementById('sidebar-nav').classList.remove('flex');
-    document.getElementById('mobileMenuBtn').setAttribute('aria-expanded', 'false');
-  }
-  
-  renderAll();
-}
-
-document.querySelectorAll('.nav-btn').forEach(btn => {
-  btn.addEventListener('click', () => setScreen(btn.dataset.screen));
-});
-
-document.getElementById('mobileMenuBtn').addEventListener('click', function() {
-  const nav = document.getElementById('sidebar-nav');
-  const icon = document.getElementById('adminMenuIcon');
-  const isHidden = nav.classList.contains('hidden');
-  if (isHidden) {
-    nav.classList.remove('hidden');
-    nav.classList.add('flex');
-    icon.className = "ph-bold ph-x text-3xl";
-    this.setAttribute('aria-expanded', 'true');
-  } else {
-    nav.classList.add('hidden');
-    nav.classList.remove('flex');
-    icon.className = "ph-bold ph-list text-3xl";
-    this.setAttribute('aria-expanded', 'false');
-  }
-});
-
-setScreen('dashboard');
-
-
-function statusBadge(activo) {
-  return activo
-    ? '<span class="bg-brand-green text-brand-black font-display font-bold uppercase tracking-widest text-xs px-2 py-1 inline-block border-4 border-brand-black">Activo</span>'
-    : '<span class="bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest text-xs px-2 py-1 inline-block border-4 border-brand-black">Expirado</span>';
-}
-
-function renderAll() {
-  renderTables();
-  renderPlanes();
-}
-
-function renderTables() {
-  const btnClasses = "font-display font-bold uppercase tracking-widest text-[10px] sm:text-xs px-3 py-2 sm:px-4 sm:py-2 bg-brand-white text-brand-black border-4 border-brand-black hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white active:bg-brand-black active:text-brand-white transition-colors focus:outline-none";
-  const btnDangerClasses = "font-display font-bold uppercase tracking-widest text-[10px] sm:text-xs px-3 py-2 sm:px-4 sm:py-2 bg-brand-black text-brand-white border-4 border-brand-black hover:bg-brand-white hover:text-brand-black focus:bg-brand-white focus:text-brand-black active:bg-brand-white active:text-brand-black transition-colors focus:outline-none";
-  const rowClasses = "border-b-4 border-brand-black hover:bg-brand-green focus-within:bg-brand-green transition-colors group";
-
-  const stb = document.getElementById('staff-table-body');
-  if (stb) {
-    stb.innerHTML = staffData.slice(0,4).map(s => `
-      <tr class="${rowClasses}">
-        <td class="p-6 flex items-center gap-4  ">
-          <div class="w-10 h-10 bg-brand-white text-brand-black   flex items-center justify-center font-display font-bold text-sm select-none flex-shrink-0 overflow-hidden">
-            ${s.imagen ? `<img src="${s.imagen}" class="w-full h-full object-cover">` : s.avatar}
-          </div>
-          <span class="font-bold uppercase">${s.nombre}</span>
-        </td>
-        <td class="p-6  "><span class="bg-brand-black text-brand-white inline-block px-2 py-1 text-xs font-bold uppercase tracking-widest border-4 border-brand-black">${s.especialidad}</span></td>
-        <td class="p-6 text-right whitespace-nowrap">
-          <button onclick="openModal('staff-edit',${s.id})" class="${btnClasses} mr-2">Editar</button>
-        </td>
-      </tr>`).join('');
-  }
-
-  const sfb = document.getElementById('staff-full-table-body');
-  if (sfb) {
-    sfb.innerHTML = staffData.map(s => `
-      <tr class="${rowClasses}">
-        <td class="p-6 flex items-center gap-4  ">
-          <div class="w-10 h-10 bg-brand-white text-brand-black   flex items-center justify-center font-display font-bold text-sm select-none flex-shrink-0 overflow-hidden">
-            ${s.imagen ? `<img src="${s.imagen}" class="w-full h-full object-cover">` : s.avatar}
-          </div>
-          <span class="font-bold uppercase">${s.nombre}</span>
-        </td>
-        <td class="p-6  "><span class="bg-brand-black text-brand-white inline-block px-2 py-1 text-xs font-bold uppercase tracking-widest border-4 border-brand-black">${s.especialidad}</span></td>
-        <td class="p-6  ">${s.turno}</td>
-        <td class="p-6 text-right whitespace-nowrap">
-          <button onclick="openModal('staff-edit',${s.id})" class="${btnClasses} mr-2">Editar</button>
-          <button onclick="deleteStaff(${s.id})" class="${btnDangerClasses}">Eliminar</button>
-        </td>
-      </tr>`).join('');
-  }
-
-  const mpb = document.getElementById('members-preview-body');
-  if (mpb) {
-    mpb.innerHTML = membersData.slice(0,4).map(m => `
-      <tr class="${rowClasses}">
-        <td class="p-6 font-bold uppercase  ">${m.nombre}</td>
-        <td class="p-6  ">${m.plan}</td>
-        <td class="p-6 text-left">${statusBadge(m.activo)}</td>
-      </tr>`).join('');
-  }
-
-  const mfb = document.getElementById('members-full-table-body');
-  if (mfb) {
-    mfb.innerHTML = membersData.map(m => `
-      <tr class="${rowClasses}">
-        <td class="p-6 font-bold uppercase  ">${m.nombre}</td>
-        <td class="p-6  ">${m.telefono}</td>
-        <td class="p-6  ">${m.plan}</td>
-        <td class="p-6 text-left  ">${statusBadge(m.activo)}</td>
-        <td class="p-6 text-right whitespace-nowrap">
-          <button onclick="openModal('member-edit',${m.id})" class="${btnClasses} mr-2">Editar</button>
-          <button onclick="deleteMember(${m.id})" class="${btnDangerClasses}">Eliminar</button>
-        </td>
-      </tr>`).join('');
-  }
-}
-
-function renderPlanes() {
-  const container = document.getElementById('planes-container');
-  if (!container) return;
-
-  container.innerHTML = planesData.map(p => {
-    const bgCls = p.destacado ? 'bg-brand-green text-brand-black' : 'bg-brand-white text-brand-black border-4 border-brand-black';
-    let priceHTML = p.destacado 
-      ? `<p class="text-5xl sm:text-6xl font-display font-bold mb-6 text-brand-black group-hover:text-brand-green group-focus:text-brand-green group-active:text-brand-green tracking-tighter break-all">${p.precio}<span class="text-xl sm:text-2xl text-current tracking-normal">mxn</span></p>`
-      : `<p class="text-5xl sm:text-6xl font-display font-bold mb-6 bg-brand-green text-brand-black inline-block px-3 py-1 tracking-tighter -ml-3 break-all">${p.precio}<span class="text-xl sm:text-2xl text-current tracking-normal">mxn</span></p>`;
-      
-    let bulletCls = p.destacado 
-      ? 'text-brand-black group-hover:text-brand-green group-focus:text-brand-green group-active:text-brand-green font-bold'
-      : 'text-brand-black group-hover:text-brand-white group-focus:text-brand-white group-active:text-brand-white font-bold';
-
-    return `
-      <div tabindex="0" class="${bgCls} p-8 sm:p-12 flex flex-col justify-between group hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white active:bg-brand-black active:text-brand-white transition-colors cursor-pointer">
-        <div>
-          <h3 class="text-3xl font-display font-bold uppercase mb-2">${p.nombre}</h3>
-          ${priceHTML}
-          <ul class="space-y-6 font-medium mb-8 text-lg">
-            ${p.beneficios.map(b => `<li class="flex gap-4 items-start"><i class="ph-bold ph-check text-xl mt-1 ${bulletCls}"></i> ${b}</li>`).join('')}
-          </ul>
-        </div>
-        <button onclick="openModal('plan-form', ${p.id})" class="w-full py-5 text-center bg-brand-black text-brand-white border-4 border-brand-black group-hover:bg-brand-white group-hover:text-brand-black group-focus:bg-brand-white group-focus:text-brand-black group-active:bg-brand-white group-active:text-brand-black hover:!bg-brand-green hover:!text-brand-black focus:!bg-brand-green focus:!text-brand-black focus:outline-none active:!bg-brand-green active:!text-brand-black transition-colors font-display font-bold uppercase tracking-widest text-sm md:text-base">Editar Plan</button>
-      </div>
-    `;
-  }).join('');
-}
-
-
-let currentModalType = null;
-let currentModalId   = null;
-
-function openModal(type, idOrName) {
-  currentModalType = type;
-  currentModalId   = idOrName;
-  const overlay = document.getElementById('modal-overlay');
-  const title   = document.getElementById('modal-title');
-  const body    = document.getElementById('modal-body');
-
-  if (type === 'staff-form') {
-    title.textContent = 'Añadir Staff.';
-    body.innerHTML = staffFormHTML();
-  } else if (type === 'staff-edit') {
-    const s = staffData.find(x => x.id === idOrName);
-    title.textContent = 'Editar Staff.';
-    body.innerHTML = staffFormHTML(s);
-  } else if (type === 'member-form') {
-    title.textContent = 'Añadir Miembro.';
-    body.innerHTML = memberFormHTML();
-  } else if (type === 'member-edit') {
-    const m = membersData.find(x => x.id === idOrName);
-    title.textContent = 'Editar Miembro.';
-    body.innerHTML = memberFormHTML(m);
-  } else if (type === 'plan-form') {
-    const p = planesData.find(x => x.id === idOrName);
-    title.textContent = p ? 'Editar Plan — ' + p.nombre + '.' : 'Añadir Plan.';
-    body.innerHTML = planFormHTML(p);
-  }
-
-  overlay.classList.remove('hidden');
-  overlay.classList.add('flex');
-  
-  setTimeout(() => {
-    const first = body.querySelector('input, select, textarea');
-    if (first) first.focus();
-  }, 50);
-}
-
-function closeModal() {
-  const overlay = document.getElementById('modal-overlay');
-  overlay.classList.add('hidden');
-  overlay.classList.remove('flex');
-  currentModalType = null;
-  currentModalId   = null;
-}
-
-function handleOverlayClick(e) {
-  if (e.target === document.getElementById('modal-overlay')) closeModal();
-}
-
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeModal();
-});
-
-
-const inputCls = 'w-full bg-brand-white text-brand-black border-4 border-brand-black px-4 py-4 sm:px-6 sm:py-5 text-lg sm:text-xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green placeholder:text-brand-black/50 placeholder:uppercase transition-all';
-const selectCls = 'w-full bg-brand-white text-brand-black border-4 border-brand-black px-4 py-4 sm:px-6 sm:py-5 text-lg sm:text-xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green cursor-pointer transition-all';
-const labelCls = 'block font-display font-bold uppercase tracking-widest text-xs sm:text-sm text-brand-black mb-2';
-const saveBtnCls = 'w-full sm:w-auto px-8 py-4 font-display font-bold uppercase tracking-widest text-sm bg-brand-black text-brand-white border-4 border-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black transition-colors focus:outline-none';
-const cancelBtnCls = 'w-full sm:w-auto px-8 py-4 font-display font-bold uppercase tracking-widest text-sm border-4 border-brand-black bg-brand-white text-brand-black hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white active:bg-brand-black active:text-brand-white transition-colors focus:outline-none';
-const deleteBtnCls = 'w-full sm:w-auto px-8 py-4 font-display font-bold uppercase tracking-widest text-sm bg-brand-black text-brand-white border-4 border-brand-black hover:bg-brand-white hover:text-brand-black focus:bg-brand-white focus:text-brand-black active:bg-brand-white active:text-brand-black transition-colors focus:outline-none';
-
-function getInitials(name) {
-  return name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
-}
-
-function staffFormHTML(s) {
-  return `
-    <form onsubmit="saveStaff(event)" class="flex flex-col gap-8 text-brand-black">
-      <div>
-        <label class="${labelCls}">Foto de Perfil</label>
-        <div class="flex items-center gap-6">
-          <div class="w-16 h-16 bg-brand-green text-brand-black flex items-center justify-center font-display font-bold text-2xl uppercase focus:outline-none focus:bg-brand-black focus:text-brand-white transition-colors" tabindex="0" id="staff-photo-preview">
-            ${s && s.imagen ? `<img src="${s.imagen}" class="w-full h-full object-cover">` : (s ? getInitials(s.nombre) : '+')}
-          </div>
-          <div class="flex-1">
-            <input type="file" id="sf-foto" accept="image/*" class="sr-only peer">
-            <label for="sf-foto" class="w-full block text-center cursor-pointer border-4 border-brand-black bg-brand-white text-brand-black font-display font-bold uppercase tracking-widest text-xs sm:text-sm px-4 py-4 hover:bg-brand-black hover:text-brand-white peer-focus:bg-brand-black peer-focus:text-brand-white active:bg-brand-black active:text-brand-white transition-colors focus:outline-none">
-              Subir Nueva Foto
-            </label>
-          </div>
-        </div>
-      </div>
-      <div>
-        <label class="${labelCls}" for="sf-nombre">Nombre Completo</label>
-        <input id="sf-nombre" type="text" placeholder="EJ. JUAN PÉREZ" value="${s ? s.nombre : ''}" class="${inputCls}" required>
-      </div>
-      <div>
-        <label class="${labelCls}" for="sf-esp">Especialidad</label>
-        <input id="sf-esp" type="text" placeholder="EJ. FUERZA PURA" value="${s ? s.especialidad : ''}" class="${inputCls}" required>
-      </div>
-      <div>
-        <label class="${labelCls}" for="sf-turno">Turno</label>
-        <select id="sf-turno" class="${selectCls}" required>
-          <option value="" disabled ${!s ? 'selected' : ''}>SELECCIONAR TURNO</option>
-          <option value="Mañana"  ${s && s.turno==='Mañana'  ? 'selected':''}>MAÑANA</option>
-          <option value="Tarde"   ${s && s.turno==='Tarde'   ? 'selected':''}>TARDE</option>
-          <option value="Noche"   ${s && s.turno==='Noche'   ? 'selected':''}>NOCHE</option>
-        </select>
-      </div>
-      <div class="flex flex-col sm:flex-row gap-4 mt-4">
-        <button type="button" onclick="closeModal()" class="${cancelBtnCls}">Cancelar</button>
-        <button type="submit" class="${saveBtnCls}">Guardar</button>
-      </div>
-    </form>`;
-}
-
-function memberFormHTML(m) {
-  return `
-    <form onsubmit="saveMember(event)" class="flex flex-col gap-8 text-brand-black">
-      <div>
-        <label class="${labelCls}" for="mf-nombre">Nombre Completo</label>
-        <input id="mf-nombre" type="text" placeholder="EJ. ANA GÓMEZ" value="${m ? m.nombre : ''}" class="${inputCls}" required>
-      </div>
-      <div>
-        <label class="${labelCls}" for="mf-tel">Teléfono</label>
-        <input id="mf-tel" type="tel" placeholder="555-0000" value="${m ? m.telefono : ''}" class="${inputCls}" required>
-      </div>
-      <div>
-        <label class="${labelCls}" for="mf-plan">Plan</label>
-        <select id="mf-plan" class="${selectCls}" required>
-          <option value="" disabled ${!m ? 'selected' : ''}>SELECCIONAR PLAN</option>
-          <option value="Visita Diaria" ${m && m.plan==='Visita Diaria' ? 'selected':''}>VISITA DIARIA</option>
-          <option value="Mensual"       ${m && m.plan==='Mensual'       ? 'selected':''}>MENSUAL</option>
-          <option value="Anual"         ${m && m.plan==='Anual'         ? 'selected':''}>ANUAL</option>
-        </select>
-      </div>
-      <div>
-        <label class="${labelCls}" for="mf-estado">Estado</label>
-        <select id="mf-estado" class="${selectCls}" required>
-          <option value="1" ${(!m || (m && m.activo !== false)) ? 'selected':''}>ACTIVO</option>
-          <option value="0" ${(m && m.activo === false) ? 'selected':''}>EXPIRADO</option>
-        </select>
-      </div>
-      <div class="flex flex-col sm:flex-row gap-4 mt-4">
-        <button type="button" onclick="closeModal()" class="${cancelBtnCls}">Cancelar</button>
-        <button type="submit" class="${saveBtnCls}">Guardar</button>
-      </div>
-    </form>`;
-}
-
-function planFormHTML(p) {
-  const isNew = !p;
-  const nombre = p ? p.nombre : '';
-  const precio = p ? p.precio : '';
-  const destacado = p ? p.destacado : false;
-  const beneficios = p ? p.beneficios.join(', ') : '';
-
-  return `
-    <form onsubmit="savePlan(event)" class="flex flex-col gap-8 text-brand-black">
-      <div>
-        <label class="${labelCls}" for="pf-nombre">Nombre del Plan</label>
-        <input id="pf-nombre" type="text" value="${nombre}" class="${inputCls}" required>
-      </div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div>
-          <label class="${labelCls}" for="pf-precio">Precio</label>
-          <input id="pf-precio" type="text" value="${precio}" class="${inputCls}" required>
-        </div>
-        <div>
-          <label class="${labelCls}" for="pf-periodo">Periodo</label>
-          <select id="pf-periodo" class="${selectCls}" required>
-            <option value="Unico" ${p && p.periodo === 'Unico' ? 'selected' : ''}>Pago Único / Visita</option>
-            <option value="Mes" ${p && p.periodo === 'Mes' ? 'selected' : ''}>Mensual</option>
-            <option value="Año" ${p && p.periodo === 'Año' ? 'selected' : ''}>Anual</option>
-          </select>
-        </div>
-      </div>
-      <div>
-        <label class="${labelCls}" for="pf-desc">Descripción / Beneficios</label>
-        <textarea id="pf-desc" rows="4" placeholder="BENEFICIOS SEPARADOS POR COMA" class="${inputCls} resize-none">${beneficios}</textarea>
-      </div>
-      <div>
-        <label class="flex items-center gap-4 cursor-pointer font-display font-bold uppercase tracking-widest text-xs sm:text-sm text-brand-black group focus-within:text-brand-green transition-colors">
-          <div class="relative w-8 h-8 border-4 border-brand-black bg-brand-white group-hover:bg-brand-green group-focus-within:bg-brand-green transition-colors flex-shrink-0 flex items-center justify-center">
-            <input type="checkbox" id="pf-destacado" class="peer sr-only" ${destacado ? 'checked' : ''}>
-            <div class="w-4 h-4 hidden peer-checked:block pointer-events-none bg-brand-black"></div>
-          </div>
-          Destacar Plan (Color Verde)
-        </label>
-      </div>
-      <div class="flex flex-col sm:flex-row gap-4 mt-4">
-        ${!isNew ? `<button type="button" onclick="deletePlan(${p.id})" class="${deleteBtnCls}">Eliminar</button>` : ''}
-        <button type="button" onclick="closeModal()" class="${cancelBtnCls}">Cancelar</button>
-        <button type="submit" class="${saveBtnCls}">Guardar Cambios</button>
-      </div>
-    </form>`;
-}
-
-
-function saveStaff(e) {
-  e.preventDefault();
-  const nombre      = document.getElementById('sf-nombre').value.trim();
-  const especialidad= document.getElementById('sf-esp').value.trim();
-  const turno       = document.getElementById('sf-turno').value;
-  const avatar      = getInitials(nombre);
-
-  if (currentModalType === 'staff-edit') {
-    const s = staffData.find(x => x.id === currentModalId);
-    if (s) { s.nombre = nombre; s.especialidad = especialidad; s.turno = turno; s.avatar = avatar; }
-    showToast('STAFF ACTUALIZADO');
-  } else {
-    staffData.push({ id: Date.now(), avatar, imagen: null, nombre, especialidad, turno });
-    showToast('STAFF AÑADIDO CON ÉXITO');
-  }
-  closeModal();
-  renderAll();
-}
-
-function deleteStaff(id) {
-  if (!confirm('¿ESTÁS SEGURO DE ELIMINAR ESTE STAFF?')) return;
-  const idx = staffData.findIndex(x => x.id === id);
-  if (idx !== -1) staffData.splice(idx, 1);
-  showToast('STAFF ELIMINADO');
-  renderAll();
-}
-
-function saveMember(e) {
-  e.preventDefault();
-  const nombre   = document.getElementById('mf-nombre').value.trim();
-  const telefono = document.getElementById('mf-tel').value.trim();
-  const plan     = document.getElementById('mf-plan').value;
-  const activo   = document.getElementById('mf-estado').value === '1';
-
-  if (currentModalType === 'member-edit') {
-    const m = membersData.find(x => x.id === currentModalId);
-    if (m) { m.nombre = nombre; m.telefono = telefono; m.plan = plan; m.activo = activo; }
-    showToast('MIEMBRO ACTUALIZADO');
-  } else {
-    membersData.push({ id: Date.now(), nombre, telefono, plan, activo });
-    showToast('MIEMBRO AÑADIDO CON ÉXITO');
-  }
-  closeModal();
-  renderAll();
-}
-
-function deleteMember(id) {
-  if (!confirm('¿ESTÁS SEGURO DE ELIMINAR ESTE MIEMBRO?')) return;
-  const idx = membersData.findIndex(x => x.id === id);
-  if (idx !== -1) membersData.splice(idx, 1);
-  showToast('MIEMBRO ELIMINADO');
-  renderAll();
-}
-
-function savePlan(e) {
-  e.preventDefault();
-  const nombre = document.getElementById('pf-nombre').value.trim();
-  const precio = document.getElementById('pf-precio').value.trim();
-  const periodo = document.getElementById('pf-periodo').value;
-  const desc = document.getElementById('pf-desc').value.trim();
-  const destacado = document.getElementById('pf-destacado').checked;
-  const beneficios = desc ? desc.split(',').map(x => x.trim()).filter(x => x) : [];
-
-  if (currentModalType === 'plan-form') {
-    if (currentModalId) {
-      const p = planesData.find(x => x.id === currentModalId);
-      if (p) {
-        p.nombre = nombre; p.precio = precio; p.periodo = periodo;
-        p.destacado = destacado; p.beneficios = beneficios;
-      }
-      showToast('PLAN ACTUALIZADO CON ÉXITO');
-    } else {
-      planesData.push({ id: Date.now(), nombre, precio, periodo, destacado, beneficios });
-      showToast('PLAN AÑADIDO CON ÉXITO');
-    }
-  }
-  closeModal();
-  renderAll();
-}
-
-function deletePlan(id) {
-  if (!confirm('¿ESTÁS SEGURO DE ELIMINAR ESTE PLAN?')) return;
-  const idx = planesData.findIndex(x => x.id === id);
-  if (idx !== -1) planesData.splice(idx, 1);
-  showToast('PLAN ELIMINADO CON ÉXITO');
-  closeModal();
-  renderAll();
-}
-
-
-let toastTimeout;
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.remove('translate-y-24', 'opacity-0');
-  t.classList.add('translate-y-0', 'opacity-100');
-  clearTimeout(toastTimeout);
-  toastTimeout = setTimeout(() => {
-    t.classList.add('translate-y-24', 'opacity-0');
-    t.classList.remove('translate-y-0', 'opacity-100');
-  }, 2800);
-}
-</script>
 </body>
 </html>

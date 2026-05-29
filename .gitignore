@@ -1,9 +1,24 @@
+# Archivos de utilidad y scripts de migración
+migrate-data.js
+setup-db.js
+test-pg.js
+test-pgmeta.js
+test-planes.js
+test-all.js
+test-browser.js
+insert-planes.js
+insert-demo-client.js
+fix-cors.js
+fix-ui.js
+fix-index.js
+execute-auth.js
+rewrite-admin.js
+rewrite-login.js
+rewrite-index.js
+refactor-admin.js
+
+# Supabase local temp
+supabase/.temp/
+
+# Node
 node_modules/
-.DS_Store
-dist/
-.env
-.gemini/
-temp_font/
-test_logo.html
-__pycache__/
-*.pyc
