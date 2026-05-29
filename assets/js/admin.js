@@ -823,3 +823,17 @@ window.openPagoForm = openPagoForm;
 window.processPago = processPago;
 window.openHistorial = openHistorial;
 window.revertPago = revertPago;
+
+
+// KIOSK REALTIME LISTENER
+if (window.supabaseClient) {
+  const channel = window.supabaseClient.channel('public:accesos');
+  channel.on('broadcast', { event: 'acceso' }, (payload) => {
+    const data = payload.payload;
+    let msg = [KIOSCO]  - ;
+    if (data.estado === 'desconocido') msg = [KIOSCO] ROSTRO DESCONOCIDO DETECTADO;
+    showToast(msg);
+    
+    // Optional: read aloud on admin side too, or just show the toast.
+  }).subscribe();
+}

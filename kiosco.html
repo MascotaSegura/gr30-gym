@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GR30 Gym - Kiosco Autónomo</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Inter:wght@400;600;900&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-brand-white text-brand-black min-h-screen font-body flex flex-col items-center justify-center p-4">
+
+  <!-- PANTALLA 1: ACTIVACIÓN -->
+  <div id="screen-activation" class="screen flex w-full max-w-md flex-col animate-fade-in">
+    <div class="border-4 border-brand-black bg-brand-white p-8">
+      <div class="flex items-center gap-2 mb-8">
+        <div class="bg-brand-green text-brand-black font-display font-bold uppercase tracking-widest px-3 py-1 text-sm border-2 border-brand-black">G</div>
+        <span class="font-display font-bold uppercase tracking-widest text-xl">GR30.</span>
+      </div>
+      
+      <h1 class="text-4xl leading-none font-display font-bold uppercase tracking-tighter text-brand-black mb-8">ACTIVAR<br>KIOSCO.</h1>
+      
+      <form id="form-activation" class="flex flex-col gap-6">
+        <div>
+          <label class="block font-display font-bold uppercase tracking-widest text-xs text-brand-black mb-2">Clave Admin</label>
+          <input type="password" id="act-pass" class="w-full bg-brand-white border-4 border-brand-black px-4 py-4 text-lg font-display font-bold focus:outline-none focus:bg-brand-green focus:text-brand-black transition-colors" placeholder="INGRESA CLAVE" required>
+        </div>
+        <button type="submit" class="w-full text-center border-4 border-brand-black bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:text-brand-black focus:outline-none transition-colors">ENCENDER KIOSCO</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- PANTALLA 2: KIOSCO ACTIVO -->
+  <div id="screen-kiosco" class="screen hidden fixed inset-0 bg-brand-black flex-col overflow-hidden z-[9999]">
+    
+    <!-- Video Feed -->
+    <div class="relative w-full h-full flex items-center justify-center overflow-hidden">
+      <video id="webcam" autoplay playsinline class="w-full h-full object-cover"></video>
+      
+      <!-- Overlay Header -->
+      <div class="absolute top-0 inset-x-0 p-6 flex justify-between items-start z-10">
+        <div class="bg-brand-white border-4 border-brand-black p-3 flex items-center gap-3">
+          <div class="w-3 h-3 bg-brand-green rounded-full animate-pulse border-2 border-brand-black"></div>
+          <span class="font-display font-bold uppercase tracking-widest text-brand-black text-sm">ESCÁNER ACTIVO</span>
+        </div>
+        <button id="btn-exit" class="bg-brand-red text-brand-white border-4 border-brand-black p-3 hover:bg-brand-black transition-colors" title="Apagar Kiosco">
+          <i class="ph-bold ph-power text-xl"></i>
+        </button>
+      </div>
+
+      <!-- Target Reticle Overlay -->
+      <div class="absolute inset-0 pointer-events-none flex items-center justify-center z-10 opacity-50">
+        <div class="w-64 h-64 border-4 border-brand-green border-dashed animate-pulse"></div>
+      </div>
+
+      <!-- Action Banner (Bottom) -->
+      <div id="kiosk-banner" class="absolute bottom-10 inset-x-10 border-8 border-brand-black bg-brand-white p-8 flex flex-col items-center justify-center text-center transition-all duration-300 transform translate-y-full opacity-0 z-20">
+        <i id="kiosk-icon" class="ph-bold text-6xl mb-4"></i>
+        <h2 id="kiosk-title" class="text-4xl sm:text-6xl font-display font-bold uppercase tracking-tighter leading-none mb-2"></h2>
+        <p id="kiosk-msg" class="text-xl sm:text-2xl font-bold uppercase tracking-widest"></p>
+      </div>
+      
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="assets/js/supabase.js"></script>
+  <script type="module">
+    import { FaceLandmarker, FilesetResolver } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3";
+
+    let faceLandmarker;
+    let video = document.getElementById("webcam");
+    let reqAnimId;
+    let lastVideoTime = -1;
+    
+    // Kiosk State
+    let isScanning = false;
+    let membersDB = []; // Cargar todos los biometrics
+    
+    window.setScreen = function(screenName) {
+      document.querySelectorAll('.screen').forEach(el => {
+        el.classList.add('hidden');
+        el.classList.remove('flex');
+      });
+      const target = document.getElementById('screen-' + screenName);
+      if (target) {
+        target.classList.remove('hidden');
+        target.classList.add('flex');
+      }
+    };
+
+    // TTS
+    function speak(text) {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'es-MX';
+      utterance.rate = 1.0;
+      utterance.pitch = 1.0;
+      window.speechSynthesis.speak(utterance);
+    }
+
+    // Distance calculation
+    function computeEuclideanDistance(l1, l2) {
+      if (!l1 || !l2 || l1.length !== l2.length) return Infinity;
+      let sum = 0;
+      for (let i = 0; i < l1.length; i++) {
+        sum += Math.pow(l1[i].x - l2[i].x, 2) + Math.pow(l1[i].y - l2[i].y, 2);
+      }
+      return Math.sqrt(sum);
+    }
+
+    // Load AI
+    async function initAI() {
+      const vision = await FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3/wasm");
+      faceLandmarker = await FaceLandmarker.createFromOptions(vision, {
+        baseOptions: {
+          modelAssetPath: "https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task",
+          delegate: "GPU"
+        },
+        outputFaceBlendshapes: false,
+        runningMode: "VIDEO",
+        numFaces: 1
+      });
+    }
+
+    // Load DB
+    async function loadDB() {
+      const { data, error } = await window.supabaseClient.from('miembros').select('id, nombre, biometria, estado_pago, plan');
+      if (data) {
+        membersDB = data.filter(m => m.biometria && !m.biometria.fake && m.biometria.length === 478);
+        console.log(`Cargados ${membersDB.length} vectores biométricos reales.`);
+      }
+    }
+
+    // Start Webcam
+    async function startKiosk() {
+      await loadDB();
+      if (!faceLandmarker) await initAI();
+      
+      window.setScreen('kiosco');
+      
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        video.srcObject = stream;
+        video.addEventListener("loadeddata", () => {
+          isScanning = true;
+          predictWebcam();
+        });
+      } catch (err) {
+        alert("El kiosco requiere cámara obligatoria.");
+      }
+    }
+
+    function stopKiosk() {
+      isScanning = false;
+      if (reqAnimId) cancelAnimationFrame(reqAnimId);
+      if (video.srcObject) {
+        video.srcObject.getTracks().forEach(t => t.stop());
+      }
+      window.setScreen('activation');
+    }
+
+    // Broadcast Event
+    async function broadcastAccess(member, status) {
+      const channel = window.supabaseClient.channel('public:accesos');
+      await channel.send({
+        type: 'broadcast',
+        event: 'acceso',
+        payload: {
+          nombre: member ? member.nombre : 'Desconocido',
+          plan: member ? member.plan : '-',
+          estado: status,
+          tiempo: new Date().toISOString()
+        }
+      });
+    }
+
+    // Show Banner
+    function showBanner(type, member) {
+      isScanning = false; // Pause scanning
+      const banner = document.getElementById("kiosk-banner");
+      const icon = document.getElementById("kiosk-icon");
+      const title = document.getElementById("kiosk-title");
+      const msg = document.getElementById("kiosk-msg");
+      
+      banner.classList.remove("translate-y-full", "opacity-0", "bg-brand-green", "bg-brand-red", "bg-brand-gray");
+      
+      let speechText = "";
+
+      if (type === 'CONCEDIDO') {
+        banner.classList.add("bg-brand-green");
+        icon.className = "ph-bold ph-check-circle text-6xl mb-4 text-brand-black";
+        title.innerText = "ACCESO CONCEDIDO";
+        title.className = "text-4xl sm:text-6xl font-display font-bold uppercase tracking-tighter leading-none mb-2 text-brand-black";
+        msg.innerText = `BIENVENIDO, ${member.nombre}`;
+        msg.className = "text-xl sm:text-2xl font-bold uppercase tracking-widest text-brand-black";
+        speechText = `Bienvenido al gimnasio, ${member.nombre}.`;
+        broadcastAccess(member, 'permitido');
+      } 
+      else if (type === 'DENEGADO') {
+        banner.classList.add("bg-brand-red");
+        icon.className = "ph-bold ph-warning-circle text-6xl mb-4 text-brand-white";
+        title.innerText = "ACCESO DENEGADO";
+        title.className = "text-4xl sm:text-6xl font-display font-bold uppercase tracking-tighter leading-none mb-2 text-brand-white";
+        msg.innerText = "PAGOS PENDIENTES";
+        msg.className = "text-xl sm:text-2xl font-bold uppercase tracking-widest text-brand-white";
+        speechText = `Acceso denegado, ${member.nombre}. Tienes pagos pendientes.`;
+        broadcastAccess(member, 'denegado');
+      }
+      else if (type === 'DESCONOCIDO') {
+        banner.classList.add("bg-gray-200");
+        icon.className = "ph-bold ph-question text-6xl mb-4 text-brand-black";
+        title.innerText = "ROSTRO DESCONOCIDO";
+        title.className = "text-4xl sm:text-6xl font-display font-bold uppercase tracking-tighter leading-none mb-2 text-brand-black";
+        msg.innerText = "POR FAVOR REGÍSTRATE EN RECEPCIÓN";
+        msg.className = "text-xl sm:text-2xl font-bold uppercase tracking-widest text-brand-black";
+        speechText = "Rostro no reconocido. Por favor regístrate.";
+        broadcastAccess(null, 'desconocido');
+      }
+
+      speak(speechText);
+      
+      // Animate In
+      setTimeout(() => {
+        banner.style.transform = 'translateY(0)';
+        banner.style.opacity = '1';
+      }, 100);
+
+      // Animate Out & Resume
+      setTimeout(() => {
+        banner.style.transform = 'translateY(100%)';
+        banner.style.opacity = '0';
+        setTimeout(() => { isScanning = true; }, 500); // Resume scanning after animation
+      }, 4000); // 4 seconds delay
+    }
+
+    async function predictWebcam() {
+      if (!isScanning) {
+        if (reqAnimId) reqAnimId = window.requestAnimationFrame(predictWebcam);
+        return;
+      }
+      
+      if (!faceLandmarker) {
+        reqAnimId = window.requestAnimationFrame(predictWebcam);
+        return;
+      }
+
+      let startTimeMs = performance.now();
+      if (lastVideoTime !== video.currentTime) {
+        lastVideoTime = video.currentTime;
+        const results = faceLandmarker.detectForVideo(video, startTimeMs);
+        
+        if (results.faceLandmarks && results.faceLandmarks.length > 0) {
+          const landmarks = results.faceLandmarks[0];
+          
+          let minDistance = Infinity;
+          let bestMatch = null;
+          
+          // Euclidean distance comparison
+          for (const m of membersDB) {
+            const d = computeEuclideanDistance(landmarks, m.biometria);
+            if (d < minDistance) {
+              minDistance = d;
+              bestMatch = m;
+            }
+          }
+          
+          const THRESHOLD = 0.15; // Adjusted threshold for MediaPipe normalized coords
+          
+          if (bestMatch && minDistance < THRESHOLD) {
+            console.log("Match:", bestMatch.nombre, "Dist:", minDistance);
+            if (bestMatch.estado_pago === 'al_dia') {
+              showBanner('CONCEDIDO', bestMatch);
+            } else {
+              showBanner('DENEGADO', bestMatch);
+            }
+          } else {
+            console.log("No match found. Best dist:", minDistance);
+            // Trigger Unknown if a face is clearly present but distance is too high
+            // To avoid spamming, we only trigger if we have a very clear face (ratio check)
+            const nose = landmarks[1];
+            const leftEye = landmarks[33];
+            const rightEye = landmarks[263];
+            const eyeDist = Math.abs(rightEye.x - leftEye.x);
+            const noseToLeft = Math.abs(nose.x - leftEye.x);
+            const ratio = noseToLeft / eyeDist;
+            
+            // Only trigger unknown if looking straight at camera
+            if (ratio > 0.4 && ratio < 0.6) {
+              showBanner('DESCONOCIDO', null);
+            }
+          }
+        }
+      }
+      
+      reqAnimId = window.requestAnimationFrame(predictWebcam);
+    }
+
+    // Events
+    document.getElementById('form-activation').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const pass = document.getElementById('act-pass').value;
+      if (pass === 'GR30Admin') { // Secure Activation Code
+        // Don't save to localStorage to maintain safe mode
+        document.getElementById('act-pass').value = '';
+        startKiosk();
+      } else {
+        alert("Clave incorrecta.");
+      }
+    });
+
+    document.getElementById('btn-exit').addEventListener('click', stopKiosk);
+    
+    // Init
+    initAI();
+
+  </script>
+</body>
+</html>
