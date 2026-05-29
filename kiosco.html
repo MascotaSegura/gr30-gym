@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GR30 Gym - Kiosco Autónomo</title>
   
-  <script src="https://cdn.tailwindcss.com"></script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Inter:wght@400;600;900&display=swap" rel="stylesheet">
@@ -13,58 +13,65 @@
   
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body class="bg-brand-white text-brand-black min-h-screen font-body flex flex-col items-center justify-center p-4">
+<body class="bg-brand-white font-sans antialiased selection:bg-brand-green selection:text-brand-black text-brand-black min-h-screen flex flex-col overflow-x-hidden" style="min-height: 100dvh;">
 
-  <!-- PANTALLA 1: ACTIVACIÓN -->
-  <div id="screen-activation" class="screen flex w-full max-w-md flex-col animate-fade-in">
-    <div class="border-4 border-brand-black bg-brand-white p-8">
-      <div class="flex items-center gap-2 mb-8">
-        <div class="bg-brand-green text-brand-black font-display font-bold uppercase tracking-widest px-3 py-1 text-sm border-2 border-brand-black">G</div>
-        <span class="font-display font-bold uppercase tracking-widest text-xl">GR30.</span>
+  <header class="w-full bg-brand-white border-b-4 border-brand-black flex items-center justify-between px-6 lg:px-12 py-5 flex-shrink-0 z-50 relative">
+    <a href="index.html" class="text-3xl font-display font-bold tracking-tighter uppercase flex items-center gap-3 group focus:outline-none" aria-label="Ir al inicio">
+      <div class="w-10 h-10 bg-brand-green text-brand-black flex items-center justify-center flex-shrink-0 group-hover:bg-brand-black group-hover:text-brand-white group-focus:bg-brand-black group-focus:text-brand-white group-active:bg-brand-black group-active:text-brand-white transition-colors">
+        <span class="text-2xl leading-none">G</span>
       </div>
+      <span class="text-brand-black">GR30<span class="text-brand-green group-hover:text-brand-black group-active:text-brand-black transition-colors">.</span></span>
+    </a>
+  </header>
+
+  <main class="flex-1 flex flex-col justify-center items-center px-6 py-12 relative w-full max-w-lg mx-auto">
+    <div class="w-full relative z-10">
       
-      <h1 class="text-4xl leading-none font-display font-bold uppercase tracking-tighter text-brand-black mb-8">ACTIVAR<br>KIOSCO.</h1>
-      
-      <form id="form-activation" class="flex flex-col gap-6">
-        <div>
-          <label class="block font-display font-bold uppercase tracking-widest text-xs text-brand-black mb-2">Clave Admin</label>
-          <input type="password" id="act-pass" class="w-full bg-brand-white border-4 border-brand-black px-4 py-4 text-lg font-display font-bold focus:outline-none focus:bg-brand-green focus:text-brand-black transition-colors" placeholder="INGRESA CLAVE" required>
-        </div>
-        <button type="submit" class="w-full text-center border-4 border-brand-black bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:text-brand-black focus:outline-none transition-colors">ENCENDER KIOSCO</button>
-      </form>
+      <!-- PANTALLA 1: ACTIVACIÓN -->
+      <div id="screen-activation" class="screen flex flex-col text-center">
+        <h1 class="text-[clamp(3.5rem,8vw,5rem)] leading-none font-display font-bold uppercase tracking-tighter text-brand-black mb-10">Kiosco.</h1>
+        <form id="form-activation" class="flex flex-col gap-6 mb-8 text-left">
+          <div>
+            <label class="block font-display font-bold uppercase tracking-widest text-xs sm:text-sm text-brand-black mb-2" for="act-pass">Clave Admin</label>
+            <input type="password" id="act-pass" class="w-full bg-brand-white border-4 border-brand-black px-4 py-4 sm:px-6 sm:py-5 text-lg sm:text-xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green text-brand-black placeholder:text-brand-black/50 placeholder:uppercase transition-all" placeholder="INGRESA CLAVE" required>
+          </div>
+          <button type="submit" class="w-full sm:w-auto text-center bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors mt-2">Encender Kiosco</button>
+        </form>
+      </div>
+
     </div>
-  </div>
+  </main>
 
   <!-- PANTALLA 2: KIOSCO ACTIVO -->
-  <div id="screen-kiosco" class="screen hidden fixed inset-0 bg-brand-black flex-col overflow-hidden z-[9999]">
+  <div id="screen-kiosco" class="screen hidden fixed top-0 left-0 w-full h-screen bg-brand-black flex-col" style="height: 100dvh; z-index: 9999;">
     
     <!-- Video Feed -->
-    <div class="relative w-full h-full flex items-center justify-center overflow-hidden">
-      <video id="webcam" autoplay playsinline class="w-full h-full object-cover"></video>
+    <div class="absolute inset-0 w-full h-full overflow-hidden bg-brand-black flex justify-center items-center" style="z-index: 1;">
+      <video id="webcam" class="absolute inset-0 w-full h-full object-cover transform scale-x-[-1]" autoplay playsinline></video>
       
-      <!-- Overlay Header -->
-      <div class="absolute top-0 inset-x-0 p-6 flex justify-between items-start z-10">
-        <div class="bg-brand-white border-4 border-brand-black p-3 flex items-center gap-3">
-          <div class="w-3 h-3 bg-brand-green rounded-full animate-pulse border-2 border-brand-black"></div>
-          <span class="font-display font-bold uppercase tracking-widest text-brand-black text-sm">ESCÁNER ACTIVO</span>
-        </div>
-        <button id="btn-exit" class="bg-brand-red text-brand-white border-4 border-brand-black p-3 hover:bg-brand-black transition-colors" title="Apagar Kiosco">
-          <i class="ph-bold ph-power text-xl"></i>
-        </button>
-      </div>
-
       <!-- Target Reticle Overlay -->
-      <div class="absolute inset-0 pointer-events-none flex items-center justify-center z-10 opacity-50">
-        <div class="w-64 h-64 border-4 border-brand-green border-dashed animate-pulse"></div>
-      </div>
+      <div class="relative border-4 border-brand-green pointer-events-none" style="z-index: 10; aspect-ratio: 3/4; height: 50vh; max-height: 400px; max-width: 80vw;"></div>
+    </div>
 
-      <!-- Action Banner (Bottom) -->
-      <div id="kiosk-banner" class="absolute bottom-10 inset-x-10 border-8 border-brand-black bg-brand-white p-8 flex flex-col items-center justify-center text-center transition-all duration-300 transform translate-y-full opacity-0 z-20">
-        <i id="kiosk-icon" class="ph-bold text-6xl mb-4"></i>
-        <h2 id="kiosk-title" class="text-4xl sm:text-6xl font-display font-bold uppercase tracking-tighter leading-none mb-2"></h2>
-        <p id="kiosk-msg" class="text-xl sm:text-2xl font-bold uppercase tracking-widest"></p>
+    <!-- Overlay Header -->
+    <div class="absolute top-0 left-0 w-full bg-brand-white border-b-4 border-brand-black flex items-center justify-between px-6 lg:px-12 py-5" style="z-index: 20;">
+      <div class="flex items-center gap-4">
+        <h1 class="text-3xl sm:text-4xl leading-none font-display font-bold uppercase tracking-tighter text-brand-black">Escáner.</h1>
+        <div class="hidden sm:flex items-center gap-2 bg-brand-black text-brand-white px-3 py-1">
+          <div class="w-2 h-2 bg-brand-green animate-pulse"></div>
+          <span class="font-bold tracking-widest uppercase text-xs">Activo</span>
+        </div>
       </div>
-      
+      <button id="btn-exit" class="w-12 h-12 bg-brand-black text-brand-white hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center justify-center transition-colors focus:outline-none flex-shrink-0" title="Apagar Kiosco">
+        <i class="ph-bold ph-power text-2xl"></i>
+      </button>
+    </div>
+
+    <!-- Action Banner (Bottom) -->
+    <div id="kiosk-banner" class="absolute bottom-0 left-0 w-full bg-brand-white border-t-4 border-brand-black p-6 sm:p-8 flex flex-col items-center justify-center transition-all duration-300 transform translate-y-full opacity-0" style="z-index: 30;">
+        <i id="kiosk-icon" class="ph-bold text-6xl mb-4"></i>
+        <h2 id="kiosk-title" class="text-4xl sm:text-6xl font-display font-bold uppercase tracking-tighter leading-none mb-2 text-center"></h2>
+        <p id="kiosk-msg" class="text-xl sm:text-2xl font-bold uppercase tracking-widest text-center"></p>
     </div>
   </div>
 
@@ -81,6 +88,7 @@
     // Kiosk State
     let isScanning = false;
     let membersDB = []; // Cargar todos los biometrics
+    let lastUnknownTime = 0; // Cooldown para evitar spam de DESCONOCIDO
     
     window.setScreen = function(screenName) {
       document.querySelectorAll('.screen').forEach(el => {
@@ -104,14 +112,32 @@
       window.speechSynthesis.speak(utterance);
     }
 
-    // Distance calculation
-    function computeEuclideanDistance(l1, l2) {
+    // Normaliza landmarks: centra en punto medio de ojos, escala por distancia inter-ocular.
+    // Idempotente: normalizar datos ya normalizados da el mismo resultado.
+    function normalizeLandmarks(landmarks) {
+      if (!landmarks || landmarks.length < 264) return null;
+      const leftEye  = landmarks[33];
+      const rightEye = landmarks[263];
+      const cx  = (leftEye.x + rightEye.x) / 2;
+      const cy  = (leftEye.y + rightEye.y) / 2;
+      const cz  = ((leftEye.z || 0) + (rightEye.z || 0)) / 2;
+      const iod = Math.sqrt(Math.pow(rightEye.x - leftEye.x, 2) + Math.pow(rightEye.y - leftEye.y, 2));
+      if (iod < 0.005) return null;
+      return landmarks.map(p => ({
+        x: (p.x - cx) / iod,
+        y: (p.y - cy) / iod,
+        z: ((p.z || 0) - cz) / iod
+      }));
+    }
+
+    // Distancia RMS por landmark (escala-independiente)
+    function computeDistance(l1, l2) {
       if (!l1 || !l2 || l1.length !== l2.length) return Infinity;
       let sum = 0;
       for (let i = 0; i < l1.length; i++) {
         sum += Math.pow(l1[i].x - l2[i].x, 2) + Math.pow(l1[i].y - l2[i].y, 2);
       }
-      return Math.sqrt(sum);
+      return Math.sqrt(sum / l1.length);
     }
 
     // Load AI
@@ -132,8 +158,11 @@
     async function loadDB() {
       const { data, error } = await window.supabaseClient.from('miembros').select('id, nombre, biometria, estado_pago, plan');
       if (data) {
-        membersDB = data.filter(m => m.biometria && !m.biometria.fake && m.biometria.length === 478);
-        console.log(`Cargados ${membersDB.length} vectores biométricos reales.`);
+        membersDB = data
+          .filter(m => m.biometria && !m.biometria.fake && Array.isArray(m.biometria) && m.biometria.length > 100)
+          .map(m => ({ ...m, biometria: normalizeLandmarks(m.biometria) }))
+          .filter(m => m.biometria !== null);
+        console.log(`[Kiosco] ${membersDB.length} vectores biométricos normalizados listos.`);
       }
     }
 
@@ -188,7 +217,7 @@
       const title = document.getElementById("kiosk-title");
       const msg = document.getElementById("kiosk-msg");
       
-      banner.classList.remove("translate-y-full", "opacity-0", "bg-brand-green", "bg-brand-red", "bg-brand-gray");
+      banner.classList.remove("translate-y-full", "opacity-0", "bg-brand-green", "bg-brand-white", "bg-brand-black");
       
       let speechText = "";
 
@@ -196,29 +225,29 @@
         banner.classList.add("bg-brand-green");
         icon.className = "ph-bold ph-check-circle text-6xl mb-4 text-brand-black";
         title.innerText = "ACCESO CONCEDIDO";
-        title.className = "text-4xl sm:text-6xl font-display font-bold uppercase tracking-tighter leading-none mb-2 text-brand-black";
+        title.className = "text-4xl sm:text-6xl font-display font-bold uppercase tracking-tighter leading-none mb-2 text-center text-brand-black";
         msg.innerText = `BIENVENIDO, ${member.nombre}`;
-        msg.className = "text-xl sm:text-2xl font-bold uppercase tracking-widest text-brand-black";
+        msg.className = "text-xl sm:text-2xl font-bold uppercase tracking-widest text-center text-brand-black";
         speechText = `Bienvenido al gimnasio, ${member.nombre}.`;
         broadcastAccess(member, 'permitido');
       } 
       else if (type === 'DENEGADO') {
-        banner.classList.add("bg-brand-red");
+        banner.classList.add("bg-brand-black");
         icon.className = "ph-bold ph-warning-circle text-6xl mb-4 text-brand-white";
         title.innerText = "ACCESO DENEGADO";
-        title.className = "text-4xl sm:text-6xl font-display font-bold uppercase tracking-tighter leading-none mb-2 text-brand-white";
+        title.className = "text-4xl sm:text-6xl font-display font-bold uppercase tracking-tighter leading-none mb-2 text-center text-brand-white";
         msg.innerText = "PAGOS PENDIENTES";
-        msg.className = "text-xl sm:text-2xl font-bold uppercase tracking-widest text-brand-white";
+        msg.className = "text-xl sm:text-2xl font-bold uppercase tracking-widest text-center text-brand-white";
         speechText = `Acceso denegado, ${member.nombre}. Tienes pagos pendientes.`;
         broadcastAccess(member, 'denegado');
       }
       else if (type === 'DESCONOCIDO') {
-        banner.classList.add("bg-gray-200");
+        banner.classList.add("bg-brand-white");
         icon.className = "ph-bold ph-question text-6xl mb-4 text-brand-black";
         title.innerText = "ROSTRO DESCONOCIDO";
-        title.className = "text-4xl sm:text-6xl font-display font-bold uppercase tracking-tighter leading-none mb-2 text-brand-black";
+        title.className = "text-4xl sm:text-6xl font-display font-bold uppercase tracking-tighter leading-none mb-2 text-center text-brand-black";
         msg.innerText = "POR FAVOR REGÍSTRATE EN RECEPCIÓN";
-        msg.className = "text-xl sm:text-2xl font-bold uppercase tracking-widest text-brand-black";
+        msg.className = "text-xl sm:text-2xl font-bold uppercase tracking-widest text-center text-brand-black";
         speechText = "Rostro no reconocido. Por favor regístrate.";
         broadcastAccess(null, 'desconocido');
       }
@@ -256,42 +285,41 @@
         const results = faceLandmarker.detectForVideo(video, startTimeMs);
         
         if (results.faceLandmarks && results.faceLandmarks.length > 0) {
-          const landmarks = results.faceLandmarks[0];
+          const rawLandmarks = results.faceLandmarks[0];
+          const landmarks = normalizeLandmarks(rawLandmarks);
+          if (!landmarks) { reqAnimId = window.requestAnimationFrame(predictWebcam); return; }
           
           let minDistance = Infinity;
           let bestMatch = null;
           
-          // Euclidean distance comparison
           for (const m of membersDB) {
-            const d = computeEuclideanDistance(landmarks, m.biometria);
+            const d = computeDistance(landmarks, m.biometria);
             if (d < minDistance) {
               minDistance = d;
               bestMatch = m;
             }
           }
           
-          const THRESHOLD = 0.15; // Adjusted threshold for MediaPipe normalized coords
+          const THRESHOLD = 0.20; // Umbral RMS normalizado
+          console.log('[Kiosco] Dist:', minDistance.toFixed(4), bestMatch ? `(${bestMatch.nombre})` : '(sin match)');
           
           if (bestMatch && minDistance < THRESHOLD) {
-            console.log("Match:", bestMatch.nombre, "Dist:", minDistance);
             if (bestMatch.estado_pago === 'al_dia') {
               showBanner('CONCEDIDO', bestMatch);
             } else {
               showBanner('DENEGADO', bestMatch);
             }
           } else {
-            console.log("No match found. Best dist:", minDistance);
-            // Trigger Unknown if a face is clearly present but distance is too high
-            // To avoid spamming, we only trigger if we have a very clear face (ratio check)
-            const nose = landmarks[1];
-            const leftEye = landmarks[33];
-            const rightEye = landmarks[263];
+            // Solo mostrar DESCONOCIDO si cara de frente y cooldown expirado (evita spam)
+            const nose = rawLandmarks[1];
+            const leftEye = rawLandmarks[33];
+            const rightEye = rawLandmarks[263];
             const eyeDist = Math.abs(rightEye.x - leftEye.x);
-            const noseToLeft = Math.abs(nose.x - leftEye.x);
-            const ratio = noseToLeft / eyeDist;
+            const ratio = eyeDist > 0 ? Math.abs(nose.x - leftEye.x) / eyeDist : 0.5;
+            const now = Date.now();
             
-            // Only trigger unknown if looking straight at camera
-            if (ratio > 0.4 && ratio < 0.6) {
+            if (ratio > 0.4 && ratio < 0.6 && (now - lastUnknownTime) > 5000) {
+              lastUnknownTime = now;
               showBanner('DESCONOCIDO', null);
             }
           }
@@ -302,13 +330,15 @@
     }
 
     // Events
-    document.getElementById('form-activation').addEventListener('submit', (e) => {
+    document.getElementById('form-activation').addEventListener('submit', async (e) => {
       e.preventDefault();
       const pass = document.getElementById('act-pass').value;
-      if (pass === 'GR30Admin') { // Secure Activation Code
-        // Don't save to localStorage to maintain safe mode
+      if (pass === 'GR30Admin') {
+        const btn = e.target.querySelector('button[type="submit"]');
+        btn.textContent = 'CARGANDO BASE DE DATOS...';
+        btn.disabled = true;
         document.getElementById('act-pass').value = '';
-        startKiosk();
+        await startKiosk();
       } else {
         alert("Clave incorrecta.");
       }

@@ -27,9 +27,9 @@
     }
   </script>
 </head>
-<body class="font-sans antialiased selection:bg-brand-green selection:text-brand-black bg-brand-white text-brand-black min-h-screen flex flex-col md:flex-row overflow-x-hidden">
+<body class="font-sans antialiased selection:bg-brand-green selection:text-brand-black bg-brand-white text-brand-black min-h-screen flex flex-col md:flex-row overflow-x-hidden" style="min-height: 100dvh;">
 
-<aside class="w-full md:w-64 bg-brand-white border-b-4 md:border-b-0 md:border-r-4 border-brand-black flex flex-col md:min-h-screen flex-shrink-0 z-10">
+<aside class="w-full md:w-64 bg-brand-white border-b-4 md:border-b-0 md:border-r-4 border-brand-black flex flex-col md:min-h-screen flex-shrink-0" style="z-index: 10;">
   <div class="p-6 flex justify-between items-center md:block">
     <a href="index.html" class="text-3xl font-display font-bold tracking-tighter uppercase flex items-center gap-3 group focus:outline-none" aria-label="Ir al inicio">
       <div class="w-10 h-10 bg-brand-green text-brand-black flex items-center justify-center flex-shrink-0 group-hover:bg-brand-black group-hover:text-brand-white group-active:bg-brand-black group-active:text-brand-white transition-colors">
@@ -73,18 +73,18 @@
       <div class="bg-brand-white text-brand-black border-4 border-brand-black p-8 hover:bg-brand-black hover:text-brand-white group transition-colors flex flex-col items-start">
         <i class="ph-bold ph-users text-4xl mb-4 group-hover:text-brand-green transition-colors"></i>
         <p class="text-xs font-display font-bold uppercase tracking-widest mb-4 bg-brand-black text-brand-white group-hover:bg-brand-white group-hover:text-brand-black inline-block px-2 py-1">Miembros Activos</p>
-        <p class="text-6xl lg:text-7xl font-display font-bold tracking-tighter">142</p>
+        <p id="stat-miembros" class="text-6xl lg:text-7xl font-display font-bold tracking-tighter">0</p>
       </div>
       <div class="bg-brand-green text-brand-black border-4 border-brand-black p-8 hover:bg-brand-black hover:text-brand-white group transition-colors flex flex-col items-start">
         <i class="ph-bold ph-user-circle-gear text-4xl mb-4 group-hover:text-brand-green transition-colors"></i>
         <p class="text-xs font-display font-bold uppercase tracking-widest mb-4 bg-brand-black text-brand-white group-hover:bg-brand-white group-hover:text-brand-black inline-block px-2 py-1">Staff en Turno</p>
-        <p class="text-6xl lg:text-7xl font-display font-bold tracking-tighter">4</p>
+        <p id="stat-staff" class="text-6xl lg:text-7xl font-display font-bold tracking-tighter">0</p>
       </div>
       <div class="bg-brand-white text-brand-black border-4 border-brand-black p-8 hover:bg-brand-black hover:text-brand-white group transition-colors flex flex-col items-start">
         <i class="ph-bold ph-currency-dollar text-4xl mb-4 group-hover:text-brand-green transition-colors"></i>
         <p class="text-xs font-display font-bold uppercase tracking-widest mb-4 bg-brand-black text-brand-white group-hover:bg-brand-white group-hover:text-brand-black inline-block px-2 py-1">Ingresos (Mes)</p>
         <div class="flex items-baseline gap-2">
-          <p class="text-6xl lg:text-7xl font-display font-bold tracking-tighter">$63k</p>
+          <p id="stat-ingresos" class="text-6xl lg:text-7xl font-display font-bold tracking-tighter">$0</p>
         </div>
       </div>
     </div>
@@ -94,7 +94,7 @@
       <section class="bg-brand-white  ">
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-6">
           <h2 class="text-3xl font-display font-bold uppercase tracking-tighter">Staff Registrado.</h2>
-          <button onclick="openModal('staff-form')" class="w-full sm:w-auto text-center border-4 border-brand-black bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:border-brand-green hover:text-brand-black focus:bg-brand-green focus:border-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:border-brand-green active:text-brand-black transition-colors flex items-center justify-center gap-2 flex-shrink-0">
+          <button onclick="openModal('staff-form')" class="w-full sm:w-auto text-center bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors flex items-center justify-center gap-2 flex-shrink-0">
             <i class="ph-bold ph-plus text-base mt-[-2px]"></i> Añadir
           </button>
         </div>
@@ -145,7 +145,7 @@
     <div class="bg-brand-white  ">
       <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-6">
         <h2 class="text-4xl font-display font-bold uppercase tracking-tighter text-brand-black">Staff Registrado.</h2>
-        <button onclick="openModal('staff-form')" class="w-full sm:w-auto text-center border-4 border-brand-black bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:border-brand-green hover:text-brand-black focus:bg-brand-green focus:border-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:border-brand-green active:text-brand-black transition-colors flex items-center justify-center gap-2 flex-shrink-0">
+        <button onclick="openModal('staff-form')" class="w-full sm:w-auto text-center bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors flex items-center justify-center gap-2 flex-shrink-0">
           <i class="ph-bold ph-plus text-base mt-[-2px]"></i> Añadir Staff
         </button>
       </div>
@@ -178,7 +178,7 @@
             </div>
             <input type="text" id="search-miembros" placeholder="Buscar miembro..." class="block w-full py-3 pr-4 bg-transparent text-brand-black font-display font-bold tracking-wide focus:outline-none placeholder:text-brand-black/50 text-sm">
           </div>
-          <button onclick="openModal('member-form')" class="w-full sm:w-auto text-center border-4 border-brand-black bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:border-brand-green hover:text-brand-black focus:bg-brand-green focus:border-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:border-brand-green active:text-brand-black transition-colors flex items-center justify-center gap-2 flex-shrink-0">
+          <button onclick="openModal('member-form')" class="w-full sm:w-auto text-center bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors flex items-center justify-center gap-2 flex-shrink-0">
             <i class="ph-bold ph-plus text-base mt-[-2px]"></i> Añadir Miembro
           </button>
         </div>
@@ -243,7 +243,7 @@
   <div id="screen-planes" class="screen p-6 lg:p-12">
     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 sm:mb-12 gap-6">
       <h2 class="text-4xl sm:text-5xl font-display font-bold uppercase tracking-tighter text-brand-black flex items-center gap-3"><i class="ph-bold ph-clipboard-text"></i> Planes Disponibles</h2>
-      <button onclick="openModal('plan-form', null)" class="w-full sm:w-auto text-center border-4 border-brand-black bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:border-brand-green hover:text-brand-black focus:bg-brand-green focus:border-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:border-brand-green active:text-brand-black transition-colors flex items-center justify-center gap-2 flex-shrink-0">
+      <button onclick="openModal('plan-form', null)" class="w-full sm:w-auto text-center bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors flex items-center justify-center gap-2 flex-shrink-0">
         <i class="ph-bold ph-plus text-base mt-[-2px]"></i> Crear Plan
       </button>
     </div>
@@ -254,7 +254,7 @@
 
 </main>
 
-<div id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" onclick="handleOverlayClick(event)" class="fixed inset-0 bg-brand-black/90 hidden items-center justify-center p-4 sm:p-6 z-[100]">
+<div id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" onclick="handleOverlayClick(event)" class="fixed inset-0 bg-brand-black/90 hidden items-center justify-center p-4 sm:p-6" style="z-index: 99999;">
   <div id="modal-box" class="bg-brand-white w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden">
     
     <div class="p-6 sm:p-8 flex items-center justify-between bg-brand-black text-brand-white">
@@ -269,7 +269,7 @@
   </div>
 </div>
 
-<div id="toast" role="status" aria-live="polite" class="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-8 sm:bottom-8 sm:max-w-md bg-brand-green text-brand-black font-display font-bold uppercase tracking-widest text-sm sm:text-lg px-6 py-4 sm:px-8 sm:py-5 z-[200] translate-y-24 opacity-0 transition-all duration-300 pointer-events-none text-center sm:text-left border-4 border-brand-black"></div>
+<div id="toast" role="status" aria-live="polite" class="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-8 sm:bottom-8 sm:max-w-md bg-brand-green text-brand-black font-display font-bold uppercase tracking-widest text-sm sm:text-lg px-6 py-4 sm:px-8 sm:py-5 translate-y-24 opacity-0 transition-all duration-300 pointer-events-none text-center sm:text-left border-4 border-brand-black" style="z-index: 999999;"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/supabase.js"></script>

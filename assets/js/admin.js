@@ -74,7 +74,13 @@ async function fetchData() {
   if (miembros) {
     membersData = miembros.map(m => {
       const historial = pagos ? pagos.filter(p => p.miembro_id === m.id).sort((a,b) => new Date(b.fecha) - new Date(a.fecha)) : [];
-      return { ...m, historialPagos: historial };
+      let fechaVenc = '-';
+      if (historial.length > 0) {
+        const lastDate = new Date(historial[0].fecha);
+        lastDate.setMonth(lastDate.getMonth() + 1);
+        fechaVenc = lastDate.toISOString().split('T')[0];
+      }
+      return { ...m, historialPagos: historial, fechaVencimiento: fechaVenc };
     });
   }
   
@@ -92,10 +98,36 @@ function statusBadge(estadoPago) {
 }
 
 function renderAll() {
+  renderDashboardStats();
   renderTables();
   renderPlanes();
   renderPagos();
   updateAlerts();
+}
+
+function renderDashboardStats() {
+  const statMiembros = document.getElementById('stat-miembros');
+  const statStaff = document.getElementById('stat-staff');
+  const statIngresos = document.getElementById('stat-ingresos');
+  
+  if (statMiembros) statMiembros.textContent = membersData.filter(m => m.activo !== false).length;
+  if (statStaff) statStaff.textContent = staffData.length;
+  if (statIngresos) {
+    const currentMonth = new Date().getMonth();
+    const currentYear = new Date().getFullYear();
+    let ingresos = 0;
+    membersData.forEach(m => {
+      if (m.historialPagos) {
+        m.historialPagos.forEach(p => {
+          const d = new Date(p.fecha);
+          if (d.getMonth() === currentMonth && d.getFullYear() === currentYear) {
+            ingresos += parseInt(p.monto) || 0;
+          }
+        });
+      }
+    });
+    statIngresos.textContent = '$' + (ingresos > 999 ? (ingresos/1000).toFixed(1) + 'k' : ingresos);
+  }
 }
 
 // Búsqueda en tiempo real
@@ -150,12 +182,14 @@ function renderTables() {
   
   let mHtml = '';
   let prevHtml = '';
-  let filteredMembers = membersData.filter(m => 
-    m.nombre.toLowerCase().includes(mTerm) || m.telefono.includes(mTerm)
-  );
+  let filteredMembers = membersData.filter(m => {
+    const n = m.nombre ? m.nombre.toLowerCase() : '';
+    const t = m.telefono ? m.telefono : '';
+    return n.includes(mTerm) || t.includes(mTerm);
+  });
 
   filteredMembers.forEach((m, i) => {
-    const sBadge = statusBadge(m.estadoPago);
+    const sBadge = statusBadge(m.estado_pago);
     const row = `
       <tr class="${rowClasses}">
         <td class="p-6  ">
@@ -537,9 +571,11 @@ function renderPagos() {
   const rowClasses = "border-b-4 border-brand-black hover:bg-brand-green focus-within:bg-brand-green transition-colors group";
   
   const term = document.getElementById('search-pagos').value.toLowerCase().trim();
-  const filtered = membersData.filter(m => 
-    m.nombre.toLowerCase().includes(term) || m.telefono.includes(term)
-  );
+  const filtered = membersData.filter(m => {
+    const n = m.nombre ? m.nombre.toLowerCase() : '';
+    const t = m.telefono ? m.telefono : '';
+    return n.includes(term) || t.includes(term);
+  });
 
   const ptb = document.getElementById('pagos-table-body');
   if (ptb) {
@@ -547,14 +583,14 @@ function renderPagos() {
       <tr class="${rowClasses}">
         <td class="p-6">
           <div class="flex items-center gap-4">
-            <div class="w-10 h-10 bg-brand-black text-brand-white flex-shrink-0 flex items-center justify-center font-display font-bold text-sm select-none">${getInitials(m.nombre)}</div>
+            <div class="w-10 h-10 bg-brand-black text-brand-white flex-shrink-0 flex items-center justify-center font-display font-bold text-sm select-none">${getInitials(m.nombre || '')}</div>
             <div>
               <span class="font-bold uppercase block leading-tight">${m.nombre}</span>
               <span class="text-xs tracking-widest opacity-60">${m.telefono}</span>
             </div>
           </div>
         </td>
-        <td class="p-6">${statusBadge(m.estadoPago)}</td>
+        <td class="p-6">${statusBadge(m.estado_pago)}</td>
         <td class="p-6 font-bold tracking-widest uppercase text-sm">${m.fechaVencimiento || '-'}</td>
         <td class="p-6 text-right whitespace-nowrap">
           <button onclick="openPagoForm(${m.id})" class="${btnClasses} mr-2">Registrar Pago</button>
@@ -570,7 +606,7 @@ function updateAlerts() {
   const alertasWrapper = document.getElementById('alertas-pagos');
   if (!alertasContainer || !alertasWrapper) return;
 
-  const atrasados = membersData.filter(m => m.estadoPago === 'atrasado');
+  const atrasados = membersData.filter(m => m.estado_pago === 'atrasado');
   if (atrasados.length > 0) {
     alertasWrapper.classList.remove('hidden');
     alertasWrapper.classList.add('flex');
@@ -644,9 +680,13 @@ function processPago(e) {
     metodo: metodo
   });
   
-  m.estadoPago = 'al_dia';
-  // Simular fecha próximo mes
-  m.fechaVencimiento = '2026-06-26';
+  m.estado_pago = 'al_dia';
+  // Actualizar fecha vencimiento dinámicamente
+  m.fechaVencimiento = (function() {
+    const d = new Date(hoy);
+    d.setMonth(d.getMonth() + 1);
+    return d.toISOString().split('T')[0];
+  })();
 
   showToast('PAGO REGISTRADO CON ÉXITO');
   closeModal();
@@ -707,7 +747,7 @@ function revertPago(memberId, pagoId) {
     if (!confirmed) return;
     const m = membersData.find(x => x.id === memberId);
     m.historialPagos = m.historialPagos.filter(p => p.id !== pagoId);
-    m.estadoPago = 'atrasado';
+    m.estado_pago = 'atrasado';
     showToast('PAGO REVERTIDO');
     openHistorial(memberId);
     renderAll();
@@ -830,8 +870,8 @@ if (window.supabaseClient) {
   const channel = window.supabaseClient.channel('public:accesos');
   channel.on('broadcast', { event: 'acceso' }, (payload) => {
     const data = payload.payload;
-    let msg = [KIOSCO]  - ;
-    if (data.estado === 'desconocido') msg = [KIOSCO] ROSTRO DESCONOCIDO DETECTADO;
+    let msg = `[KIOSCO] ${data.nombre || 'Alguien'} - Acceso ${data.estado}`;
+    if (data.estado === 'desconocido') msg = '[KIOSCO] ROSTRO DESCONOCIDO DETECTADO';
     showToast(msg);
     
     // Optional: read aloud on admin side too, or just show the toast.

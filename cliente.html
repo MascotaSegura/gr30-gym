@@ -11,15 +11,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
-<body class="font-sans bg-brand-white text-brand-black antialiased selection:bg-brand-green selection:text-brand-black min-h-screen flex flex-col">
-  <header class="w-full bg-brand-white border-b-4 border-brand-black flex items-center justify-between px-6 lg:px-12 py-5 flex-shrink-0 z-50">
-    <a href="index.html" class="flex items-center gap-4 group focus:outline-none focus:ring-4 focus:ring-brand-green focus:ring-offset-4 focus:ring-offset-brand-white">
-      <div class="w-12 h-12 bg-brand-black text-brand-white flex items-center justify-center font-display font-bold text-2xl select-none group-hover:bg-brand-green group-hover:text-brand-black group-focus:bg-brand-green group-focus:text-brand-black group-active:bg-brand-green group-active:text-brand-black transition-colors">
+<body class="font-sans bg-brand-white text-brand-black antialiased selection:bg-brand-green selection:text-brand-black min-h-screen flex flex-col overflow-x-hidden" style="min-height: 100dvh;">
+  <header class="w-full bg-brand-white border-b-4 border-brand-black flex items-center justify-between px-6 lg:px-12 py-5 flex-shrink-0 relative" style="z-index: 50;">
+    <a href="index.html" class="text-3xl font-display font-bold tracking-tighter uppercase flex items-center gap-3 group focus:outline-none" aria-label="Ir al inicio">
+      <div class="w-10 h-10 bg-brand-green text-brand-black flex items-center justify-center flex-shrink-0 group-hover:bg-brand-black group-hover:text-brand-white group-focus:bg-brand-black group-focus:text-brand-white group-active:bg-brand-black group-active:text-brand-white transition-colors">
         <span class="text-2xl leading-none">G</span>
       </div>
-      <span class="font-display font-bold text-2xl uppercase tracking-widest text-brand-black hidden sm:block">Cliente<span class="text-brand-green">.</span></span>
+      <span class="text-brand-black hidden sm:block">Cliente<span class="text-brand-green group-hover:text-brand-black group-active:text-brand-black transition-colors">.</span></span>
     </a>
-    <button onclick="logout()" class="border-4 border-brand-black bg-brand-black text-brand-white hover:bg-brand-white hover:text-brand-black focus:bg-brand-white focus:text-brand-black transition-colors px-6 py-3 font-display font-bold uppercase tracking-widest text-xs flex items-center gap-2 focus:outline-none">
+    <button onclick="logout()" class="bg-brand-black text-brand-white hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black transition-colors px-6 py-3 font-display font-bold uppercase tracking-widest text-xs flex items-center gap-2 focus:outline-none">
       Cerrar Sesión <i class="ph-bold ph-sign-out text-lg"></i>
     </button>
   </header>
@@ -46,15 +46,15 @@
       <!-- Details Card -->
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
         <div class="bg-brand-white border-4 border-brand-black p-6 sm:p-8">
-          <p class="text-xs font-display font-bold uppercase tracking-widest text-brand-black mb-2 opacity-60">Plan Actual</p>
+          <p class="text-xs font-display font-bold uppercase tracking-widest text-brand-black mb-2">Plan Actual</p>
           <p id="c-plan" class="text-2xl font-display font-bold uppercase tracking-widest text-brand-black break-all">...</p>
         </div>
         <div class="bg-brand-white border-4 border-brand-black p-6 sm:p-8">
-          <p class="text-xs font-display font-bold uppercase tracking-widest text-brand-black mb-2 opacity-60">Estado</p>
+          <p class="text-xs font-display font-bold uppercase tracking-widest text-brand-black mb-2">Estado</p>
           <div id="c-estado">...</div>
         </div>
         <div class="bg-brand-white border-4 border-brand-black p-6 sm:p-8">
-          <p class="text-xs font-display font-bold uppercase tracking-widest text-brand-black mb-2 opacity-60">Vencimiento</p>
+          <p class="text-xs font-display font-bold uppercase tracking-widest text-brand-black mb-2">Vencimiento</p>
           <p id="c-venc" class="text-2xl font-display font-bold uppercase tracking-widest text-brand-black">...</p>
         </div>
       </div>
@@ -95,9 +95,9 @@
 
         let badge = '';
         if (member.estado_pago === 'al_dia') {
-          badge = '<span class="bg-brand-green text-brand-black font-display font-bold uppercase tracking-widest text-xs px-2 py-1 inline-block border-4 border-brand-green">Al Día</span>';
+          badge = '<span class="bg-brand-green text-brand-black font-display font-bold uppercase tracking-widest text-xs px-2 py-1 inline-block">Al D\u00eda</span>';
         } else if (member.estado_pago === 'atrasado') {
-          badge = '<span class="bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest text-xs px-2 py-1 inline-flex items-center gap-1 w-max border-4 border-brand-black"><i class="ph-bold ph-warning text-sm"></i> Atrasado</span>';
+          badge = '<span class="bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest text-xs px-2 py-1 inline-flex items-center gap-1 w-max"><i class="ph-bold ph-warning text-sm"></i> Atrasado</span>';
           document.getElementById('alert-section').classList.remove('hidden');
           document.getElementById('alert-section').classList.add('flex');
         } else {
@@ -127,7 +127,7 @@
             <div class="bg-brand-white border-4 border-brand-black p-6 flex flex-col sm:flex-row justify-between sm:items-center gap-4">
               <div>
                 <p class="font-display font-bold text-xl uppercase text-brand-black">$${p.monto} mxn</p>
-                <p class="text-xs font-bold uppercase tracking-widest opacity-60 mt-1">${p.metodo}</p>
+                <p class="text-xs font-bold uppercase tracking-widest text-brand-black mt-1">${p.metodo}</p>
               </div>
               <div class="font-display font-bold uppercase tracking-widest text-sm bg-brand-black text-brand-white px-4 py-2 text-center w-max">
                 ${p.fecha}

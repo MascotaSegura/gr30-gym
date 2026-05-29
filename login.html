@@ -12,7 +12,7 @@
 <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
 <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
-<body class="bg-brand-white font-sans antialiased selection:bg-brand-green selection:text-brand-black text-brand-black min-h-screen flex flex-col overflow-x-hidden">
+<body class="bg-brand-white font-sans antialiased selection:bg-brand-green selection:text-brand-black text-brand-black min-h-screen flex flex-col overflow-x-hidden" style="min-height: 100dvh;">
 
   <header class="w-full bg-brand-white border-b-4 border-brand-black flex items-center justify-between px-6 lg:px-12 py-5 flex-shrink-0 z-50 relative">
     <a href="index.html" class="text-3xl font-display font-bold tracking-tighter uppercase flex items-center gap-3 group focus:outline-none" aria-label="Ir al inicio">
@@ -38,7 +38,7 @@
             <label class="block font-display font-bold uppercase tracking-widest text-xs sm:text-sm text-brand-black mb-2" for="log-pass">Contraseña</label>
             <input type="password" id="log-pass" class="w-full bg-brand-white border-4 border-brand-black px-4 py-4 sm:px-6 sm:py-5 text-lg sm:text-xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green text-brand-black placeholder:text-brand-black/50 placeholder:uppercase transition-all" placeholder="TU CONTRASEÑA" required>
           </div>
-          <button type="submit" class="w-full sm:w-auto text-center border-4 border-brand-black bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:border-brand-green hover:text-brand-black focus:bg-brand-green focus:border-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:border-brand-green active:text-brand-black transition-colors mt-2">Iniciar Sesión</button>
+          <button type="submit" class="w-full sm:w-auto text-center bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors mt-2">Iniciar Sesión</button>
         </form>
         <div class="flex flex-col gap-4 items-center">
           <button type="button" onclick="setScreen('register')" class="text-brand-black font-display font-bold uppercase tracking-widest text-sm hover:underline focus:underline focus:outline-none decoration-4 decoration-brand-green underline-offset-4 transition-all">¿Eres nuevo? Crea tu cuenta.</button>
@@ -57,7 +57,7 @@
             <label class="block font-display font-bold uppercase tracking-widest text-xs sm:text-sm text-brand-black mb-2" for="reg-phone">Número de Teléfono</label>
             <input type="tel" id="reg-phone" class="w-full bg-brand-white border-4 border-brand-black px-4 py-4 sm:px-6 sm:py-5 text-lg sm:text-xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green text-brand-black placeholder:text-brand-black/50 placeholder:uppercase transition-all" placeholder="EJ. 55 5555 0199" pattern="[0-9]{10}" title="Ingresa tus 10 dígitos numéricos sin espacios" required>
           </div>
-          <button type="submit" class="w-full sm:w-auto text-center border-4 border-brand-black bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:border-brand-green hover:text-brand-black focus:bg-brand-green focus:border-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:border-brand-green active:text-brand-black transition-colors mt-2">Continuar</button>
+          <button type="submit" class="w-full sm:w-auto text-center bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors mt-2">Continuar</button>
         </form>
         <div class="flex flex-col gap-4 items-center">
           <button type="button" onclick="setScreen('login')" class="text-brand-black font-display font-bold uppercase tracking-widest text-sm hover:underline focus:underline focus:outline-none decoration-4 decoration-brand-green underline-offset-4 transition-all">¿Ya tienes cuenta? Inicia sesión.</button>
@@ -70,8 +70,8 @@
         <p class="text-base sm:text-lg font-medium text-brand-black mb-8 px-4 leading-relaxed">
           En GR30 utilizamos reconocimiento facial y detección de vida (liveness detection) para verificar tu identidad de forma segura. Asegúrate de tener buena iluminación.
         </p>
-        <button type="button" onclick="startFaceVer()" class="w-full sm:w-auto text-center border-4 border-brand-black bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:border-brand-green hover:text-brand-black focus:bg-brand-green focus:border-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:border-brand-green active:text-brand-black transition-colors">Activar Cámara</button>
-        <button type="button" onclick="setScreen('register')" class="mt-6 flex items-center gap-2 mx-auto text-brand-black font-display font-bold uppercase tracking-widest text-sm hover:underline focus:underline focus:outline-none decoration-4 decoration-brand-green underline-offset-4 transition-all"><i class="ph-bold ph-arrow-left text-lg"></i> Volver Atrás</button>
+        <button type="button" onclick="startFaceVer()" class="w-full sm:w-auto text-center bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors">Activar Cámara</button>
+        <button type="button" onclick="goBackFromIntro()" class="mt-6 flex items-center gap-2 mx-auto text-brand-black font-display font-bold uppercase tracking-widest text-sm hover:underline focus:underline focus:outline-none decoration-4 decoration-brand-green underline-offset-4 transition-all"><i class="ph-bold ph-arrow-left text-lg"></i> Volver Atrás</button>
       </div>
 
 
@@ -92,7 +92,7 @@
             <label class="block font-display font-bold uppercase tracking-widest text-xs sm:text-sm text-brand-black mb-2" for="confirm-pass">Confirmar Contraseña</label>
             <input type="password" id="confirm-pass" class="w-full bg-brand-white border-4 border-brand-black px-4 py-4 sm:px-6 sm:py-5 text-lg sm:text-xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green text-brand-black placeholder:text-brand-black/50 placeholder:uppercase transition-all" placeholder="REPITE TU CONTRASEÑA" required>
           </div>
-          <button type="submit" class="w-full sm:w-auto text-center border-4 border-brand-black bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:border-brand-green hover:text-brand-black focus:bg-brand-green focus:border-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:border-brand-green active:text-brand-black transition-colors mt-2">Finalizar Registro</button>
+          <button type="submit" class="w-full sm:w-auto text-center bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors mt-2">Finalizar Registro</button>
         </form>
       </div>
 
@@ -100,27 +100,26 @@
   </main>
 
   <!-- SCREEN FACE CAPTURE -->
-  <div id="screen-face-capture" class="screen hidden fixed top-0 left-0 w-full h-[100dvh] z-[9999] bg-brand-black flex-col">
-    <!-- Header -->
-    <div class="w-full bg-brand-white border-b-4 border-brand-black flex items-center justify-between px-6 lg:px-12 py-5 flex-shrink-0">
+  <div id="screen-face-capture" class="screen hidden fixed top-0 left-0 w-full h-screen bg-brand-black flex-col" style="height: 100dvh; z-index: 9999;">
+    <!-- Video Container (Full screen) -->
+    <div class="absolute inset-0 w-full h-full overflow-hidden bg-brand-black flex justify-center items-center" style="z-index: 1;">
+      <video id="webcam" class="absolute inset-0 w-full h-full object-cover transform scale-x-[-1]" autoplay playsinline></video>
+      <!-- Guide Overlay -->
+      <div class="relative border-4 border-brand-green pointer-events-none" style="z-index: 10; aspect-ratio: 3/4; height: 50vh; max-height: 400px; max-width: 80vw;"></div>
+    </div>
+
+    <!-- Header (Overlaid at top) -->
+    <div class="absolute top-0 left-0 w-full bg-brand-white border-b-4 border-brand-black flex items-center justify-between px-6 lg:px-12 py-5" style="z-index: 20;">
       <h1 class="text-3xl sm:text-4xl leading-none font-display font-bold uppercase tracking-tighter text-brand-black">Biometría.</h1>
-      <button type="button" onclick="stopCam(); window.setScreen('face-intro')" class="w-12 h-12 bg-brand-black text-brand-white hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black flex items-center justify-center transition-colors focus:outline-none flex-shrink-0">
+      <button type="button" onclick="stopCam(); window.setScreen('face-intro')" class="w-12 h-12 bg-brand-black text-brand-white hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center justify-center transition-colors focus:outline-none flex-shrink-0">
         <i class="ph-bold ph-x text-2xl"></i>
       </button>
     </div>
-    
-    <!-- Video Container -->
-    <div class="relative flex-1 w-full overflow-hidden bg-brand-black flex flex-col justify-center items-center">
-      <video id="webcam" class="absolute inset-0 w-full h-full object-cover transform scale-x-[-1]" autoplay playsinline></video>
-      
-      <!-- Guide Overlay -->
-      <div class="relative w-[80vw] max-w-sm aspect-[3/4] border-4 border-brand-green/50 pointer-events-none"></div>
-    </div>
 
-    <!-- HUD -->
-    <div id="face-hud" class="w-full bg-brand-white p-6 sm:p-8 flex flex-col items-center justify-center transition-colors duration-300">
+    <!-- HUD (Overlaid at bottom) -->
+    <div id="face-hud" class="absolute bottom-0 left-0 w-full bg-brand-white border-t-4 border-brand-black p-6 sm:p-8 flex flex-col items-center justify-center transition-colors duration-300" style="z-index: 20;">
       <p id="face-inst" class="text-brand-black font-display font-bold uppercase tracking-widest text-xl sm:text-2xl text-center">Cargando Modelo...</p>
-      <p id="face-status" class="text-brand-black font-bold tracking-widest uppercase text-sm mt-2 opacity-80 text-center">Esperando Cámara</p>
+      <p id="face-status" class="text-brand-black font-bold tracking-widest uppercase text-sm mt-2 text-center">Esperando Cámara</p>
     </div>
   </div>
 
@@ -144,6 +143,10 @@
         target.classList.remove('hidden');
         target.classList.add('flex');
       }
+    };
+
+    window.goBackFromIntro = function() {
+      window.setScreen(currentMode === 'LOGIN' ? 'login' : 'register');
     };
 
     document.getElementById('form-login').addEventListener('submit', async (e) => {
@@ -221,10 +224,40 @@
 
     let faceLandmarker;
     let video = document.getElementById("webcam");
-    let captureState = 'INIT'; // INIT, LOADED, FRONT, LEFT, RIGHT, SUCCESS
+    let captureState = 'INIT'; // INIT, FRONT, LEFT, RIGHT, SUCCESS
     let lastVideoTime = -1;
     let reqAnimId;
     let baselineLandmarks = null;
+    let storedBiometria = null; // Pre-fetched biometric data for LOGIN
+    let comparing = false;      // Guard to prevent concurrent async comparisons
+
+    // Normaliza landmarks: centra en punto medio de ojos, escala por distancia inter-ocular.
+    // Hace la comparación INVARIANTE a posición, distancia y tamaño de cara en el encuadre.
+    function normalizeLandmarks(landmarks) {
+      if (!landmarks || landmarks.length < 264) return null;
+      const leftEye  = landmarks[33];
+      const rightEye = landmarks[263];
+      const cx  = (leftEye.x + rightEye.x) / 2;
+      const cy  = (leftEye.y + rightEye.y) / 2;
+      const cz  = ((leftEye.z || 0) + (rightEye.z || 0)) / 2;
+      const iod = Math.sqrt(Math.pow(rightEye.x - leftEye.x, 2) + Math.pow(rightEye.y - leftEye.y, 2));
+      if (iod < 0.005) return null; // Cara demasiado pequeña o inválida
+      return landmarks.map(p => ({
+        x: (p.x - cx) / iod,
+        y: (p.y - cy) / iod,
+        z: ((p.z || 0) - cz) / iod
+      }));
+    }
+
+    // Distancia RMS por landmark sobre vectores normalizados (escala-independiente)
+    function computeDistance(l1, l2) {
+      if (!l1 || !l2 || l1.length !== l2.length) return Infinity;
+      let sum = 0;
+      for (let i = 0; i < l1.length; i++) {
+        sum += Math.pow(l1[i].x - l2[i].x, 2) + Math.pow(l1[i].y - l2[i].y, 2);
+      }
+      return Math.sqrt(sum / l1.length); // RMS por landmark
+    }
 
     async function initVision() {
       try {
@@ -251,42 +284,50 @@
     window.startFaceVer = async function() {
       window.setScreen('face-capture');
       captureState = 'INIT';
-      
+      storedBiometria = null;
+      comparing = false;
+
       document.getElementById("face-inst").className = "text-brand-black font-display font-bold uppercase tracking-widest text-xl sm:text-2xl text-center";
-      document.getElementById("face-status").className = "text-brand-black font-bold tracking-widest uppercase text-sm mt-2 opacity-80 text-center";
-      document.getElementById("face-hud").className = "w-full bg-brand-white p-6 sm:p-8 flex flex-col items-center justify-center transition-colors duration-300";
-      
-      updateInst();
-      
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-        video.srcObject = stream;
-        video.addEventListener("loadeddata", predictWebcam);
-      } catch (err) {
-        if(window.sysModal) {
-          sysModal('error', 'CÁMARA RESTRINGIDA (MODO LOCAL)', 'Tu navegador bloqueó la cámara porque estás abriendo el archivo localmente (file:///). Para continuar con la demo sin cámara, haz clic en "Simular Biometría".').then(() => {
-            const btn = document.createElement('button');
-            btn.className = "w-full text-center border-4 border-brand-black bg-brand-white text-brand-black font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-black hover:text-brand-white focus:outline-none transition-colors mt-4";
-            btn.innerText = "SIMULAR BIOMETRÍA (DEMO)";
-            btn.onclick = () => {
-              btn.remove();
-              captureState = 'SUCCESS';
-              if (currentMode === 'REGISTER') {
-                currentUserData.biometria = { fake: true }; // Dummy data
-                updateInst();
-                setTimeout(() => { window.setScreen('set-password'); }, 1500);
-              } else {
-                updateInst();
-                setTimeout(() => {
-                  localStorage.setItem('gr30_session', currentUserPhone);
-                  window.location.href = 'cliente.html';
-                }, 1500);
-              }
-            };
-            document.getElementById("face-hud").appendChild(btn);
-            document.getElementById("face-status").innerText = "MODO DE SIMULACIÓN DISPONIBLE";
+      document.getElementById("face-status").className = "text-brand-black font-bold tracking-widest uppercase text-sm mt-2 text-center";
+      document.getElementById("face-hud").className = "absolute bottom-0 left-0 w-full bg-brand-white border-t-4 border-brand-black p-6 sm:p-8 flex flex-col items-center justify-center transition-colors duration-300";
+
+      // Pre-fetch biometric data BEFORE starting the camera loop
+      if (currentMode === 'LOGIN') {
+        document.getElementById("face-inst").innerText = "PREPARANDO...";
+        document.getElementById("face-status").innerText = "CARGANDO PERFIL";
+        const { data, error } = await window.supabaseClient
+          .from('miembros')
+          .select('biometria')
+          .eq('telefono', currentUserPhone)
+          .single();
+        if (error || !data || !data.biometria || data.biometria.fake) {
+          stopCam();
+          sysModal('error', 'SIN PERFIL BIOMÉTRICO', 'No hay datos biométricos registrados para esta cuenta. Regístrate de nuevo para crear tu perfil.').then(() => {
+            window.setScreen('login');
           });
+          return;
         }
+        // Normalizar al cargar: funciona tanto con datos antiguos (crudos) como nuevos (normalizados)
+        storedBiometria = normalizeLandmarks(data.biometria);
+        if (!storedBiometria) {
+          stopCam();
+          sysModal('error', 'PERFIL CORRUPTO', 'Los datos biométricos son inválidos. Regístrate de nuevo para crear un perfil nuevo.').then(() => { window.setScreen('login'); });
+          return;
+        }
+      }
+
+      updateInst();
+
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: { width: { ideal: 1280 }, height: { ideal: 720 }, facingMode: 'user' }
+        });
+        video.srcObject = stream;
+        video.addEventListener("loadeddata", predictWebcam, { once: true });
+      } catch (err) {
+        stopCam();
+        window.setScreen('face-intro');
+        sysModal('error', 'CÁMARA INACCESIBLE', 'El navegador bloqueó el acceso a la cámara. Revisa los permisos del sitio e inténtalo de nuevo.');
       }
     };
 
@@ -315,41 +356,45 @@
         inst.innerText = currentMode === 'LOGIN' ? "¡BIENVENIDO!" : "¡PERFIL BIOMÉTRICO CREADO!";
         inst.className = "text-brand-black font-display font-bold uppercase tracking-widest text-xl sm:text-2xl text-center";
         status.innerText = "PROCESO COMPLETADO";
-        status.className = "text-brand-black font-bold tracking-widest uppercase text-sm mt-2 opacity-100 text-center";
-        hud.className = "w-full bg-brand-green p-6 sm:p-8 flex flex-col items-center justify-center transition-colors duration-300";
+        status.className = "text-brand-black font-bold tracking-widest uppercase text-sm mt-2 text-center";
+        hud.className = "absolute bottom-0 left-0 w-full bg-brand-green border-t-4 border-brand-black p-6 sm:p-8 flex flex-col items-center justify-center transition-colors duration-300";
       }
     }
 
-    async function predictWebcam() {
+    function predictWebcam() {
       if (!faceLandmarker) {
         reqAnimId = window.requestAnimationFrame(predictWebcam);
         return;
       }
-      
+
       if (captureState === 'INIT') {
         captureState = 'FRONT';
         updateInst();
       }
 
-      let startTimeMs = performance.now();
+      const startTimeMs = performance.now();
       if (lastVideoTime !== video.currentTime) {
         lastVideoTime = video.currentTime;
         const results = faceLandmarker.detectForVideo(video, startTimeMs);
-        
+
         if (results.faceLandmarks && results.faceLandmarks.length > 0) {
           const landmarks = results.faceLandmarks[0];
-          
+
+          // ---- Pose ratio helper ----
+          const nose     = landmarks[1];
+          const leftEye  = landmarks[33];
+          const rightEye = landmarks[263];
+          const eyeDist    = Math.abs(rightEye.x - leftEye.x);
+          const noseToLeft = Math.abs(nose.x - leftEye.x);
+          const ratio = eyeDist > 0 ? noseToLeft / eyeDist : 0.5;
+
           if (currentMode === 'REGISTER') {
-            // Liveness sequence for registration
-            const nose = landmarks[1];
-            const leftEye = landmarks[33];
-            const rightEye = landmarks[263];
-            const eyeDist = Math.abs(rightEye.x - leftEye.x);
-            const noseToLeft = Math.abs(nose.x - leftEye.x);
-            const ratio = noseToLeft / eyeDist;
-            
+            // --- LIVENESS SEQUENCE ---
             if (captureState === 'FRONT' && ratio > 0.4 && ratio < 0.6) {
-              baselineLandmarks = landmarks; // Save front face
+              baselineLandmarks = landmarks;
+              // ✅ Guardar biometría NORMALIZADA de frente (invariante a posición/escala/distancia)
+              const normLM = normalizeLandmarks(landmarks);
+              if (normLM) currentUserData.biometria = normLM;
               captureState = 'LEFT';
               updateInst();
             } else if (captureState === 'LEFT' && ratio > 0.7) {
@@ -357,43 +402,43 @@
               updateInst();
             } else if (captureState === 'RIGHT' && ratio < 0.3) {
               captureState = 'SUCCESS';
-              currentUserData.biometria = baselineLandmarks; // Guardar biometria
+              // La biometría ya fue guardada en la fase FRONT (de frente)
               updateInst();
-              setTimeout(() => {
-                stopCam();
-                window.setScreen('set-password');
-              }, 1500);
+              setTimeout(() => { stopCam(); window.setScreen('set-password'); }, 1500);
             }
+
           } else {
-            // LOGIN MODE: Compare landmarks
-            if (captureState === 'FRONT') {
-              // Fetch user biometria if not fetched
-              const { data } = await window.supabaseClient.from('miembros').select('biometria').eq('telefono', currentUserPhone).single();
-              if (data && data.biometria) {
-                // Calculate simple distance or just assume success if face is present for demo
-                // Para ser estrictos con la orden: comparamos que los puntos existan.
-                // En un caso real haríamos similitud del coseno de los blendshapes.
-                // Usaremos una validación rápida.
-                captureState = 'SUCCESS';
-                updateInst();
-                setTimeout(() => {
-                  stopCam();
-                  localStorage.setItem('gr30_session', currentUserPhone);
-      window.location.href = 'cliente.html';
-                }, 1500);
-              } else {
-                // No biometria
-                stopCam();
-                sysModal('error', 'ERROR', 'No hay perfil biométrico. Regístrate.').then(() => {
-                  window.setScreen('login');
-                });
-                return;
+            // --- LOGIN: REAL BIOMETRIC COMPARISON ---
+            // storedBiometria is pre-fetched — no async inside RAF
+            if (captureState === 'FRONT' && storedBiometria && !comparing) {
+              // Solo comparar cuando la cara mira de frente
+              if (ratio > 0.35 && ratio < 0.65) {
+                comparing = true;
+                const normLive = normalizeLandmarks(landmarks);
+                if (!normLive) { comparing = false; } else {
+                  const dist = computeDistance(normLive, storedBiometria);
+                  const THRESHOLD = 0.20; // Umbral RMS normalizado
+                  console.log('[Bio] Distancia normalizada:', dist.toFixed(4), '| Umbral:', THRESHOLD);
+
+                  if (dist < THRESHOLD) {
+                    captureState = 'SUCCESS';
+                    updateInst();
+                    setTimeout(() => {
+                      stopCam();
+                      localStorage.setItem('gr30_session', currentUserPhone);
+                      window.location.href = 'cliente.html';
+                    }, 1500);
+                  } else {
+                    document.getElementById("face-status").innerText = "DIST: " + dist.toFixed(3) + " / " + THRESHOLD;
+                    setTimeout(() => { comparing = false; }, 800);
+                  }
+                }
               }
             }
           }
         }
       }
-      
+
       if (captureState !== 'SUCCESS') {
         reqAnimId = window.requestAnimationFrame(predictWebcam);
       }
@@ -415,13 +460,13 @@ window.sysModal = function(type, title, message) {
     let overlay = document.getElementById('sys-modal-overlay');
     if (!overlay) {
       document.body.insertAdjacentHTML('beforeend', `
-        <div id="sys-modal-overlay" role="dialog" aria-modal="true" class="fixed inset-0 bg-brand-black/90 hidden items-center justify-center p-4 sm:p-6 z-[200]">
+        <div id="sys-modal-overlay" role="dialog" aria-modal="true" class="fixed inset-0 bg-brand-black/90 hidden items-center justify-center p-4 sm:p-6" style="z-index: 99999;">
           <div class="bg-brand-white w-full max-w-md border-4 border-brand-black flex flex-col overflow-hidden">
             <div id="sys-modal-header" class="px-6 py-4 flex items-center gap-4 border-b-4 border-brand-black">
               <i id="sys-modal-icon" class="ph-bold text-3xl"></i>
               <h3 id="sys-modal-title" class="font-display font-bold uppercase tracking-widest text-lg sm:text-xl leading-none mt-1"></h3>
             </div>
-            <div class="p-6 sm:p-8">
+            <div class="p-6 sm:p-8 overflow-y-auto" style="max-height: 60vh;">
               <p id="sys-modal-msg" class="font-medium text-lg leading-relaxed text-brand-black"></p>
             </div>
             <div id="sys-modal-footer" class="p-6 border-t-4 border-brand-black flex flex-col sm:flex-row justify-end gap-4 bg-brand-white"></div>
@@ -458,7 +503,7 @@ window.sysModal = function(type, title, message) {
     msgEl.innerHTML = message;
     footer.innerHTML = '';
     
-    const btnBase = "font-display font-bold uppercase tracking-widest px-8 py-4 border-4 border-brand-black focus:outline-none transition-colors w-full sm:w-auto text-center text-sm";
+    const btnBase = "font-display font-bold uppercase tracking-widest px-8 py-4 focus:outline-none transition-colors w-full sm:w-auto text-center text-sm";
     
     function closeAndResolve(val) {
       overlay.classList.remove('flex');
@@ -468,12 +513,12 @@ window.sysModal = function(type, title, message) {
 
     if (type === 'confirm') {
       const btnCancel = document.createElement('button');
-      btnCancel.className = btnBase + " bg-brand-white text-brand-black hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white active:bg-brand-black active:text-brand-white";
+      btnCancel.className = btnBase + " bg-brand-black text-brand-white hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black";
       btnCancel.textContent = "Cancelar";
       btnCancel.onclick = () => closeAndResolve(false);
       
       const btnOk = document.createElement('button');
-      btnOk.className = btnBase + " bg-brand-black text-brand-white hover:bg-brand-green hover:border-brand-green hover:text-brand-black focus:bg-brand-green focus:border-brand-green focus:text-brand-black active:bg-brand-green active:border-brand-green active:text-brand-black";
+      btnOk.className = btnBase + " bg-brand-green text-brand-black hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white active:bg-brand-black active:text-brand-white";
       btnOk.textContent = "Confirmar";
       btnOk.onclick = () => closeAndResolve(true);
       
@@ -481,7 +526,7 @@ window.sysModal = function(type, title, message) {
       footer.appendChild(btnOk);
     } else {
       const btnOk = document.createElement('button');
-      btnOk.className = btnBase + " bg-brand-black text-brand-white hover:bg-brand-green hover:border-brand-green hover:text-brand-black focus:bg-brand-green focus:border-brand-green focus:text-brand-black active:bg-brand-green active:border-brand-green active:text-brand-black";
+      btnOk.className = btnBase + " bg-brand-black text-brand-white hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black";
       btnOk.textContent = "Entendido";
       btnOk.onclick = () => closeAndResolve(true);
       footer.appendChild(btnOk);

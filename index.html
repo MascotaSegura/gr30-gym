@@ -21,14 +21,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
 
 </head>
-<body class="font-sans antialiased selection:bg-brand-green selection:text-brand-black overflow-x-hidden">
+<body class="bg-brand-white font-sans antialiased selection:bg-brand-green selection:text-brand-black text-brand-black min-h-screen overflow-x-hidden" style="min-height: 100dvh;">
 
-<header class="fixed top-0 left-0 w-full bg-brand-white border-b-4 border-brand-black z-[60] flex items-center justify-between px-6 lg:px-12 py-5" id="mainHeader">
-  <a href="#inicio" class="text-3xl font-display font-bold tracking-tighter uppercase flex items-center gap-3 group" aria-label="Inicio">
-    <div class="w-10 h-10 bg-brand-green flex items-center justify-center text-brand-black transition-colors group-hover:bg-brand-black group-hover:text-brand-white group-active:bg-brand-black group-active:text-brand-white">
+<header class="fixed top-0 left-0 w-full bg-brand-white border-b-4 border-brand-black flex items-center justify-between px-6 lg:px-12 py-5" style="z-index: 60;" id="mainHeader">
+  <a href="#inicio" class="text-3xl font-display font-bold tracking-tighter uppercase flex items-center gap-3 group focus:outline-none" aria-label="Inicio">
+    <div class="w-10 h-10 bg-brand-green flex items-center justify-center text-brand-black transition-colors group-hover:bg-brand-black group-hover:text-brand-white group-focus:bg-brand-black group-focus:text-brand-white group-active:bg-brand-black group-active:text-brand-white">
       <span class="text-2xl leading-none">G</span>
     </div>
-    <span class="text-brand-black">GR30<span class="text-brand-green group-hover:text-brand-black group-active:text-brand-black transition-colors">.</span></span>
+    <span class="text-brand-black">GR30<span class="text-brand-green group-hover:text-brand-black group-focus:text-brand-black group-active:text-brand-black transition-colors">.</span></span>
   </a>
 
   <nav class="hidden lg:flex items-center gap-8 xl:gap-12">
@@ -47,21 +47,21 @@
       Únete Ahora
     </a>
     
-    <button id="menuBtn" aria-label="Abrir menú" aria-expanded="false" class="lg:hidden w-12 h-12 flex items-center justify-center bg-brand-black text-brand-white hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors z-[60]">
+    <button id="menuBtn" aria-label="Abrir menú" aria-expanded="false" class="lg:hidden w-12 h-12 flex items-center justify-center bg-brand-black text-brand-white hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors" style="z-index: 60;">
       <i id="menuIcon" class="ph-bold ph-list text-3xl"></i>
     </button>
   </div>
 </header>
 
-<div id="mobileMenu" aria-hidden="true" class="fixed inset-0 bg-brand-black z-[55] invisible flex flex-col px-8 sm:px-12 overflow-y-auto py-12">
+<div id="mobileMenu" aria-hidden="true" class="fixed inset-0 bg-brand-black invisible flex flex-col px-8 sm:px-12 overflow-y-auto py-12" style="z-index: 55;">
   <nav class="flex flex-col gap-6 sm:gap-8 my-auto">
-    <a href="#inicio" class="mobile-link text-5xl sm:text-6xl font-display font-bold tracking-tighter text-brand-white hover:text-brand-green active:text-brand-green transition-colors w-max">INICIO</a>
-    <a href="#servicios" class="mobile-link text-5xl sm:text-6xl font-display font-bold tracking-tighter text-brand-white hover:text-brand-green active:text-brand-green transition-colors w-max">SERVICIOS</a>
-    <a href="#entrenadores" class="mobile-link text-5xl sm:text-6xl font-display font-bold tracking-tighter text-brand-white hover:text-brand-green active:text-brand-green transition-colors w-max">STAFF</a>
-    <a href="#resenas" class="mobile-link text-5xl sm:text-6xl font-display font-bold tracking-tighter text-brand-white hover:text-brand-green active:text-brand-green transition-colors w-max">RESEÑAS</a>
-    <a href="#planes" class="mobile-link text-5xl sm:text-6xl font-display font-bold tracking-tighter text-brand-white hover:text-brand-green active:text-brand-green transition-colors w-max">PLANES</a>
-    <a href="login.html" class="mobile-link text-5xl sm:text-6xl font-display font-bold tracking-tighter text-brand-white hover:text-brand-green active:text-brand-green transition-colors w-max">INICIAR SESIÓN</a>
-    <a href="#contacto" class="mobile-link text-5xl sm:text-6xl font-display font-bold tracking-tighter text-brand-green hover:text-brand-white active:text-brand-white transition-colors mt-6 sm:mt-8 w-max">CONTACTO</a>
+    <a href="#inicio" class="mobile-link text-5xl sm:text-6xl font-display font-bold tracking-tighter text-brand-white hover:text-brand-green focus:text-brand-green focus:outline-none active:text-brand-green transition-colors w-max">INICIO</a>
+    <a href="#servicios" class="mobile-link text-5xl sm:text-6xl font-display font-bold tracking-tighter text-brand-white hover:text-brand-green focus:text-brand-green focus:outline-none active:text-brand-green transition-colors w-max">SERVICIOS</a>
+    <a href="#entrenadores" class="mobile-link text-5xl sm:text-6xl font-display font-bold tracking-tighter text-brand-white hover:text-brand-green focus:text-brand-green focus:outline-none active:text-brand-green transition-colors w-max">STAFF</a>
+    <a href="#resenas" class="mobile-link text-5xl sm:text-6xl font-display font-bold tracking-tighter text-brand-white hover:text-brand-green focus:text-brand-green focus:outline-none active:text-brand-green transition-colors w-max">RESEÑAS</a>
+    <a href="#planes" class="mobile-link text-5xl sm:text-6xl font-display font-bold tracking-tighter text-brand-white hover:text-brand-green focus:text-brand-green focus:outline-none active:text-brand-green transition-colors w-max">PLANES</a>
+    <a href="login.html" class="mobile-link text-5xl sm:text-6xl font-display font-bold tracking-tighter text-brand-white hover:text-brand-green focus:text-brand-green focus:outline-none active:text-brand-green transition-colors w-max">INICIAR SESIÓN</a>
+    <a href="#contacto" class="mobile-link text-5xl sm:text-6xl font-display font-bold tracking-tighter text-brand-green hover:text-brand-white focus:text-brand-white focus:outline-none active:text-brand-white transition-colors mt-6 sm:mt-8 w-max">CONTACTO</a>
   </nav>
 </div>
 
@@ -114,7 +114,7 @@
       </div>
       <div class="w-full flex-shrink-0 flex flex-col lg:flex-row">
         <div class="flex-1 lg:w-[50%] bg-brand-white flex flex-col px-6 lg:px-12 py-[100px] lg:py-[120px]">
-          <h3 class="text-[clamp(3.5rem,8vw,6rem)] font-display font-bold text-brand-black uppercase tracking-tighter leading-none mb-6">Peso Libre<br><span class="bg-brand-green text-brand-black px-2 -ml-2 inline-block mt-2">&amp; Funcional.</span></h3>
+          <h3 class="text-[clamp(3.5rem,8vw,6rem)] font-display font-bold text-brand-black uppercase tracking-tighter leading-none mb-6">Peso Libre<br><span class="bg-brand-green text-brand-black px-2 py-1 -ml-2 inline-block mt-2">&amp; Funcional.</span></h3>
           <p class="text-lg lg:text-xl font-medium text-brand-black max-w-lg">Racks de potencia, plataformas olímpicas y equipo táctico. Sin restricciones de espacio ni de peso.</p>
         </div>
         <div class="flex-1 lg:w-[50%] bg-brand-black relative min-h-[40svh] lg:min-h-0">
@@ -193,13 +193,13 @@
           </div>
         </details>
 
-        <details class="group bg-brand-white border-4 border-brand-black p-6 open:bg-brand-black open:text-brand-white transition-colors cursor-pointer focus-within:outline-none focus-within:outline focus-within:outline-4 focus-within:outline-brand-green focus-within:outline-offset-2">
+        <details class="group bg-brand-white border-4 border-brand-black p-6 open:bg-brand-green transition-colors cursor-pointer focus-within:outline-none focus-within:outline focus-within:outline-4 focus-within:outline-brand-black focus-within:outline-offset-2">
           <summary class="font-display font-bold text-lg sm:text-xl lg:text-2xl uppercase flex justify-between items-center list-none custom-summary">
             <span>¿Hay estacionamiento disponible?</span>
-            <i class="ph-bold ph-plus text-3xl text-brand-black group-open:text-brand-white group-open:hidden"></i>
-            <i class="ph-bold ph-minus text-3xl text-brand-white hidden group-open:block"></i>
+            <i class="ph-bold ph-plus text-3xl group-open:hidden"></i>
+            <i class="ph-bold ph-minus text-3xl hidden group-open:block"></i>
           </summary>
-          <div class="pt-6 mt-6   font-medium text-lg leading-relaxed text-brand-white">
+          <div class="pt-6 mt-6   font-medium text-lg leading-relaxed">
             Contamos con estacionamiento subterráneo gratuito para socios por hasta 3 horas validando tu ticket en recepción.
           </div>
         </details>
@@ -250,7 +250,7 @@
             <label for="telefono" class="sr-only">Tu Teléfono</label>
             <input type="tel" id="telefono" aria-label="Tu Teléfono" placeholder="Tu Teléfono" class="w-full bg-brand-white border-4 border-brand-black px-4 py-4 sm:px-6 sm:py-5 text-lg sm:text-xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green  text-brand-black placeholder:text-brand-black/50 placeholder:uppercase transition-all" required>
           </div>
-          <button type="submit" class="w-full sm:w-auto text-center border-4 border-brand-black bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:border-brand-green hover:text-brand-black focus:bg-brand-green focus:border-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:border-brand-green active:text-brand-black transition-colors">
+          <button type="submit" class="w-full sm:w-auto text-center bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors">
             Enviar Solicitud
           </button>
         </form>
@@ -274,16 +274,16 @@
       
       <div class="flex flex-col gap-4">
         <p class="text-sm lg:text-base tracking-widest text-brand-green uppercase font-bold mb-2">Redes Sociales</p>
-        <a href="#" class="font-display font-bold text-xl lg:text-2xl uppercase hover:text-brand-green focus:text-brand-green transition-colors w-max">Instagram.</a>
-        <a href="#" class="font-display font-bold text-xl lg:text-2xl uppercase hover:text-brand-green focus:text-brand-green transition-colors w-max">TikTok.</a>
-        <a href="#" class="font-display font-bold text-xl lg:text-2xl uppercase hover:text-brand-green focus:text-brand-green transition-colors w-max">Facebook.</a>
+        <a href="#" class="font-display font-bold text-xl lg:text-2xl uppercase hover:text-brand-green focus:text-brand-green focus:outline-none transition-colors w-max">Instagram.</a>
+        <a href="#" class="font-display font-bold text-xl lg:text-2xl uppercase hover:text-brand-green focus:text-brand-green focus:outline-none transition-colors w-max">TikTok.</a>
+        <a href="#" class="font-display font-bold text-xl lg:text-2xl uppercase hover:text-brand-green focus:text-brand-green focus:outline-none transition-colors w-max">Facebook.</a>
       </div>
 
       <div class="flex flex-col gap-4">
         <p class="text-sm lg:text-base tracking-widest text-brand-green uppercase font-bold mb-2">Legal</p>
-        <a href="#" class="font-display font-bold text-xl lg:text-2xl uppercase hover:text-brand-green focus:text-brand-green transition-colors w-max">Términos y Condiciones</a>
-        <a href="#" class="font-display font-bold text-xl lg:text-2xl uppercase hover:text-brand-green focus:text-brand-green transition-colors w-max">Aviso de Privacidad</a>
-        <a href="#" class="font-display font-bold text-xl lg:text-2xl uppercase hover:text-brand-green focus:text-brand-green transition-colors w-max">Reglamento del Gimnasio</a>
+        <a href="#" class="font-display font-bold text-xl lg:text-2xl uppercase hover:text-brand-green focus:text-brand-green focus:outline-none transition-colors w-max">Términos y Condiciones</a>
+        <a href="#" class="font-display font-bold text-xl lg:text-2xl uppercase hover:text-brand-green focus:text-brand-green focus:outline-none transition-colors w-max">Aviso de Privacidad</a>
+        <a href="#" class="font-display font-bold text-xl lg:text-2xl uppercase hover:text-brand-green focus:text-brand-green focus:outline-none transition-colors w-max">Reglamento del Gimnasio</a>
       </div>
     </div>
     
@@ -493,10 +493,10 @@
                 ? 'text-brand-black group-hover:text-brand-green group-focus:text-brand-green group-active:text-brand-green font-bold'
                 : 'text-brand-black group-hover:text-brand-white group-focus:text-brand-white group-active:text-brand-white font-bold';
 
-              const btnCls = "w-full sm:w-auto text-center border-4 border-brand-black bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:border-brand-green hover:text-brand-black focus:bg-brand-green focus:border-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:border-brand-green active:text-brand-black transition-colors";
+              const btnCls = "w-full sm:w-auto text-center bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors";
 
               return `
-                <div tabindex="0" class="${bgCls} p-8 sm:p-12 flex flex-col justify-between group hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white active:bg-brand-black active:text-brand-white transition-colors cursor-pointer">
+                <div tabindex="0" class="${bgCls} hover:border-brand-black focus:border-brand-black focus:outline-none active:border-brand-black p-8 sm:p-12 flex flex-col justify-between group hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white active:bg-brand-black active:text-brand-white transition-colors cursor-pointer">
                   <div>
                     <h3 class="text-3xl font-display font-bold uppercase mb-2">${p.nombre}</h3>
                     ${priceHTML}
