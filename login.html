@@ -264,9 +264,28 @@
         video.addEventListener("loadeddata", predictWebcam);
       } catch (err) {
         if(window.sysModal) {
-          sysModal('error', 'CÁMARA NO DISPONIBLE', 'No pudimos acceder a tu cámara. Por favor, verifica que hayas concedido los permisos en tu navegador.');
-        } else {
-          document.getElementById("face-inst").innerText = "ERROR DE CÁMARA";
+          sysModal('error', 'CÁMARA RESTRINGIDA (MODO LOCAL)', 'Tu navegador bloqueó la cámara porque estás abriendo el archivo localmente (file:///). Para continuar con la demo sin cámara, haz clic en "Simular Biometría".').then(() => {
+            const btn = document.createElement('button');
+            btn.className = "w-full text-center border-4 border-brand-black bg-brand-white text-brand-black font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-black hover:text-brand-white focus:outline-none transition-colors mt-4";
+            btn.innerText = "SIMULAR BIOMETRÍA (DEMO)";
+            btn.onclick = () => {
+              btn.remove();
+              captureState = 'SUCCESS';
+              if (currentMode === 'REGISTER') {
+                currentUserData.biometria = { fake: true }; // Dummy data
+                updateInst();
+                setTimeout(() => { window.setScreen('set-password'); }, 1500);
+              } else {
+                updateInst();
+                setTimeout(() => {
+                  localStorage.setItem('gr30_session', currentUserPhone);
+                  window.location.href = 'cliente.html';
+                }, 1500);
+              }
+            };
+            document.getElementById("face-hud").appendChild(btn);
+            document.getElementById("face-status").innerText = "MODO DE SIMULACIÓN DISPONIBLE";
+          });
         }
       }
     };
