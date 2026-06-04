@@ -1,0 +1,30 @@
+# MANIFIESTO, PROPÓSITO Y REGLAS DE DISEÑO: GR30 GYM
+
+## 1. EL PROPÓSITO REAL DEL SISTEMA
+El sistema GR30 es estrictamente un **Software de Gestión Interna y Control de Acceso Físico**.
+Su única y principal razón de existir es gobernar, de manera automatizada, rápida y segura, la entrada a las instalaciones físicas del gimnasio mediante el reconocimiento biométrico (facial) en un punto de control físico (Kiosco en recepción), condicionado exclusivamente al estado financiero del cliente (pagos al día). 
+Secundariamente, existe para dotar al staff administrativo de las herramientas necesarias para matricular miembros, registrar biometría, asentar cobros y gestionar el gimnasio de forma presencial.
+
+## 2. LO QUE EL SISTEMA NO ES (Límites Claros)
+- **NO es una plataforma pública de auto-registro.** Cualquier usuario de internet no tiene por qué poder crear una cuenta ni enrolar sus datos biométricos de forma autónoma y remota. El registro es un proceso administrativo supervisado.
+- **NO es una app interactiva o red social de fitness.** La interacción principal del cliente con el sistema debe ser invisible, pasiva y de cero fricción: el cliente llega al gimnasio, el Kiosco lo escanea, le dice "Acceso Concedido" y el cliente entra.
+- **NO es un portal de e-commerce remoto.** Todo el enrolamiento crítico de identidad y validación ocurre in situ, en la ubicación física.
+- **El Kiosco NO es una aplicación para clientes.** Es una máquina desatendida, tipo "Torniquete Virtual", configurada para estar siempre encendida escaneando en tiempo real en la recepción.
+
+## 3. BRUTALISMO FUNCIONAL (Diseño UI/UX)
+El diseño debe ser limpio, plano y estrictamente profesional.
+- **Cero elementos superfluos.**
+- **Sin bordes innecesarios** (todo borde, como `border-4 border-brand-black`, cumple una función estructural o de jerarquía visual).
+- **Sin sombras decorativas.**
+- **Sin gradientes.**
+- **Sin nada que no cumpla una función clara y directa en la interfaz.**
+
+## 4. ESTRICTO CONTROL DE CLASES (TAILWIND CSS)
+- El proyecto opera con un archivo Tailwind ya pre-compilado (`style.css`).
+- NUNCA asumir que una clase utilitaria existe si no se verifica visualmente en uso en otros componentes o se confirma dentro del CSS compilado.
+- NUNCA se inyectan estilos en línea (`style="..."`). Toda la maquetación debe realizarse mediante el sistema de clases de utilidad brutalista.
+
+## 5. HONESTIDAD, LÓGICA Y PRECISIÓN EN EL CÓDIGO
+- Nunca mentir, nunca forzar elementos, nunca modificar código por modificar.
+- Analizar siempre la totalidad del flujo, entendiendo el propósito y el contexto físico de un módulo antes de actuar.
+- Si una característica, código o interfaz (como un formulario de registro público biométrico) no tiene sentido para el propósito real del sistema, debe ser cuestionado y eliminado o refactorizado.

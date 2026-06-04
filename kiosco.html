@@ -12,8 +12,11 @@
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
   
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+  <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png">
 </head>
-<body class="bg-brand-white font-sans antialiased selection:bg-brand-green selection:text-brand-black text-brand-black min-h-screen flex flex-col overflow-x-hidden" style="min-height: 100dvh;">
+<body class="bg-brand-white font-sans antialiased selection:bg-brand-green selection:text-brand-black text-brand-black min-h-screen flex flex-col overflow-x-hidden min-h-[100dvh]">
 
   <header class="w-full bg-brand-white border-b-4 border-brand-black flex items-center justify-between px-6 lg:px-12 py-5 flex-shrink-0 z-50 relative">
     <a href="index.html" class="text-3xl font-display font-bold tracking-tighter uppercase flex items-center gap-3 group focus:outline-none" aria-label="Ir al inicio">
@@ -43,21 +46,21 @@
   </main>
 
   <!-- PANTALLA 2: KIOSCO ACTIVO -->
-  <div id="screen-kiosco" class="screen hidden fixed top-0 left-0 w-full h-screen bg-brand-black flex-col" style="height: 100dvh; z-index: 9999;">
+  <div id="screen-kiosco" class="screen hidden fixed top-0 left-0 w-full h-screen bg-brand-black flex-col h-[100dvh] z-[9999]">
     
     <!-- Video Feed -->
-    <div class="absolute inset-0 w-full h-full overflow-hidden bg-brand-black flex justify-center items-center" style="z-index: 1;">
-      <video id="webcam" class="absolute inset-0 w-full h-full object-cover transform scale-x-[-1]" autoplay playsinline></video>
+    <div class="absolute inset-0 w-full h-full overflow-hidden bg-brand-black flex justify-center items-center z-[1]">
+      <video id="webcam" class="absolute inset-0 w-full h-full object-cover transform scale-x-[-1]" autoplay playsinline muted></video>
       
       <!-- Target Reticle Overlay -->
-      <div class="relative border-4 border-brand-green pointer-events-none" style="z-index: 10; aspect-ratio: 3/4; height: 50vh; max-height: 400px; max-width: 80vw;"></div>
+      <div class="relative border-4 border-brand-green pointer-events-none z-10 aspect-[3/4] h-[50vh] max-h-[400px] max-w-[80vw]"></div>
     </div>
 
     <!-- Overlay Header -->
-    <div class="absolute top-0 left-0 w-full bg-brand-white border-b-4 border-brand-black flex items-center justify-between px-6 lg:px-12 py-5" style="z-index: 20;">
+    <div class="absolute top-0 left-0 w-full bg-brand-white border-b-4 border-brand-black flex items-center justify-between px-6 lg:px-12 py-5 z-20">
       <div class="flex items-center gap-4">
         <h1 class="text-3xl sm:text-4xl leading-none font-display font-bold uppercase tracking-tighter text-brand-black">Escáner.</h1>
-        <div class="hidden sm:flex items-center gap-2 bg-brand-black text-brand-white px-3 py-1">
+        <div class="hidden sm:flex items-center gap-2 bg-brand-black text-brand-white px-3 py-1 border-4 border-brand-black">
           <div class="w-2 h-2 bg-brand-green animate-pulse"></div>
           <span class="font-bold tracking-widest uppercase text-xs">Activo</span>
         </div>
@@ -68,7 +71,7 @@
     </div>
 
     <!-- Action Banner (Bottom) -->
-    <div id="kiosk-banner" class="absolute bottom-0 left-0 w-full bg-brand-white border-t-4 border-brand-black p-6 sm:p-8 flex flex-col items-center justify-center transition-all duration-300 transform translate-y-full opacity-0" style="z-index: 30;">
+    <div id="kiosk-banner" class="absolute bottom-0 left-0 w-full bg-brand-white border-t-4 border-brand-black p-6 sm:p-8 flex flex-col items-center justify-center transition-all duration-300 transform translate-y-full opacity-0 z-30">
         <i id="kiosk-icon" class="ph-bold text-6xl mb-4"></i>
         <h2 id="kiosk-title" class="text-4xl sm:text-6xl font-display font-bold uppercase tracking-tighter leading-none mb-2 text-center"></h2>
         <p id="kiosk-msg" class="text-xl sm:text-2xl font-bold uppercase tracking-widest text-center"></p>
@@ -77,10 +80,10 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="assets/js/supabase.js"></script>
+  <!-- Nuevo Motor Biométrica Deep Learning -->
+  <script src="https://cdn.jsdelivr.net/npm/@vladmandic/face-api/dist/face-api.min.js"></script>
   <script type="module">
-    import { FaceLandmarker, FilesetResolver } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3";
-
-    let faceLandmarker;
+    let modelsLoaded = false;
     let video = document.getElementById("webcam");
     let reqAnimId;
     let lastVideoTime = -1;
@@ -89,6 +92,11 @@
     let isScanning = false;
     let membersDB = []; // Cargar todos los biometrics
     let lastUnknownTime = 0; // Cooldown para evitar spam de DESCONOCIDO
+    let matchBufferId = null; // ID de buffer estricto
+    let matchBufferCount = 0;
+    let missFrames = 0; // Tolerancia a pérdida de frames en móviles
+    let emaDescriptor = new Float32Array(128); // Promedio Móvil Exponencial
+    let emaFrames = 0;
     
     window.setScreen = function(screenName) {
       document.querySelectorAll('.screen').forEach(el => {
@@ -112,76 +120,90 @@
       window.speechSynthesis.speak(utterance);
     }
 
-    // Normaliza landmarks: centra en punto medio de ojos, escala por distancia inter-ocular.
-    // Idempotente: normalizar datos ya normalizados da el mismo resultado.
-    function normalizeLandmarks(landmarks) {
-      if (!landmarks || landmarks.length < 264) return null;
-      const leftEye  = landmarks[33];
-      const rightEye = landmarks[263];
-      const cx  = (leftEye.x + rightEye.x) / 2;
-      const cy  = (leftEye.y + rightEye.y) / 2;
-      const cz  = ((leftEye.z || 0) + (rightEye.z || 0)) / 2;
-      const iod = Math.sqrt(Math.pow(rightEye.x - leftEye.x, 2) + Math.pow(rightEye.y - leftEye.y, 2));
-      if (iod < 0.005) return null;
-      return landmarks.map(p => ({
-        x: (p.x - cx) / iod,
-        y: (p.y - cy) / iod,
-        z: ((p.z || 0) - cz) / iod
-      }));
-    }
-
-    // Distancia RMS por landmark (escala-independiente)
-    function computeDistance(l1, l2) {
-      if (!l1 || !l2 || l1.length !== l2.length) return Infinity;
-      let sum = 0;
-      for (let i = 0; i < l1.length; i++) {
-        sum += Math.pow(l1[i].x - l2[i].x, 2) + Math.pow(l1[i].y - l2[i].y, 2);
-      }
-      return Math.sqrt(sum / l1.length);
-    }
-
-    // Load AI
+    // Load AI Models
     async function initAI() {
-      const vision = await FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3/wasm");
-      faceLandmarker = await FaceLandmarker.createFromOptions(vision, {
-        baseOptions: {
-          modelAssetPath: "https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task",
-          delegate: "GPU"
-        },
-        outputFaceBlendshapes: false,
-        runningMode: "VIDEO",
-        numFaces: 1
-      });
+      const MODEL_URL = 'https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model/';
+      await Promise.all([
+        faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
+        faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL),
+        faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL)
+      ]);
+      modelsLoaded = true;
+      console.log("[Kiosco] Modelos neuronales FaceAPI cargados.");
     }
 
     // Load DB
     async function loadDB() {
-      const { data, error } = await window.supabaseClient.from('miembros').select('id, nombre, biometria, estado_pago, plan');
-      if (data) {
-        membersDB = data
-          .filter(m => m.biometria && !m.biometria.fake && Array.isArray(m.biometria) && m.biometria.length > 100)
-          .map(m => ({ ...m, biometria: normalizeLandmarks(m.biometria) }))
-          .filter(m => m.biometria !== null);
-        console.log(`[Kiosco] ${membersDB.length} vectores biométricos normalizados listos.`);
-      }
+      const [planesRes, miembrosRes, pagosRes] = await Promise.all([
+        window.supabaseClient.from('planes').select('*'),
+        window.supabaseClient.from('miembros').select('id, nombre, biometria, plan, activo'),
+        window.supabaseClient.from('pagos').select('*')
+      ]);
+      
+      const planesData = planesRes.data || [];
+      const pagos = pagosRes.data || [];
+      const miembros = miembrosRes.data || [];
+      
+      const fullMembers = miembros.map(m => {
+        const historial = pagos.filter(p => p.miembro_id === m.id).sort((a,b) => new Date(b.fecha) - new Date(a.fecha));
+        let estado_pago = 'pendiente';
+        
+        if (historial.length > 0) {
+          const planInfo = planesData.find(p => p.nombre === m.plan) || { periodo: 'Mes' };
+          const lastDate = new Date(historial[0].fecha);
+          if (planInfo.periodo === 'Mes') lastDate.setMonth(lastDate.getMonth() + 1);
+          else if (planInfo.periodo === 'Año') lastDate.setFullYear(lastDate.getFullYear() + 1);
+          
+          const fechaVenc = lastDate.toISOString().split('T')[0];
+          const hoy = new Date().toISOString().split('T')[0];
+          estado_pago = (fechaVenc < hoy) ? 'atrasado' : 'al_dia';
+        }
+        return { ...m, estado_pago };
+      });
+
+      // Filtro crítico: Ignoramos datos de MediaPipe viejos. Solo aceptamos Arrays de 128 (Embeddings FaceAPI)
+      membersDB = fullMembers
+        .filter(m => m.biometria && Array.isArray(m.biometria) && m.biometria.length === 128)
+        .map(m => ({ ...m, biometria: new Float32Array(m.biometria) }));
+
+      console.log(`[Kiosco] BD Biométrica Segura Cargada: ${membersDB.length} usuarios.`);
     }
 
     // Start Webcam
     async function startKiosk() {
       await loadDB();
-      if (!faceLandmarker) await initAI();
+      if (!modelsLoaded) {
+        document.querySelector('#form-activation button').textContent = 'CARGANDO IA NEURONAL...';
+        await initAI();
+      }
       
       window.setScreen('kiosco');
       
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        const stream = await navigator.mediaDevices.getUserMedia({ 
+          video: { 
+            facingMode: "user",
+            width: { ideal: 640, max: 720 }, // EVITA que el móvil envíe 1080p/4k y destruya los rostros en el re-escalado a 412px
+            height: { ideal: 480, max: 1280 }
+          } 
+        });
+        video.setAttribute('autoplay', '');
+        video.setAttribute('muted', '');
+        video.setAttribute('playsinline', '');
         video.srcObject = stream;
+        
+        video.onloadedmetadata = () => {
+          video.play().catch(e => console.error("Autoplay failed", e));
+          video.width = video.videoWidth;
+          video.height = video.videoHeight;
+        };
+
         video.addEventListener("loadeddata", () => {
           isScanning = true;
           predictWebcam();
         });
       } catch (err) {
-        alert("El kiosco requiere cámara obligatoria.");
+        alert("ERROR GRAVE DE CÁMARA:\n" + err.name + "\n" + err.message + "\nPor favor revisa los permisos.");
       }
     }
 
@@ -251,103 +273,341 @@
         speechText = "Rostro no reconocido. Por favor regístrate.";
         broadcastAccess(null, 'desconocido');
       }
+      else if (type === 'DENEGADO_AMBIGUO') {
+        banner.classList.add("bg-brand-black");
+        icon.className = "ph-bold ph-warning text-6xl mb-4 text-brand-white";
+        title.innerText = "AMBIGÜEDAD DETECTADA";
+        title.className = "text-4xl sm:text-6xl font-display font-bold uppercase tracking-tighter leading-none mb-2 text-center text-brand-white";
+        msg.innerText = "GEMELOS/SIMILITUD EXTREMA. ACUDE A RECEPCIÓN.";
+        msg.className = "text-xl sm:text-2xl font-bold uppercase tracking-widest text-center text-brand-white";
+        speechText = "Similitud biométrica ambigua detectada. Por seguridad, acude a recepción.";
+        broadcastAccess(null, 'ambiguo');
+      }
 
       speak(speechText);
       
-      // Animate In
+      // Animate In (Eliminamos inline styles que causan bugs en móvil)
       setTimeout(() => {
-        banner.style.transform = 'translateY(0)';
-        banner.style.opacity = '1';
-      }, 100);
+        banner.classList.remove("translate-y-full", "opacity-0");
+      }, 50);
 
       // Animate Out & Resume
       setTimeout(() => {
-        banner.style.transform = 'translateY(100%)';
-        banner.style.opacity = '0';
-        setTimeout(() => { isScanning = true; }, 500); // Resume scanning after animation
-      }, 4000); // 4 seconds delay
+        banner.classList.add("translate-y-full", "opacity-0");
+        setTimeout(() => { isScanning = true; predictWebcam(); }, 500); // Resume scanning
+      }, 5000); // 5 seconds delay (más rápido para gimnasio)
     }
 
     async function predictWebcam() {
-      if (!isScanning) {
-        if (reqAnimId) reqAnimId = window.requestAnimationFrame(predictWebcam);
-        return;
-      }
-      
-      if (!faceLandmarker) {
-        reqAnimId = window.requestAnimationFrame(predictWebcam);
-        return;
-      }
+      if (!isScanning || !modelsLoaded) return;
 
-      let startTimeMs = performance.now();
-      if (lastVideoTime !== video.currentTime) {
-        lastVideoTime = video.currentTime;
-        const results = faceLandmarker.detectForVideo(video, startTimeMs);
-        
-        if (results.faceLandmarks && results.faceLandmarks.length > 0) {
-          const rawLandmarks = results.faceLandmarks[0];
-          const landmarks = normalizeLandmarks(rawLandmarks);
-          if (!landmarks) { reqAnimId = window.requestAnimationFrame(predictWebcam); return; }
-          
-          let minDistance = Infinity;
-          let bestMatch = null;
-          
-          for (const m of membersDB) {
-            const d = computeDistance(landmarks, m.biometria);
-            if (d < minDistance) {
-              minDistance = d;
-              bestMatch = m;
-            }
+      if (video.readyState >= 2 && video.videoWidth > 0) {
+        try {
+          // Asegurarnos que el video tenga las dimensiones correctas actualizadas
+          if (video.width !== video.videoWidth) {
+            video.width = video.videoWidth;
+            video.height = video.videoHeight;
           }
+
+          // Usamos TinyFaceDetector que es 10x más ligero y NO crashea el WebGL de Android
+          const result = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions({ scoreThreshold: 0.5, inputSize: 416 }))
+            .withFaceLandmarks()
+            .withFaceDescriptor();
           
-          const THRESHOLD = 0.20; // Umbral RMS normalizado
-          console.log('[Kiosco] Dist:', minDistance.toFixed(4), bestMatch ? `(${bestMatch.nombre})` : '(sin match)');
-          
-          if (bestMatch && minDistance < THRESHOLD) {
-            if (bestMatch.estado_pago === 'al_dia') {
-              showBanner('CONCEDIDO', bestMatch);
+          if (result) {
+            // CONTROL DE CALIDAD EXTREMO (Anti-Spoofing básico y control de profundidad)
+            const box = result.detection.box;
+            const minFaceWidth = (video.videoWidth || 640) * 0.10; // Reducido para permitir rostros más pequeños o alejados
+            
+            if (box.width < minFaceWidth) {
+              matchBufferCount = 0;
+              matchBufferId = null;
+              emaFrames = 0;
+              // Ignoramos el frame porque el rostro está muy lejos
+              if (isScanning) reqAnimId = window.requestAnimationFrame(predictWebcam);
+              return;
+            }
+
+            const descriptor = result.descriptor;
+            // Filtro EMA para estabilizar el vector en baja luz
+            const EMA_WEIGHT = 0.6;
+            const distFromEMA = emaFrames > 0 ? faceapi.euclideanDistance(descriptor, emaDescriptor) : 0;
+            
+            if (emaFrames === 0 || distFromEMA > 0.35) {
+              // Resetea el promedio si es el primer frame o si cambia drásticamente la identidad/rostro
+              for (let i = 0; i < 128; i++) emaDescriptor[i] = descriptor[i];
+              emaFrames = 1;
             } else {
-              showBanner('DENEGADO', bestMatch);
+              for (let i = 0; i < 128; i++) {
+                emaDescriptor[i] = emaDescriptor[i] * EMA_WEIGHT + descriptor[i] * (1 - EMA_WEIGHT);
+              }
+              emaFrames++;
+            }
+
+            let minDistance = Infinity;
+            let secondMinDistance = Infinity;
+            let bestMatch = null;
+            
+            // Comparación Euclidiana contra BD
+            for (const m of membersDB) {
+              const d = faceapi.euclideanDistance(emaDescriptor, m.biometria);
+              if (d < minDistance) {
+                secondMinDistance = minDistance;
+                minDistance = d;
+                bestMatch = m;
+              } else if (d < secondMinDistance) {
+                secondMinDistance = d;
+              }
+            }
+            
+            // THRESHOLD CRÍTICO DE SEGURIDAD (Extremadamente Estricto)
+            const THRESHOLD = 0.35; // Endurecido al máximo
+            const AMBIGUITY_MARGIN = 0.08; // Máxima protección contra hermanos/gemelos
+            
+            if (bestMatch && minDistance < THRESHOLD) {
+              // Protección estricta contra gemelos/familiares
+              if (membersDB.length > 1 && (secondMinDistance - minDistance) < AMBIGUITY_MARGIN) {
+                matchBufferCount = 0;
+                emaFrames = 0;
+                showBanner('DENEGADO_AMBIGUO', null);
+                return;
+              }
+
+              if (matchBufferId === bestMatch.id) {
+                matchBufferCount++;
+                missFrames = 0; 
+              } else {
+                matchBufferId = bestMatch.id;
+                matchBufferCount = 1;
+                missFrames = 0;
+              }
+
+              if (matchBufferCount >= 3) { 
+                matchBufferCount = 0;
+                matchBufferId = null;
+                emaFrames = 0;
+                missFrames = 0;
+                if (bestMatch.estado_pago === 'al_dia' && bestMatch.activo !== false) {
+                  showBanner('CONCEDIDO', bestMatch);
+                } else {
+                  showBanner('DENEGADO', bestMatch);
+                }
+                return;
+              }
+            } else {
+              missFrames++;
+              if (missFrames >= 3) {
+                matchBufferCount = 0;
+                matchBufferId = null;
+                emaFrames = 0;
+                const now = Date.now();
+                if ((now - lastUnknownTime) > 5000) {
+                  lastUnknownTime = now;
+                  showBanner('DESCONOCIDO', null);
+                  return; 
+                }
+              }
             }
           } else {
-            // Solo mostrar DESCONOCIDO si cara de frente y cooldown expirado (evita spam)
-            const nose = rawLandmarks[1];
-            const leftEye = rawLandmarks[33];
-            const rightEye = rawLandmarks[263];
-            const eyeDist = Math.abs(rightEye.x - leftEye.x);
-            const ratio = eyeDist > 0 ? Math.abs(nose.x - leftEye.x) / eyeDist : 0.5;
-            const now = Date.now();
-            
-            if (ratio > 0.4 && ratio < 0.6 && (now - lastUnknownTime) > 5000) {
-              lastUnknownTime = now;
-              showBanner('DESCONOCIDO', null);
-            }
+             missFrames++;
+             if (missFrames >= 3) {
+               matchBufferCount = 0;
+               matchBufferId = null;
+               emaFrames = 0;
+             }
           }
+        } catch (err) {
+          console.error("Error en detección biométrica:", err);
         }
       }
       
-      reqAnimId = window.requestAnimationFrame(predictWebcam);
+      if (isScanning) {
+        reqAnimId = window.requestAnimationFrame(predictWebcam);
+      }
     }
 
     // Events
     document.getElementById('form-activation').addEventListener('submit', async (e) => {
       e.preventDefault();
       const pass = document.getElementById('act-pass').value;
-      if (pass === 'GR30Admin') {
+      if (pass === 'admin') {
         const btn = e.target.querySelector('button[type="submit"]');
         btn.textContent = 'CARGANDO BASE DE DATOS...';
         btn.disabled = true;
         document.getElementById('act-pass').value = '';
         await startKiosk();
+        btn.textContent = 'Encender Kiosco';
+        btn.disabled = false;
       } else {
         alert("Clave incorrecta.");
       }
     });
 
-    document.getElementById('btn-exit').addEventListener('click', stopKiosk);
+    document.getElementById('btn-exit').addEventListener('click', () => {
+      const pass = prompt("INTRODUCE LA CLAVE DE SEGURIDAD PARA APAGAR EL KIOSCO:");
+      if (pass === 'admin') {
+        stopKiosk();
+      } else if (pass !== null) {
+        alert("Clave incorrecta. El Kiosco sigue activo.");
+      }
+    });
     
-    // Init
-    initAI();
+    // Enrolamiento Remoto desde Admin
+    let enrollTarget = null;
+    const kioscoChannel = window.supabaseClient.channel('kiosco-enroll');
+    
+    kioscoChannel.on('broadcast', { event: 'enroll_request' }, (payload) => {
+      const data = payload.payload;
+      if (!isScanning && !document.getElementById('screen-kiosco').classList.contains('flex')) return;
+      
+      enrollTarget = data;
+      isScanning = false; // Pausar escaneo normal
+      
+      const banner = document.getElementById("kiosk-banner");
+      const icon = document.getElementById("kiosk-icon");
+      const title = document.getElementById("kiosk-title");
+      const msg = document.getElementById("kiosk-msg");
+      
+      // Corrección de visibilidad de banner (Tailwind classes)
+      banner.className = "absolute bottom-0 left-0 w-full bg-brand-white border-t-4 border-brand-black p-6 sm:p-8 flex flex-col items-center justify-center transition-all duration-300 transform translate-y-full opacity-0";
+      // Forzar reflow para CSS transitions
+      void banner.offsetWidth;
+      banner.classList.remove("translate-y-full", "opacity-0");
+      
+      icon.className = "ph-bold ph-scan text-6xl mb-4 text-brand-black animate-pulse";
+      title.innerText = "ENROLAMIENTO: " + data.nombre;
+      title.className = "text-3xl sm:text-4xl font-display font-bold uppercase tracking-tighter leading-none mb-2 text-center text-brand-black";
+      msg.innerText = "MIRA DIRECTAMENTE A LA CÁMARA...";
+      msg.className = "text-xl sm:text-2xl font-bold uppercase tracking-widest text-center text-brand-black";
+      
+      speak("Por favor, mira directamente a la cámara.");
+      
+      setTimeout(() => { captureEnrollment(); }, 2000); // 2 segundos para acomodarse
+    }).subscribe();
+
+    async function captureEnrollment() {
+      if (!modelsLoaded || !video.srcObject || !enrollTarget) return;
+      
+      const MAX_ATTEMPTS = 100; // damos más tiempo, guiamos al usuario
+      let attempts = 0;
+      
+      let accumulatedDescriptor = new Float32Array(128);
+      
+      const STAGES = [
+        { name: 'FRENTE', msg: 'MIRA AL FRENTE', check: (yaw) => yaw >= 0.42 && yaw <= 0.58 },
+        { name: 'DERECHA', msg: 'GIRA LIGERO A LA DERECHA', check: (yaw) => yaw < 0.40 },
+        { name: 'IZQUIERDA', msg: 'GIRA LIGERO A LA IZQUIERDA', check: (yaw) => yaw > 0.60 }
+      ];
+      let currentStage = 0;
+      let stageSuccessFrames = 0;
+      const REQUIRED_FRAMES_PER_STAGE = 3; // To ensure they are holding the pose
+
+      async function tryCapture() {
+        if (attempts >= MAX_ATTEMPTS) {
+          kioscoChannel.send({ type: 'broadcast', event: 'enroll_error', payload: { msg: 'Tiempo agotado. Sigue las instrucciones en pantalla.' }});
+          resumeNormal();
+          return;
+        }
+        attempts++;
+        
+        try {
+          const result = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions({ scoreThreshold: 0.65, inputSize: 416 }))
+            .withFaceLandmarks()
+            .withFaceDescriptor();
+            
+          if (result) {
+            const box = result.detection.box;
+            const minFaceWidth = (video.videoWidth || 640) * 0.20; // Require closer face for enrollment
+            
+            if (box.width >= minFaceWidth) {
+              const landmarks = result.landmarks.positions;
+              const leftX = landmarks[0].x; // Mejilla derecha (izq de la imagen)
+              const rightX = landmarks[16].x; // Mejilla izquierda (der de la imagen)
+              const noseX = landmarks[30].x; // Punta de la nariz
+              const faceWidth = rightX - leftX;
+              
+              if (faceWidth > 0) {
+                // Ratio de la posición de la nariz respecto al ancho de la cara.
+                // 0.5 = Frente exacto
+                const yaw = (noseX - leftX) / faceWidth;
+                const stage = STAGES[currentStage];
+                
+                document.getElementById("kiosk-msg").innerText = `${stage.msg} (${currentStage + 1}/3)`;
+                
+                if (stage.check(yaw)) {
+                  stageSuccessFrames++;
+                  
+                  // Acumular descriptor para un promedio robusto
+                  for (let i = 0; i < 128; i++) {
+                    accumulatedDescriptor[i] += result.descriptor[i];
+                  }
+                  
+                  if (stageSuccessFrames >= REQUIRED_FRAMES_PER_STAGE) {
+                    currentStage++;
+                    stageSuccessFrames = 0;
+                    attempts = 0; // reset attempts for the next stage
+                    
+                    if (currentStage >= STAGES.length) {
+                      // FINALIZAR
+                      document.getElementById("kiosk-msg").innerText = "PROCESANDO BIOMETRÍA...";
+                      
+                      const totalFrames = STAGES.length * REQUIRED_FRAMES_PER_STAGE;
+                      for (let i = 0; i < 128; i++) {
+                        accumulatedDescriptor[i] /= totalFrames;
+                      }
+                      
+                      const descriptorArray = Array.from(accumulatedDescriptor);
+                      
+                      const {error} = await window.supabaseClient.from('miembros')
+                        .update({ biometria: descriptorArray })
+                        .eq('id', enrollTarget.memberId);
+                        
+                      if (error) {
+                        kioscoChannel.send({ type: 'broadcast', event: 'enroll_error', payload: { msg: 'Fallo al guardar en BD.' }});
+                      } else {
+                        speak("Identidad biométrica blindada con éxito.");
+                        kioscoChannel.send({ type: 'broadcast', event: 'enroll_success', payload: { memberId: enrollTarget.memberId }});
+                        loadDB(); 
+                      }
+                      resumeNormal();
+                      return;
+                    } else {
+                      // Hablar la siguiente instrucción
+                      speak(STAGES[currentStage].msg);
+                    }
+                  }
+                } else {
+                  // Reset si pierde la pose
+                  stageSuccessFrames = Math.max(0, stageSuccessFrames - 1);
+                }
+              }
+            } else {
+              document.getElementById("kiosk-msg").innerText = "ACÉRCATE MÁS A LA CÁMARA";
+            }
+          } else {
+            document.getElementById("kiosk-msg").innerText = "NO SE DETECTA ROSTRO CLARO";
+          }
+        } catch (err) {
+          console.error("Error durante enrolamiento:", err);
+        }
+        
+        setTimeout(tryCapture, 150); // Muestreo rápido
+      }
+      tryCapture();
+    }
+    
+    function resumeNormal() {
+      const banner = document.getElementById("kiosk-banner");
+      banner.classList.add("translate-y-full", "opacity-0");
+      enrollTarget = null;
+      setTimeout(() => { isScanning = true; predictWebcam(); }, 500);
+    }
+    
+    // Escucha eventos globales para recargar base de datos en tiempo real (pagos, altas, etc)
+    const kioscoMainChannel = window.supabaseClient.channel('public:accesos');
+    kioscoMainChannel.on('broadcast', { event: 'db_updated' }, () => {
+      loadDB();
+    }).subscribe();
 
   </script>
 </body>

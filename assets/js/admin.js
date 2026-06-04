@@ -1,16 +1,16 @@
 
 
 let staffData = [];
-
 let membersData = [];
-
 let planesData = [];
-
+let accesosData = [];
+try { accesosData = JSON.parse(localStorage.getItem('gr30_accesos')) || []; } catch(e) { accesosData = []; }
 
 const screenTitles = {
   dashboard: 'Dashboard.',
   staff:     'Staff.',
   miembros:  'Directorio.',
+  accesos:   'Accesos.',
   pagos:     'Pagos.',
   planes:    'Planes.',
 };
@@ -62,29 +62,102 @@ document.getElementById('mobileMenuBtn').addEventListener('click', function() {
 
 setScreen('dashboard');
 
+function escapeHTML(str) {
+  if (!str) return '';
+  return String(str).replace(/[&<>'"]/g, 
+    tag => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      "'": '&#39;',
+      '"': '&quot;'
+    }[tag] || tag)
+  );
+}
+
 async function fetchData() {
-  const { data: staff } = await window.supabaseClient.from('staff').select('*');
-  const { data: planes } = await window.supabaseClient.from('planes').select('*');
-  const { data: miembros } = await window.supabaseClient.from('miembros').select('*');
-  const { data: pagos } = await window.supabaseClient.from('pagos').select('*');
-  
-  if (staff) staffData = staff;
-  if (planes) planesData = planes;
-  
-  if (miembros) {
-    membersData = miembros.map(m => {
-      const historial = pagos ? pagos.filter(p => p.miembro_id === m.id).sort((a,b) => new Date(b.fecha) - new Date(a.fecha)) : [];
-      let fechaVenc = '-';
-      if (historial.length > 0) {
-        const lastDate = new Date(historial[0].fecha);
-        lastDate.setMonth(lastDate.getMonth() + 1);
-        fechaVenc = lastDate.toISOString().split('T')[0];
+  try {
+    const [staffRes, planesRes, miembrosRes, pagosRes] = await Promise.all([
+      window.supabaseClient.from('staff').select('*'),
+      window.supabaseClient.from('planes').select('*'),
+      window.supabaseClient.from('miembros').select('*'),
+      window.supabaseClient.from('pagos').select('*')
+    ]);
+    
+    if (staffRes.data) staffData = staffRes.data;
+    if (planesRes.data) planesData = planesRes.data;
+    
+    const pagos = pagosRes.data || [];
+    const miembros = miembrosRes.data;
+    
+    if (miembros) {
+      membersData = miembros.map(m => {
+        const historial = pagos ? pagos.filter(p => p.miembro_id === m.id).sort((a,b) => new Date(b.fecha) - new Date(a.fecha)) : [];
+        let fechaVenc = '-';
+        let estado_pago = 'pendiente';
+        
+        if (historial.length > 0) {
+          const planInfo = planesData.find(p => p.nombre === m.plan) || { periodo: 'Mes' };
+          const lastDate = new Date(historial[0].fecha);
+          
+          if (planInfo.periodo === 'Mes') {
+            lastDate.setMonth(lastDate.getMonth() + 1);
+          } else if (planInfo.periodo === 'Año') {
+            lastDate.setFullYear(lastDate.getFullYear() + 1);
+          }
+          
+          fechaVenc = lastDate.toISOString().split('T')[0];
+          
+          // Calcular estado de pago
+          const hoy = new Date().toISOString().split('T')[0];
+          if (fechaVenc < hoy) {
+            estado_pago = 'atrasado';
+          } else {
+            estado_pago = 'al_dia';
+          }
+        }
+        return { ...m, historialPagos: historial, fechaVencimiento: fechaVenc, estado_pago };
+      });
+    }
+    
+    // Conectar Kiosco (Supabase Realtime)
+    const channel = window.supabaseClient.channel('public:accesos');
+    channel.on('broadcast', { event: 'acceso' }, (payload) => {
+      const log = payload.payload;
+      accesosData.unshift(log);
+      if (accesosData.length > 50) accesosData.pop(); // Mantener buffer limpio
+      localStorage.setItem('gr30_accesos', JSON.stringify(accesosData));
+      renderAccesos();
+      
+      showKioskAlert(log);
+    }).subscribe();
+
+    const enrollChannel = window.supabaseClient.channel('kiosco-enroll');
+    enrollChannel.on('broadcast', { event: 'enroll_success' }, (payload) => {
+      const id = payload.payload.memberId;
+      if (window.sysModal) window.sysModal('success', 'ÉXITO', 'El Kiosco ha enrolado el rostro correctamente.');
+      const m = membersData.find(x => x.id === id);
+      if (m) {
+        m.biometria = ['enrolado']; // Para que pase la validación length > 0
+        renderAll();
+        if (currentModalType === 'member-edit' && currentModalId === id) {
+          openModal('member-edit', id);
+        }
       }
-      return { ...m, historialPagos: historial, fechaVencimiento: fechaVenc };
-    });
+    })
+    .on('broadcast', { event: 'enroll_error' }, (payload) => {
+      if (window.sysModal) window.sysModal('error', 'ERROR EN KIOSCO', payload.payload.msg || 'Fallo en la captura biométrica.');
+    })
+    .subscribe();
+    
+    renderAll();
+  } catch (err) {
+    if(window.sysModal) {
+      window.sysModal('error', 'ERROR DE CONEXIÓN', 'No se pudo contactar al servidor o la base de datos. Verifica tu conexión a internet.');
+    } else {
+      alert("ERROR DE CONEXIÓN. Verifica tu conexión a internet.");
+    }
   }
-  
-  renderAll();
 }
 
 fetchData();
@@ -102,7 +175,7 @@ function renderAll() {
   renderTables();
   renderPlanes();
   renderPagos();
-  updateAlerts();
+  renderAccesos();
 }
 
 function renderDashboardStats() {
@@ -145,7 +218,7 @@ function renderTables() {
       <tr class="${rowClasses}">
         <td class="p-6 flex items-center gap-4  ">
           <div class="w-10 h-10 bg-brand-white text-brand-black   flex items-center justify-center font-display font-bold text-sm select-none flex-shrink-0 overflow-hidden">
-            ${s.imagen ? `<img src="${s.imagen}" class="w-full h-full object-cover">` : s.avatar}
+            ${s.imagen ? `<img src="${s.imagen}" alt="${s.nombre}" class="w-full h-full object-cover">` : s.avatar}
           </div>
           <span class="font-bold uppercase">${s.nombre}</span>
         </td>
@@ -162,7 +235,7 @@ function renderTables() {
       <tr class="${rowClasses}">
         <td class="p-6 flex items-center gap-4  ">
           <div class="w-10 h-10 bg-brand-white text-brand-black   flex items-center justify-center font-display font-bold text-sm select-none flex-shrink-0 overflow-hidden">
-            ${s.imagen ? `<img src="${s.imagen}" class="w-full h-full object-cover">` : s.avatar}
+            ${s.imagen ? `<img src="${s.imagen}" alt="${s.nombre}" class="w-full h-full object-cover">` : s.avatar}
           </div>
           <span class="font-bold uppercase">${s.nombre}</span>
         </td>
@@ -234,10 +307,10 @@ function renderPlanes() {
   if (!container) return;
 
   container.innerHTML = planesData.map(p => {
-    const bgCls = p.destacado ? 'bg-brand-green text-brand-black border-4 border-brand-green' : 'bg-brand-white text-brand-black border-4 border-brand-black';
+    const bgCls = p.destacado ? 'bg-brand-green text-brand-black border-4 border-brand-green' : 'bg-brand-white text-brand-black border-4 border-brand-black hover:border-brand-black focus:border-brand-black active:border-brand-black';
     let priceHTML = p.destacado 
-      ? `<p class="text-5xl sm:text-6xl font-display font-bold mb-6 text-brand-black group-hover:text-brand-green group-focus:text-brand-green group-active:text-brand-green tracking-tighter break-all">${p.precio}<span class="text-xl sm:text-2xl text-current tracking-normal">mxn</span></p>`
-      : `<p class="text-5xl sm:text-6xl font-display font-bold mb-6 bg-brand-green text-brand-black inline-block px-3 py-1 tracking-tighter -ml-3 break-all">${p.precio}<span class="text-xl sm:text-2xl text-current tracking-normal">mxn</span></p>`;
+      ? `<p class="text-5xl sm:text-6xl font-display font-bold mb-6 text-brand-black group-hover:text-brand-green group-focus:text-brand-green group-active:text-brand-green tracking-tighter">${p.precio}<span class="text-xl sm:text-2xl text-current tracking-normal">mxn</span></p>`
+      : `<p class="text-5xl sm:text-6xl font-display font-bold mb-6 bg-brand-green text-brand-black inline-block px-3 py-1 tracking-tighter -ml-3">${p.precio}<span class="text-xl sm:text-2xl text-current tracking-normal">mxn</span></p>`;
       
     let bulletCls = p.destacado 
       ? 'text-brand-black group-hover:text-brand-green group-focus:text-brand-green group-active:text-brand-green font-bold'
@@ -268,6 +341,8 @@ function openModal(type, idOrName) {
   const overlay = document.getElementById('modal-overlay');
   const title   = document.getElementById('modal-title');
   const body    = document.getElementById('modal-body');
+
+  document.body.style.overflow = 'hidden';
 
   if (type === 'staff-form') {
     title.textContent = 'Añadir Staff.';
@@ -300,10 +375,12 @@ function openModal(type, idOrName) {
 
 function closeModal() {
   const overlay = document.getElementById('modal-overlay');
-  overlay.classList.add('hidden');
   overlay.classList.remove('flex');
+  overlay.classList.add('hidden');
+  document.body.style.overflow = '';
+  document.getElementById('modal-body').innerHTML = '';
   currentModalType = null;
-  currentModalId   = null;
+  currentModalId = null;
 }
 
 function handleOverlayClick(e) {
@@ -323,7 +400,8 @@ const cancelBtnCls = 'w-full sm:w-auto px-8 py-4 font-display font-bold uppercas
 const deleteBtnCls = 'w-full sm:w-auto px-8 py-4 font-display font-bold uppercase tracking-widest text-sm border-4 border-brand-black bg-brand-black text-brand-white hover:bg-brand-white hover:border-brand-black hover:text-brand-black focus:bg-brand-white focus:border-brand-black focus:text-brand-black active:bg-brand-white active:border-brand-black active:text-brand-black transition-colors focus:outline-none';
 
 function getInitials(name) {
-  return name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+  if (!name || typeof name !== 'string') return '??';
+  return name.trim().split(' ').filter(Boolean).map(n => n[0]).join('').substring(0, 2).toUpperCase();
 }
 
 function staffFormHTML(s) {
@@ -333,7 +411,7 @@ function staffFormHTML(s) {
         <label class="${labelCls}">Foto de Perfil</label>
         <div class="flex items-center gap-6">
           <div class="w-16 h-16 bg-brand-green text-brand-black flex items-center justify-center font-display font-bold text-2xl uppercase focus:outline-none focus:bg-brand-black focus:text-brand-white transition-colors" tabindex="0" id="staff-photo-preview">
-            ${s && s.imagen ? `<img src="${s.imagen}" class="w-full h-full object-cover">` : (s ? getInitials(s.nombre) : '+')}
+            ${s && s.imagen ? `<img src="${s.imagen}" alt="${s.nombre}" class="w-full h-full object-cover">` : (s ? getInitials(s.nombre) : '+')}
           </div>
           <div class="flex-1">
             <input type="file" id="sf-foto" accept="image/*" class="sr-only peer">
@@ -384,6 +462,19 @@ function memberFormHTML(m) {
         <input id="mf-tel" type="tel" placeholder="555-0000" value="${m ? m.telefono : ''}" class="${inputCls}" required>
       </div>
       <div>
+        <label class="${labelCls}">Contraseña / PIN de Acceso</label>
+        ${m ? `
+          <div class="border-4 border-brand-black p-4 flex flex-col sm:flex-row gap-4 justify-between items-center bg-brand-white">
+            <span class="font-display font-bold text-sm tracking-widest text-brand-black/60 uppercase">CONTRASEÑA CONFIGURADA</span>
+            <button type="button" onclick="resetMemberPIN(${m.id})" class="w-full sm:w-auto text-center font-display font-bold uppercase tracking-widest text-xs px-4 py-3 bg-brand-black text-brand-white hover:bg-brand-green hover:text-brand-black transition-colors focus:outline-none">Restablecer PIN</button>
+          </div>
+        ` : `
+          <div class="border-4 border-brand-black p-4 bg-brand-green">
+            <p class="font-display font-bold text-xs sm:text-sm tracking-widest text-brand-black uppercase">Se generará un PIN automático al guardar.</p>
+          </div>
+        `}
+      </div>
+      <div>
         <label class="${labelCls}" for="mf-plan">Plan</label>
         <div class="relative">
           <select id="mf-plan" class="${selectCls}" required>
@@ -407,6 +498,25 @@ function memberFormHTML(m) {
           <div class="absolute inset-y-0 right-0 flex items-center pr-5 pointer-events-none text-brand-black">
             <i class="ph-bold ph-caret-down text-xl"></i>
           </div>
+        </div>
+      </div>
+      <div>
+        <label class="${labelCls}">Biometría Facial</label>
+        <div class="border-4 border-brand-black p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 flex-shrink-0 border-4 border-brand-black flex items-center justify-center bg-brand-black text-brand-white">
+              <i class="ph-bold ph-user-focus text-xl"></i>
+            </div>
+            <div>
+              <p class="font-display font-bold uppercase tracking-widest text-brand-black text-sm">Estado del Rostro</p>
+              ${m && m.biometria && Array.isArray(m.biometria) && m.biometria.length > 0 
+                ? '<p class="font-bold text-xs text-brand-green bg-brand-black inline-block px-2 py-1 uppercase tracking-widest mt-1"><i class="ph-bold ph-check"></i> ENROLADO</p>' 
+                : '<p class="font-bold text-xs opacity-60 mt-1 uppercase tracking-widest">NO ENROLADO</p>'}
+            </div>
+          </div>
+          <button type="button" onclick="requestRemoteEnrollment(${m ? m.id : 'null'})" class="w-full sm:w-auto text-center border-4 border-brand-black bg-brand-white text-brand-black font-display font-bold uppercase tracking-widest px-6 py-3 text-xs hover:bg-brand-green focus:bg-brand-green active:bg-brand-green transition-colors flex items-center justify-center gap-2">
+            <i class="ph-bold ph-camera"></i> ${m && m.biometria && m.biometria.length > 0 ? 'Recapturar Rostro' : 'Capturar Biometría'}
+          </button>
         </div>
       </div>
       <div class="flex flex-col sm:flex-row gap-4 mt-4">
@@ -470,65 +580,132 @@ function planFormHTML(p) {
 }
 
 
-function saveStaff(e) {
+async function saveStaff(e) {
   e.preventDefault();
   const nombre      = document.getElementById('sf-nombre').value.trim();
   const especialidad= document.getElementById('sf-esp').value.trim();
   const turno       = document.getElementById('sf-turno').value;
   const avatar      = getInitials(nombre);
 
-  if (currentModalType === 'staff-edit') {
-    const s = staffData.find(x => x.id === currentModalId);
-    if (s) { s.nombre = nombre; s.especialidad = especialidad; s.turno = turno; s.avatar = avatar; }
-    showToast('STAFF ACTUALIZADO');
-  } else {
-    staffData.push({ id: Date.now(), avatar, imagen: null, nombre, especialidad, turno });
-    showToast('STAFF AÑADIDO CON ÉXITO');
+  const originalText = e.submitter.textContent;
+  e.submitter.textContent = "Guardando...";
+  e.submitter.disabled = true;
+
+  try {
+    if (currentModalType === 'staff-edit') {
+      const payload = { nombre, especialidad, turno, avatar };
+      const { error } = await window.supabaseClient.from('staff').update(payload).eq('id', currentModalId);
+      if (error) throw error;
+      const s = staffData.find(x => x.id === currentModalId);
+      if (s) { s.nombre = nombre; s.especialidad = especialidad; s.turno = turno; s.avatar = avatar; }
+      showToast('STAFF ACTUALIZADO');
+    } else {
+      const payload = { avatar, nombre, especialidad, turno };
+      const { data, error } = await window.supabaseClient.from('staff').insert([payload]).select();
+      if (error) throw error;
+      if (data && data.length > 0) staffData.push(data[0]);
+      showToast('STAFF AÑADIDO CON ÉXITO');
+    }
+    closeModal();
+    renderAll();
+  } catch (err) {
+    if(window.sysModal) window.sysModal('error', 'ERROR', 'Fallo al guardar en la base de datos.');
+  } finally {
+    e.submitter.textContent = originalText;
+    e.submitter.disabled = false;
   }
-  closeModal();
-  renderAll();
 }
 
 function deleteStaff(id) {
-  sysModal('confirm', 'ELIMINAR STAFF', '¿ESTÁS SEGURO DE ELIMINAR ESTE STAFF?').then(confirmed => {
+  sysModal('confirm', 'ELIMINAR STAFF', '¿ESTÁS SEGURO DE ELIMINAR ESTE STAFF?').then(async confirmed => {
     if (!confirmed) return;
-    const idx = staffData.findIndex(x => x.id === id);
-    if (idx !== -1) staffData.splice(idx, 1);
-    showToast('STAFF ELIMINADO');
-    renderAll();
+    try {
+      const { error } = await window.supabaseClient.from('staff').delete().eq('id', id);
+      if (error) throw error;
+      const idx = staffData.findIndex(x => x.id === id);
+      if (idx !== -1) staffData.splice(idx, 1);
+      showToast('STAFF ELIMINADO');
+      renderAll();
+    } catch (err) {
+      if(window.sysModal) window.sysModal('error', 'ERROR', 'Fallo al eliminar en la base de datos.');
+    }
   });
 }
 
-function saveMember(e) {
+window.resetMemberPIN = async function(id) {
+  const generatedPIN = Math.floor(1000 + Math.random() * 9000).toString();
+  try {
+    const { error } = await window.supabaseClient.from('miembros').update({ password: generatedPIN }).eq('id', id);
+    if (error) throw error;
+    const m = membersData.find(x => x.id === id);
+    if (m) m.password = generatedPIN;
+    sysModal('success', 'PIN RESTABLECIDO', `El nuevo PIN de activación para el usuario es:<br><br><div class="text-center mt-4"><span class="text-4xl font-display font-bold tracking-tighter bg-brand-green text-brand-black px-6 py-3 border-4 border-brand-black inline-block">${generatedPIN}</span></div><br>El cliente deberá crear una nueva contraseña al ingresar.`);
+  } catch (err) {
+    sysModal('error', 'ERROR', 'Fallo al restablecer el PIN.');
+  }
+};
+
+async function saveMember(e) {
   e.preventDefault();
   const nombre   = document.getElementById('mf-nombre').value.trim();
   const telefono = document.getElementById('mf-tel').value.trim();
   const plan     = document.getElementById('mf-plan').value;
   const activo   = document.getElementById('mf-estado').value === '1';
 
-  if (currentModalType === 'member-edit') {
-    const m = membersData.find(x => x.id === currentModalId);
-    if (m) { m.nombre = nombre; m.telefono = telefono; m.plan = plan; m.activo = activo; }
-    showToast('MIEMBRO ACTUALIZADO');
-  } else {
-    membersData.push({ id: Date.now(), nombre, telefono, plan, activo });
-    showToast('MIEMBRO AÑADIDO CON ÉXITO');
+  const originalText = e.submitter.textContent;
+  e.submitter.textContent = "Guardando...";
+  e.submitter.disabled = true;
+
+  try {
+    if (currentModalType === 'member-edit') {
+      const payload = { nombre, telefono, plan, activo };
+      const { error } = await window.supabaseClient.from('miembros').update(payload).eq('id', currentModalId);
+      if (error) throw error;
+      const m = membersData.find(x => x.id === currentModalId);
+      if (m) { m.nombre = nombre; m.telefono = telefono; m.plan = plan; m.activo = activo; }
+      showToast('MIEMBRO ACTUALIZADO');
+      if (window.broadcastDBUpdate) window.broadcastDBUpdate();
+    } else {
+      const generatedPIN = Math.floor(1000 + Math.random() * 9000).toString();
+      const payload = { nombre, telefono, plan, activo, password: generatedPIN };
+      const { data, error } = await window.supabaseClient.from('miembros').insert([payload]).select();
+      if (error) throw error;
+      if (data && data.length > 0) {
+        data[0].historialPagos = [];
+        membersData.push(data[0]);
+      }
+      showToast('MIEMBRO AÑADIDO');
+      sysModal('success', 'NUEVO MIEMBRO REGISTRADO', `El PIN de activación para ${nombre} es:<br><br><div class="text-center mt-4"><span class="text-4xl font-display font-bold tracking-tighter bg-brand-green text-brand-black px-6 py-3 border-4 border-brand-black inline-block">${generatedPIN}</span></div><br>Indícale al cliente que inicie sesión con este PIN para crear su contraseña.`);
+      if (window.broadcastDBUpdate) window.broadcastDBUpdate();
+    }
+    closeModal();
+    renderAll();
+  } catch (err) {
+    if(window.sysModal) window.sysModal('error', 'ERROR', 'Fallo al guardar en la base de datos.');
+  } finally {
+    e.submitter.textContent = originalText;
+    e.submitter.disabled = false;
   }
-  closeModal();
-  renderAll();
 }
 
 function deleteMember(id) {
-  sysModal('confirm', 'ELIMINAR MIEMBRO', '¿ESTÁS SEGURO DE ELIMINAR ESTE MIEMBRO?').then(confirmed => {
+  sysModal('confirm', 'ELIMINAR MIEMBRO', '¿ESTÁS SEGURO DE ELIMINAR ESTE MIEMBRO?').then(async confirmed => {
     if (!confirmed) return;
-    const idx = membersData.findIndex(x => x.id === id);
-    if (idx !== -1) membersData.splice(idx, 1);
-    showToast('MIEMBRO ELIMINADO');
-    renderAll();
+    try {
+      const { error } = await window.supabaseClient.from('miembros').delete().eq('id', id);
+      if (error) throw error;
+      const idx = membersData.findIndex(x => x.id === id);
+      if (idx !== -1) membersData.splice(idx, 1);
+      showToast('MIEMBRO ELIMINADO');
+      if (window.broadcastDBUpdate) window.broadcastDBUpdate();
+      renderAll();
+    } catch (err) {
+      if(window.sysModal) window.sysModal('error', 'ERROR', 'Fallo al eliminar en la base de datos.');
+    }
   });
 }
 
-function savePlan(e) {
+async function savePlan(e) {
   e.preventDefault();
   const nombre = document.getElementById('pf-nombre').value.trim();
   const precio = document.getElementById('pf-precio').value.trim();
@@ -537,31 +714,54 @@ function savePlan(e) {
   const destacado = document.getElementById('pf-destacado').checked;
   const beneficios = desc ? desc.split(',').map(x => x.trim()).filter(x => x) : [];
 
-  if (currentModalType === 'plan-form') {
-    if (currentModalId) {
-      const p = planesData.find(x => x.id === currentModalId);
-      if (p) {
-        p.nombre = nombre; p.precio = precio; p.periodo = periodo;
-        p.destacado = destacado; p.beneficios = beneficios;
+  const originalText = e.submitter.textContent;
+  e.submitter.textContent = "Guardando...";
+  e.submitter.disabled = true;
+
+  try {
+    if (currentModalType === 'plan-form') {
+      if (currentModalId) {
+        const payload = { nombre, precio, periodo, destacado, beneficios };
+        const { error } = await window.supabaseClient.from('planes').update(payload).eq('id', currentModalId);
+        if (error) throw error;
+        const p = planesData.find(x => x.id === currentModalId);
+        if (p) {
+          p.nombre = nombre; p.precio = precio; p.periodo = periodo;
+          p.destacado = destacado; p.beneficios = beneficios;
+        }
+        showToast('PLAN ACTUALIZADO CON ÉXITO');
+      } else {
+        const payload = { nombre, precio, periodo, destacado, beneficios };
+        const { data, error } = await window.supabaseClient.from('planes').insert([payload]).select();
+        if (error) throw error;
+        if (data && data.length > 0) planesData.push(data[0]);
+        showToast('PLAN AÑADIDO CON ÉXITO');
       }
-      showToast('PLAN ACTUALIZADO CON ÉXITO');
-    } else {
-      planesData.push({ id: Date.now(), nombre, precio, periodo, destacado, beneficios });
-      showToast('PLAN AÑADIDO CON ÉXITO');
     }
+    closeModal();
+    renderAll();
+  } catch (err) {
+    if(window.sysModal) window.sysModal('error', 'ERROR', 'Fallo al guardar plan en base de datos.');
+  } finally {
+    e.submitter.textContent = originalText;
+    e.submitter.disabled = false;
   }
-  closeModal();
-  renderAll();
 }
 
 function deletePlan(id) {
-  sysModal('confirm', 'ELIMINAR PLAN', '¿ESTÁS SEGURO DE ELIMINAR ESTE PLAN?').then(confirmed => {
+  sysModal('confirm', 'ELIMINAR PLAN', '¿ESTÁS SEGURO DE ELIMINAR ESTE PLAN?').then(async confirmed => {
     if (!confirmed) return;
-    const idx = planesData.findIndex(x => x.id === id);
-    if (idx !== -1) planesData.splice(idx, 1);
-    showToast('PLAN ELIMINADO CON ÉXITO');
-    closeModal();
-    renderAll();
+    try {
+      const { error } = await window.supabaseClient.from('planes').delete().eq('id', id);
+      if (error) throw error;
+      const idx = planesData.findIndex(x => x.id === id);
+      if (idx !== -1) planesData.splice(idx, 1);
+      showToast('PLAN ELIMINADO CON ÉXITO');
+      closeModal();
+      renderAll();
+    } catch(err) {
+      if(window.sysModal) window.sysModal('error', 'ERROR', 'Fallo al eliminar plan en base de datos.');
+    }
   });
 }
 
@@ -576,6 +776,33 @@ function renderPagos() {
     const t = m.telefono ? m.telefono : '';
     return n.includes(term) || t.includes(term);
   });
+
+  // Actualizar Tarjetas Resumen Pagos
+  const statIngresos = document.getElementById('stat-pagos-ingresos');
+  const statAlDia = document.getElementById('stat-pagos-aldia');
+  const statAtrasados = document.getElementById('stat-pagos-atrasados');
+  
+  if (statIngresos) {
+    const currentMonth = new Date().getMonth();
+    const currentYear = new Date().getFullYear();
+    let ingresos = 0;
+    membersData.forEach(m => {
+      if (m.historialPagos) {
+        m.historialPagos.forEach(p => {
+          const d = new Date(p.fecha);
+          if (d.getMonth() === currentMonth && d.getFullYear() === currentYear) {
+            ingresos += parseInt(p.monto) || 0;
+          }
+        });
+      }
+    });
+    statIngresos.textContent = '$' + (ingresos > 999 ? (ingresos/1000).toFixed(1) + 'k' : ingresos);
+    
+    const aldia = membersData.filter(m => m.estado_pago === 'al_dia').length;
+    const atrasados = membersData.filter(m => m.estado_pago === 'atrasado').length;
+    if (statAlDia) statAlDia.textContent = aldia;
+    if (statAtrasados) statAtrasados.textContent = atrasados;
+  }
 
   const ptb = document.getElementById('pagos-table-body');
   if (ptb) {
@@ -601,28 +828,41 @@ function renderPagos() {
   }
 }
 
-function updateAlerts() {
-  const alertasContainer = document.getElementById('alertas-container');
-  const alertasWrapper = document.getElementById('alertas-pagos');
-  if (!alertasContainer || !alertasWrapper) return;
+// Alertas removidas
 
-  const atrasados = membersData.filter(m => m.estado_pago === 'atrasado');
-  if (atrasados.length > 0) {
-    alertasWrapper.classList.remove('hidden');
-    alertasWrapper.classList.add('flex');
-    alertasContainer.innerHTML = atrasados.map(m => `
-      <div class="bg-brand-black text-brand-white p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div>
-          <span class="font-display font-bold uppercase tracking-widest block">${m.nombre}</span>
-          <span class="text-xs opacity-80">Vencido desde: ${m.fechaVencimiento}</span>
-        </div>
-        <button onclick="openPagoForm(${m.id})" class="${btnClasses}">Cobrar Ahora</button>
-      </div>
-    `).join('');
-  } else {
-    alertasWrapper.classList.add('hidden');
-    alertasWrapper.classList.remove('flex');
+function renderAccesos() {
+  const tb = document.getElementById('accesos-table-body');
+  if (!tb) return;
+  
+  if (accesosData.length === 0) {
+    tb.innerHTML = `<tr class="border-b-4 border-brand-black opacity-50"><td colspan="4" class="p-6 text-center font-display font-bold uppercase tracking-widest text-sm">Esperando escaneo biométrico...</td></tr>`;
+    return;
   }
+  
+  const rowClasses = "border-b-4 border-brand-black hover:bg-brand-green focus-within:bg-brand-green transition-colors group";
+  
+  tb.innerHTML = accesosData.map(log => {
+    let estadoHTML = '';
+    if (log.estado === 'permitido') {
+      estadoHTML = '<span class="bg-brand-green text-brand-black font-display font-bold uppercase tracking-widest text-xs px-2 py-1 inline-block border-4 border-brand-green">Concedido</span>';
+    } else if (log.estado === 'denegado') {
+      estadoHTML = '<span class="bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest text-xs px-2 py-1 inline-block border-4 border-brand-black"><i class="ph-bold ph-warning text-sm"></i> Denegado</span>';
+    } else {
+      estadoHTML = '<span class="bg-brand-white text-brand-black font-display font-bold uppercase tracking-widest text-xs px-2 py-1 inline-block border-4 border-brand-black">Desconocido</span>';
+    }
+    
+    const d = new Date(log.tiempo);
+    const hora = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    
+    return `
+      <tr class="${rowClasses}">
+        <td class="p-6 font-display font-bold text-sm tracking-widest">${hora}</td>
+        <td class="p-6 font-bold uppercase leading-tight">${log.nombre}</td>
+        <td class="p-6 font-bold tracking-widest uppercase text-sm">${log.plan || '-'}</td>
+        <td class="p-6">${estadoHTML}</td>
+      </tr>
+    `;
+  }).join('');
 }
 
 function openPagoForm(id) {
@@ -664,33 +904,63 @@ function openPagoForm(id) {
   document.getElementById('modal-overlay').classList.add('flex');
 }
 
-function processPago(e) {
+async function processPago(e) {
   e.preventDefault();
   const m = membersData.find(x => x.id === currentModalId);
+  if (!m) return;
   const metodo = document.getElementById('pago-metodo').value;
-  const planInfo = planesData.find(p => p.nombre === m.plan) || { precio: '$0' };
+  const planInfo = planesData.find(p => p.nombre === m.plan) || { precio: '$0', periodo: 'Mes' };
   
   const monto = parseInt(planInfo.precio.replace(/\D/g,'')) || 0;
   const hoy = new Date().toISOString().split('T')[0];
-  
-  m.historialPagos.unshift({
-    id: Date.now(),
-    fecha: hoy,
-    monto: monto,
-    metodo: metodo
-  });
-  
-  m.estado_pago = 'al_dia';
-  // Actualizar fecha vencimiento dinámicamente
-  m.fechaVencimiento = (function() {
-    const d = new Date(hoy);
-    d.setMonth(d.getMonth() + 1);
-    return d.toISOString().split('T')[0];
-  })();
 
-  showToast('PAGO REGISTRADO CON ÉXITO');
-  closeModal();
-  renderAll();
+  const originalText = e.submitter.textContent;
+  e.submitter.textContent = "Procesando...";
+  e.submitter.disabled = true;
+
+  try {
+    const payloadPago = {
+      miembro_id: m.id,
+      fecha: hoy,
+      monto: monto,
+      metodo: metodo
+    };
+
+    const { data: pagoData, error: pagoErr } = await window.supabaseClient.from('pagos').insert([payloadPago]).select();
+    if (pagoErr) throw pagoErr;
+
+    // Actualizar fecha vencimiento dinámicamente basado en plan.periodo
+    let nuevaFecha = new Date(hoy);
+    if (planInfo.periodo === 'Mes') {
+      nuevaFecha.setMonth(nuevaFecha.getMonth() + 1);
+    } else if (planInfo.periodo === 'Año') {
+      nuevaFecha.setFullYear(nuevaFecha.getFullYear() + 1);
+    } // Si es 'Unico', vence hoy a las 23:59, así que la fecha es hoy.
+    
+    const strVencimiento = nuevaFecha.toISOString().split('T')[0];
+
+    // Actualizamos el estado del miembro en Supabase a 'activo' si estaba expirado
+    const { error: miemErr } = await window.supabaseClient.from('miembros').update({ activo: true }).eq('id', m.id);
+    if (miemErr) throw miemErr;
+
+    // Actualizamos arreglos locales
+    if (pagoData && pagoData.length > 0) {
+      m.historialPagos.unshift(pagoData[0]);
+    }
+    m.estado_pago = 'al_dia';
+    m.fechaVencimiento = strVencimiento;
+    m.activo = true;
+
+    showToast('PAGO REGISTRADO CON ÉXITO');
+    if (window.broadcastDBUpdate) window.broadcastDBUpdate();
+    closeModal();
+    renderAll();
+  } catch (err) {
+    if(window.sysModal) window.sysModal('error', 'ERROR', 'Fallo al procesar pago en base de datos.');
+  } finally {
+    e.submitter.textContent = originalText;
+    e.submitter.disabled = false;
+  }
 }
 
 function openHistorial(id) {
@@ -743,14 +1013,24 @@ function openHistorial(id) {
 }
 
 function revertPago(memberId, pagoId) {
-  sysModal('confirm', 'REVERTIR PAGO', '¿ESTÁS SEGURO DE REVERTIR ESTE PAGO? ESTA ACCIÓN NO SE PUEDE DESHACER.').then(confirmed => {
+  sysModal('confirm', 'REVERTIR PAGO', '¿ESTÁS SEGURO DE REVERTIR ESTE PAGO? ESTA ACCIÓN NO SE PUEDE DESHACER.').then(async confirmed => {
     if (!confirmed) return;
-    const m = membersData.find(x => x.id === memberId);
-    m.historialPagos = m.historialPagos.filter(p => p.id !== pagoId);
-    m.estado_pago = 'atrasado';
-    showToast('PAGO REVERTIDO');
-    openHistorial(memberId);
-    renderAll();
+    try {
+      const { error } = await window.supabaseClient.from('pagos').delete().eq('id', pagoId);
+      if (error) throw error;
+      
+      const m = membersData.find(x => x.id === memberId);
+      if (m) {
+        m.historialPagos = m.historialPagos.filter(p => p.id !== pagoId);
+        m.estado_pago = 'atrasado'; // Se marca atrasado por seguridad al revertir.
+      }
+      showToast('PAGO REVERTIDO');
+      if (window.broadcastDBUpdate) window.broadcastDBUpdate();
+      openHistorial(memberId);
+      renderAll();
+    } catch(err) {
+      if(window.sysModal) window.sysModal('error', 'ERROR', 'Fallo al revertir pago.');
+    }
   });
 }
 
@@ -767,19 +1047,116 @@ function showToast(msg) {
   }, 2800);
 }
 
+function showKioskAlert(log) {
+  const container = document.getElementById('kiosk-alert-container');
+  if (!container) return;
+
+  const alertId = 'kiosk-alert-' + Date.now() + Math.floor(Math.random() * 1000);
+  const isPermitted = log.estado === 'permitido';
+  const isDenied = log.estado === 'denegado';
+  const isUnknown = log.estado === 'desconocido';
+
+  let bgClass, borderClass, textClass, iconClass, reason, actionHTML;
+  // Buscar ID del miembro para los botones de acción
+  const m = membersData.find(x => x.nombre.toUpperCase() === (log.nombre || '').toUpperCase());
+  
+  if (isPermitted) {
+    bgClass = 'bg-brand-green';
+    borderClass = 'border-brand-green';
+    textClass = 'text-brand-black';
+    iconClass = 'ph-check-circle';
+    reason = 'ACCESO AUTORIZADO';
+    actionHTML = '';
+  } else if (isDenied) {
+    bgClass = 'bg-brand-black';
+    borderClass = 'border-brand-black';
+    textClass = 'text-brand-white';
+    iconClass = 'ph-warning-circle';
+    
+    if (m && m.activo === false) {
+      reason = 'MEMBRESÍA SUSPENDIDA';
+      actionHTML = `
+        <button onclick="openModal('member-edit', ${m.id}); document.getElementById('${alertId}').remove();" class="w-full mt-4 text-center bg-brand-white text-brand-black font-display font-bold uppercase tracking-widest px-4 py-3 text-sm hover:bg-brand-green focus:bg-brand-green transition-colors border-4 border-brand-white focus:outline-none active:bg-brand-green active:border-brand-green">
+          Revisar Perfil
+        </button>
+      `;
+    } else {
+      reason = 'PAGOS PENDIENTES';
+      actionHTML = m ? `
+        <button onclick="openPagoForm(${m.id}); document.getElementById('${alertId}').remove();" class="w-full mt-4 text-center bg-brand-white text-brand-black font-display font-bold uppercase tracking-widest px-4 py-3 text-sm hover:bg-brand-green focus:bg-brand-green transition-colors border-4 border-brand-white focus:outline-none active:bg-brand-green active:border-brand-green">
+          Cobrar Ahora
+        </button>
+      ` : '';
+    }
+  } else {
+    bgClass = 'bg-brand-white';
+    borderClass = 'border-brand-black';
+    textClass = 'text-brand-black';
+    iconClass = 'ph-question';
+    reason = 'ROSTRO NO RECONOCIDO';
+    actionHTML = `
+      <button onclick="openModal('member-form'); document.getElementById('${alertId}').remove();" class="w-full mt-4 text-center bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-4 py-3 text-sm hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black transition-colors border-4 border-brand-black focus:outline-none active:bg-brand-green active:border-brand-green active:text-brand-black">
+        Enrolar Nuevo
+      </button>
+    `;
+  }
+
+  const html = `
+    <div id="${alertId}" class="${bgClass} ${textClass} border-4 ${borderClass} p-6 pointer-events-auto transform translate-x-full transition-transform duration-300 relative group">
+      <button onclick="document.getElementById('${alertId}').remove()" class="absolute top-4 right-4 text-current hover:text-brand-green focus:outline-none transition-colors border-4 border-transparent focus:border-current hover:border-current p-1 flex items-center justify-center z-10 bg-[inherit]" aria-label="Cerrar alerta">
+        <i class="ph-bold ph-x text-2xl"></i>
+      </button>
+      <div class="pr-12 min-w-0">
+        <p class="font-display font-bold uppercase tracking-widest text-xs opacity-70 mb-1">Kiosco Biométrico</p>
+        <h4 class="font-display font-bold text-2xl sm:text-3xl uppercase tracking-tighter leading-none mb-3 break-words">${log.nombre || 'DESCONOCIDO'}</h4>
+        <div class="flex flex-col gap-1.5 mb-4">
+          ${log.telefono ? `<p class="font-bold tracking-widest uppercase text-xs opacity-90"><i class="ph-bold ph-phone mr-1"></i> ${log.telefono}</p>` : ''}
+          ${log.plan && log.plan !== '-' ? `<p class="font-bold tracking-widest uppercase text-xs opacity-90"><i class="ph-bold ph-clipboard-text mr-1"></i> ${log.plan}</p>` : ''}
+          ${log.fechaVencimiento ? `<p class="font-bold tracking-widest uppercase text-xs opacity-90"><i class="ph-bold ph-calendar mr-1"></i> Vence: ${log.fechaVencimiento}</p>` : ''}
+        </div>
+        <div class="border-t-4 border-current pt-4 flex items-center justify-between gap-4">
+          <p class="font-display font-bold uppercase tracking-widest text-sm">${reason}</p>
+          <i class="ph-bold ${iconClass} text-4xl"></i>
+        </div>
+      </div>
+      ${actionHTML}
+    </div>
+  `;
+
+  container.insertAdjacentHTML('beforeend', html);
+  const el = document.getElementById(alertId);
+  
+  // Animación de entrada
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      el.classList.remove('translate-x-full');
+    });
+  });
+
+  // Auto-cierre dinámico
+  const duration = isPermitted ? 5000 : (isDenied ? 10000 : 8000);
+  setTimeout(() => {
+    if (document.getElementById(alertId)) {
+      el.classList.add('translate-x-full');
+      setTimeout(() => { if (el) el.remove(); }, 300);
+    }
+  }, duration);
+}
+
 window.sysModal = function(type, title, message) {
   return new Promise((resolve) => {
     let overlay = document.getElementById('sys-modal-overlay');
     if (!overlay) {
       document.body.insertAdjacentHTML('beforeend', `
-        <div id="sys-modal-overlay" role="dialog" aria-modal="true" class="fixed inset-0 bg-brand-black/90 hidden items-center justify-center p-4 sm:p-6 z-[200]">
-          <div class="bg-brand-white w-full max-w-md border-4 border-brand-black flex flex-col overflow-hidden">
-            <div id="sys-modal-header" class="px-6 py-4 flex items-center gap-4 border-b-4 border-brand-black">
+        <div id="sys-modal-overlay" role="dialog" aria-modal="true" class="fixed inset-0 hidden items-start justify-center p-4 sm:p-6 overflow-y-auto pt-12 sm:pt-[10vh] bg-black/90 z-[999999]">
+          <div class="bg-brand-white w-full border-4 border-brand-black flex flex-col mb-12 relative max-w-lg">
+            <div id="sys-modal-header" class="px-6 py-4 flex items-center gap-4 border-b-4 border-brand-black relative">
               <i id="sys-modal-icon" class="ph-bold text-3xl"></i>
-              <h3 id="sys-modal-title" class="font-display font-bold uppercase tracking-widest text-lg sm:text-xl leading-none mt-1"></h3>
+              <h3 id="sys-modal-title" class="font-display font-bold uppercase tracking-widest text-lg sm:text-xl leading-none mt-1 pr-12"></h3>
+              <button id="sys-modal-close-btn" aria-label="Cerrar" class="absolute top-4 right-4 text-current hover:text-brand-green focus:text-brand-green active:text-brand-green transition-colors focus:outline-none text-2xl bg-transparent p-1 z-10"><i class="ph-bold ph-x"></i></button>
             </div>
-            <div class="p-6 sm:p-8">
-              <p id="sys-modal-msg" class="font-medium text-lg leading-relaxed text-brand-black"></p>
+            <div class="p-6 sm:p-8 overflow-y-auto max-h-[60vh]">
+              <div id="sys-modal-msg" class="font-medium text-lg leading-relaxed text-brand-black"></div>
             </div>
             <div id="sys-modal-footer" class="p-6 border-t-4 border-brand-black flex flex-col sm:flex-row justify-end gap-4 bg-brand-white"></div>
           </div>
@@ -815,13 +1192,19 @@ window.sysModal = function(type, title, message) {
     msgEl.innerHTML = message;
     footer.innerHTML = '';
     
-    const btnBase = "font-display font-bold uppercase tracking-widest px-8 py-4 border-4 border-brand-black focus:outline-none transition-colors w-full sm:w-auto text-center text-sm";
+    const btnBase = "font-display font-bold uppercase tracking-widest px-8 py-4 focus:outline-none transition-colors w-full sm:w-auto text-center text-sm";
     
     function closeAndResolve(val) {
       overlay.classList.remove('flex');
       overlay.classList.add('hidden');
+      document.body.style.overflow = '';
       resolve(val);
     }
+
+    const closeBtn = document.getElementById('sys-modal-close-btn');
+    if (closeBtn) closeBtn.onclick = () => closeAndResolve(false);
+
+    document.body.style.overflow = 'hidden';
 
     if (type === 'confirm') {
       const btnCancel = document.createElement('button');
@@ -863,17 +1246,35 @@ window.openPagoForm = openPagoForm;
 window.processPago = processPago;
 window.openHistorial = openHistorial;
 window.revertPago = revertPago;
+window.showKioskAlert = showKioskAlert;
 
+window.requestRemoteEnrollment = async function(memberId) {
+  if (!memberId || memberId === 'null') {
+    if(window.sysModal) window.sysModal('info', 'ATENCIÓN', 'Primero debes guardar los datos del miembro para asignarle un ID antes de capturar su rostro.');
+    return;
+  }
+  
+  const m = membersData.find(x => x.id === memberId);
+  if (!m) return;
 
-// KIOSK REALTIME LISTENER
-if (window.supabaseClient) {
+  if (window.sysModal) window.sysModal('info', 'ENROLAMIENTO REMOTO', 'Dile al cliente que mire la pantalla del Kiosco. El Kiosco ha iniciado el escaneo biométrico...');
+  
+  const channel = window.supabaseClient.channel('kiosco-enroll');
+  await channel.send({
+    type: 'broadcast',
+    event: 'enroll_request',
+    payload: {
+      memberId: memberId,
+      nombre: m.nombre
+    }
+  });
+};
+
+window.broadcastDBUpdate = async function() {
   const channel = window.supabaseClient.channel('public:accesos');
-  channel.on('broadcast', { event: 'acceso' }, (payload) => {
-    const data = payload.payload;
-    let msg = `[KIOSCO] ${data.nombre || 'Alguien'} - Acceso ${data.estado}`;
-    if (data.estado === 'desconocido') msg = '[KIOSCO] ROSTRO DESCONOCIDO DETECTADO';
-    showToast(msg);
-    
-    // Optional: read aloud on admin side too, or just show the toast.
-  }).subscribe();
-}
+  await channel.send({
+    type: 'broadcast',
+    event: 'db_updated',
+    payload: {}
+  });
+};

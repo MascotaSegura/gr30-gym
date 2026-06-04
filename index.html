@@ -21,9 +21,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
 
 </head>
-<body class="bg-brand-white font-sans antialiased selection:bg-brand-green selection:text-brand-black text-brand-black min-h-screen overflow-x-hidden" style="min-height: 100dvh;">
+<body class="bg-brand-white font-sans antialiased selection:bg-brand-green selection:text-brand-black text-brand-black min-h-[100svh] overflow-x-hidden">
 
-<header class="fixed top-0 left-0 w-full bg-brand-white border-b-4 border-brand-black flex items-center justify-between px-6 lg:px-12 py-5" style="z-index: 60;" id="mainHeader">
+<header class="fixed top-0 left-0 w-full bg-brand-white border-b-4 border-brand-black flex items-center justify-between px-6 lg:px-12 py-5 z-[60]" id="mainHeader">
   <a href="#inicio" class="text-3xl font-display font-bold tracking-tighter uppercase flex items-center gap-3 group focus:outline-none" aria-label="Inicio">
     <div class="w-10 h-10 bg-brand-green flex items-center justify-center text-brand-black transition-colors group-hover:bg-brand-black group-hover:text-brand-white group-focus:bg-brand-black group-focus:text-brand-white group-active:bg-brand-black group-active:text-brand-white">
       <span class="text-2xl leading-none">G</span>
@@ -47,14 +47,14 @@
       Únete Ahora
     </a>
     
-    <button id="menuBtn" aria-label="Abrir menú" aria-expanded="false" class="lg:hidden w-12 h-12 flex items-center justify-center bg-brand-black text-brand-white hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors" style="z-index: 60;">
+    <button id="menuBtn" aria-label="Abrir menú" aria-expanded="false" class="lg:hidden w-12 h-12 flex items-center justify-center bg-brand-black text-brand-white hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors z-[60]">
       <i id="menuIcon" class="ph-bold ph-list text-3xl"></i>
     </button>
   </div>
 </header>
 
-<div id="mobileMenu" aria-hidden="true" class="fixed inset-0 bg-brand-black invisible flex flex-col px-8 sm:px-12 overflow-y-auto py-12" style="z-index: 55;">
-  <nav class="flex flex-col gap-6 sm:gap-8 my-auto">
+<div id="mobileMenu" aria-hidden="true" class="fixed inset-0 bg-brand-black invisible flex flex-col px-8 sm:px-12 overflow-y-auto pt-24 pb-12 z-[55]">
+  <nav class="flex flex-col gap-6 sm:gap-8">
     <a href="#inicio" class="mobile-link text-5xl sm:text-6xl font-display font-bold tracking-tighter text-brand-white hover:text-brand-green focus:text-brand-green focus:outline-none active:text-brand-green transition-colors w-max">INICIO</a>
     <a href="#servicios" class="mobile-link text-5xl sm:text-6xl font-display font-bold tracking-tighter text-brand-white hover:text-brand-green focus:text-brand-green focus:outline-none active:text-brand-green transition-colors w-max">SERVICIOS</a>
     <a href="#entrenadores" class="mobile-link text-5xl sm:text-6xl font-display font-bold tracking-tighter text-brand-white hover:text-brand-green focus:text-brand-green focus:outline-none active:text-brand-green transition-colors w-max">STAFF</a>
@@ -78,7 +78,7 @@
       <p class="max-w-xl text-[clamp(0.875rem,2vw,1.125rem)] font-medium text-brand-black leading-snug lg:leading-relaxed mb-6 lg:mb-6">
         Instalaciones de nivel competitivo. Peso libre, HIIT y cardio. Entrena como un atleta, no como un cliente más.
       </p>
-      <a href="#servicios" class="inline-flex bg-brand-black text-brand-white   px-10 py-5 font-display font-bold uppercase tracking-widest text-sm md:text-base hover:bg-brand-green hover:text-brand-black  focus:bg-brand-green focus:text-brand-black  focus:outline-none active:bg-brand-green active:text-brand-black  transition-colors w-max">
+      <a href="#servicios" class="inline-flex bg-brand-black text-brand-white px-10 py-5 font-display font-bold uppercase tracking-widest text-sm md:text-base hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors w-max">
         Ver Instalaciones
       </a>
     </div>
@@ -137,19 +137,19 @@
     <div class="marquee-container flex whitespace-nowrap">
       <div class="marquee-content flex">
         <div class="marquee-group flex gap-8 pr-8 items-center">
-          <div class="w-[300px] sm:w-[450px] bg-brand-white p-8 sm:p-12   flex-shrink-0 whitespace-normal">
+          <div class="w-[300px] sm:w-[450px] bg-brand-white p-8 sm:p-12 flex-shrink-0 whitespace-normal">
             <p class="text-brand-black font-display font-bold text-xl sm:text-2xl leading-tight">"El mejor ambiente, el equipo no falla. Puro entrenamiento serio."</p>
             <p class="mt-6 bg-brand-black text-brand-white px-2 py-1 inline-block font-bold tracking-widest uppercase text-xs -ml-2">— Mario C.</p>
           </div>
-          <div class="w-[300px] sm:w-[450px] bg-brand-black p-8 sm:p-12   flex-shrink-0 whitespace-normal">
+          <div class="w-[300px] sm:w-[450px] bg-brand-black p-8 sm:p-12 flex-shrink-0 whitespace-normal">
             <p class="text-brand-white font-display font-bold text-xl sm:text-2xl leading-tight">"Entrenadores de verdad que te corrigen y te exigen."</p>
             <p class="mt-6 bg-brand-green text-brand-black px-2 py-1 inline-block font-bold tracking-widest uppercase text-xs -ml-2">— Lucía S.</p>
           </div>
-          <div class="w-[300px] sm:w-[450px] bg-brand-white p-8 sm:p-12   flex-shrink-0 whitespace-normal">
+          <div class="w-[300px] sm:w-[450px] bg-brand-white p-8 sm:p-12 flex-shrink-0 whitespace-normal">
             <p class="text-brand-black font-display font-bold text-xl sm:text-2xl leading-tight">"Máquinas limpias y peso suficiente. No tienes que hacer fila."</p>
             <p class="mt-6 bg-brand-black text-brand-white px-2 py-1 inline-block font-bold tracking-widest uppercase text-xs -ml-2">— David V.</p>
           </div>
-          <div class="w-[300px] sm:w-[450px] bg-brand-black p-8 sm:p-12   flex-shrink-0 whitespace-normal">
+          <div class="w-[300px] sm:w-[450px] bg-brand-black p-8 sm:p-12 flex-shrink-0 whitespace-normal">
             <p class="text-brand-white font-display font-bold text-xl sm:text-2xl leading-tight">"Desde que entré a GR30 mis levantamientos se han duplicado."</p>
             <p class="mt-6 bg-brand-green text-brand-black px-2 py-1 inline-block font-bold tracking-widest uppercase text-xs -ml-2">— Ana B.</p>
           </div>
@@ -158,14 +158,14 @@
     </div>
   </section>
 
-  <section id="cta-prueba" class="w-full bg-brand-black py-24 px-6 lg:px-12 flex flex-col items-center justify-center text-center  ">
+  <section id="cta-prueba" class="w-full bg-brand-black py-24 px-6 lg:px-12 flex flex-col items-center justify-center text-center">
     <h2 class="text-[clamp(3rem,8vw,6rem)] font-display font-bold text-brand-white uppercase leading-none tracking-tighter mb-8">
       No asumas. <br><span class="text-brand-green">Pruébalo.</span>
     </h2>
     <p class="text-xl font-medium text-brand-white max-w-2xl mb-12">
       Reclama un pase de acceso total por 1 día. Entrena duro, usa el equipo, conoce al staff. Si no te convence, no pagas nada.
     </p>
-    <a href="#contacto" class="inline-flex bg-brand-green text-brand-black   px-10 py-5 font-display font-bold uppercase tracking-widest text-sm md:text-base hover:bg-brand-black hover:text-brand-white  focus:bg-brand-black focus:text-brand-white  focus:outline-none active:bg-brand-black active:text-brand-white  transition-colors w-max">
+    <a href="#contacto" class="inline-flex bg-brand-green text-brand-black px-10 py-5 font-display font-bold uppercase tracking-widest text-sm md:text-base hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white focus:outline-none active:bg-brand-black active:text-brand-white transition-colors w-max">
       Quiero mi pase gratis
     </a>
   </section>
@@ -177,7 +177,7 @@
     </div>
   </section>
 
-  <section id="faq" class="w-full bg-brand-white py-24 px-6 lg:px-12  ">
+  <section id="faq" class="w-full bg-brand-white py-24 px-6 lg:px-12">
     <div class="max-w-4xl mx-auto">
       <h2 class="text-[clamp(4rem,10vw,8rem)] font-display font-bold uppercase leading-none mb-16 tracking-tighter text-brand-black">FAQ.</h2>
       
@@ -188,7 +188,7 @@
             <i class="ph-bold ph-plus text-3xl group-open:hidden"></i>
             <i class="ph-bold ph-minus text-3xl hidden group-open:block"></i>
           </summary>
-          <div class="pt-6 mt-6   font-medium text-lg leading-relaxed">
+          <div class="pt-6 mt-6 font-medium text-lg leading-relaxed">
             Sí, los planes mensuales se pueden cancelar sin penalización avisando con 5 días de anticipación al próximo ciclo de cobro.
           </div>
         </details>
@@ -199,7 +199,7 @@
             <i class="ph-bold ph-plus text-3xl group-open:hidden"></i>
             <i class="ph-bold ph-minus text-3xl hidden group-open:block"></i>
           </summary>
-          <div class="pt-6 mt-6   font-medium text-lg leading-relaxed">
+          <div class="pt-6 mt-6 font-medium text-lg leading-relaxed">
             Contamos con estacionamiento subterráneo gratuito para socios por hasta 3 horas validando tu ticket en recepción.
           </div>
         </details>
@@ -210,7 +210,7 @@
             <i class="ph-bold ph-plus text-3xl group-open:hidden"></i>
             <i class="ph-bold ph-minus text-3xl hidden group-open:block"></i>
           </summary>
-          <div class="pt-6 mt-6   font-medium text-lg leading-relaxed">
+          <div class="pt-6 mt-6 font-medium text-lg leading-relaxed">
             No. Zumba, HIIT y Acondicionamiento están 100% incluidas en tu membresía Mensual y Anual.
           </div>
         </details>
@@ -218,7 +218,7 @@
     </div>
   </section>
 
-  <section id="contacto" class="w-full bg-brand-black text-brand-white pt-24 px-6 lg:px-12 pb-24  ">
+  <section id="contacto" class="w-full bg-brand-black text-brand-white pt-24 px-6 lg:px-12 pb-24">
     <div class="flex flex-col xl:flex-row gap-16 xl:gap-24">
       <div class="flex-1">
         <h2 class="text-[clamp(4rem,10vw,8rem)] font-display font-bold uppercase leading-none mb-8 tracking-tighter text-brand-green">Únete.</h2>
@@ -244,11 +244,11 @@
         <form id="contactForm" class="flex flex-col gap-8">
           <div>
             <label for="nombre" class="sr-only">Tu Nombre</label>
-            <input type="text" id="nombre" aria-label="Tu Nombre" placeholder="Tu Nombre" class="w-full bg-brand-white border-4 border-brand-black px-4 py-4 sm:px-6 sm:py-5 text-lg sm:text-xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green  text-brand-black placeholder:text-brand-black/50 placeholder:uppercase transition-all" required>
+            <input type="text" id="nombre" aria-label="Tu Nombre" placeholder="Tu Nombre" class="w-full bg-brand-white border-4 border-brand-black px-4 py-4 sm:px-6 sm:py-5 text-lg sm:text-xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green text-brand-black placeholder:text-brand-black/50 placeholder:uppercase transition-all" required>
           </div>
           <div>
             <label for="telefono" class="sr-only">Tu Teléfono</label>
-            <input type="tel" id="telefono" aria-label="Tu Teléfono" placeholder="Tu Teléfono" class="w-full bg-brand-white border-4 border-brand-black px-4 py-4 sm:px-6 sm:py-5 text-lg sm:text-xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green  text-brand-black placeholder:text-brand-black/50 placeholder:uppercase transition-all" required>
+            <input type="tel" id="telefono" aria-label="Tu Teléfono" placeholder="Tu Teléfono" class="w-full bg-brand-white border-4 border-brand-black px-4 py-4 sm:px-6 sm:py-5 text-lg sm:text-xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green text-brand-black placeholder:text-brand-black/50 placeholder:uppercase transition-all" required>
           </div>
           <button type="submit" class="w-full sm:w-auto text-center bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors">
             Enviar Solicitud
@@ -258,7 +258,7 @@
     </div>
   </section>
     
-  <footer class="w-full bg-brand-black text-brand-white   pt-24 pb-12 px-6 lg:px-12">
+  <footer class="w-full bg-brand-black text-brand-white pt-24 pb-12 px-6 lg:px-12">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-16 mb-24">
       <div>
         <a href="#inicio" class="text-4xl font-display font-bold tracking-tighter uppercase flex items-center gap-3 group focus:outline-none w-max mb-6" aria-label="Inicio">
@@ -274,20 +274,20 @@
       
       <div class="flex flex-col gap-4">
         <p class="text-sm lg:text-base tracking-widest text-brand-green uppercase font-bold mb-2">Redes Sociales</p>
-        <a href="#" class="font-display font-bold text-xl lg:text-2xl uppercase hover:text-brand-green focus:text-brand-green focus:outline-none transition-colors w-max">Instagram.</a>
-        <a href="#" class="font-display font-bold text-xl lg:text-2xl uppercase hover:text-brand-green focus:text-brand-green focus:outline-none transition-colors w-max">TikTok.</a>
-        <a href="#" class="font-display font-bold text-xl lg:text-2xl uppercase hover:text-brand-green focus:text-brand-green focus:outline-none transition-colors w-max">Facebook.</a>
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="font-display font-bold text-xl lg:text-2xl uppercase hover:text-brand-green focus:text-brand-green focus:outline-none transition-colors w-max">Instagram.</a>
+        <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" class="font-display font-bold text-xl lg:text-2xl uppercase hover:text-brand-green focus:text-brand-green focus:outline-none transition-colors w-max">TikTok.</a>
+        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="font-display font-bold text-xl lg:text-2xl uppercase hover:text-brand-green focus:text-brand-green focus:outline-none transition-colors w-max">Facebook.</a>
       </div>
 
       <div class="flex flex-col gap-4">
         <p class="text-sm lg:text-base tracking-widest text-brand-green uppercase font-bold mb-2">Legal</p>
-        <a href="#" class="font-display font-bold text-xl lg:text-2xl uppercase hover:text-brand-green focus:text-brand-green focus:outline-none transition-colors w-max">Términos y Condiciones</a>
-        <a href="#" class="font-display font-bold text-xl lg:text-2xl uppercase hover:text-brand-green focus:text-brand-green focus:outline-none transition-colors w-max">Aviso de Privacidad</a>
-        <a href="#" class="font-display font-bold text-xl lg:text-2xl uppercase hover:text-brand-green focus:text-brand-green focus:outline-none transition-colors w-max">Reglamento del Gimnasio</a>
+        <a href="terminos.html" class="font-display font-bold text-xl lg:text-2xl uppercase hover:text-brand-green focus:text-brand-green focus:outline-none transition-colors w-max">Términos y Condiciones</a>
+        <a href="privacidad.html" class="font-display font-bold text-xl lg:text-2xl uppercase hover:text-brand-green focus:text-brand-green focus:outline-none transition-colors w-max">Aviso de Privacidad</a>
+        <a href="reglamento.html" class="font-display font-bold text-xl lg:text-2xl uppercase hover:text-brand-green focus:text-brand-green focus:outline-none transition-colors w-max">Reglamento del Gimnasio</a>
       </div>
     </div>
     
-    <div class="  pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+    <div class="pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
       <p class="font-bold text-brand-white uppercase tracking-widest text-xs lg:text-sm text-center md:text-left">
         © 2024 GR30 Gimnasio. Todos los derechos reservados.
       </p>
@@ -445,9 +445,7 @@
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('/sw.js').then(registration => {
-        console.log('SW registered: ', registration.scope);
       }).catch(registrationError => {
-        console.log('SW registration failed: ', registrationError);
       });
     });
   }
@@ -486,8 +484,8 @@
             planesContainer.innerHTML = planes.map(p => {
               const bgCls = p.destacado ? 'bg-brand-green text-brand-black border-4 border-brand-green' : 'bg-brand-white text-brand-black border-4 border-brand-black';
               const priceHTML = p.destacado 
-                ? `<p class="text-5xl sm:text-6xl font-display font-bold mb-6 text-brand-black group-hover:text-brand-green group-focus:text-brand-green group-active:text-brand-green tracking-tighter break-all">${p.precio}<span class="text-xl sm:text-2xl text-current tracking-normal">mxn</span></p>`
-                : `<p class="text-5xl sm:text-6xl font-display font-bold mb-6 bg-brand-green text-brand-black inline-block px-3 py-1 tracking-tighter -ml-3 break-all">${p.precio}<span class="text-xl sm:text-2xl text-current tracking-normal">mxn</span></p>`;
+                ? `<p class="text-5xl sm:text-6xl font-display font-bold mb-6 text-brand-black group-hover:text-brand-green group-focus:text-brand-green group-active:text-brand-green tracking-tighter">${p.precio}<span class="text-xl sm:text-2xl text-current tracking-normal">mxn</span></p>`
+                : `<p class="text-5xl sm:text-6xl font-display font-bold mb-6 bg-brand-green text-brand-black inline-block px-3 py-1 tracking-tighter -ml-3">${p.precio}<span class="text-xl sm:text-2xl text-current tracking-normal">mxn</span></p>`;
                 
               const bulletCls = p.destacado 
                 ? 'text-brand-black group-hover:text-brand-green group-focus:text-brand-green group-active:text-brand-green font-bold'
@@ -511,7 +509,6 @@
           }
         }
       } catch (err) {
-        console.error('Error loading data', err);
       }
     }
     document.addEventListener('DOMContentLoaded', loadData);

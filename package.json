@@ -26,6 +26,7 @@
     "tailwindcss": "^4.3.0"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.107.0",
     "pg": "^8.21.0"
   }
 }
