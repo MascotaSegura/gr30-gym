@@ -1,10 +1,23 @@
 
-
 let staffData = [];
 let membersData = [];
 let planesData = [];
 let accesosData = [];
-try { accesosData = JSON.parse(localStorage.getItem('gr30_accesos')) || []; } catch(e) { accesosData = []; }
+
+const fakeEntries = [
+  { nombre: 'Héctor Miguel Velázquez', plan: 'Anual', estado: 'permitido', tiempo: new Date(Date.now() - 1000*60*30).toISOString() },
+  { nombre: 'Valeria Gómez Ruiz', plan: 'Mensual', estado: 'permitido', tiempo: new Date(Date.now() - 1000*60*120).toISOString() },
+  { nombre: 'Ricardo Tamez', plan: 'Mensual', estado: 'denegado', tiempo: new Date(Date.now() - 1000*60*60*5).toISOString() },
+  { nombre: 'Ana Karen Silva', plan: 'Mensual', estado: 'denegado', tiempo: new Date(Date.now() - 1000*60*60*24).toISOString() },
+  { nombre: 'Mónica de la Garza', plan: 'Anual', estado: 'permitido', tiempo: new Date(Date.now() - 1000*60*60*26).toISOString() },
+  { nombre: 'Desconocido', plan: '-', estado: 'desconocido', tiempo: new Date(Date.now() - 1000*60*60*48).toISOString() },
+  { nombre: 'Diego Herrera', plan: 'Mensual', estado: 'permitido', tiempo: new Date(Date.now() - 1000*60*60*72).toISOString() },
+  { nombre: 'Desconocido', plan: '-', estado: 'ambiguo', tiempo: new Date(Date.now() - 1000*60*60*80).toISOString() }
+];
+
+// Reemplazar siempre en esta sesión para cumplir la solicitud
+localStorage.setItem('gr30_accesos', JSON.stringify(fakeEntries));
+accesosData = fakeEntries;
 
 const screenTitles = {
   dashboard: 'Dashboard.',
@@ -13,12 +26,29 @@ const screenTitles = {
   accesos:   'Accesos.',
   pagos:     'Pagos.',
   planes:    'Planes.',
+  pos:       'Tienda.',
 };
 
+const inventoryData = [
+  { id: 'p1', nombre: 'Agua Embotellada', precio: 25, stock: 120, img: 'assets/img/pos_agua.png' },
+  { id: 'p2', nombre: 'Bebida Energética', precio: 50, stock: 48, img: 'assets/img/pos_bebida.png' },
+  { id: 'p3', nombre: 'Playera Oficial GR30', precio: 350, stock: 24, img: 'assets/img/pos_playera.png' },
+  { id: 'p4', nombre: 'Barra de Proteína', precio: 45, stock: 40, img: 'assets/img/pos_snack.png' }
+];
+
+let posCart = [];
+let posSalesHistory = [];
+
 function setScreen(name) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.screen').forEach(s => {
+    s.classList.remove('block');
+    s.classList.add('hidden');
+  });
   const targetScreen = document.getElementById('screen-' + name);
-  if (targetScreen) targetScreen.classList.add('active');
+  if (targetScreen) {
+    targetScreen.classList.remove('hidden');
+    targetScreen.classList.add('block');
+  }
   
   const titleEl = document.getElementById('page-title');
   if (titleEl) titleEl.textContent = screenTitles[name] || name;
@@ -176,6 +206,7 @@ function renderAll() {
   renderPlanes();
   renderPagos();
   renderAccesos();
+  renderPOS();
 }
 
 function renderDashboardStats() {
@@ -1277,4 +1308,237 @@ window.broadcastDBUpdate = async function() {
     event: 'db_updated',
     payload: {}
   });
+};
+
+// --- POS LOGIC ---
+function renderPOS() {
+  const container = document.getElementById('pos-catalog-container');
+  if (!container) return;
+
+  const searchTermInput = document.getElementById('search-pos');
+  const searchTerm = searchTermInput ? searchTermInput.value.toLowerCase().trim() : '';
+  const filteredItems = inventoryData.filter(item => item.nombre.toLowerCase().includes(searchTerm));
+
+  if (filteredItems.length === 0) {
+    container.innerHTML = `<div class="p-8 text-center border-4 border-brand-black bg-brand-white"><p class="font-display font-bold uppercase tracking-widest text-brand-black">No se encontraron productos.</p></div>`;
+    renderCart();
+    return;
+  }
+
+  container.innerHTML = filteredItems.map(item => {
+    const agotado = item.stock <= 0;
+    const stockBajo = !agotado && item.stock <= 5;
+
+    return `
+    <div class="bg-brand-white border-4 border-brand-black flex flex-col">
+      <div class="w-full aspect-[3/4] bg-brand-white border-b-4 border-brand-black flex items-center justify-center overflow-hidden relative p-8">
+        <img src="${item.img}" alt="${item.nombre}" class="w-full ${agotado ? 'opacity-50' : ''}">
+        ${agotado ? '<div class="absolute inset-0 flex items-center justify-center bg-brand-white"><p class="font-display font-bold uppercase tracking-widest text-sm">Agotado</p></div>' : ''}
+      </div>
+      <div class="p-6 flex flex-col justify-between flex-1">
+        <h3 class="font-display font-bold uppercase tracking-widest text-lg mb-2 leading-tight">${item.nombre}</h3>
+        <div>
+          <p class="font-display font-bold text-3xl tracking-tighter mb-4">$${item.precio}</p>
+          <button
+            ${agotado ? 'disabled' : `onclick="addToCart('${item.id}')"`}
+            class="w-full text-center font-display font-bold uppercase tracking-widest px-4 py-3 text-xs focus:outline-none border-4 border-brand-black ${agotado ? 'bg-brand-white opacity-50' : 'bg-brand-black text-brand-white hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black transition-colors'}"
+          >${agotado ? 'AGOTADO' : 'Añadir'}</button>
+        </div>
+      </div>
+    </div>
+  `;
+  }).join('');
+
+  renderCart();
+  initPOSSearch();
+}
+
+function initPOSSearch() {
+  const input = document.getElementById('search-pos');
+  if (input && !input._posListenerAttached) {
+    input.addEventListener('input', renderPOS);
+    input._posListenerAttached = true;
+  }
+}
+
+window.addToCart = function(id) {
+  const product = inventoryData.find(p => p.id === id);
+  if (!product || product.stock <= 0) return;
+
+  const existingItem = posCart.find(i => i.id === id);
+  if (existingItem) {
+    if (existingItem.qty < product.stock) {
+      existingItem.qty += 1;
+    } else {
+      showToast('STOCK MÁXIMO ALCANZADO');
+      return;
+    }
+  } else {
+    posCart.push({ id: id, qty: 1 });
+  }
+  renderCart();
+};
+
+window.updateCartQty = function(id, change) {
+  const itemIndex = posCart.findIndex(i => i.id === id);
+  if (itemIndex === -1) return;
+  
+  const product = inventoryData.find(p => p.id === id);
+  const item = posCart[itemIndex];
+  
+  const newQty = item.qty + change;
+  if (newQty <= 0) {
+    posCart.splice(itemIndex, 1);
+  } else if (newQty > product.stock) {
+    showToast('STOCK MÁXIMO ALCANZADO');
+  } else {
+    item.qty = newQty;
+  }
+  renderCart();
+};
+
+window.removeFromCart = function(id) {
+  const itemIndex = posCart.findIndex(i => i.id === id);
+  if (itemIndex > -1) {
+    posCart.splice(itemIndex, 1);
+    renderCart();
+  }
+};
+
+function renderCart() {
+  const cartContainer = document.getElementById('pos-cart-container');
+  const totalEl = document.getElementById('pos-total');
+  const btnCobrar = document.getElementById('btn-cobrar-pos');
+  if (!cartContainer || !totalEl) return;
+
+  if (posCart.length === 0) {
+    cartContainer.innerHTML = `<div class="flex flex-col items-center justify-center py-12 opacity-50"><i class="ph-bold ph-shopping-cart text-5xl mb-4"></i><p class="font-display font-bold uppercase tracking-widest text-sm text-center">Carrito Vacío</p></div>`;
+    totalEl.textContent = '$0';
+    if (btnCobrar) { btnCobrar.disabled = true; btnCobrar.classList.add('opacity-50'); }
+    return;
+  }
+
+  if (btnCobrar) { btnCobrar.disabled = false; btnCobrar.classList.remove('opacity-50'); }
+
+  let total = 0;
+  cartContainer.innerHTML = posCart.map(item => {
+    const product = inventoryData.find(p => p.id === item.id);
+    const itemTotal = product.precio * item.qty;
+    total += itemTotal;
+
+    return `
+      <div class="border-4 border-brand-black p-4 bg-brand-white relative">
+        <div class="flex items-start justify-between mb-4 gap-4">
+          <p class="font-display font-bold uppercase text-sm leading-tight">${product.nombre}</p>
+          <p class="font-bold tracking-tighter text-xl">$${itemTotal}</p>
+        </div>
+        <div class="flex items-center justify-between border-t-4 border-brand-black pt-4 mt-2">
+          <div class="flex items-center gap-2 border-4 border-brand-black bg-brand-white px-2 py-1">
+            <button onclick="updateCartQty('${item.id}', -1)" class="flex items-center justify-center hover:bg-brand-black hover:text-brand-white focus:outline-none transition-colors w-8 h-8"><i class="ph-bold ph-minus text-xs"></i></button>
+            <span class="font-display font-bold text-center text-sm px-2">${item.qty}</span>
+            <button onclick="updateCartQty('${item.id}', 1)" class="flex items-center justify-center hover:bg-brand-black hover:text-brand-white focus:outline-none transition-colors w-8 h-8"><i class="ph-bold ph-plus text-xs"></i></button>
+          </div>
+          <button onclick="removeFromCart('${item.id}')" class="flex items-center justify-center bg-brand-black text-brand-white hover:bg-brand-green hover:text-brand-black focus:outline-none transition-colors w-10 h-10 flex-shrink-0" title="Eliminar">
+            <i class="ph-bold ph-x text-sm"></i>
+          </button>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  totalEl.textContent = '$' + total;
+}
+
+window.procesarVenta = function() {
+  if (posCart.length === 0) return;
+  
+  let totalVenta = 0;
+  const saleItems = [];
+  
+  // Descontar inventario
+  posCart.forEach(item => {
+    const product = inventoryData.find(p => p.id === item.id);
+    if (product) {
+      product.stock -= item.qty;
+      totalVenta += product.precio * item.qty;
+      saleItems.push({ nombre: product.nombre, qty: item.qty, subtotal: product.precio * item.qty });
+    }
+  });
+  
+  // Guardar en analíticas
+  posSalesHistory.push({
+    fecha: new Date().toISOString(),
+    total: totalVenta,
+    items: saleItems
+  });
+  
+  if (window.sysModal) {
+    window.sysModal('success', 'VENTA COMPLETADA', `Se ha registrado una venta por un total de <span class="bg-brand-black text-brand-white px-2 py-1">$${totalVenta}</span> y el inventario ha sido descontado.`).then(() => {
+      posCart = [];
+      renderPOS();
+    });
+  } else {
+    alert('Venta completada por $' + totalVenta);
+    posCart = [];
+    renderPOS();
+  }
+};
+
+window.openPOSAnalytics = function() {
+  let totalIngresos = posSalesHistory.reduce((acc, sale) => acc + sale.total, 0);
+  
+  let html = `
+    <div class="flex flex-col gap-8 text-brand-black w-full max-w-4xl mx-auto">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div class="bg-brand-black text-brand-white p-6 border-4 border-brand-black flex flex-col items-start">
+          <i class="ph-bold ph-currency-dollar text-4xl mb-4 text-brand-green"></i>
+          <p class="text-xs font-display font-bold uppercase tracking-widest mb-2">Ingresos Totales POS</p>
+          <p class="text-5xl font-display font-bold tracking-tighter">$${totalIngresos}</p>
+        </div>
+        <div class="bg-brand-white text-brand-black p-6 border-4 border-brand-black flex flex-col items-start">
+          <i class="ph-bold ph-receipt text-4xl mb-4"></i>
+          <p class="text-xs font-display font-bold uppercase tracking-widest mb-2">Ventas Realizadas</p>
+          <p class="text-5xl font-display font-bold tracking-tighter">${posSalesHistory.length}</p>
+        </div>
+      </div>
+      
+      <div>
+        <h3 class="font-display font-bold uppercase tracking-widest text-xl mb-4">Estado de Inventario</h3>
+        <div class="overflow-x-auto border-4 border-brand-black bg-brand-white">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="bg-brand-black text-brand-white">
+                <th class="p-4 font-display font-bold text-sm uppercase tracking-widest">Producto</th>
+                <th class="p-4 font-display font-bold text-sm uppercase tracking-widest text-right">Stock Disponible</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${inventoryData.map(p => `
+                <tr class="border-b-4 border-brand-black last:border-b-0">
+                  <td class="p-4 font-bold uppercase">${p.nombre}</td>
+                  <td class="p-4 text-right">
+                    <span class="inline-block px-3 py-1 border-4 border-brand-black font-display font-bold text-lg ${p.stock <= 5 ? 'bg-brand-black text-brand-white' : 'bg-brand-white'}">
+                      ${p.stock}
+                    </span>
+                  </td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <button type="button" onclick="closeModal()" class="w-full sm:w-auto px-8 py-4 font-display font-bold uppercase tracking-widest text-sm border-4 border-brand-black bg-brand-black text-brand-white hover:bg-brand-green hover:text-brand-black transition-colors focus:outline-none">Cerrar Analíticas</button>
+    </div>
+  `;
+  
+  if (window.sysModal) {
+    document.getElementById('modal-title').textContent = 'Analíticas y Stock POS.';
+    document.getElementById('modal-body').innerHTML = html;
+    const overlay = document.getElementById('modal-overlay');
+    overlay.classList.remove('hidden');
+    overlay.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+  } else {
+    alert("Analíticas: Ingresos $" + totalIngresos);
+  }
 };

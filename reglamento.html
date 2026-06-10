@@ -21,7 +21,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
 
 </head>
-<body class="bg-brand-white font-sans antialiased selection:bg-brand-green selection:text-brand-black text-brand-black min-h-[100svh] overflow-x-hidden">
+<body class="bg-brand-white font-sans antialiased selection:bg-brand-green selection:text-brand-black text-brand-black min-h-[100svh] flex flex-col overflow-x-hidden">
 
 <header class="fixed top-0 left-0 w-full bg-brand-white border-b-4 border-brand-black flex items-center justify-between px-6 lg:px-12 py-5 z-[60]" id="mainHeader">
   <a href="index.html" class="text-3xl font-display font-bold tracking-tighter uppercase flex items-center gap-3 group focus:outline-none" aria-label="Inicio">
@@ -33,17 +33,17 @@
 
   <nav class="hidden lg:flex items-center gap-8 xl:gap-12">
     <a href="index.html" class="font-display font-bold text-sm tracking-widest uppercase text-brand-black hover:underline focus:underline focus:outline-none decoration-4 decoration-brand-green underline-offset-4">Inicio</a>
-    <a href="#servicios" class="font-display font-bold text-sm tracking-widest uppercase text-brand-black hover:underline focus:underline focus:outline-none decoration-4 decoration-brand-green underline-offset-4">Servicios</a>
-    <a href="#entrenadores" class="font-display font-bold text-sm tracking-widest uppercase text-brand-black hover:underline focus:underline focus:outline-none decoration-4 decoration-brand-green underline-offset-4">Staff</a>
-    <a href="#resenas" class="font-display font-bold text-sm tracking-widest uppercase text-brand-black hover:underline focus:underline focus:outline-none decoration-4 decoration-brand-green underline-offset-4">Reseñas</a>
-    <a href="#planes" class="font-display font-bold text-sm tracking-widest uppercase text-brand-black hover:underline focus:underline focus:outline-none decoration-4 decoration-brand-green underline-offset-4">Planes</a>
+    <a href="index.html#servicios" class="font-display font-bold text-sm tracking-widest uppercase text-brand-black hover:underline focus:underline focus:outline-none decoration-4 decoration-brand-green underline-offset-4">Servicios</a>
+    <a href="index.html#entrenadores" class="font-display font-bold text-sm tracking-widest uppercase text-brand-black hover:underline focus:underline focus:outline-none decoration-4 decoration-brand-green underline-offset-4">Staff</a>
+    <a href="index.html#resenas" class="font-display font-bold text-sm tracking-widest uppercase text-brand-black hover:underline focus:underline focus:outline-none decoration-4 decoration-brand-green underline-offset-4">Reseñas</a>
+    <a href="index.html#planes" class="font-display font-bold text-sm tracking-widest uppercase text-brand-black hover:underline focus:underline focus:outline-none decoration-4 decoration-brand-green underline-offset-4">Planes</a>
   </nav>
 
   <div class="flex items-center gap-4 sm:gap-6">
     <a href="login.html" class="hidden sm:inline-block font-display font-bold text-xs xl:text-sm tracking-widest uppercase text-brand-black hover:underline focus:underline focus:outline-none decoration-4 decoration-brand-green underline-offset-4">
       Iniciar Sesión
     </a>
-    <a href="#contacto" class="hidden sm:inline-block bg-brand-green text-brand-black font-display font-bold text-xs xl:text-sm tracking-widest uppercase px-6 py-3 hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white focus:outline-none active:bg-brand-black active:text-brand-white transition-colors">
+    <a href="index.html#contacto" class="hidden sm:inline-block bg-brand-green text-brand-black font-display font-bold text-xs xl:text-sm tracking-widest uppercase px-6 py-3 hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white focus:outline-none active:bg-brand-black active:text-brand-white transition-colors">
       Únete Ahora
     </a>
     
@@ -52,6 +52,19 @@
     </button>
   </div>
 </header>
+
+<div id="mobileMenu" aria-hidden="true" class="fixed inset-0 bg-brand-black invisible flex flex-col px-8 sm:px-12 overflow-y-auto pt-24 pb-12 z-[55]">
+  <nav class="flex flex-col gap-6 sm:gap-8">
+    <a href="index.html" class="mobile-link text-5xl sm:text-6xl font-display font-bold tracking-tighter text-brand-white hover:text-brand-green focus:text-brand-green focus:outline-none active:text-brand-green transition-colors w-max">INICIO</a>
+    <a href="index.html#servicios" class="mobile-link text-5xl sm:text-6xl font-display font-bold tracking-tighter text-brand-white hover:text-brand-green focus:text-brand-green focus:outline-none active:text-brand-green transition-colors w-max">SERVICIOS</a>
+    <a href="index.html#entrenadores" class="mobile-link text-5xl sm:text-6xl font-display font-bold tracking-tighter text-brand-white hover:text-brand-green focus:text-brand-green focus:outline-none active:text-brand-green transition-colors w-max">STAFF</a>
+    <a href="index.html#resenas" class="mobile-link text-5xl sm:text-6xl font-display font-bold tracking-tighter text-brand-white hover:text-brand-green focus:text-brand-green focus:outline-none active:text-brand-green transition-colors w-max">RESEÑAS</a>
+    <a href="index.html#planes" class="mobile-link text-5xl sm:text-6xl font-display font-bold tracking-tighter text-brand-white hover:text-brand-green focus:text-brand-green focus:outline-none active:text-brand-green transition-colors w-max">PLANES</a>
+    <a href="login.html" class="mobile-link text-5xl sm:text-6xl font-display font-bold tracking-tighter text-brand-white hover:text-brand-green focus:text-brand-green focus:outline-none active:text-brand-green transition-colors w-max">INICIAR SESIÓN</a>
+    <a href="index.html#contacto" class="mobile-link text-5xl sm:text-6xl font-display font-bold tracking-tighter text-brand-green hover:text-brand-white focus:text-brand-white focus:outline-none active:text-brand-white transition-colors mt-6 sm:mt-8 w-max">CONTACTO</a>
+  </nav>
+</div>
+
 <main class="flex-1 px-6 lg:px-12 pb-24 pt-48 max-w-4xl mx-auto w-full flex flex-col gap-12">
 <h1 class="text-5xl lg:text-7xl font-display font-bold uppercase tracking-tighter text-brand-black border-b-4 border-brand-black pb-8">Reglamento del Gimnasio.</h1>
 <div class="font-medium text-lg leading-relaxed space-y-12">
@@ -105,5 +118,55 @@
       <a href="index.html" class="bg-brand-white text-brand-black px-6 py-3 font-bold text-xs xl:text-sm uppercase tracking-widest hover:bg-brand-green hover:text-brand-black transition-colors focus:outline-none focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center gap-2">Volver arriba <i class="ph-bold ph-arrow-up text-lg"></i></a>
     </div>
   </footer>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+    const header = document.getElementById('mainHeader');
+    ScrollTrigger.create({
+      start: "top -50",
+      end: "max",
+      onUpdate: (self) => {
+        if (self.direction === 1) {
+          gsap.to(header, { yPercent: -100, duration: 0.3, ease: "power2.out", overwrite: true });
+        } else {
+          gsap.to(header, { yPercent: 0, duration: 0.3, ease: "power2.out", overwrite: true });
+        }
+      }
+    });
+
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+    let menuOpen = false;
+
+    if (mobileMenu && menuBtn) {
+      gsap.set(mobileMenu, { xPercent: 100, autoAlpha: 1 });
+      const tlMenu = gsap.timeline({ paused: true, defaults: { ease: "power4.inOut" } });
+      tlMenu.to(mobileMenu, { xPercent: 0, duration: 0.5 })
+            .fromTo(mobileLinks, { x: -30, autoAlpha: 0 }, { x: 0, autoAlpha: 1, stagger: 0.05, duration: 0.4 }, "-=0.3");
+
+      function toggleMenu() {
+        menuOpen = !menuOpen;
+        menuBtn.setAttribute('aria-expanded', menuOpen);
+        const menuIcon = document.getElementById('menuIcon');
+        if (menuOpen) {
+          mobileMenu.setAttribute('aria-hidden', 'false');
+          document.querySelector('main').setAttribute('inert', '');
+          menuIcon.className = "ph-bold ph-x text-3xl";
+          tlMenu.play();
+          document.body.style.overflow = 'hidden';
+        } else {
+          mobileMenu.setAttribute('aria-hidden', 'true');
+          document.querySelector('main').removeAttribute('inert');
+          menuIcon.className = "ph-bold ph-list text-3xl";
+          tlMenu.reverse();
+          document.body.style.overflow = '';
+        }
+      }
+
+      menuBtn.addEventListener('click', toggleMenu);
+    }
+  </script>
 </body>
 </html>

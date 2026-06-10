@@ -21,14 +21,14 @@ async function run() {
   console.log("Inyectando miembros de demostración...");
 
   const dummyMembers = [
-    { nombre: 'Héctor Miguel Velázquez', telefono: '5511223344', plan: 'Anual', password: '123', activo: true },
-    { nombre: 'Valeria Gómez Ruiz', telefono: '5522334455', plan: 'Mensual', password: '123', activo: true },
-    { nombre: 'Ricardo Tamez', telefono: '5533445566', plan: 'Mensual', password: '123', activo: true },
-    { nombre: 'Ana Karen Silva', telefono: '5544556677', plan: 'Mensual', password: '123', activo: true },
-    { nombre: 'Luis Fernando Castro', telefono: '5555667788', plan: 'Visita Diaria', password: '123', activo: true },
-    { nombre: 'Mónica de la Garza', telefono: '5566778899', plan: 'Anual', password: '123', activo: true },
-    { nombre: 'Jorge Alberto Soto', telefono: '5577889900', plan: 'Mensual', password: '123', activo: false }, // Suspendido manualmente
-    { nombre: 'Diego Herrera', telefono: '5588990011', plan: 'Mensual', password: '123', activo: true }
+    { nombre: 'Héctor Miguel Velázquez', telefono: '5511223344', plan: 'Anual', password: 'HVelazquez2024!', activo: true },
+    { nombre: 'Valeria Gómez Ruiz', telefono: '5522334455', plan: 'Mensual', password: 'ValeriaG_88', activo: true },
+    { nombre: 'Ricardo Tamez', telefono: '5533445566', plan: 'Mensual', password: 'RTamez$990', activo: true },
+    { nombre: 'Ana Karen Silva', telefono: '5544556677', plan: 'Mensual', password: 'AnaK.Silva!', activo: true },
+    { nombre: 'Luis Fernando Castro', telefono: '5555667788', plan: 'Visita Diaria', password: 'LuisF.Castro*', activo: true },
+    { nombre: 'Mónica de la Garza', telefono: '5566778899', plan: 'Anual', password: 'MoniGarza#1', activo: true },
+    { nombre: 'Jorge Alberto Soto', telefono: '5577889900', plan: 'Mensual', password: 'JSoto_2025', activo: false }, // Suspendido manualmente
+    { nombre: 'Diego Herrera', telefono: '5588990011', plan: 'Mensual', password: 'DiegoH_Pass!', activo: true }
   ];
 
   const { data: insertedMembers, error: insertErr } = await supabase

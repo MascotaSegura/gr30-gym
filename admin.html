@@ -12,11 +12,7 @@
 <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png">
 <script src="https://unpkg.com/@phosphor-icons/web"></script>
-<style>
-  /* ===== PANTALLAS ===== */
-  .screen { display: none; }
-  .screen.active { display: block; }
-</style>
+
 <script>
     if (localStorage.getItem('gr30_admin_token') !== 'SECURE_ADMIN_GRANTED') {
       window.location.href = 'login.html';
@@ -50,6 +46,7 @@
     <button data-screen="accesos" class="nav-btn w-full text-left px-6 py-4 border-4 border-transparent hover:border-brand-black font-display font-bold text-sm tracking-widest uppercase transition-colors focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center gap-3"><i class="ph-bold ph-door text-xl"></i> Accesos</button>
     <button data-screen="pagos" class="nav-btn w-full text-left px-6 py-4 border-4 border-transparent hover:border-brand-black font-display font-bold text-sm tracking-widest uppercase transition-colors focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center gap-3"><i class="ph-bold ph-currency-dollar text-xl"></i> Pagos</button>
     <button data-screen="planes" class="nav-btn w-full text-left px-6 py-4 border-4 border-transparent hover:border-brand-black font-display font-bold text-sm tracking-widest uppercase transition-colors focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center gap-3"><i class="ph-bold ph-clipboard-text text-xl"></i> Planes</button>
+    <button data-screen="pos" class="nav-btn w-full text-left px-6 py-4 border-4 border-transparent hover:border-brand-black font-display font-bold text-sm tracking-widest uppercase transition-colors focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center gap-3"><i class="ph-bold ph-shopping-cart text-xl"></i> Tienda</button>
     <div class="mt-auto pt-6 flex flex-col gap-4">
       <a href="kiosco.html" target="_blank" class="w-full text-left px-6 py-4 border-4 border-brand-black font-display font-bold text-sm tracking-widest uppercase transition-colors focus:outline-none bg-brand-black text-brand-white hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center justify-between gap-3">
         Kiosco <i class="ph-bold ph-arrow-square-out text-xl"></i>
@@ -76,7 +73,7 @@
   </header>
 
 
-  <div id="screen-dashboard" class="screen active p-6 lg:p-12">
+  <div id="screen-dashboard" class="screen block p-6 lg:p-12">
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
       <div class="bg-brand-white text-brand-black border-4 border-brand-black p-8 hover:bg-brand-black hover:text-brand-white group transition-colors flex flex-col items-start">
@@ -150,7 +147,7 @@
   </div>
 
 
-  <div id="screen-staff" class="screen p-6 lg:p-12">
+  <div id="screen-staff" class="screen hidden p-6 lg:p-12">
     <div class="bg-brand-white  ">
       <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-6">
         <h2 class="text-4xl font-display font-bold uppercase tracking-tighter text-brand-black">Staff Registrado.</h2>
@@ -177,7 +174,7 @@
   </div>
 
 
-  <div id="screen-miembros" class="screen p-6 lg:p-12">
+  <div id="screen-miembros" class="screen hidden p-6 lg:p-12">
     <div class="bg-brand-white  ">
       <div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-6 gap-6">
         <div class="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
@@ -211,7 +208,7 @@
   </div>
 
 
-  <div id="screen-pagos" class="screen p-6 lg:p-12">
+  <div id="screen-pagos" class="screen hidden p-6 lg:p-12">
     <div class="bg-brand-white">
       <div class="flex flex-col md:flex-row items-start md:items-center justify-end mb-6 gap-6">
         <div class="flex items-center w-full md:w-80 bg-brand-white border-4 border-brand-black focus-within:bg-brand-green transition-colors group">
@@ -257,7 +254,7 @@
   </div>
 
 
-  <div id="screen-planes" class="screen p-6 lg:p-12">
+  <div id="screen-planes" class="screen hidden p-6 lg:p-12">
     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 sm:mb-12 gap-6">
       <h2 class="text-4xl sm:text-5xl font-display font-bold uppercase tracking-tighter text-brand-black flex items-center gap-3"><i class="ph-bold ph-clipboard-text"></i> Planes Disponibles</h2>
       <button onclick="openModal('plan-form', null)" class="w-full sm:w-auto text-center bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors flex items-center justify-center gap-2 flex-shrink-0">
@@ -269,7 +266,7 @@
     </div>
   </div>
 
-  <div id="screen-accesos" class="screen p-6 lg:p-12">
+  <div id="screen-accesos" class="screen hidden p-6 lg:p-12">
     <div class="bg-brand-white">
       <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-6">
         <h2 class="text-4xl font-display font-bold uppercase tracking-tighter text-brand-black flex items-center gap-3"><i class="ph-bold ph-door"></i> Registro de Entradas</h2>
@@ -295,6 +292,52 @@
             </tr>
           </tbody>
         </table>
+      </div>
+    </div>
+  </div>
+
+  <div id="screen-pos" class="screen hidden p-6 lg:p-12">
+    <div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-6">
+      <h2 class="text-3xl font-display font-bold uppercase tracking-tighter">Punto de Venta</h2>
+      <button onclick="openPOSAnalytics()" class="bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-6 py-4 text-xs hover:bg-brand-green hover:text-brand-black focus:outline-none transition-colors border-4 border-brand-black flex items-center gap-2">
+        <i class="ph-bold ph-chart-bar text-xl"></i> Analíticas y Stock
+      </button>
+    </div>
+
+    <div class="flex flex-col lg:flex-row gap-8 w-full items-start">
+      <!-- Catálogo -->
+      <div class="flex-1 w-full flex flex-col gap-8 min-w-0">
+        <div class="flex items-center w-full bg-brand-white border-4 border-brand-black focus-within:bg-brand-green transition-colors group">
+          <div class="pl-4 pr-2 flex items-center justify-center pointer-events-none text-brand-black/50 group-focus-within:text-brand-black transition-colors">
+            <i class="ph-bold ph-magnifying-glass text-xl"></i>
+          </div>
+          <input type="text" id="search-pos" placeholder="BUSCAR PRODUCTO..." class="block w-full py-4 pr-4 bg-transparent text-brand-black font-display font-bold tracking-wide focus:outline-none placeholder:text-brand-black/50 placeholder:uppercase text-sm">
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6" id="pos-catalog-container">
+          <!-- poblado por JS -->
+        </div>
+      </div>
+
+      <!-- Carrito -->
+      <div id="pos-cart-panel" class="bg-brand-white border-4 border-brand-black flex flex-col overflow-hidden w-full md:w-80 flex-shrink-0 sticky top-6 max-h-[calc(100dvh-88px)]">
+        <div class="bg-brand-black text-brand-white p-6 border-b-4 border-brand-black">
+          <h3 class="font-display font-bold uppercase tracking-widest text-xl">Ticket Actual</h3>
+        </div>
+
+        <div class="p-6 flex flex-col gap-4 overflow-y-auto flex-1" id="pos-cart-container">
+          <!-- Items del carrito -->
+        </div>
+
+        <div class="p-6 bg-brand-white border-t-4 border-brand-black flex flex-col gap-4">
+          <div class="flex justify-between items-end mb-2">
+            <span class="font-display font-bold uppercase tracking-widest text-sm">Total</span>
+            <span id="pos-total" class="font-display font-bold text-4xl tracking-tighter text-brand-black">$0</span>
+          </div>
+          <button onclick="procesarVenta()" id="btn-cobrar-pos" class="w-full text-center bg-brand-green text-brand-black font-display font-bold uppercase tracking-widest px-6 py-5 text-sm hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white active:bg-brand-black active:text-brand-white transition-colors focus:outline-none border-4 border-brand-black flex justify-center items-center gap-2">
+            <i class="ph-bold ph-check-circle text-xl"></i> Procesar Venta
+          </button>
+        </div>
       </div>
     </div>
   </div>

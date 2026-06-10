@@ -213,6 +213,9 @@
       if (video.srcObject) {
         video.srcObject.getTracks().forEach(t => t.stop());
       }
+      if (document.fullscreenElement) {
+        document.exitFullscreen().catch(console.error);
+      }
       window.setScreen('activation');
     }
 
@@ -431,6 +434,9 @@
       e.preventDefault();
       const pass = document.getElementById('act-pass').value;
       if (pass === 'admin') {
+        if (document.documentElement.requestFullscreen) {
+          document.documentElement.requestFullscreen().catch(console.error);
+        }
         const btn = e.target.querySelector('button[type="submit"]');
         btn.textContent = 'CARGANDO BASE DE DATOS...';
         btn.disabled = true;
@@ -469,7 +475,7 @@
       const msg = document.getElementById("kiosk-msg");
       
       // Corrección de visibilidad de banner (Tailwind classes)
-      banner.className = "absolute bottom-0 left-0 w-full bg-brand-white border-t-4 border-brand-black p-6 sm:p-8 flex flex-col items-center justify-center transition-all duration-300 transform translate-y-full opacity-0";
+      banner.className = "absolute bottom-0 left-0 w-full bg-brand-white border-t-4 border-brand-black p-6 sm:p-8 flex flex-col items-center justify-center transition-all duration-300 transform translate-y-full opacity-0 z-30";
       // Forzar reflow para CSS transitions
       void banner.offsetWidth;
       banner.classList.remove("translate-y-full", "opacity-0");
