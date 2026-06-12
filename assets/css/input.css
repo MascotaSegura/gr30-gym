@@ -62,7 +62,7 @@ details > summary::-webkit-details-marker {
 .staff-carousel::after {
   content: '';
   display: block;
-  min-width: 0.1px; /* Fallback for browsers that collapse 0-width items */
+  min-width: 0.1px;
   width: 0; 
   flex-shrink: 0;
 }

@@ -4,20 +4,52 @@ let membersData = [];
 let planesData = [];
 let accesosData = [];
 
-const fakeEntries = [
-  { nombre: 'Héctor Miguel Velázquez', plan: 'Anual', estado: 'permitido', tiempo: new Date(Date.now() - 1000*60*30).toISOString() },
-  { nombre: 'Valeria Gómez Ruiz', plan: 'Mensual', estado: 'permitido', tiempo: new Date(Date.now() - 1000*60*120).toISOString() },
-  { nombre: 'Ricardo Tamez', plan: 'Mensual', estado: 'denegado', tiempo: new Date(Date.now() - 1000*60*60*5).toISOString() },
-  { nombre: 'Ana Karen Silva', plan: 'Mensual', estado: 'denegado', tiempo: new Date(Date.now() - 1000*60*60*24).toISOString() },
-  { nombre: 'Mónica de la Garza', plan: 'Anual', estado: 'permitido', tiempo: new Date(Date.now() - 1000*60*60*26).toISOString() },
-  { nombre: 'Desconocido', plan: '-', estado: 'desconocido', tiempo: new Date(Date.now() - 1000*60*60*48).toISOString() },
-  { nombre: 'Diego Herrera', plan: 'Mensual', estado: 'permitido', tiempo: new Date(Date.now() - 1000*60*60*72).toISOString() },
-  { nombre: 'Desconocido', plan: '-', estado: 'ambiguo', tiempo: new Date(Date.now() - 1000*60*60*80).toISOString() }
+const inputCls = 'w-full bg-brand-white text-brand-black border-4 border-brand-black px-4 py-4 sm:px-6 sm:py-5 text-lg sm:text-xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green placeholder:text-brand-black/50 placeholder:uppercase transition-all';
+const selectCls = 'w-full bg-brand-white text-brand-black border-4 border-brand-black px-4 py-4 sm:px-6 sm:py-5 pr-12 sm:pr-14 text-lg sm:text-xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green cursor-pointer transition-all appearance-none';
+const labelCls = 'block font-display font-bold uppercase tracking-widest text-xs sm:text-sm text-brand-black mb-2';
+const saveBtnCls = 'w-full sm:w-auto px-8 py-4 font-display font-bold uppercase tracking-widest text-sm border-4 border-brand-black bg-brand-black text-brand-white hover:bg-brand-green hover:border-brand-green hover:text-brand-black focus:bg-brand-green focus:border-brand-green focus:text-brand-black active:bg-brand-green active:border-brand-green active:text-brand-black transition-colors focus:outline-none';
+const cancelBtnCls = 'w-full sm:w-auto px-8 py-4 font-display font-bold uppercase tracking-widest text-sm border-4 border-brand-black bg-brand-white text-brand-black hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white active:bg-brand-black active:text-brand-white transition-colors focus:outline-none';
+const deleteBtnCls = 'w-full sm:w-auto px-8 py-4 font-display font-bold uppercase tracking-widest text-sm border-4 border-brand-black bg-brand-black text-brand-white hover:bg-brand-white hover:border-brand-black hover:text-brand-black focus:bg-brand-white focus:border-brand-black focus:text-brand-black active:bg-brand-white active:border-brand-black active:text-brand-black transition-colors focus:outline-none';
+
+
+const isSeeded = localStorage.getItem('gr30_v3_seeded');
+
+const realNames = [
+  'Alejandro García', 'Fernando Martínez', 'Roberto López', 'Mateo González', 'Sebastián Pérez', 
+  'Nicolás Rodríguez', 'Hugo Sánchez', 'Diego Ramírez', 'Gabriel Cruz', 'Tomás Gómez', 
+  'Sofía Valentina', 'Camila Isabella', 'Valeria Daniela', 'Mariana Renata', 'Natalia Regina'
 ];
 
-// Reemplazar siempre en esta sesión para cumplir la solicitud
-localStorage.setItem('gr30_accesos', JSON.stringify(fakeEntries));
-accesosData = fakeEntries;
+let generatedAccesos = [];
+if (!isSeeded) {
+
+  const now = new Date();
+  for (let i = 0; i < 100; i++) {
+    const randomTime = new Date(now.getTime() - Math.random() * (48 * 60 * 60 * 1000));
+
+    const name = realNames[Math.floor(Math.random() * realNames.length)];
+    const plan = Math.random() > 0.3 ? 'Mensualidad Básica' : 'Anualidad Elite';
+    
+
+    const hour = randomTime.getHours();
+    let isPeak = (hour >= 6 && hour <= 9) || (hour >= 17 && hour <= 21);
+
+    if (!isPeak && Math.random() > 0.3) continue;
+
+    generatedAccesos.push({
+      nombre: name,
+      plan: plan,
+      estado: Math.random() > 0.05 ? 'permitido' : 'denegado',
+      tiempo: randomTime.toISOString()
+    });
+  }
+  generatedAccesos.sort((a, b) => new Date(b.tiempo) - new Date(a.tiempo));
+  localStorage.setItem('gr30_accesos', JSON.stringify(generatedAccesos));
+} else {
+  generatedAccesos = JSON.parse(localStorage.getItem('gr30_accesos')) || [];
+}
+
+accesosData = generatedAccesos;
 
 const screenTitles = {
   dashboard: 'Dashboard.',
@@ -27,17 +59,90 @@ const screenTitles = {
   pagos:     'Pagos.',
   planes:    'Planes.',
   pos:       'Tienda.',
+  inventario:'Inventario.',
 };
 
-const inventoryData = [
-  { id: 'p1', nombre: 'Agua Embotellada', precio: 25, stock: 120, img: 'assets/img/pos_agua.png' },
-  { id: 'p2', nombre: 'Bebida Energética', precio: 50, stock: 48, img: 'assets/img/pos_bebida.png' },
-  { id: 'p3', nombre: 'Playera Oficial GR30', precio: 350, stock: 24, img: 'assets/img/pos_playera.png' },
-  { id: 'p4', nombre: 'Barra de Proteína', precio: 45, stock: 40, img: 'assets/img/pos_snack.png' }
+const realisticInventory = [
+  { id: 'p1', nombre: 'Agua Epura 1L', precio: 25, stock: 45, img: 'assets/img/pos_agua.png', barcode: '7501000000001' },
+  { id: 'p2', nombre: 'Agua Epura 600ml', precio: 15, stock: 82, img: 'assets/img/pos_agua.png', barcode: '7501000000002' },
+  { id: 'p3', nombre: 'Monster Energy 473ml', precio: 50, stock: 18, img: 'assets/img/pos_bebida.png', barcode: '7501000000003' },
+  { id: 'p4', nombre: 'Red Bull 250ml', precio: 45, stock: 30, img: 'assets/img/pos_bebida.png', barcode: '7501000000004' },
+  { id: 'p5', nombre: 'Playera Entrenamiento L', precio: 350, stock: 5, img: 'assets/img/pos_playera.png', barcode: '7501000000005' },
+  { id: 'p6', nombre: 'Playera Entrenamiento M', precio: 350, stock: 8, img: 'assets/img/pos_playera.png', barcode: '7501000000006' },
+  { id: 'p7', nombre: 'Quest Bar Chocolate', precio: 65, stock: 24, img: 'assets/img/pos_snack.png', barcode: '7501000000007' },
+  { id: 'p8', nombre: 'One Bar Peanut Butter', precio: 70, stock: 12, img: 'assets/img/pos_snack.png', barcode: '7501000000008' },
+  { id: 'p9', nombre: 'Toalla Microfibra', precio: 120, stock: 15, img: 'assets/img/pos_toalla.png', barcode: '7501000000009' },
+  { id: 'p10', nombre: 'Candado Master Lock', precio: 150, stock: 3, img: 'assets/img/pos_candado.png', barcode: '7501000000010' }
 ];
+
+let inventoryData = [];
+function loadInventory() {
+  if (!isSeeded) {
+    inventoryData = JSON.parse(JSON.stringify(realisticInventory));
+    saveInventory();
+  } else {
+    const saved = localStorage.getItem('gr30_inventory');
+    if (saved) {
+      inventoryData = JSON.parse(saved);
+    } else {
+      inventoryData = JSON.parse(JSON.stringify(realisticInventory));
+      saveInventory();
+    }
+  }
+}
+
+function saveInventory() {
+  localStorage.setItem('gr30_inventory', JSON.stringify(inventoryData));
+}
+
+loadInventory();
 
 let posCart = [];
 let posSalesHistory = [];
+
+if (!isSeeded) {
+
+  const now = new Date();
+  for (let i = 0; i < 30; i++) {
+    const randomTime = new Date(now.getTime() - Math.random() * (48 * 60 * 60 * 1000));
+
+    const numItems = Math.floor(Math.random() * 3) + 1;
+    let saleTotal = 0;
+    const saleItems = [];
+    for (let j = 0; j < numItems; j++) {
+      const p = realisticInventory[Math.floor(Math.random() * realisticInventory.length)];
+      saleItems.push({ id: p.id, nombre: p.nombre, qty: 1, precio: p.precio });
+      saleTotal += p.precio;
+    }
+    posSalesHistory.push({
+      fecha: randomTime.toISOString(),
+      total: saleTotal,
+      items: saleItems
+    });
+  }
+  localStorage.setItem('gr30_pos_history', JSON.stringify(posSalesHistory));
+  localStorage.setItem('gr30_v3_seeded', 'true');
+} else {
+  posSalesHistory = JSON.parse(localStorage.getItem('gr30_pos_history')) || [];
+}
+window.toggleMobileMenu = function() {
+  const nav = document.getElementById('sidebar-nav');
+  const icon = document.getElementById('adminMenuIcon');
+  const btn = document.getElementById('mobileMenuBtn');
+  if (nav.classList.contains('hidden')) {
+    nav.classList.remove('hidden');
+    nav.classList.add('flex');
+    icon.classList.remove('ph-list');
+    icon.classList.add('ph-x');
+    btn.setAttribute('aria-expanded', 'true');
+  } else {
+    nav.classList.add('hidden');
+    nav.classList.remove('flex');
+    icon.classList.remove('ph-x');
+    icon.classList.add('ph-list');
+    btn.setAttribute('aria-expanded', 'false');
+  }
+};
 
 function setScreen(name) {
   document.querySelectorAll('.screen').forEach(s => {
@@ -90,20 +195,74 @@ document.getElementById('mobileMenuBtn').addEventListener('click', function() {
   }
 });
 
-setScreen('dashboard');
+let barcodeBuffer = '';
+let barcodeTimeout;
 
-function escapeHTML(str) {
-  if (!str) return '';
-  return String(str).replace(/[&<>'"]/g, 
-    tag => ({
-      '&': '&amp;',
-      '<': '&lt;',
-      '>': '&gt;',
-      "'": '&#39;',
-      '"': '&quot;'
-    }[tag] || tag)
-  );
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+    if (e.target.id !== 'assign-barcode-input' && e.target.id !== 'search-pos' && e.target.id !== 'inventory-search') return;
+  }
+  
+  if (e.key === 'Enter') {
+    if (barcodeBuffer.length >= 3) {
+      handleBarcodeScan(barcodeBuffer);
+      e.preventDefault(); 
+    }
+    barcodeBuffer = '';
+  } else if (e.key.length === 1) {
+    barcodeBuffer += e.key;
+    clearTimeout(barcodeTimeout);
+    barcodeTimeout = setTimeout(() => { barcodeBuffer = ''; }, 50);
+  }
+});
+
+function handleBarcodeScan(code) {
+  if (document.getElementById('modal-overlay') && !document.getElementById('modal-overlay').classList.contains('hidden')) {
+    if (currentModalType === 'assign-barcode') {
+      const input = document.getElementById('assign-barcode-input');
+      if (input) input.value = code;
+      return;
+    }
+  }
+
+  const product = inventoryData.find(p => p.barcode === code);
+  
+  if (product) {
+    const screenInv = document.getElementById('screen-inventario');
+    if (screenInv && !screenInv.classList.contains('hidden')) {
+      updateStock(product.id, 1);
+      showScannerFlash('+1 ' + product.nombre, 'success');
+      return;
+    }
+    
+    addToCart(product.id);
+    setScreen('pos');
+    showScannerFlash('AGREGADO: ' + product.nombre, 'success');
+  } else {
+    showScannerFlash('CÓDIGO DESCONOCIDO: ' + code, 'error');
+    sysModal('confirm', 'CÓDIGO NO ENCONTRADO', `El código escaneado (${code}) no pertenece a ningún producto. ¿Deseas asignarlo ahora?`).then(confirmed => {
+      if (confirmed) {
+        setScreen('pos');
+        openModal('assign-barcode', code);
+      }
+    });
+  }
 }
+
+function showScannerFlash(msg, type) {
+  const flash = document.createElement('div');
+  flash.className = `fixed top-0 left-0 w-full p-6 text-center font-display font-bold uppercase tracking-widest text-xl sm:text-2xl z-[9999999] transition-all duration-300 transform -translate-y-full ${type === 'success' ? 'bg-brand-green text-brand-black' : 'bg-brand-black text-brand-white'}`;
+  flash.innerText = msg;
+  document.body.appendChild(flash);
+  
+  setTimeout(() => flash.classList.remove('-translate-y-full'), 10);
+  
+  setTimeout(() => {
+    flash.classList.add('-translate-y-full');
+    setTimeout(() => flash.remove(), 300);
+  }, 2000);
+}
+
 
 async function fetchData() {
   try {
@@ -138,7 +297,7 @@ async function fetchData() {
           
           fechaVenc = lastDate.toISOString().split('T')[0];
           
-          // Calcular estado de pago
+         
           const hoy = new Date().toISOString().split('T')[0];
           if (fechaVenc < hoy) {
             estado_pago = 'atrasado';
@@ -150,12 +309,12 @@ async function fetchData() {
       });
     }
     
-    // Conectar Kiosco (Supabase Realtime)
+   
     const channel = window.supabaseClient.channel('public:accesos');
     channel.on('broadcast', { event: 'acceso' }, (payload) => {
       const log = payload.payload;
       accesosData.unshift(log);
-      if (accesosData.length > 50) accesosData.pop(); // Mantener buffer limpio
+      if (accesosData.length > 50) accesosData.pop();
       localStorage.setItem('gr30_accesos', JSON.stringify(accesosData));
       renderAccesos();
       
@@ -168,7 +327,7 @@ async function fetchData() {
       if (window.sysModal) window.sysModal('success', 'ÉXITO', 'El Kiosco ha enrolado el rostro correctamente.');
       const m = membersData.find(x => x.id === id);
       if (m) {
-        m.biometria = ['enrolado']; // Para que pase la validación length > 0
+        m.biometria = ['enrolado'];
         renderAll();
         if (currentModalType === 'member-edit' && currentModalId === id) {
           openModal('member-edit', id);
@@ -190,9 +349,6 @@ async function fetchData() {
   }
 }
 
-fetchData();
-
-
 
 function statusBadge(estadoPago) {
   if (estadoPago === 'al_dia') return '<span class="bg-brand-green text-brand-black font-display font-bold uppercase tracking-widest text-xs px-2 py-1 inline-block border-4 border-brand-green">Al Día</span>';
@@ -207,6 +363,8 @@ function renderAll() {
   renderPagos();
   renderAccesos();
   renderPOS();
+  renderInventoryStats();
+  filterInventoryList(document.getElementById('inventory-search') ? document.getElementById('inventory-search').value : '');
 }
 
 function renderDashboardStats() {
@@ -232,11 +390,46 @@ function renderDashboardStats() {
     });
     statIngresos.textContent = '$' + (ingresos > 999 ? (ingresos/1000).toFixed(1) + 'k' : ingresos);
   }
-}
 
-// Búsqueda en tiempo real
-document.getElementById('search-miembros').addEventListener('input', renderTables);
-document.getElementById('search-pagos').addEventListener('input', renderPagos);
+  const statAfluencia = document.getElementById('stat-afluencia');
+  const statHoraPico = document.getElementById('stat-horapico');
+
+  if (statAfluencia) {
+    const today = new Date().toISOString().split('T')[0];
+    const hoyCount = accesosData.filter(a => a.estado === 'permitido' && a.tiempo.startsWith(today)).length;
+    statAfluencia.textContent = hoyCount;
+  }
+
+  if (statHoraPico) {
+    const hourCounts = {};
+    let maxHour = -1;
+    let maxCount = 0;
+    
+    accesosData.filter(a => a.estado === 'permitido').forEach(a => {
+      const h = new Date(a.tiempo).getHours();
+      hourCounts[h] = (hourCounts[h] || 0) + 1;
+      if (hourCounts[h] > maxCount) {
+        maxCount = hourCounts[h];
+        maxHour = h;
+      }
+    });
+
+    if (maxHour !== -1) {
+      const ampm = maxHour >= 12 ? 'PM' : 'AM';
+      let h12 = maxHour % 12;
+      h12 = h12 ? h12 : 12; 
+      statHoraPico.textContent = `${h12}:00 ${ampm}`;
+    } else {
+      statHoraPico.textContent = '--:--';
+    }
+  }
+}
+
+const searchMiembrosEl = document.getElementById('search-miembros');
+if (searchMiembrosEl) searchMiembrosEl.addEventListener('input', renderTables);
+
+const searchPagosEl = document.getElementById('search-pagos');
+if (searchPagosEl) searchPagosEl.addEventListener('input', renderPagos);
 
 function renderTables() {
   const btnClasses = "font-display font-bold uppercase tracking-widest px-6 py-3 text-xs border-4 border-brand-black bg-brand-black text-brand-white hover:bg-brand-green hover:border-brand-green hover:text-brand-black focus:bg-brand-green focus:border-brand-green focus:text-brand-black active:bg-brand-green active:border-brand-green active:text-brand-black transition-colors focus:outline-none";
@@ -245,7 +438,7 @@ function renderTables() {
 
   const stb = document.getElementById('staff-table-body');
   if (stb) {
-    stb.innerHTML = staffData.slice(0,4).map(s => `
+    stb.innerHTML = staffData.length === 0 ? '<tr><td colspan="3" class="p-6 text-center font-display font-bold uppercase tracking-widest text-sm opacity-50">NO HAY STAFF REGISTRADO</td></tr>' : staffData.slice(0,4).map(s => `
       <tr class="${rowClasses}">
         <td class="p-6 flex items-center gap-4  ">
           <div class="w-10 h-10 bg-brand-white text-brand-black   flex items-center justify-center font-display font-bold text-sm select-none flex-shrink-0 overflow-hidden">
@@ -262,7 +455,7 @@ function renderTables() {
 
   const sfb = document.getElementById('staff-full-table-body');
   if (sfb) {
-    sfb.innerHTML = staffData.map(s => `
+    sfb.innerHTML = staffData.length === 0 ? '<tr><td colspan="3" class="p-6 text-center font-display font-bold uppercase tracking-widest text-sm opacity-50">NO HAY STAFF REGISTRADO</td></tr>' : staffData.map(s => `
       <tr class="${rowClasses}">
         <td class="p-6 flex items-center gap-4  ">
           <div class="w-10 h-10 bg-brand-white text-brand-black   flex items-center justify-center font-display font-bold text-sm select-none flex-shrink-0 overflow-hidden">
@@ -279,7 +472,7 @@ function renderTables() {
       </tr>`).join('');
   }
 
-  // Miembros (Full) y Miembros (Preview)
+ 
   let mTerm = '';
   const searchInput = document.getElementById('search-miembros');
   if (searchInput) mTerm = searchInput.value.toLowerCase().trim();
@@ -326,17 +519,58 @@ function renderTables() {
     }
   });
 
+  const statsContainer = document.getElementById('stats-miembros-container');
+  if (statsContainer) {
+    let activos = 0;
+    let inactivos = 0;
+    const planesCount = {};
+
+    membersData.forEach(m => {
+      if (m.estado_pago === 'al_dia') activos++;
+      else inactivos++;
+      if (m.plan) {
+        planesCount[m.plan] = (planesCount[m.plan] || 0) + 1;
+      }
+    });
+
+    let topPlan = '-';
+    let topPlanCount = 0;
+    for (const [plan, count] of Object.entries(planesCount)) {
+      if (count > topPlanCount) {
+        topPlanCount = count;
+        topPlan = plan;
+      }
+    }
+
+    statsContainer.innerHTML = `
+      <div class="border-4 border-brand-black p-6 bg-brand-white text-brand-black flex flex-col">
+        <p class="font-bold uppercase tracking-widest text-xs opacity-60 mb-2">Miembros Al Día</p>
+        <p class="text-5xl font-display font-bold tracking-tighter">${activos}</p>
+      </div>
+      <div class="border-4 border-brand-black p-6 bg-brand-black text-brand-white flex flex-col">
+        <p class="font-bold uppercase tracking-widest text-xs opacity-60 mb-2">Miembros Atrasados</p>
+        <p class="text-5xl font-display font-bold tracking-tighter">${inactivos}</p>
+      </div>
+      <div class="border-4 border-brand-black p-6 bg-brand-green text-brand-black flex flex-col">
+        <p class="font-bold uppercase tracking-widest text-xs opacity-60 mb-2">Plan Más Popular</p>
+        <p class="text-3xl font-display font-bold tracking-tighter uppercase mt-auto">${topPlan}</p>
+      </div>
+    `;
+  }
+
   const mfb = document.getElementById('members-full-table-body');
-  if (mfb) mfb.innerHTML = mHtml;
+  if (mfb) mfb.innerHTML = membersData.length === 0 ? '<tr><td colspan="4" class="p-6 text-center font-display font-bold uppercase tracking-widest text-sm opacity-50">NO HAY MIEMBROS REGISTRADOS</td></tr>' : mHtml;
   
   const mpb = document.getElementById('members-preview-body');
-  if (mpb) mpb.innerHTML = prevHtml;
+  if (mpb) mpb.innerHTML = membersData.length === 0 ? '<tr><td colspan="4" class="p-6 text-center font-display font-bold uppercase tracking-widest text-sm opacity-50">NO HAY MIEMBROS REGISTRADOS</td></tr>' : prevHtml;
 }
 
 function renderPlanes() {
   const container = document.getElementById('planes-container');
-  if (!container) return;
-
+  if (!planesData || planesData.length === 0) {
+    container.innerHTML = '<div class="col-span-full p-8 text-center border-4 border-brand-black bg-brand-white"><p class="font-display font-bold uppercase tracking-widest opacity-50">NO HAY PLANES REGISTRADOS</p></div>';
+    return;
+  }
   container.innerHTML = planesData.map(p => {
     const bgCls = p.destacado ? 'bg-brand-green text-brand-black border-4 border-brand-green' : 'bg-brand-white text-brand-black border-4 border-brand-black hover:border-brand-black focus:border-brand-black active:border-brand-black';
     let priceHTML = p.destacado 
@@ -363,22 +597,71 @@ function renderPlanes() {
 }
 
 
-let currentModalType = null;
-let currentModalId   = null;
+function barcodeAssignmentHTML(prefillCode) {
+  const code = prefillCode || '';
+  const cancelClasses = "font-display font-bold uppercase tracking-widest px-6 py-3 text-xs bg-brand-white text-brand-black border-4 border-brand-black hover:bg-brand-black hover:text-brand-white focus:outline-none transition-colors";
+  return `
+    <div class="flex flex-col gap-8 text-brand-black">
+      <div class="bg-brand-black text-brand-white p-6 border-4 border-brand-black">
+        <label class="block font-display font-bold uppercase tracking-widest text-xs opacity-70 mb-2">Código a Asignar</label>
+        <input type="text" id="assign-barcode-input" value="${code}" placeholder="ESCANEA O ESCRIBE EL CÓDIGO..." class="w-full bg-transparent text-2xl font-bold uppercase tracking-widest focus:outline-none placeholder:opacity-30">
+      </div>
+      <div>
+        <h3 class="font-display font-bold uppercase tracking-widest text-sm mb-4">Selecciona el Producto:</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-[40vh] overflow-y-auto pr-2">
+          ${inventoryData.map(p => `
+            <button onclick="saveBarcodeAssignment('${p.id}')" class="text-left bg-brand-white border-4 border-brand-black p-4 hover:bg-brand-green focus:bg-brand-green focus:outline-none transition-colors group flex items-center gap-4">
+              <img src="${p.img}" class="w-12 h-12 object-contain bg-brand-white border-2 border-brand-black">
+              <div>
+                <span class="block font-bold uppercase text-sm">${p.nombre}</span>
+                <span class="block font-bold opacity-50 text-xs mt-1">CÓDIGO: ${p.barcode || 'NINGUNO'}</span>
+              </div>
+            </button>
+          `).join('')}
+        </div>
+      </div>
+      <div class="mt-4 flex justify-end">
+        <button type="button" onclick="closeModal()" class="${cancelClasses}">Cerrar</button>
+      </div>
+    </div>
+  `;
+}
+
+window.saveBarcodeAssignment = function(productId) {
+  const codeInput = document.getElementById('assign-barcode-input');
+  if (!codeInput) return;
+  const code = codeInput.value.trim();
+  if (!code) {
+    sysModal('error', 'ERROR', 'Debes escanear o escribir un código primero.');
+    return;
+  }
+  
+  const product = inventoryData.find(p => p.id === productId);
+  if (product) {
+    product.barcode = code;
+    saveInventory();
+    closeModal();
+    showScannerFlash('ASIGNADO A ' + product.nombre, 'success');
+  }
+};
+
+var currentModalType = null;
+var currentModalId   = null;
 
 function openModal(type, idOrName) {
-  currentModalType = type;
-  currentModalId   = idOrName;
-  const overlay = document.getElementById('modal-overlay');
-  const title   = document.getElementById('modal-title');
-  const body    = document.getElementById('modal-body');
+  try {
+    currentModalType = type;
+    currentModalId   = idOrName;
+    const overlay = document.getElementById('modal-overlay');
+    const title   = document.getElementById('modal-title');
+    const body    = document.getElementById('modal-body');
 
-  document.body.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
 
-  if (type === 'staff-form') {
-    title.textContent = 'Añadir Staff.';
-    body.innerHTML = staffFormHTML();
-  } else if (type === 'staff-edit') {
+    if (type === 'staff-form') {
+      title.textContent = 'Añadir Staff.';
+      body.innerHTML = staffFormHTML();
+    } else if (type === 'staff-edit') {
     const s = staffData.find(x => x.id === idOrName);
     title.textContent = 'Editar Staff.';
     body.innerHTML = staffFormHTML(s);
@@ -389,6 +672,9 @@ function openModal(type, idOrName) {
     const m = membersData.find(x => x.id === idOrName);
     title.textContent = 'Editar Miembro.';
     body.innerHTML = memberFormHTML(m);
+  } else if (type === 'assign-barcode') {
+    title.textContent = 'Asignar Código.';
+    body.innerHTML = barcodeAssignmentHTML(idOrName);
   } else if (type === 'plan-form') {
     const p = planesData.find(x => x.id === idOrName);
     title.textContent = p ? 'Editar Plan — ' + p.nombre + '.' : 'Añadir Plan.';
@@ -402,6 +688,10 @@ function openModal(type, idOrName) {
     const first = body.querySelector('input, select, textarea');
     if (first) first.focus();
   }, 50);
+  } catch (error) {
+
+    showKioskAlert('Error al abrir la ventana: ' + error.message, 'error');
+  }
 }
 
 function closeModal() {
@@ -421,14 +711,6 @@ function handleOverlayClick(e) {
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeModal();
 });
-
-
-const inputCls = 'w-full bg-brand-white text-brand-black border-4 border-brand-black px-4 py-4 sm:px-6 sm:py-5 text-lg sm:text-xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green placeholder:text-brand-black/50 placeholder:uppercase transition-all';
-const selectCls = 'w-full bg-brand-white text-brand-black border-4 border-brand-black px-4 py-4 sm:px-6 sm:py-5 pr-12 sm:pr-14 text-lg sm:text-xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green cursor-pointer transition-all appearance-none';
-const labelCls = 'block font-display font-bold uppercase tracking-widest text-xs sm:text-sm text-brand-black mb-2';
-const saveBtnCls = 'w-full sm:w-auto px-8 py-4 font-display font-bold uppercase tracking-widest text-sm border-4 border-brand-black bg-brand-black text-brand-white hover:bg-brand-green hover:border-brand-green hover:text-brand-black focus:bg-brand-green focus:border-brand-green focus:text-brand-black active:bg-brand-green active:border-brand-green active:text-brand-black transition-colors focus:outline-none';
-const cancelBtnCls = 'w-full sm:w-auto px-8 py-4 font-display font-bold uppercase tracking-widest text-sm border-4 border-brand-black bg-brand-white text-brand-black hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white active:bg-brand-black active:text-brand-white transition-colors focus:outline-none';
-const deleteBtnCls = 'w-full sm:w-auto px-8 py-4 font-display font-bold uppercase tracking-widest text-sm border-4 border-brand-black bg-brand-black text-brand-white hover:bg-brand-white hover:border-brand-black hover:text-brand-black focus:bg-brand-white focus:border-brand-black focus:text-brand-black active:bg-brand-white active:border-brand-black active:text-brand-black transition-colors focus:outline-none';
 
 function getInitials(name) {
   if (!name || typeof name !== 'string') return '??';
@@ -483,7 +765,7 @@ function staffFormHTML(s) {
 
 function memberFormHTML(m) {
   return `
-    <form onsubmit="saveMember(event)" class="flex flex-col gap-8 text-brand-black">
+    <form onsubmit="saveMember(event)" novalidate class="flex flex-col gap-8 text-brand-black">
       <div>
         <label class="${labelCls}" for="mf-nombre">Nombre Completo</label>
         <input id="mf-nombre" type="text" placeholder="EJ. ANA GÓMEZ" value="${m ? m.nombre : ''}" class="${inputCls}" required>
@@ -510,9 +792,7 @@ function memberFormHTML(m) {
         <div class="relative">
           <select id="mf-plan" class="${selectCls}" required>
             <option value="" disabled ${!m ? 'selected' : ''}>SELECCIONAR PLAN</option>
-            <option value="Visita Diaria" ${m && m.plan==='Visita Diaria' ? 'selected':''}>VISITA DIARIA</option>
-            <option value="Mensual"       ${m && m.plan==='Mensual'       ? 'selected':''}>MENSUAL</option>
-            <option value="Anual"         ${m && m.plan==='Anual'         ? 'selected':''}>ANUAL</option>
+            ${typeof planesData !== 'undefined' && planesData.length > 0 ? planesData.map(p => `<option value="${p.nombre}" ${m && m.plan===p.nombre ? 'selected':''}>${p.nombre ? p.nombre.toUpperCase() : 'SIN NOMBRE'}</option>`).join('') : '<option value="" disabled>NO HAY PLANES REGISTRADOS</option>'}
           </select>
           <div class="absolute inset-y-0 right-0 flex items-center pr-5 pointer-events-none text-brand-black">
             <i class="ph-bold ph-caret-down text-xl"></i>
@@ -683,9 +963,24 @@ async function saveMember(e) {
   const plan     = document.getElementById('mf-plan').value;
   const activo   = document.getElementById('mf-estado').value === '1';
 
-  const originalText = e.submitter.textContent;
-  e.submitter.textContent = "Guardando...";
-  e.submitter.disabled = true;
+  const originalText = e.submitter ? e.submitter.textContent : 'Guardar';
+  if (e.submitter) {
+    e.submitter.textContent = "Guardando...";
+    e.submitter.disabled = true;
+  }
+
+  if (!nombre) {
+    if (e.submitter) { e.submitter.textContent = originalText; e.submitter.disabled = false; }
+    return sysModal('error', 'FALTAN DATOS', 'Por favor, ingresa el nombre completo del miembro.');
+  }
+  if (!telefono) {
+    if (e.submitter) { e.submitter.textContent = originalText; e.submitter.disabled = false; }
+    return sysModal('error', 'FALTAN DATOS', 'Por favor, ingresa el teléfono del miembro.');
+  }
+  if (!plan) {
+    if (e.submitter) { e.submitter.textContent = originalText; e.submitter.disabled = false; }
+    return sysModal('error', 'FALTAN DATOS', 'Por favor, selecciona un plan.');
+  }
 
   try {
     if (currentModalType === 'member-edit') {
@@ -808,7 +1103,7 @@ function renderPagos() {
     return n.includes(term) || t.includes(term);
   });
 
-  // Actualizar Tarjetas Resumen Pagos
+ 
   const statIngresos = document.getElementById('stat-pagos-ingresos');
   const statAlDia = document.getElementById('stat-pagos-aldia');
   const statAtrasados = document.getElementById('stat-pagos-atrasados');
@@ -837,7 +1132,7 @@ function renderPagos() {
 
   const ptb = document.getElementById('pagos-table-body');
   if (ptb) {
-    ptb.innerHTML = filtered.map(m => `
+    ptb.innerHTML = filtered.length === 0 ? '<tr><td colspan="4" class="p-6 text-center font-display font-bold uppercase tracking-widest text-sm opacity-50">NO SE ENCONTRARON PAGOS</td></tr>' : filtered.map(m => `
       <tr class="${rowClasses}">
         <td class="p-6">
           <div class="flex items-center gap-4">
@@ -858,10 +1153,41 @@ function renderPagos() {
     `).join('');
   }
 }
-
-// Alertas removidas
+
 
 function renderAccesos() {
+  const statHoy = document.getElementById('stat-accesos-hoy');
+  const statPico = document.getElementById('stat-accesos-horapico');
+  
+  if (statHoy) {
+    const today = new Date().toISOString().split('T')[0];
+    statHoy.textContent = accesosData.filter(a => a.estado === 'permitido' && a.tiempo.startsWith(today)).length;
+  }
+  
+  if (statPico) {
+    const hourCounts = {};
+    let maxHour = -1;
+    let maxCount = 0;
+    
+    accesosData.filter(a => a.estado === 'permitido').forEach(a => {
+      const h = new Date(a.tiempo).getHours();
+      hourCounts[h] = (hourCounts[h] || 0) + 1;
+      if (hourCounts[h] > maxCount) {
+        maxCount = hourCounts[h];
+        maxHour = h;
+      }
+    });
+
+    if (maxHour !== -1) {
+      const ampm = maxHour >= 12 ? 'PM' : 'AM';
+      let h12 = maxHour % 12;
+      h12 = h12 ? h12 : 12; 
+      statPico.textContent = `${h12}:00 ${ampm}`;
+    } else {
+      statPico.textContent = '--:--';
+    }
+  }
+
   const tb = document.getElementById('accesos-table-body');
   if (!tb) return;
   
@@ -960,21 +1286,21 @@ async function processPago(e) {
     const { data: pagoData, error: pagoErr } = await window.supabaseClient.from('pagos').insert([payloadPago]).select();
     if (pagoErr) throw pagoErr;
 
-    // Actualizar fecha vencimiento dinámicamente basado en plan.periodo
+   
     let nuevaFecha = new Date(hoy);
     if (planInfo.periodo === 'Mes') {
       nuevaFecha.setMonth(nuevaFecha.getMonth() + 1);
     } else if (planInfo.periodo === 'Año') {
       nuevaFecha.setFullYear(nuevaFecha.getFullYear() + 1);
-    } // Si es 'Unico', vence hoy a las 23:59, así que la fecha es hoy.
+    }
     
     const strVencimiento = nuevaFecha.toISOString().split('T')[0];
 
-    // Actualizamos el estado del miembro en Supabase a 'activo' si estaba expirado
+   
     const { error: miemErr } = await window.supabaseClient.from('miembros').update({ activo: true }).eq('id', m.id);
     if (miemErr) throw miemErr;
 
-    // Actualizamos arreglos locales
+   
     if (pagoData && pagoData.length > 0) {
       m.historialPagos.unshift(pagoData[0]);
     }
@@ -1053,7 +1379,7 @@ function revertPago(memberId, pagoId) {
       const m = membersData.find(x => x.id === memberId);
       if (m) {
         m.historialPagos = m.historialPagos.filter(p => p.id !== pagoId);
-        m.estado_pago = 'atrasado'; // Se marca atrasado por seguridad al revertir.
+        m.estado_pago = 'atrasado';
       }
       showToast('PAGO REVERTIDO');
       if (window.broadcastDBUpdate) window.broadcastDBUpdate();
@@ -1088,7 +1414,7 @@ function showKioskAlert(log) {
   const isUnknown = log.estado === 'desconocido';
 
   let bgClass, borderClass, textClass, iconClass, reason, actionHTML;
-  // Buscar ID del miembro para los botones de acción
+ 
   const m = membersData.find(x => x.nombre.toUpperCase() === (log.nombre || '').toUpperCase());
   
   if (isPermitted) {
@@ -1157,14 +1483,14 @@ function showKioskAlert(log) {
   container.insertAdjacentHTML('beforeend', html);
   const el = document.getElementById(alertId);
   
-  // Animación de entrada
+ 
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
       el.classList.remove('translate-x-full');
     });
   });
 
-  // Auto-cierre dinámico
+ 
   const duration = isPermitted ? 5000 : (isDenied ? 10000 : 8000);
   setTimeout(() => {
     if (document.getElementById(alertId)) {
@@ -1174,94 +1500,7 @@ function showKioskAlert(log) {
   }, duration);
 }
 
-window.sysModal = function(type, title, message) {
-  return new Promise((resolve) => {
-    let overlay = document.getElementById('sys-modal-overlay');
-    if (!overlay) {
-      document.body.insertAdjacentHTML('beforeend', `
-        <div id="sys-modal-overlay" role="dialog" aria-modal="true" class="fixed inset-0 hidden items-start justify-center p-4 sm:p-6 overflow-y-auto pt-12 sm:pt-[10vh] bg-black/90 z-[999999]">
-          <div class="bg-brand-white w-full border-4 border-brand-black flex flex-col mb-12 relative max-w-lg">
-            <div id="sys-modal-header" class="px-6 py-4 flex items-center gap-4 border-b-4 border-brand-black relative">
-              <i id="sys-modal-icon" class="ph-bold text-3xl"></i>
-              <h3 id="sys-modal-title" class="font-display font-bold uppercase tracking-widest text-lg sm:text-xl leading-none mt-1 pr-12"></h3>
-              <button id="sys-modal-close-btn" aria-label="Cerrar" class="absolute top-4 right-4 text-current hover:text-brand-green focus:text-brand-green active:text-brand-green transition-colors focus:outline-none text-2xl bg-transparent p-1 z-10"><i class="ph-bold ph-x"></i></button>
-            </div>
-            <div class="p-6 sm:p-8 overflow-y-auto max-h-[60vh]">
-              <div id="sys-modal-msg" class="font-medium text-lg leading-relaxed text-brand-black"></div>
-            </div>
-            <div id="sys-modal-footer" class="p-6 border-t-4 border-brand-black flex flex-col sm:flex-row justify-end gap-4 bg-brand-white"></div>
-          </div>
-        </div>
-      `);
-      overlay = document.getElementById('sys-modal-overlay');
-    }
-    
-    const header = document.getElementById('sys-modal-header');
-    const icon = document.getElementById('sys-modal-icon');
-    const titleEl = document.getElementById('sys-modal-title');
-    const msgEl = document.getElementById('sys-modal-msg');
-    const footer = document.getElementById('sys-modal-footer');
-    
-    icon.className = "ph-bold text-3xl";
-    header.className = "px-6 py-4 flex items-center gap-4 border-b-4 border-brand-black";
-    
-    if (type === 'error') {
-      icon.classList.add('ph-warning');
-      header.classList.add('bg-brand-black', 'text-brand-white');
-    } else if (type === 'success') {
-      icon.classList.add('ph-check-circle');
-      header.classList.add('bg-brand-green', 'text-brand-black');
-    } else if (type === 'info') {
-      icon.classList.add('ph-info');
-      header.classList.add('bg-brand-black', 'text-brand-white');
-    } else if (type === 'confirm') {
-      icon.classList.add('ph-question');
-      header.classList.add('bg-brand-black', 'text-brand-white');
-    }
-    
-    titleEl.textContent = title;
-    msgEl.innerHTML = message;
-    footer.innerHTML = '';
-    
-    const btnBase = "font-display font-bold uppercase tracking-widest px-8 py-4 focus:outline-none transition-colors w-full sm:w-auto text-center text-sm";
-    
-    function closeAndResolve(val) {
-      overlay.classList.remove('flex');
-      overlay.classList.add('hidden');
-      document.body.style.overflow = '';
-      resolve(val);
-    }
 
-    const closeBtn = document.getElementById('sys-modal-close-btn');
-    if (closeBtn) closeBtn.onclick = () => closeAndResolve(false);
-
-    document.body.style.overflow = 'hidden';
-
-    if (type === 'confirm') {
-      const btnCancel = document.createElement('button');
-      btnCancel.className = btnBase + " bg-brand-white text-brand-black hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white active:bg-brand-black active:text-brand-white";
-      btnCancel.textContent = "Cancelar";
-      btnCancel.onclick = () => closeAndResolve(false);
-      
-      const btnOk = document.createElement('button');
-      btnOk.className = btnBase + " bg-brand-black text-brand-white hover:bg-brand-green hover:border-brand-green hover:text-brand-black focus:bg-brand-green focus:border-brand-green focus:text-brand-black active:bg-brand-green active:border-brand-green active:text-brand-black";
-      btnOk.textContent = "Confirmar";
-      btnOk.onclick = () => closeAndResolve(true);
-      
-      footer.appendChild(btnCancel);
-      footer.appendChild(btnOk);
-    } else {
-      const btnOk = document.createElement('button');
-      btnOk.className = btnBase + " bg-brand-black text-brand-white hover:bg-brand-green hover:border-brand-green hover:text-brand-black focus:bg-brand-green focus:border-brand-green focus:text-brand-black active:bg-brand-green active:border-brand-green active:text-brand-black";
-      btnOk.textContent = "Entendido";
-      btnOk.onclick = () => closeAndResolve(true);
-      footer.appendChild(btnOk);
-    }
-    
-    overlay.classList.remove('hidden');
-    overlay.classList.add('flex');
-  });
-};
 
 
 window.setScreen = setScreen;
@@ -1309,8 +1548,7 @@ window.broadcastDBUpdate = async function() {
     payload: {}
   });
 };
-
-// --- POS LOGIC ---
+
 function renderPOS() {
   const container = document.getElementById('pos-catalog-container');
   if (!container) return;
@@ -1455,7 +1693,7 @@ window.procesarVenta = function() {
   let totalVenta = 0;
   const saleItems = [];
   
-  // Descontar inventario
+ 
   posCart.forEach(item => {
     const product = inventoryData.find(p => p.id === item.id);
     if (product) {
@@ -1465,7 +1703,7 @@ window.procesarVenta = function() {
     }
   });
   
-  // Guardar en analíticas
+ 
   posSalesHistory.push({
     fecha: new Date().toISOString(),
     total: totalVenta,
@@ -1484,61 +1722,129 @@ window.procesarVenta = function() {
   }
 };
 
-window.openPOSAnalytics = function() {
-  let totalIngresos = posSalesHistory.reduce((acc, sale) => acc + sale.total, 0);
-  
-  let html = `
-    <div class="flex flex-col gap-8 text-brand-black w-full max-w-4xl mx-auto">
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        <div class="bg-brand-black text-brand-white p-6 border-4 border-brand-black flex flex-col items-start">
-          <i class="ph-bold ph-currency-dollar text-4xl mb-4 text-brand-green"></i>
-          <p class="text-xs font-display font-bold uppercase tracking-widest mb-2">Ingresos Totales POS</p>
-          <p class="text-5xl font-display font-bold tracking-tighter">$${totalIngresos}</p>
-        </div>
-        <div class="bg-brand-white text-brand-black p-6 border-4 border-brand-black flex flex-col items-start">
-          <i class="ph-bold ph-receipt text-4xl mb-4"></i>
-          <p class="text-xs font-display font-bold uppercase tracking-widest mb-2">Ventas Realizadas</p>
-          <p class="text-5xl font-display font-bold tracking-tighter">${posSalesHistory.length}</p>
-        </div>
-      </div>
-      
-      <div>
-        <h3 class="font-display font-bold uppercase tracking-widest text-xl mb-4">Estado de Inventario</h3>
-        <div class="overflow-x-auto border-4 border-brand-black bg-brand-white">
-          <table class="w-full text-left border-collapse">
-            <thead>
-              <tr class="bg-brand-black text-brand-white">
-                <th class="p-4 font-display font-bold text-sm uppercase tracking-widest">Producto</th>
-                <th class="p-4 font-display font-bold text-sm uppercase tracking-widest text-right">Stock Disponible</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${inventoryData.map(p => `
-                <tr class="border-b-4 border-brand-black last:border-b-0">
-                  <td class="p-4 font-bold uppercase">${p.nombre}</td>
-                  <td class="p-4 text-right">
-                    <span class="inline-block px-3 py-1 border-4 border-brand-black font-display font-bold text-lg ${p.stock <= 5 ? 'bg-brand-black text-brand-white' : 'bg-brand-white'}">
-                      ${p.stock}
-                    </span>
-                  </td>
-                </tr>
-              `).join('')}
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <button type="button" onclick="closeModal()" class="w-full sm:w-auto px-8 py-4 font-display font-bold uppercase tracking-widest text-sm border-4 border-brand-black bg-brand-black text-brand-white hover:bg-brand-green hover:text-brand-black transition-colors focus:outline-none">Cerrar Analíticas</button>
-    </div>
-  `;
-  
-  if (window.sysModal) {
-    document.getElementById('modal-title').textContent = 'Analíticas y Stock POS.';
-    document.getElementById('modal-body').innerHTML = html;
-    const overlay = document.getElementById('modal-overlay');
-    overlay.classList.remove('hidden');
-    overlay.classList.add('flex');
-    document.body.style.overflow = 'hidden';
-  } else {
-    alert("Analíticas: Ingresos $" + totalIngresos);
+window.updateStock = function(id, delta) {
+  const product = inventoryData.find(p => p.id === id);
+  if (product) {
+    product.stock += delta;
+    if (product.stock < 0) product.stock = 0;
+    saveInventory();
+    
+    const searchInput = document.getElementById('inventory-search');
+    filterInventoryList(searchInput ? searchInput.value : '');
+    renderPOS();
+    renderInventoryStats();
   }
 };
+
+window.renderInventoryTableBody = function(query = '') {
+  const normalizedQuery = query.toLowerCase().trim();
+  const filtered = inventoryData.filter(p => 
+    p.nombre.toLowerCase().includes(normalizedQuery) || 
+    (p.barcode && p.barcode.includes(normalizedQuery))
+  );
+
+  if (filtered.length === 0) {
+    return `
+      <tr>
+        <td colspan="3" class="p-8 text-center bg-brand-white">
+          <p class="font-display font-bold uppercase tracking-widest text-2xl text-brand-black">NO SE ENCONTRARON PRODUCTOS</p>
+        </td>
+      </tr>
+    `;
+  }
+
+  return filtered.map(p => `
+    <tr class="border-b-4 border-brand-black last:border-b-0 ${p.stock <= 5 ? 'bg-brand-black text-brand-white' : ''}">
+      <td class="p-4 w-24">
+        <img src="${p.img}" class="w-16 h-16 object-contain border-2 border-brand-black bg-brand-white">
+      </td>
+      <td class="p-4 font-bold uppercase">
+        ${p.nombre} 
+        ${p.barcode ? `<span class="block text-xs opacity-50 mt-1">CÓDIGO: ${p.barcode}</span>` : `<span class="block text-xs text-brand-green font-bold mt-1">SIN CÓDIGO</span>`}
+      </td>
+      <td class="p-4 text-right">
+        <div class="flex items-center justify-end gap-4">
+          <button onclick="updateStock('${p.id}', -1)" class="w-10 h-10 flex items-center justify-center border-4 border-brand-black hover:bg-brand-green hover:text-brand-black text-xl font-bold transition-colors ${p.stock <= 5 ? 'bg-brand-white text-brand-black' : ''}">-</button>
+          <span class="inline-block w-16 text-center font-display font-bold text-2xl">
+            ${p.stock}
+          </span>
+          <button onclick="updateStock('${p.id}', 1)" class="w-10 h-10 flex items-center justify-center border-4 border-brand-black hover:bg-brand-green hover:text-brand-black text-xl font-bold transition-colors ${p.stock <= 5 ? 'bg-brand-white text-brand-black' : ''}">+</button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+};
+
+window.filterInventoryList = function(query) {
+  const tbody = document.getElementById('inventory-tbody');
+  if (tbody) {
+    tbody.innerHTML = renderInventoryTableBody(query);
+  }
+};
+
+window.renderInventoryStats = function() {
+  let totalIngresos = posSalesHistory.reduce((acc, sale) => acc + sale.total, 0);
+  
+  const salesCount = {};
+  posSalesHistory.forEach(sale => {
+    sale.items.forEach(item => {
+      salesCount[item.id] = (salesCount[item.id] || 0) + item.qty;
+    });
+  });
+  let topSellerId = null;
+  let topSellerCount = 0;
+  for (const [id, count] of Object.entries(salesCount)) {
+    if (count > topSellerCount) {
+      topSellerCount = count;
+      topSellerId = id;
+    }
+  }
+  let topSellerName = 'Ninguno';
+  if (topSellerId) {
+    const prod = inventoryData.find(p => p.id === topSellerId);
+    if (prod) topSellerName = prod.nombre;
+  }
+
+  const lowStockItems = inventoryData.filter(p => p.stock <= 5);
+  const alertContainer = document.getElementById('inventario-alert-container');
+  if (alertContainer) {
+    if (lowStockItems.length > 0) {
+      alertContainer.innerHTML = `
+        <div class="bg-brand-black text-brand-white border-4 border-brand-black p-6 mb-8 flex flex-col sm:flex-row items-center gap-4 animate-pulse">
+          <i class="ph-bold ph-warning text-4xl text-brand-white"></i>
+          <div>
+            <p class="font-display font-bold uppercase tracking-widest text-xl">Alerta Crítica de Escasez</p>
+            <p class="font-bold uppercase opacity-80 text-sm mt-1">${lowStockItems.length} producto(s) con stock crítico. Reabastecer inmediatamente.</p>
+          </div>
+        </div>
+      `;
+    } else {
+      alertContainer.innerHTML = '';
+    }
+  }
+
+  const statsContainer = document.getElementById('stats-inventario-container');
+  if (statsContainer) {
+    statsContainer.innerHTML = `
+      <div class="bg-brand-black text-brand-white p-8 border-4 border-brand-black flex flex-col items-start hover:bg-brand-green hover:text-brand-black transition-colors group">
+        <i class="ph-bold ph-currency-dollar text-4xl mb-4 text-brand-green group-hover:text-brand-black transition-colors"></i>
+        <p class="text-xs font-display font-bold uppercase tracking-widest mb-2 bg-brand-white text-brand-black group-hover:bg-brand-black group-hover:text-brand-white inline-block px-2 py-1">Ingresos Totales POS</p>
+        <p class="text-5xl font-display font-bold tracking-tighter">$${totalIngresos}</p>
+      </div>
+      <div class="bg-brand-white text-brand-black p-8 border-4 border-brand-black flex flex-col items-start hover:bg-brand-black hover:text-brand-white transition-colors group">
+        <i class="ph-bold ph-receipt text-4xl mb-4 group-hover:text-brand-green transition-colors"></i>
+        <p class="text-xs font-display font-bold uppercase tracking-widest mb-2 bg-brand-black text-brand-white group-hover:bg-brand-white group-hover:text-brand-black inline-block px-2 py-1">Ventas Realizadas</p>
+        <p class="text-5xl font-display font-bold tracking-tighter">${posSalesHistory.length}</p>
+      </div>
+      <div class="bg-brand-green text-brand-black p-8 border-4 border-brand-black flex flex-col items-start hover:bg-brand-black hover:text-brand-white transition-colors group">
+        <i class="ph-bold ph-trend-up text-4xl mb-4 text-brand-black group-hover:text-brand-green transition-colors"></i>
+        <p class="text-xs font-display font-bold uppercase tracking-widest mb-2 bg-brand-black text-brand-white group-hover:bg-brand-white group-hover:text-brand-black inline-block px-2 py-1">Top Producto</p>
+        <p class="text-3xl font-display font-bold tracking-tighter uppercase mt-auto leading-tight">${topSellerName}</p>
+      </div>
+    `;
+  }
+};
+
+
+fetchData();
+setScreen('dashboard');

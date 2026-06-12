@@ -22,7 +22,7 @@ process.chdir(path.join(__dirname, '..'));
     const svgContent = fs.readFileSync(svgPath, 'utf8');
     await page.setContent(svgContent);
     
-    // Get viewBox dimensions
+
     const dimensions = await page.evaluate(() => {
       const svg = document.querySelector('svg');
       const viewBox = svg.getAttribute('viewBox').split(' ');
@@ -32,14 +32,14 @@ process.chdir(path.join(__dirname, '..'));
       };
     });
     
-    // Scale to match 800px height
+
     const scale = 800 / dimensions.height;
     const width = Math.round(dimensions.width * scale);
     const height = 800;
     
     await page.setViewport({ width, height, deviceScaleFactor: 1 });
     
-    // HTML with pure SVG taking full width/height
+
     const html = `
       <html>
         <body style="margin: 0; padding: 0; background: transparent;">
@@ -54,10 +54,7 @@ process.chdir(path.join(__dirname, '..'));
     await page.screenshot({ path: pngPath, omitBackground: true });
     console.log(`Rendered ${pngPath}`);
     
-    // Create ICO if needed
-    if (file.includes('transparent')) {
-        // ICO requires python script to merge, we will leave it for now
-    }
+
   }
   
   await browser.close();

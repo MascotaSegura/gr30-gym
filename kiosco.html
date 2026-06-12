@@ -30,8 +30,7 @@
   <main class="flex-1 flex flex-col justify-center items-center px-6 py-12 relative w-full max-w-lg mx-auto">
     <div class="w-full relative z-10">
       
-      <!-- PANTALLA 1: ACTIVACIÓN -->
-      <div id="screen-activation" class="screen flex flex-col text-center">
+            <div id="screen-activation" class="screen flex flex-col text-center">
         <h1 class="text-[clamp(3.5rem,8vw,5rem)] leading-none font-display font-bold uppercase tracking-tighter text-brand-black mb-10">Kiosco.</h1>
         <form id="form-activation" class="flex flex-col gap-6 mb-8 text-left">
           <div>
@@ -45,19 +44,15 @@
     </div>
   </main>
 
-  <!-- PANTALLA 2: KIOSCO ACTIVO -->
-  <div id="screen-kiosco" class="screen hidden fixed top-0 left-0 w-full h-screen bg-brand-black flex-col h-[100dvh] z-[9999]">
+    <div id="screen-kiosco" class="screen hidden fixed top-0 left-0 w-full h-screen bg-brand-black flex-col h-[100dvh] z-[9999]">
     
-    <!-- Video Feed -->
-    <div class="absolute inset-0 w-full h-full overflow-hidden bg-brand-black flex justify-center items-center z-[1]">
+        <div class="absolute inset-0 w-full h-full overflow-hidden bg-brand-black flex justify-center items-center z-[1]">
       <video id="webcam" class="absolute inset-0 w-full h-full object-cover transform scale-x-[-1]" autoplay playsinline muted></video>
       
-      <!-- Target Reticle Overlay -->
-      <div class="relative border-4 border-brand-green pointer-events-none z-10 aspect-[3/4] h-[50vh] max-h-[400px] max-w-[80vw]"></div>
+            <div class="relative border-4 border-brand-green pointer-events-none z-10 aspect-[3/4] h-[50vh] max-h-[400px] max-w-[80vw]"></div>
     </div>
 
-    <!-- Overlay Header -->
-    <div class="absolute top-0 left-0 w-full bg-brand-white border-b-4 border-brand-black flex items-center justify-between px-6 lg:px-12 py-5 z-20">
+        <div class="absolute top-0 left-0 w-full bg-brand-white border-b-4 border-brand-black flex items-center justify-between px-6 lg:px-12 py-5 z-20">
       <div class="flex items-center gap-4">
         <h1 class="text-3xl sm:text-4xl leading-none font-display font-bold uppercase tracking-tighter text-brand-black">Escáner.</h1>
         <div class="hidden sm:flex items-center gap-2 bg-brand-black text-brand-white px-3 py-1 border-4 border-brand-black">
@@ -70,34 +65,85 @@
       </button>
     </div>
 
-    <!-- Action Banner (Bottom) -->
-    <div id="kiosk-banner" class="absolute bottom-0 left-0 w-full bg-brand-white border-t-4 border-brand-black p-6 sm:p-8 flex flex-col items-center justify-center transition-all duration-300 transform translate-y-full opacity-0 z-30">
+        <div id="kiosk-banner" class="absolute bottom-0 left-0 w-full bg-brand-white border-t-4 border-brand-black p-6 sm:p-8 flex flex-col items-center justify-center transition-all duration-300 transform translate-y-full opacity-0 z-30">
         <i id="kiosk-icon" class="ph-bold text-6xl mb-4"></i>
         <h2 id="kiosk-title" class="text-4xl sm:text-6xl font-display font-bold uppercase tracking-tighter leading-none mb-2 text-center"></h2>
         <p id="kiosk-msg" class="text-xl sm:text-2xl font-bold uppercase tracking-widest text-center"></p>
+    </div>
+
+
+    <div id="kiosk-custom-modal" class="hidden absolute inset-0 bg-brand-black z-[99999] flex flex-col items-center justify-center p-6 text-brand-white">
+      <div class="bg-brand-white text-brand-black border-4 border-brand-black w-full max-w-md p-8 flex flex-col gap-6">
+        <h3 id="kiosk-modal-title" class="text-2xl font-display font-bold uppercase tracking-tighter"></h3>
+        <p id="kiosk-modal-msg" class="font-bold tracking-widest uppercase"></p>
+        <input type="password" id="kiosk-modal-input" class="hidden w-full border-4 border-brand-black bg-brand-white text-brand-black px-4 py-3 font-bold focus:outline-none focus:bg-brand-green" placeholder="***">
+        <div class="flex gap-4 w-full">
+          <button id="btn-kiosk-modal-cancel" class="flex-1 bg-brand-white border-4 border-brand-black font-bold uppercase tracking-widest py-3 hover:bg-brand-black hover:text-brand-white transition-colors">Cancelar</button>
+          <button id="btn-kiosk-modal-ok" class="flex-1 bg-brand-green border-4 border-brand-black font-bold uppercase tracking-widest py-3 hover:bg-brand-black hover:text-brand-white transition-colors">Aceptar</button>
+        </div>
+      </div>
     </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="assets/js/supabase.js"></script>
-  <!-- Nuevo Motor Biométrica Deep Learning -->
-  <script src="https://cdn.jsdelivr.net/npm/@vladmandic/face-api/dist/face-api.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@vladmandic/face-api/dist/face-api.min.js"></script>
   <script type="module">
     let modelsLoaded = false;
     let video = document.getElementById("webcam");
     let reqAnimId;
     let lastVideoTime = -1;
     
-    // Kiosk State
+   
     let isScanning = false;
-    let membersDB = []; // Cargar todos los biometrics
-    let lastUnknownTime = 0; // Cooldown para evitar spam de DESCONOCIDO
-    let matchBufferId = null; // ID de buffer estricto
+    let membersDB = [];
+    let lastUnknownTime = 0;
+    let matchBufferId = null;
     let matchBufferCount = 0;
-    let missFrames = 0; // Tolerancia a pérdida de frames en móviles
-    let emaDescriptor = new Float32Array(128); // Promedio Móvil Exponencial
+    let missFrames = 0;
+    let emaDescriptor = new Float32Array(128);
     let emaFrames = 0;
     
+
+    function showKioskModal(title, msg, isPrompt) {
+      return new Promise(resolve => {
+        const modal = document.getElementById('kiosk-custom-modal');
+        const titleEl = document.getElementById('kiosk-modal-title');
+        const msgEl = document.getElementById('kiosk-modal-msg');
+        const inputEl = document.getElementById('kiosk-modal-input');
+        const btnCancel = document.getElementById('btn-kiosk-modal-cancel');
+        const btnOk = document.getElementById('btn-kiosk-modal-ok');
+        
+        titleEl.innerText = title;
+        msgEl.innerText = msg;
+        inputEl.value = '';
+        
+        if (isPrompt) {
+          inputEl.classList.remove('hidden');
+          inputEl.focus();
+        } else {
+          inputEl.classList.add('hidden');
+        }
+        
+        modal.classList.remove('hidden');
+        
+        const cleanup = () => {
+          btnOk.onclick = null;
+          btnCancel.onclick = null;
+          modal.classList.add('hidden');
+        };
+        
+        btnOk.onclick = () => {
+          cleanup();
+          resolve(isPrompt ? inputEl.value : true);
+        };
+        
+        btnCancel.onclick = () => {
+          cleanup();
+          resolve(isPrompt ? null : false);
+        };
+      });
+    }
     window.setScreen = function(screenName) {
       document.querySelectorAll('.screen').forEach(el => {
         el.classList.add('hidden');
@@ -110,7 +156,7 @@
       }
     };
 
-    // TTS
+   
     function speak(text) {
       window.speechSynthesis.cancel();
       const utterance = new SpeechSynthesisUtterance(text);
@@ -120,7 +166,7 @@
       window.speechSynthesis.speak(utterance);
     }
 
-    // Load AI Models
+   
     async function initAI() {
       const MODEL_URL = 'https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model/';
       await Promise.all([
@@ -129,10 +175,10 @@
         faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL)
       ]);
       modelsLoaded = true;
-      console.log("[Kiosco] Modelos neuronales FaceAPI cargados.");
+
     }
 
-    // Load DB
+   
     async function loadDB() {
       const [planesRes, miembrosRes, pagosRes] = await Promise.all([
         window.supabaseClient.from('planes').select('*'),
@@ -161,15 +207,15 @@
         return { ...m, estado_pago };
       });
 
-      // Filtro crítico: Ignoramos datos de MediaPipe viejos. Solo aceptamos Arrays de 128 (Embeddings FaceAPI)
+     
       membersDB = fullMembers
         .filter(m => m.biometria && Array.isArray(m.biometria) && m.biometria.length === 128)
         .map(m => ({ ...m, biometria: new Float32Array(m.biometria) }));
 
-      console.log(`[Kiosco] BD Biométrica Segura Cargada: ${membersDB.length} usuarios.`);
+
     }
 
-    // Start Webcam
+   
     async function startKiosk() {
       await loadDB();
       if (!modelsLoaded) {
@@ -183,7 +229,7 @@
         const stream = await navigator.mediaDevices.getUserMedia({ 
           video: { 
             facingMode: "user",
-            width: { ideal: 640, max: 720 }, // EVITA que el móvil envíe 1080p/4k y destruya los rostros en el re-escalado a 412px
+            width: { ideal: 640, max: 720 },
             height: { ideal: 480, max: 1280 }
           } 
         });
@@ -193,7 +239,7 @@
         video.srcObject = stream;
         
         video.onloadedmetadata = () => {
-          video.play().catch(e => console.error("Autoplay failed", e));
+          video.play().catch(() => {});
           video.width = video.videoWidth;
           video.height = video.videoHeight;
         };
@@ -203,7 +249,7 @@
           predictWebcam();
         });
       } catch (err) {
-        alert("ERROR GRAVE DE CÁMARA:\n" + err.name + "\n" + err.message + "\nPor favor revisa los permisos.");
+        showKioskModal("ERROR DE CÁMARA", "Permisos denegados o cámara no encontrada.", false);
       }
     }
 
@@ -214,12 +260,12 @@
         video.srcObject.getTracks().forEach(t => t.stop());
       }
       if (document.fullscreenElement) {
-        document.exitFullscreen().catch(console.error);
+        document.exitFullscreen().catch(() => {});
       }
       window.setScreen('activation');
     }
 
-    // Broadcast Event
+   
     async function broadcastAccess(member, status) {
       const channel = window.supabaseClient.channel('public:accesos');
       await channel.send({
@@ -234,9 +280,9 @@
       });
     }
 
-    // Show Banner
+   
     function showBanner(type, member) {
-      isScanning = false; // Pause scanning
+      isScanning = false;
       const banner = document.getElementById("kiosk-banner");
       const icon = document.getElementById("kiosk-icon");
       const title = document.getElementById("kiosk-title");
@@ -289,16 +335,16 @@
 
       speak(speechText);
       
-      // Animate In (Eliminamos inline styles que causan bugs en móvil)
+     
       setTimeout(() => {
         banner.classList.remove("translate-y-full", "opacity-0");
       }, 50);
 
-      // Animate Out & Resume
+     
       setTimeout(() => {
         banner.classList.add("translate-y-full", "opacity-0");
-        setTimeout(() => { isScanning = true; predictWebcam(); }, 500); // Resume scanning
-      }, 5000); // 5 seconds delay (más rápido para gimnasio)
+        setTimeout(() => { isScanning = true; predictWebcam(); }, 500);
+      }, 5000);
     }
 
     async function predictWebcam() {
@@ -306,38 +352,40 @@
 
       if (video.readyState >= 2 && video.videoWidth > 0) {
         try {
-          // Asegurarnos que el video tenga las dimensiones correctas actualizadas
+         
           if (video.width !== video.videoWidth) {
             video.width = video.videoWidth;
             video.height = video.videoHeight;
           }
 
-          // Usamos TinyFaceDetector que es 10x más ligero y NO crashea el WebGL de Android
+         
           const result = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions({ scoreThreshold: 0.5, inputSize: 416 }))
             .withFaceLandmarks()
             .withFaceDescriptor();
           
+          if (!isScanning) return;
+          
           if (result) {
-            // CONTROL DE CALIDAD EXTREMO (Anti-Spoofing básico y control de profundidad)
+           
             const box = result.detection.box;
-            const minFaceWidth = (video.videoWidth || 640) * 0.10; // Reducido para permitir rostros más pequeños o alejados
+            const minFaceWidth = (video.videoWidth || 640) * 0.10;
             
             if (box.width < minFaceWidth) {
               matchBufferCount = 0;
               matchBufferId = null;
               emaFrames = 0;
-              // Ignoramos el frame porque el rostro está muy lejos
+             
               if (isScanning) reqAnimId = window.requestAnimationFrame(predictWebcam);
               return;
             }
 
             const descriptor = result.descriptor;
-            // Filtro EMA para estabilizar el vector en baja luz
+           
             const EMA_WEIGHT = 0.6;
             const distFromEMA = emaFrames > 0 ? faceapi.euclideanDistance(descriptor, emaDescriptor) : 0;
             
             if (emaFrames === 0 || distFromEMA > 0.35) {
-              // Resetea el promedio si es el primer frame o si cambia drásticamente la identidad/rostro
+             
               for (let i = 0; i < 128; i++) emaDescriptor[i] = descriptor[i];
               emaFrames = 1;
             } else {
@@ -351,7 +399,7 @@
             let secondMinDistance = Infinity;
             let bestMatch = null;
             
-            // Comparación Euclidiana contra BD
+           
             for (const m of membersDB) {
               const d = faceapi.euclideanDistance(emaDescriptor, m.biometria);
               if (d < minDistance) {
@@ -363,12 +411,12 @@
               }
             }
             
-            // THRESHOLD CRÍTICO DE SEGURIDAD (Extremadamente Estricto)
-            const THRESHOLD = 0.35; // Endurecido al máximo
-            const AMBIGUITY_MARGIN = 0.08; // Máxima protección contra hermanos/gemelos
+           
+            const THRESHOLD = 0.35;
+            const AMBIGUITY_MARGIN = 0.08;
             
             if (bestMatch && minDistance < THRESHOLD) {
-              // Protección estricta contra gemelos/familiares
+             
               if (membersDB.length > 1 && (secondMinDistance - minDistance) < AMBIGUITY_MARGIN) {
                 matchBufferCount = 0;
                 emaFrames = 0;
@@ -420,7 +468,7 @@
              }
           }
         } catch (err) {
-          console.error("Error en detección biométrica:", err);
+
         }
       }
       
@@ -429,13 +477,13 @@
       }
     }
 
-    // Events
+   
     document.getElementById('form-activation').addEventListener('submit', async (e) => {
       e.preventDefault();
       const pass = document.getElementById('act-pass').value;
       if (pass === 'admin') {
         if (document.documentElement.requestFullscreen) {
-          document.documentElement.requestFullscreen().catch(console.error);
+          document.documentElement.requestFullscreen().catch(() => {});
         }
         const btn = e.target.querySelector('button[type="submit"]');
         btn.textContent = 'CARGANDO BASE DE DATOS...';
@@ -445,20 +493,20 @@
         btn.textContent = 'Encender Kiosco';
         btn.disabled = false;
       } else {
-        alert("Clave incorrecta.");
+        await showKioskModal("ERROR", "Clave incorrecta.", false);
       }
     });
 
-    document.getElementById('btn-exit').addEventListener('click', () => {
-      const pass = prompt("INTRODUCE LA CLAVE DE SEGURIDAD PARA APAGAR EL KIOSCO:");
+    document.getElementById('btn-exit').addEventListener('click', async () => {
+      const pass = await showKioskModal("APAGAR KIOSCO", "INTRODUCE LA CLAVE DE SEGURIDAD:", true);
       if (pass === 'admin') {
         stopKiosk();
       } else if (pass !== null) {
-        alert("Clave incorrecta. El Kiosco sigue activo.");
+        await showKioskModal("ERROR", "Clave incorrecta. El Kiosco sigue activo.", false);
       }
     });
     
-    // Enrolamiento Remoto desde Admin
+   
     let enrollTarget = null;
     const kioscoChannel = window.supabaseClient.channel('kiosco-enroll');
     
@@ -467,16 +515,16 @@
       if (!isScanning && !document.getElementById('screen-kiosco').classList.contains('flex')) return;
       
       enrollTarget = data;
-      isScanning = false; // Pausar escaneo normal
+      isScanning = false;
       
       const banner = document.getElementById("kiosk-banner");
       const icon = document.getElementById("kiosk-icon");
       const title = document.getElementById("kiosk-title");
       const msg = document.getElementById("kiosk-msg");
       
-      // Corrección de visibilidad de banner (Tailwind classes)
+     
       banner.className = "absolute bottom-0 left-0 w-full bg-brand-white border-t-4 border-brand-black p-6 sm:p-8 flex flex-col items-center justify-center transition-all duration-300 transform translate-y-full opacity-0 z-30";
-      // Forzar reflow para CSS transitions
+     
       void banner.offsetWidth;
       banner.classList.remove("translate-y-full", "opacity-0");
       
@@ -488,13 +536,13 @@
       
       speak("Por favor, mira directamente a la cámara.");
       
-      setTimeout(() => { captureEnrollment(); }, 2000); // 2 segundos para acomodarse
+      setTimeout(() => { captureEnrollment(); }, 2000);
     }).subscribe();
 
     async function captureEnrollment() {
       if (!modelsLoaded || !video.srcObject || !enrollTarget) return;
       
-      const MAX_ATTEMPTS = 100; // damos más tiempo, guiamos al usuario
+      const MAX_ATTEMPTS = 100;
       let attempts = 0;
       
       let accumulatedDescriptor = new Float32Array(128);
@@ -506,7 +554,7 @@
       ];
       let currentStage = 0;
       let stageSuccessFrames = 0;
-      const REQUIRED_FRAMES_PER_STAGE = 3; // To ensure they are holding the pose
+      const REQUIRED_FRAMES_PER_STAGE = 3;
 
       async function tryCapture() {
         if (attempts >= MAX_ATTEMPTS) {
@@ -521,20 +569,22 @@
             .withFaceLandmarks()
             .withFaceDescriptor();
             
+          if (!enrollTarget) return;
+            
           if (result) {
             const box = result.detection.box;
-            const minFaceWidth = (video.videoWidth || 640) * 0.20; // Require closer face for enrollment
+            const minFaceWidth = (video.videoWidth || 640) * 0.20;
             
             if (box.width >= minFaceWidth) {
               const landmarks = result.landmarks.positions;
-              const leftX = landmarks[0].x; // Mejilla derecha (izq de la imagen)
-              const rightX = landmarks[16].x; // Mejilla izquierda (der de la imagen)
-              const noseX = landmarks[30].x; // Punta de la nariz
+              const leftX = landmarks[0].x;
+              const rightX = landmarks[16].x;
+              const noseX = landmarks[30].x;
               const faceWidth = rightX - leftX;
               
               if (faceWidth > 0) {
-                // Ratio de la posición de la nariz respecto al ancho de la cara.
-                // 0.5 = Frente exacto
+               
+               
                 const yaw = (noseX - leftX) / faceWidth;
                 const stage = STAGES[currentStage];
                 
@@ -543,7 +593,7 @@
                 if (stage.check(yaw)) {
                   stageSuccessFrames++;
                   
-                  // Acumular descriptor para un promedio robusto
+                 
                   for (let i = 0; i < 128; i++) {
                     accumulatedDescriptor[i] += result.descriptor[i];
                   }
@@ -551,10 +601,10 @@
                   if (stageSuccessFrames >= REQUIRED_FRAMES_PER_STAGE) {
                     currentStage++;
                     stageSuccessFrames = 0;
-                    attempts = 0; // reset attempts for the next stage
+                    attempts = 0;
                     
                     if (currentStage >= STAGES.length) {
-                      // FINALIZAR
+                     
                       document.getElementById("kiosk-msg").innerText = "PROCESANDO BIOMETRÍA...";
                       
                       const totalFrames = STAGES.length * REQUIRED_FRAMES_PER_STAGE;
@@ -578,12 +628,12 @@
                       resumeNormal();
                       return;
                     } else {
-                      // Hablar la siguiente instrucción
+                     
                       speak(STAGES[currentStage].msg);
                     }
                   }
                 } else {
-                  // Reset si pierde la pose
+                 
                   stageSuccessFrames = Math.max(0, stageSuccessFrames - 1);
                 }
               }
@@ -594,10 +644,10 @@
             document.getElementById("kiosk-msg").innerText = "NO SE DETECTA ROSTRO CLARO";
           }
         } catch (err) {
-          console.error("Error durante enrolamiento:", err);
+
         }
         
-        setTimeout(tryCapture, 150); // Muestreo rápido
+        setTimeout(tryCapture, 150);
       }
       tryCapture();
     }
@@ -609,7 +659,7 @@
       setTimeout(() => { isScanning = true; predictWebcam(); }, 500);
     }
     
-    // Escucha eventos globales para recargar base de datos en tiempo real (pagos, altas, etc)
+   
     const kioscoMainChannel = window.supabaseClient.channel('public:accesos');
     kioscoMainChannel.on('broadcast', { event: 'db_updated' }, () => {
       loadDB();
@@ -618,3 +668,4 @@
   </script>
 </body>
 </html>
+

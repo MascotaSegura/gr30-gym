@@ -35,14 +35,12 @@
     
     <div id="client-content" class="hidden flex-col gap-8">
       
-      <!-- Tabs Selector for Desktop -->
-      <div class="hidden sm:flex w-full bg-brand-black gap-1 border-4 border-brand-black mb-4">
+            <div class="hidden sm:flex w-full bg-brand-black gap-1 border-4 border-brand-black mb-4">
         <button onclick="setTab('resumen')" id="tab-desk-resumen" class="flex-1 py-4 font-display font-bold uppercase tracking-widest text-sm bg-brand-green text-brand-black hover:bg-brand-green hover:text-brand-black focus:outline-none transition-colors">Resumen</button>
         <button onclick="setTab('historial')" id="tab-desk-historial" class="flex-1 py-4 font-display font-bold uppercase tracking-widest text-sm bg-brand-white text-brand-black hover:bg-brand-green hover:text-brand-black focus:outline-none transition-colors">Historial de Pagos</button>
       </div>
 
-      <!-- TAB 1: RESUMEN -->
-      <div id="view-resumen" class="flex flex-col gap-12">
+            <div id="view-resumen" class="flex flex-col gap-12">
         <div class="flex flex-col mb-4">
           <p class="font-display font-bold uppercase tracking-widest text-brand-black text-xl sm:text-2xl mb-1">Hola,</p>
           <h1 id="c-nombre" class="text-[clamp(3.5rem,8vw,6rem)] leading-none font-display font-bold uppercase tracking-tighter text-brand-green break-words">...</h1>
@@ -73,21 +71,17 @@
         </div>
       </div>
 
-      <!-- TAB 2: HISTORIAL -->
-      <div id="view-historial" class="hidden flex-col gap-6">
+            <div id="view-historial" class="hidden flex-col gap-6">
         <h2 class="text-3xl font-display font-bold uppercase tracking-tighter mb-2 text-brand-black border-b-4 border-brand-black pb-4">Tus Pagos.</h2>
         <div id="historial-container" class="flex flex-col gap-4">
-          <!-- Rows -->
-        </div>
+                  </div>
       </div>
 
-      <!-- Spacer for Bottom Nav Bar -->
-      <div class="h-24 sm:hidden flex-shrink-0 w-full"></div>
+            <div class="h-24 sm:hidden flex-shrink-0 w-full"></div>
     </div>
   </main>
 
-  <!-- BOTTOM NAV BAR (MOBILE) -->
-  <nav class="fixed bottom-0 left-0 w-full flex sm:hidden bg-brand-black border-t-4 border-brand-black gap-1 z-50">
+    <nav class="fixed bottom-0 left-0 w-full flex sm:hidden bg-brand-black border-t-4 border-brand-black gap-1 z-50">
     <button onclick="setTab('resumen')" id="btn-resumen" class="flex-1 flex flex-col items-center justify-center py-4 bg-brand-green text-brand-black focus:outline-none transition-colors">
       <i class="ph-bold ph-squares-four text-2xl mb-1"></i>
       <span class="font-display font-bold text-xs uppercase tracking-widest mt-1">Resumen</span>
@@ -104,6 +98,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="assets/js/supabase.js"></script>
+  <script src="assets/js/sysModal.js"></script>
   <script>
     let sessionData = null;
     try {
@@ -142,7 +137,7 @@
 
     async function loadClientData() {
       try {
-        // DOBLE VALIDACIÓN: Teléfono + Contraseña. Imposible suplantar identidad sin saber la clave.
+       
         const { data: member, error } = await window.supabaseClient.from('miembros')
           .select('*')
           .eq('telefono', sessionData.phone)
@@ -171,12 +166,12 @@
         }
         document.getElementById('c-estado').innerHTML = badge;
 
-        // Fetch pagos
+       
         const { data: pagos } = await window.supabaseClient.from('pagos').select('*').eq('miembro_id', member.id).order('fecha', { ascending: false });
         
         let venc = '-';
         if (pagos && pagos.length > 0) {
-          // Solución de zona horaria para sumar 1 mes seguro:
+         
           const parts = pagos[0].fecha.split('-');
           if (parts.length === 3) {
             let year = parseInt(parts[0]);
@@ -196,7 +191,7 @@
           histContainer.innerHTML = pagos.map(p => `
             <div class="bg-brand-white border-4 border-brand-black p-4 sm:p-6 flex flex-col sm:flex-row justify-between sm:items-center gap-4">
               <div>
-                <p class="font-display font-bold text-xl uppercase text-brand-black">$${p.monto} mxn</p>
+                <p class="font-display font-bold text-xl uppercase text-brand-black">${p.monto} mxn</p>
                 <p class="text-xs font-bold uppercase tracking-widest text-brand-black mt-1">${p.metodo}</p>
               </div>
               <div class="font-display font-bold uppercase tracking-widest text-sm bg-brand-black text-brand-white px-4 py-2 text-center whitespace-nowrap">
