@@ -1848,28 +1848,27 @@ window.renderInventoryTableBody = function(query = '') {
   return filtered.map(p => {
     const safeStock = Number(p.stock) || 0;
     const safePrecio = Number(p.precio) || 0;
-    const isLowStock = safeStock <= 5;
     
     return `
-    <div class="border-4 border-brand-black flex flex-col group relative ${isLowStock ? 'bg-brand-black text-brand-white' : 'bg-brand-white text-brand-black'}">
-      <div class="absolute top-4 right-4 text-xs font-bold uppercase tracking-widest px-2 py-1 border-2 ${isLowStock ? 'border-brand-white text-brand-white' : 'border-brand-black text-brand-black'} z-10">
+    <div class="border-4 border-brand-black bg-brand-white flex flex-col group relative text-brand-black">
+      <div class="absolute top-4 right-4 text-xs font-bold uppercase tracking-widest px-2 py-1 border-2 border-brand-black bg-brand-white text-brand-black z-10">
         Stock: ${safeStock}
       </div>
-      <div class="w-full h-48 sm:h-56 p-6 flex justify-center items-center border-b-4 ${isLowStock ? 'border-brand-white' : 'border-brand-black'}">
-        <img src="${p.img || 'assets/img/pos_snack.png'}" class="max-w-full max-h-full object-contain filter ${isLowStock ? 'invert' : ''}" onerror="this.src='assets/img/pos_snack.png'">
+      <div class="w-full h-48 sm:h-56 p-6 flex justify-center items-center border-b-4 border-brand-black">
+        <img src="${p.img || 'assets/img/pos_snack.png'}" class="max-w-full max-h-full object-contain" onerror="this.src='assets/img/pos_snack.png'">
       </div>
       <div class="p-6 flex flex-col flex-grow">
         <h3 class="font-display font-bold uppercase tracking-widest text-lg sm:text-xl leading-tight mb-2">${p.nombre}</h3>
         <p class="font-bold text-2xl tracking-tighter mb-6">$${safePrecio.toFixed(2)}</p>
         
         <div class="mt-auto flex flex-col gap-4">
-          <div class="flex items-center justify-between border-4 ${isLowStock ? 'border-brand-white' : 'border-brand-black'} p-2">
-            <button onclick="updateStock('${p.id}', -1)" class="w-10 h-10 flex items-center justify-center hover:bg-brand-green hover:text-brand-black text-2xl font-bold transition-colors focus:outline-none ${isLowStock ? 'hover:bg-brand-white text-brand-white hover:text-brand-black border-2 border-transparent hover:border-brand-white' : 'border-2 border-transparent hover:border-brand-black'}">-</button>
+          <div class="flex items-center justify-between border-4 border-brand-black p-2">
+            <button onclick="updateStock('${p.id}', -1)" class="w-10 h-10 flex items-center justify-center hover:bg-brand-green hover:text-brand-black text-2xl font-bold transition-colors focus:outline-none border-2 border-transparent hover:border-brand-black">-</button>
             <span class="font-display font-bold text-2xl tracking-tighter w-12 text-center">${safeStock}</span>
-            <button onclick="updateStock('${p.id}', 1)" class="w-10 h-10 flex items-center justify-center hover:bg-brand-green hover:text-brand-black text-2xl font-bold transition-colors focus:outline-none ${isLowStock ? 'hover:bg-brand-white text-brand-white hover:text-brand-black border-2 border-transparent hover:border-brand-white' : 'border-2 border-transparent hover:border-brand-black'}">+</button>
+            <button onclick="updateStock('${p.id}', 1)" class="w-10 h-10 flex items-center justify-center hover:bg-brand-green hover:text-brand-black text-2xl font-bold transition-colors focus:outline-none border-2 border-transparent hover:border-brand-black">+</button>
           </div>
           
-          <button onclick="openModal('product-form', '${p.id}')" class="w-full py-3 border-4 ${isLowStock ? 'border-brand-white text-brand-white hover:bg-brand-white hover:text-brand-black focus:bg-brand-white focus:text-brand-black' : 'border-brand-black text-brand-black hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white'} font-display font-bold uppercase tracking-widest text-sm transition-colors focus:outline-none">
+          <button onclick="openModal('product-form', '${p.id}')" class="w-full py-3 border-4 border-brand-black text-brand-black hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white font-display font-bold uppercase tracking-widest text-sm transition-colors focus:outline-none">
             Editar
           </button>
         </div>
