@@ -1851,7 +1851,7 @@ window.renderInventoryTableBody = function(query = '') {
     const isLowStock = safeStock <= 5;
     
     return `
-    <div class="border-4 border-brand-black bg-brand-white flex flex-col group relative ${isLowStock ? 'bg-brand-black text-brand-white' : 'text-brand-black'}">
+    <div class="border-4 border-brand-black flex flex-col group relative ${isLowStock ? 'bg-brand-black text-brand-white' : 'bg-brand-white text-brand-black'}">
       <div class="absolute top-4 right-4 text-xs font-bold uppercase tracking-widest px-2 py-1 border-2 ${isLowStock ? 'border-brand-white text-brand-white' : 'border-brand-black text-brand-black'} z-10">
         Stock: ${safeStock}
       </div>
