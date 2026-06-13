@@ -916,6 +916,121 @@ function deleteStaff(id) {
   });
 }
 
+function productFormHTML(p) {
+  p = p || {};
+  return `
+    <form onsubmit="saveProduct(event)" id="form-product" class="flex flex-col gap-6">
+      <input type="hidden" id="pr-id" value="${p.id || ''}">
+      <div>
+        <label class="${labelCls}">Nombre del Producto</label>
+        <input type="text" id="pr-nombre" value="${p.nombre || ''}" class="${inputCls}" required>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div>
+          <label class="${labelCls}">Precio ($)</label>
+          <input type="number" id="pr-precio" value="${p.precio || ''}" min="0" class="${inputCls}" required>
+        </div>
+        <div>
+          <label class="${labelCls}">Stock Inicial</label>
+          <input type="number" id="pr-stock" value="${p.stock !== undefined ? p.stock : 0}" min="0" class="${inputCls}" required>
+        </div>
+      </div>
+      <div>
+        <label class="${labelCls}">Código de Barras (Opcional)</label>
+        <div class="flex">
+          <input type="text" id="pr-barcode" value="${p.barcode || ''}" class="${inputCls} border-r-0 placeholder:text-brand-black/30" placeholder="ESCANEA O ESCRIBE">
+          <button type="button" onclick="openCameraScanner('pr-barcode')" class="flex-shrink-0 w-16 sm:w-20 border-4 border-brand-black flex items-center justify-center bg-brand-white text-brand-black hover:bg-brand-black hover:text-brand-white focus:outline-none transition-colors" aria-label="Escanear con cámara">
+            <i class="ph-bold ph-camera text-2xl sm:text-3xl"></i>
+          </button>
+        </div>
+      </div>
+      <div class="flex flex-col sm:flex-row justify-between gap-4 mt-4">
+        ${p.id ? `<button type="button" onclick="deleteProduct('${p.id}')" class="${deleteBtnCls} w-full sm:w-auto">Eliminar Producto</button>` : '<div></div>'}
+        <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+          <button type="button" onclick="closeModal()" class="${cancelBtnCls} w-full sm:w-auto">Cancelar</button>
+          <button type="submit" class="${saveBtnCls} w-full sm:w-auto">Guardar Producto</button>
+        </div>
+      </div>
+    </form>
+  `;
+}
+
+window.saveProduct = async function(e) {
+  e.preventDefault();
+  const id = document.getElementById('pr-id').value;
+  const nombre = document.getElementById('pr-nombre').value.trim();
+  const precio = parseFloat(document.getElementById('pr-precio').value);
+  const stock = parseInt(document.getElementById('pr-stock').value, 10);
+  const barcode = document.getElementById('pr-barcode').value.trim();
+
+  if (!nombre || isNaN(precio) || isNaN(stock)) {
+    if(window.sysModal) window.sysModal('error', 'ERROR', 'Faltan datos obligatorios.');
+    return;
+  }
+
+  const originalText = e.submitter.textContent;
+  e.submitter.textContent = "Guardando...";
+  e.submitter.disabled = true;
+
+  try {
+    if (id) {
+      const payload = { nombre, precio, stock, barcode: barcode || null };
+      const { error } = await window.supabaseClient.from('inventory').update(payload).eq('id', id);
+      if (error) throw error;
+      const prod = inventoryData.find(x => x.id === id);
+      if (prod) {
+        prod.nombre = nombre;
+        prod.precio = precio;
+        prod.stock = stock;
+        prod.barcode = barcode || null;
+      }
+      if(window.showToast) window.showToast('PRODUCTO ACTUALIZADO CON ÉXITO');
+    } else {
+      const payload = { nombre, precio, stock, barcode: barcode || null, img: 'assets/img/pos_snack.png' };
+      const { data, error } = await window.supabaseClient.from('inventory').insert([payload]).select();
+      if (error) throw error;
+      if (data && data.length > 0) inventoryData.push(data[0]);
+      if(window.showToast) window.showToast('PRODUCTO AÑADIDO CON ÉXITO');
+    }
+    closeModal();
+    const searchInput = document.getElementById('inventory-search');
+    if(window.filterInventoryList) window.filterInventoryList(searchInput ? searchInput.value : '');
+    if(window.renderPOS) window.renderPOS();
+    if(window.renderInventoryStats) window.renderInventoryStats();
+  } catch (err) {
+    if(window.sysModal) window.sysModal('error', 'ERROR', 'Fallo al guardar producto en la base de datos.');
+  } finally {
+    e.submitter.textContent = originalText;
+    e.submitter.disabled = false;
+  }
+};
+
+window.deleteProduct = function(id) {
+  if(window.sysModal) {
+    window.sysModal('confirm', 'ELIMINAR PRODUCTO', '¿ESTÁS SEGURO DE ELIMINAR ESTE PRODUCTO? ESTO NO SE PUEDE DESHACER.').then(async confirmed => {
+      if (!confirmed) return;
+      try {
+        const { error } = await window.supabaseClient.from('inventory').delete().eq('id', id);
+        if (error) throw error;
+        const idx = inventoryData.findIndex(x => x.id === id);
+        if (idx !== -1) {
+          inventoryData.splice(idx, 1);
+          if (typeof posCart !== 'undefined') posCart = posCart.filter(item => item.id !== id);
+          if (window.renderCart) window.renderCart();
+          if (window.renderPOS) window.renderPOS();
+          if (window.renderInventoryStats) window.renderInventoryStats();
+          const searchInput = document.getElementById('inventory-search');
+          if (window.filterInventoryList) window.filterInventoryList(searchInput ? searchInput.value : '');
+          closeModal();
+          if(window.showToast) window.showToast('PRODUCTO ELIMINADO');
+        }
+      } catch (err) {
+        if(window.sysModal) window.sysModal('error', 'ERROR', 'Fallo al eliminar producto.');
+      }
+    });
+  }
+};
+
 window.resetMemberPIN = async function(id) {
   const generatedPIN = Math.floor(1000 + Math.random() * 9000).toString();
   try {
@@ -1891,6 +2006,60 @@ window.openCameraScanner = function(targetInputId) {
     });
   } else {
     sysModal('error', 'ERROR', 'Librería de escáner no cargada.');
+    window.closeCameraScanner = function() {
+      const overlay = document.getElementById('sys-scanner-overlay');
+      if (overlay) overlay.remove();
+      document.body.style.overflow = '';
+    };
+  }
+};
+
+window.openCameraScanner = function(targetInputId) {
+  const overlayHtml = `
+    <div id="sys-scanner-overlay" class="fixed inset-0 bg-brand-black z-[999999] flex flex-col items-center justify-center p-6 sm:p-12 overflow-y-auto">
+      <div class="w-full max-w-lg bg-brand-white border-4 border-brand-black flex flex-col shadow-[16px_16px_0_0_rgba(0,0,0,1)]">
+        <div class="p-6 border-b-4 border-brand-black flex justify-between items-center bg-brand-black text-brand-white">
+          <h3 class="font-display font-bold uppercase tracking-widest text-lg sm:text-xl">Escanear Código</h3>
+          <button onclick="closeCameraScanner()" class="text-brand-white hover:text-brand-green focus:outline-none text-3xl"><i class="ph-bold ph-x"></i></button>
+        </div>
+        <div class="p-6 bg-brand-white flex-1 flex flex-col items-center">
+          <div id="qr-reader" class="w-full border-4 border-brand-black min-h-[300px]"></div>
+          <p class="mt-6 font-display font-bold uppercase tracking-widest text-xs text-center opacity-70">Apunta la cámara de tu dispositivo hacia el código de barras o QR.</p>
+        </div>
+      </div>
+    </div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', overlayHtml);
+  document.body.style.overflow = 'hidden';
+
+  if (typeof Html5QrcodeScanner !== 'undefined') {
+    const html5QrcodeScanner = new Html5QrcodeScanner(
+      "qr-reader",
+      { fps: 10, qrbox: {width: 250, height: 250} },
+      false
+    );
+
+    window.closeCameraScanner = function() {
+      html5QrcodeScanner.clear().catch(error => {
+        console.error("Failed to clear html5QrcodeScanner. ", error);
+      });
+      const overlay = document.getElementById('sys-scanner-overlay');
+      if (overlay) overlay.remove();
+      document.body.style.overflow = '';
+    };
+
+    html5QrcodeScanner.render((decodedText, decodedResult) => {
+      const input = document.getElementById(targetInputId);
+      if (input) {
+        input.value = decodedText;
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+        input.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+      if(window.showToast) window.showToast('CÓDIGO ESCANEADO: ' + decodedText);
+      closeCameraScanner();
+    }, (error) => {});
+  } else {
+    if(window.sysModal) window.sysModal('error', 'ERROR', 'Librería de escáner no cargada.');
     window.closeCameraScanner = function() {
       const overlay = document.getElementById('sys-scanner-overlay');
       if (overlay) overlay.remove();
