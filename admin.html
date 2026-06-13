@@ -367,23 +367,22 @@
     <div class="bg-brand-white border-4 border-brand-black flex flex-col">
       <div class="p-6 border-b-4 border-brand-black flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <h3 class="font-display font-bold uppercase tracking-widest text-xl flex items-center gap-2 text-brand-black">
-          Control de Stock <span class="text-xs bg-brand-green text-brand-black px-2 py-1 ml-4">ESCANEA PARA AÑADIR +1</span>
+          Control de Stock <span class="text-xs bg-brand-green text-brand-black px-2 py-1 ml-4 hidden sm:inline-block">ESCANEA PARA AÑADIR +1</span>
         </h3>
+        <div class="flex items-center gap-4 w-full sm:w-auto">
+          <button onclick="openModal('product-form')" class="bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-6 py-4 text-xs hover:bg-brand-green hover:text-brand-black focus:outline-none transition-colors border-4 border-brand-black flex items-center justify-center gap-2 w-full sm:w-auto">
+            <i class="ph-bold ph-plus text-xl"></i> Añadir Producto
+          </button>
+        </div>
       </div>
-      <input type="text" id="inventory-search" placeholder="BUSCAR PRODUCTO O ESCANEAR..." class="w-full p-6 border-b-4 border-brand-black font-display font-bold uppercase tracking-widest text-xl bg-brand-white focus:outline-none focus:bg-brand-green transition-colors placeholder:text-brand-black/30 text-brand-black" oninput="filterInventoryList(this.value)">
-      <div class="overflow-x-auto bg-brand-white">
-        <table class="w-full text-left border-collapse min-w-[700px]">
-          <thead class="bg-brand-black text-brand-white">
-            <tr>
-              <th class="p-6 font-display font-bold text-lg uppercase tracking-widest w-24">Imagen</th>
-              <th class="p-6 font-display font-bold text-lg uppercase tracking-widest">Producto</th>
-              <th class="p-6 font-display font-bold text-lg uppercase tracking-widest text-right">Stock / Ajuste</th>
-            </tr>
-          </thead>
-          <tbody id="inventory-tbody" class="text-brand-black">
-
-          </tbody>
-        </table>
+      <div class="flex">
+        <input type="text" id="inventory-search" placeholder="BUSCAR PRODUCTO O ESCANEAR..." class="w-full p-6 border-b-4 border-brand-black font-display font-bold uppercase tracking-widest text-xl bg-brand-white focus:outline-none focus:bg-brand-green transition-colors placeholder:text-brand-black/30 text-brand-black" oninput="filterInventoryList(this.value)">
+        <button onclick="openCameraScanner('inventory-search')" class="border-b-4 border-l-4 border-brand-black bg-brand-white text-brand-black hover:bg-brand-black hover:text-brand-white px-6 focus:outline-none transition-colors flex-shrink-0" aria-label="Escanear producto">
+          <i class="ph-bold ph-camera text-3xl"></i>
+        </button>
+      </div>
+      <div id="inventory-tbody" class="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 bg-brand-white">
+        <!-- Renderizado por JS -->
       </div>
     </div>
   </div>

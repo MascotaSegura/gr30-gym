@@ -1833,34 +1833,37 @@ window.renderInventoryTableBody = function(query = '') {
 
   if (filtered.length === 0) {
     return `
-      <tr>
-        <td colspan="3" class="p-8 text-center bg-brand-white">
-          <p class="font-display font-bold uppercase tracking-widest text-2xl text-brand-black">NO SE ENCONTRARON PRODUCTOS</p>
-        </td>
-      </tr>
+      <div class="col-span-1 sm:col-span-2 lg:col-span-3 xl:col-span-4 p-8 text-center bg-brand-white border-4 border-brand-black">
+        <p class="font-display font-bold uppercase tracking-widest text-2xl text-brand-black">NO SE ENCONTRARON PRODUCTOS</p>
+      </div>
     `;
   }
 
   return filtered.map(p => `
-    <tr class="border-b-4 border-brand-black last:border-b-0 ${p.stock <= 5 ? 'bg-brand-black text-brand-white' : ''}">
-      <td class="p-4 w-24">
-        <img src="${p.img}" class="w-16 h-16 object-contain border-2 border-brand-black bg-brand-white">
-      </td>
-      <td class="p-4 font-bold uppercase">
-        ${p.nombre} 
-        ${p.barcode ? `<span class="block text-xs opacity-50 mt-1">CÓDIGO: ${p.barcode}</span>` : `<span class="block text-xs text-brand-green font-bold mt-1">SIN CÓDIGO</span>`}
-      </td>
-      <td class="p-4 text-right">
-        <div class="flex items-center justify-end gap-4">
-          <button onclick="updateStock('${p.id}', -1)" class="w-10 h-10 flex items-center justify-center border-4 border-brand-black hover:bg-brand-green hover:text-brand-black text-xl font-bold transition-colors ${p.stock <= 5 ? 'bg-brand-white text-brand-black' : ''}">-</button>
-          <span class="inline-block w-16 text-center font-display font-bold text-2xl">
-            ${p.stock}
-          </span>
-          <button onclick="updateStock('${p.id}', 1)" class="w-10 h-10 flex items-center justify-center border-4 border-brand-black hover:bg-brand-green hover:text-brand-black text-xl font-bold transition-colors ${p.stock <= 5 ? 'bg-brand-white text-brand-black' : ''}">+</button>
-          <button onclick="openModal('product-form', '${p.id}')" class="h-10 px-4 flex items-center justify-center border-4 border-brand-black hover:bg-brand-black hover:text-brand-white font-display font-bold uppercase tracking-widest text-xs transition-colors ${p.stock <= 5 ? 'bg-brand-white text-brand-black' : ''}">Editar</button>
+    <div class="border-4 border-brand-black bg-brand-white flex flex-col group relative ${p.stock <= 5 ? 'bg-brand-black text-brand-white' : 'text-brand-black'}">
+      <div class="absolute top-4 right-4 text-xs font-bold uppercase tracking-widest px-2 py-1 border-2 ${p.stock <= 5 ? 'border-brand-white text-brand-white' : 'border-brand-black text-brand-black'}">
+        Stock: ${p.stock}
+      </div>
+      <div class="w-full h-48 sm:h-56 p-6 flex justify-center items-center border-b-4 ${p.stock <= 5 ? 'border-brand-white' : 'border-brand-black'}">
+        <img src="${p.img}" class="max-w-full max-h-full object-contain filter ${p.stock <= 5 ? 'invert' : ''}">
+      </div>
+      <div class="p-6 flex flex-col flex-grow">
+        <h3 class="font-display font-bold uppercase tracking-widest text-lg sm:text-xl leading-tight mb-2">${p.nombre}</h3>
+        <p class="font-bold text-2xl tracking-tighter mb-6">$${p.precio.toFixed(2)}</p>
+        
+        <div class="mt-auto flex flex-col gap-4">
+          <div class="flex items-center justify-between border-4 ${p.stock <= 5 ? 'border-brand-white' : 'border-brand-black'} p-2">
+            <button onclick="updateStock('${p.id}', -1)" class="w-10 h-10 flex items-center justify-center hover:bg-brand-green hover:text-brand-black text-2xl font-bold transition-colors focus:outline-none ${p.stock <= 5 ? 'hover:bg-brand-white text-brand-white hover:text-brand-black' : ''}">-</button>
+            <span class="font-display font-bold text-2xl tracking-tighter w-12 text-center">${p.stock}</span>
+            <button onclick="updateStock('${p.id}', 1)" class="w-10 h-10 flex items-center justify-center hover:bg-brand-green hover:text-brand-black text-2xl font-bold transition-colors focus:outline-none ${p.stock <= 5 ? 'hover:bg-brand-white text-brand-white hover:text-brand-black' : ''}">+</button>
+          </div>
+          
+          <button onclick="openModal('product-form', '${p.id}')" class="w-full py-3 border-4 ${p.stock <= 5 ? 'border-brand-white text-brand-white hover:bg-brand-white hover:text-brand-black focus:bg-brand-white focus:text-brand-black' : 'border-brand-black text-brand-black hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white'} font-display font-bold uppercase tracking-widest text-sm transition-colors focus:outline-none">
+            Editar
+          </button>
         </div>
-      </td>
-    </tr>
+      </div>
+    </div>
   `).join('');
 };
 
