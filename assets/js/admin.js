@@ -200,7 +200,7 @@ let barcodeTimeout;
 
 document.addEventListener('keydown', (e) => {
   if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
-    if (e.target.id !== 'assign-barcode-input' && e.target.id !== 'search-pos' && e.target.id !== 'inventory-search') return;
+    if (e.target.id !== 'pr-barcode' && e.target.id !== 'search-pos' && e.target.id !== 'inventory-search') return;
   }
   
   if (e.key === 'Enter') {
@@ -218,8 +218,8 @@ document.addEventListener('keydown', (e) => {
 
 function handleBarcodeScan(code) {
   if (document.getElementById('modal-overlay') && !document.getElementById('modal-overlay').classList.contains('hidden')) {
-    if (currentModalType === 'assign-barcode') {
-      const input = document.getElementById('assign-barcode-input');
+    if (currentModalType === 'product-form') {
+      const input = document.getElementById('pr-barcode');
       if (input) input.value = code;
       return;
     }
@@ -240,10 +240,14 @@ function handleBarcodeScan(code) {
     showScannerFlash('AGREGADO: ' + product.nombre, 'success');
   } else {
     showScannerFlash('CÓDIGO DESCONOCIDO: ' + code, 'error');
-    sysModal('confirm', 'CÓDIGO NO ENCONTRADO', `El código escaneado (${code}) no pertenece a ningún producto. ¿Deseas asignarlo ahora?`).then(confirmed => {
+    sysModal('confirm', 'CÓDIGO NO ENCONTRADO', `El código escaneado (${code}) no pertenece a ningún producto. ¿Deseas agregarlo al inventario?`).then(confirmed => {
       if (confirmed) {
-        setScreen('pos');
-        openModal('assign-barcode', code);
+        setScreen('inventario');
+        openModal('product-form');
+        setTimeout(() => {
+          const barcodeInput = document.getElementById('pr-barcode');
+          if (barcodeInput) barcodeInput.value = code;
+        }, 100);
       }
     });
   }
@@ -599,23 +603,7 @@ function renderPlanes() {
 
 
 
-window.saveBarcodeAssignment = function(productId) {
-  const codeInput = document.getElementById('assign-barcode-input');
-  if (!codeInput) return;
-  const code = codeInput.value.trim();
-  if (!code) {
-    sysModal('error', 'ERROR', 'Debes escanear o escribir un código primero.');
-    return;
-  }
-  
-  const product = inventoryData.find(p => p.id === productId);
-  if (product) {
-    product.barcode = code;
-    saveInventory();
-    closeModal();
-    showScannerFlash('ASIGNADO A ' + product.nombre, 'success');
-  }
-};
+
 
 var currentModalType = null;
 var currentModalId   = null;
