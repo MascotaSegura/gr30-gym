@@ -1965,66 +1965,7 @@ window.openCameraScanner = function(targetInputId) {
           <button onclick="closeCameraScanner()" class="text-brand-white hover:text-brand-green focus:outline-none text-3xl"><i class="ph-bold ph-x"></i></button>
         </div>
         <div class="p-6 bg-brand-white flex-1 flex flex-col items-center">
-          <div id="qr-reader" class="w-full border-4 border-brand-black min-h-[300px]"></div>
-          <p class="mt-6 font-display font-bold uppercase tracking-widest text-xs text-center opacity-70">Apunta la cámara de tu dispositivo hacia el código de barras o QR.</p>
-        </div>
-      </div>
-    </div>
-  `;
-  document.body.insertAdjacentHTML('beforeend', overlayHtml);
-  document.body.style.overflow = 'hidden';
-
-  // Html5QrcodeScanner instanciación usando html5-qrcode
-  if (typeof Html5QrcodeScanner !== 'undefined') {
-    const html5QrcodeScanner = new Html5QrcodeScanner(
-      "qr-reader",
-      { fps: 10, qrbox: {width: 250, height: 250} },
-      /* verbose= */ false
-    );
-
-    window.closeCameraScanner = function() {
-      html5QrcodeScanner.clear().catch(error => {
-        console.error("Failed to clear html5QrcodeScanner. ", error);
-      });
-      const overlay = document.getElementById('sys-scanner-overlay');
-      if (overlay) overlay.remove();
-      document.body.style.overflow = '';
-    };
-
-    html5QrcodeScanner.render((decodedText, decodedResult) => {
-      // Escaneo exitoso
-      const input = document.getElementById(targetInputId);
-      if (input) {
-        input.value = decodedText;
-        // Disparar evento para actualizar
-        input.dispatchEvent(new Event('input', { bubbles: true }));
-        input.dispatchEvent(new Event('change', { bubbles: true }));
-      }
-      showToast('CÓDIGO ESCANEADO: ' + decodedText);
-      closeCameraScanner();
-    }, (error) => {
-      // Ignorar errores de escaneo temporal
-    });
-  } else {
-    sysModal('error', 'ERROR', 'Librería de escáner no cargada.');
-    window.closeCameraScanner = function() {
-      const overlay = document.getElementById('sys-scanner-overlay');
-      if (overlay) overlay.remove();
-      document.body.style.overflow = '';
-    };
-  }
-};
-
-window.openCameraScanner = function(targetInputId) {
-  const overlayHtml = `
-    <div id="sys-scanner-overlay" class="fixed inset-0 bg-brand-black z-[999999] flex flex-col items-center justify-center p-6 sm:p-12 overflow-y-auto">
-      <div class="w-full max-w-lg bg-brand-white border-4 border-brand-black flex flex-col shadow-[16px_16px_0_0_rgba(0,0,0,1)]">
-        <div class="p-6 border-b-4 border-brand-black flex justify-between items-center bg-brand-black text-brand-white">
-          <h3 class="font-display font-bold uppercase tracking-widest text-lg sm:text-xl">Escanear Código</h3>
-          <button onclick="closeCameraScanner()" class="text-brand-white hover:text-brand-green focus:outline-none text-3xl"><i class="ph-bold ph-x"></i></button>
-        </div>
-        <div class="p-6 bg-brand-white flex-1 flex flex-col items-center">
-          <div id="qr-reader" class="w-full border-4 border-brand-black min-h-[300px]"></div>
+          <div id="qr-reader" class="w-full border-4 border-brand-black bg-brand-black" style="min-height: 300px;"></div>
           <p class="mt-6 font-display font-bold uppercase tracking-widest text-xs text-center opacity-70">Apunta la cámara de tu dispositivo hacia el código de barras o QR.</p>
         </div>
       </div>

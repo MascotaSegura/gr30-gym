@@ -327,7 +327,10 @@
           <div class="pl-4 pr-2 flex items-center justify-center pointer-events-none text-brand-black/50 group-focus-within:text-brand-black transition-colors">
             <i class="ph-bold ph-magnifying-glass text-xl"></i>
           </div>
-          <input type="text" id="search-pos" placeholder="BUSCAR PRODUCTO..." class="block w-full py-4 pr-4 bg-transparent text-brand-black font-display font-bold tracking-wide focus:outline-none placeholder:text-brand-black/50 placeholder:uppercase text-sm">
+          <input type="text" id="search-pos" placeholder="BUSCAR PRODUCTO O ESCANEAR..." class="block w-full py-4 pr-4 bg-transparent text-brand-black font-display font-bold tracking-wide focus:outline-none placeholder:text-brand-black/50 placeholder:uppercase text-sm">
+          <button onclick="openCameraScanner('search-pos')" class="border-l-4 border-brand-black bg-brand-white text-brand-black hover:bg-brand-black hover:text-brand-white px-6 py-4 focus:outline-none transition-colors flex-shrink-0 group-focus-within:bg-brand-black group-focus-within:text-brand-white" aria-label="Escanear producto">
+            <i class="ph-bold ph-camera text-xl"></i>
+          </button>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6" id="pos-catalog-container">
