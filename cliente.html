@@ -30,7 +30,7 @@
 
   <main class="flex-1 w-full max-w-4xl mx-auto p-6 sm:p-12">
     <div id="loading" class="flex items-center justify-center py-24">
-      <i class="ph-bold ph-spinner animate-spin text-5xl text-brand-black"></i>
+      <div class="font-display font-bold text-3xl sm:text-4xl uppercase tracking-widest text-brand-black animate-pulse bg-brand-green px-6 py-4 border-4 border-brand-black">Cargando...</div>
     </div>
     
     <div id="client-content" class="hidden flex-col gap-8">
@@ -46,10 +46,10 @@
           <h1 id="c-nombre" class="text-[clamp(3.5rem,8vw,6rem)] leading-none font-display font-bold uppercase tracking-tighter text-brand-green break-words">...</h1>
         </div>
 
-        <div id="alert-section" class="hidden bg-brand-black text-brand-white border-4 border-brand-black p-4 sm:p-6 flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+        <div id="alert-section" class="hidden bg-brand-green text-brand-black border-4 border-brand-black p-4 sm:p-6 flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div>
-            <h2 class="text-2xl font-display font-bold uppercase tracking-widest text-brand-green mb-2 flex items-center gap-2"><i class="ph-bold ph-warning"></i> Pago Pendiente</h2>
-            <p class="font-medium text-lg leading-relaxed">Tu plan actual requiere regularización. Acércate a recepción para evitar la suspensión de tu acceso.</p>
+            <h2 class="text-2xl font-display font-bold uppercase tracking-widest text-brand-black mb-2 flex items-center gap-2"><i class="ph-bold ph-warning"></i> Pago Pendiente</h2>
+            <p class="font-bold text-lg leading-relaxed">Tu plan actual requiere regularización. Acércate a recepción para evitar la suspensión de tu acceso.</p>
           </div>
         </div>
 
@@ -154,7 +154,7 @@
 
         let badge = '';
         if (member.estado_pago === 'al_dia') {
-          badge = '<span class="bg-brand-green text-brand-black font-display font-bold uppercase tracking-widest text-xs px-2 py-1 inline-block border-4 border-brand-green">Al D\u00eda</span>';
+          badge = '<span class="bg-brand-green text-brand-black font-display font-bold uppercase tracking-widest text-xs px-2 py-1 inline-block border-4 border-brand-black">Al Día</span>';
         } else if (member.estado_pago === 'atrasado') {
           badge = '<span class="bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest text-xs px-2 py-1 inline-flex items-center gap-1 whitespace-nowrap border-4 border-brand-black"><i class="ph-bold ph-warning text-sm"></i> Atrasado</span>';
           document.getElementById('alert-section').classList.remove('hidden');

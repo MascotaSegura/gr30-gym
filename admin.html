@@ -194,7 +194,7 @@
             <div class="pl-4 pr-2 flex items-center justify-center pointer-events-none text-brand-black/50 group-focus-within:text-brand-black transition-colors">
               <i class="ph-bold ph-magnifying-glass text-xl"></i>
             </div>
-            <input type="text" id="search-miembros" placeholder="Buscar miembro..." class="block w-full py-3 pr-4 bg-transparent text-brand-black font-display font-bold tracking-wide focus:outline-none placeholder:text-brand-black/50 text-sm">
+            <input type="text" id="search-miembros" placeholder="Buscar miembro..." class="block w-full py-4 pr-4 bg-transparent text-brand-black font-display font-bold tracking-wide focus:outline-none placeholder:text-brand-black/50 text-sm">
           </div>
           <button onclick="openModal('member-form')" class="w-full sm:w-auto text-center bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors flex items-center justify-center gap-2 flex-shrink-0">
             <i class="ph-bold ph-plus text-base mt-[-2px]"></i> Añadir Miembro
@@ -226,7 +226,7 @@
           <div class="pl-4 pr-2 flex items-center justify-center pointer-events-none text-brand-black/50 group-focus-within:text-brand-black transition-colors">
             <i class="ph-bold ph-magnifying-glass text-xl"></i>
           </div>
-          <input type="text" id="search-pagos" placeholder="Buscar por nombre o teléfono..." class="block w-full py-3 pr-4 bg-transparent text-brand-black font-display font-bold tracking-wide focus:outline-none placeholder:text-brand-black/50 text-sm">
+          <input type="text" id="search-pagos" placeholder="Buscar por nombre o teléfono..." class="block w-full py-4 pr-4 bg-transparent text-brand-black font-display font-bold tracking-wide focus:outline-none placeholder:text-brand-black/50 text-sm">
         </div>
       </div>
 
@@ -278,7 +278,7 @@
     <div class="bg-brand-white">
       <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-6">
         <h2 class="text-4xl font-display font-bold uppercase tracking-tighter text-brand-black flex items-center gap-3"><i class="ph-bold ph-door"></i> Registro de Entradas</h2>
-        <div class="flex items-center gap-3 bg-brand-black text-brand-white px-4 py-3 border-4 border-brand-black">
+        <div class="flex items-center gap-3 bg-brand-black text-brand-white px-6 py-4 border-4 border-brand-black">
           <div class="w-3 h-3 bg-brand-green animate-pulse"></div>
           <span class="font-display font-bold uppercase tracking-widest text-xs">Radar Biométrico Activo</span>
         </div>
@@ -391,9 +391,9 @@
 <div id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" onclick="handleOverlayClick(event)" class="fixed inset-0 hidden items-start justify-center p-4 sm:p-6 overflow-y-auto pt-12 sm:pt-[10vh] bg-black/90 z-[999999]">
   <div id="modal-box" class="bg-brand-white w-full flex flex-col border-4 border-brand-black mb-12 max-w-2xl">
     
-    <div class="p-6 sm:p-8 flex items-center bg-brand-black text-brand-white relative">
-      <h2 id="modal-title" class="text-2xl sm:text-3xl font-display font-bold uppercase tracking-tighter pr-12">Modal</h2>
-      <button onclick="closeModal()" aria-label="Cerrar modal" class="absolute top-6 sm:top-8 right-6 sm:right-8 text-brand-white hover:text-brand-green focus:text-brand-green active:text-brand-green transition-colors focus:outline-none text-3xl font-display font-bold leading-none flex-shrink-0 bg-brand-black z-10 p-1">
+    <div class="p-6 sm:p-8 flex items-center justify-between bg-brand-black text-brand-white border-b-4 border-brand-black">
+      <h2 id="modal-title" class="text-2xl sm:text-3xl font-display font-bold uppercase tracking-tighter">Modal</h2>
+      <button onclick="closeModal()" aria-label="Cerrar modal" class="text-brand-white hover:text-brand-green focus:text-brand-green active:text-brand-green transition-colors focus:outline-none text-3xl font-display font-bold leading-none flex-shrink-0 bg-brand-black p-1 ml-4 border-4 border-transparent hover:border-brand-green">
         <i class="ph-bold ph-x"></i>
       </button>
     </div>
@@ -408,6 +408,7 @@
 <div id="toast" role="status" aria-live="polite" class="fixed bottom-4 right-4 sm:right-8 sm:bottom-8 sm:max-w-md bg-brand-green text-brand-black font-display font-bold uppercase tracking-widest text-sm sm:text-lg px-6 py-4 sm:px-8 sm:py-5 translate-y-24 opacity-0 transition-all duration-300 pointer-events-none text-center sm:text-left border-4 border-brand-black z-[999999]"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 <script src="assets/js/supabase.js"></script>
 <script src="assets/js/sysModal.js"></script>
 <script src="assets/js/admin.js?v=5"></script>

@@ -68,7 +68,7 @@ window.sysModal = function(type, title, message) {
       btnCancel.onclick = () => closeAndResolve(false);
       
       const btnOk = document.createElement('button');
-      btnOk.className = btnBase + " bg-brand-black text-brand-white hover:bg-brand-green hover:border-brand-green hover:text-brand-black focus:bg-brand-green focus:border-brand-green focus:text-brand-black active:bg-brand-green active:border-brand-green active:text-brand-black";
+      btnOk.className = btnBase + " bg-brand-black text-brand-white hover:bg-brand-green hover:border-brand-black hover:text-brand-black focus:bg-brand-green focus:border-brand-black focus:text-brand-black active:bg-brand-green active:border-brand-black active:text-brand-black";
       btnOk.textContent = "Confirmar";
       btnOk.onclick = () => closeAndResolve(true);
       
@@ -76,7 +76,7 @@ window.sysModal = function(type, title, message) {
       footer.appendChild(btnOk);
     } else {
       const btnOk = document.createElement('button');
-      btnOk.className = btnBase + " bg-brand-black text-brand-white hover:bg-brand-green hover:border-brand-green hover:text-brand-black focus:bg-brand-green focus:border-brand-green focus:text-brand-black active:bg-brand-green active:border-brand-green active:text-brand-black";
+      btnOk.className = btnBase + " bg-brand-black text-brand-white hover:bg-brand-green hover:border-brand-black hover:text-brand-black focus:bg-brand-green focus:border-brand-black focus:text-brand-black active:bg-brand-green active:border-brand-black active:text-brand-black";
       btnOk.textContent = "Entendido";
       btnOk.onclick = () => closeAndResolve(true);
       footer.appendChild(btnOk);

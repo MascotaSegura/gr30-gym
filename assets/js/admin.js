@@ -4,10 +4,10 @@ let membersData = [];
 let planesData = [];
 let accesosData = [];
 
-const inputCls = 'w-full bg-brand-white text-brand-black border-4 border-brand-black px-4 py-4 sm:px-6 sm:py-5 text-lg sm:text-xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green placeholder:text-brand-black/50 placeholder:uppercase transition-all';
-const selectCls = 'w-full bg-brand-white text-brand-black border-4 border-brand-black px-4 py-4 sm:px-6 sm:py-5 pr-12 sm:pr-14 text-lg sm:text-xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green cursor-pointer transition-all appearance-none';
+const inputCls = 'w-full bg-brand-white text-brand-black border-4 border-brand-black px-6 py-5 text-lg font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green placeholder:text-brand-black/50 placeholder:uppercase transition-none';
+const selectCls = 'w-full bg-brand-white text-brand-black border-4 border-brand-black px-6 py-5 pr-14 text-lg font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green cursor-pointer transition-none appearance-none';
 const labelCls = 'block font-display font-bold uppercase tracking-widest text-xs sm:text-sm text-brand-black mb-2';
-const saveBtnCls = 'w-full sm:w-auto px-8 py-4 font-display font-bold uppercase tracking-widest text-sm border-4 border-brand-black bg-brand-black text-brand-white hover:bg-brand-green hover:border-brand-green hover:text-brand-black focus:bg-brand-green focus:border-brand-green focus:text-brand-black active:bg-brand-green active:border-brand-green active:text-brand-black transition-colors focus:outline-none';
+const saveBtnCls = 'w-full sm:w-auto px-8 py-4 font-display font-bold uppercase tracking-widest text-sm border-4 border-brand-black bg-brand-black text-brand-white hover:bg-brand-green hover:border-brand-black hover:text-brand-black focus:bg-brand-green focus:border-brand-black focus:text-brand-black active:bg-brand-green active:border-brand-black active:text-brand-black transition-colors focus:outline-none';
 const cancelBtnCls = 'w-full sm:w-auto px-8 py-4 font-display font-bold uppercase tracking-widest text-sm border-4 border-brand-black bg-brand-white text-brand-black hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white active:bg-brand-black active:text-brand-white transition-colors focus:outline-none';
 const deleteBtnCls = 'w-full sm:w-auto px-8 py-4 font-display font-bold uppercase tracking-widest text-sm border-4 border-brand-black bg-brand-black text-brand-white hover:bg-brand-white hover:border-brand-black hover:text-brand-black focus:bg-brand-white focus:border-brand-black focus:text-brand-black active:bg-brand-white active:border-brand-black active:text-brand-black transition-colors focus:outline-none';
 
@@ -255,15 +255,12 @@ function handleBarcodeScan(code) {
 
 function showScannerFlash(msg, type) {
   const flash = document.createElement('div');
-  flash.className = `fixed top-0 left-0 w-full p-6 text-center font-display font-bold uppercase tracking-widest text-xl sm:text-2xl z-[9999999] transition-all duration-300 transform -translate-y-full ${type === 'success' ? 'bg-brand-green text-brand-black' : 'bg-brand-black text-brand-white'}`;
+  flash.className = `fixed top-0 left-0 w-full p-6 text-center font-display font-bold uppercase tracking-widest text-xl sm:text-2xl z-[9999999] ${type === 'success' ? 'bg-brand-green text-brand-black' : 'bg-brand-black text-brand-white'}`;
   flash.innerText = msg;
   document.body.appendChild(flash);
   
-  setTimeout(() => flash.classList.remove('-translate-y-full'), 10);
-  
   setTimeout(() => {
-    flash.classList.add('-translate-y-full');
-    setTimeout(() => flash.remove(), 300);
+    flash.remove();
   }, 2000);
 }
 
@@ -355,7 +352,7 @@ async function fetchData() {
 
 
 function statusBadge(estadoPago) {
-  if (estadoPago === 'al_dia') return '<span class="bg-brand-green text-brand-black font-display font-bold uppercase tracking-widest text-xs px-2 py-1 inline-block border-4 border-brand-green">Al Día</span>';
+  if (estadoPago === 'al_dia') return '<span class="bg-brand-green text-brand-black font-display font-bold uppercase tracking-widest text-xs px-2 py-1 inline-block border-4 border-brand-black">Al Día</span>';
   if (estadoPago === 'atrasado') return '<span class="bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest text-xs px-2 py-1 inline-flex items-center gap-1 w-max border-4 border-brand-black"><i class="ph-bold ph-warning text-sm"></i> Atrasado</span>';
   return '<span class="bg-brand-white text-brand-black font-display font-bold uppercase tracking-widest text-xs px-2 py-1 inline-block border-4 border-brand-black">Pendiente</span>';
 }
@@ -436,7 +433,7 @@ const searchPagosEl = document.getElementById('search-pagos');
 if (searchPagosEl) searchPagosEl.addEventListener('input', renderPagos);
 
 function renderTables() {
-  const btnClasses = "font-display font-bold uppercase tracking-widest px-6 py-3 text-xs border-4 border-brand-black bg-brand-black text-brand-white hover:bg-brand-green hover:border-brand-green hover:text-brand-black focus:bg-brand-green focus:border-brand-green focus:text-brand-black active:bg-brand-green active:border-brand-green active:text-brand-black transition-colors focus:outline-none";
+const btnClasses = "font-display font-bold uppercase tracking-widest px-6 py-3 text-xs border-4 border-brand-black bg-brand-black text-brand-white hover:bg-brand-green hover:border-brand-black hover:text-brand-black focus:bg-brand-green focus:border-brand-black focus:text-brand-black active:bg-brand-green active:border-brand-black active:text-brand-black transition-colors focus:outline-none";
   const btnDangerClasses = "font-display font-bold uppercase tracking-widest px-6 py-3 text-xs bg-brand-white text-brand-black border-4 border-brand-black hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white active:bg-brand-black active:text-brand-white transition-colors focus:outline-none";
   const rowClasses = "border-b-4 border-brand-black hover:bg-brand-green focus-within:bg-brand-green transition-colors group";
 
@@ -576,7 +573,7 @@ function renderPlanes() {
     return;
   }
   container.innerHTML = planesData.map(p => {
-    const bgCls = p.destacado ? 'bg-brand-green text-brand-black border-4 border-brand-green' : 'bg-brand-white text-brand-black border-4 border-brand-black hover:border-brand-black focus:border-brand-black active:border-brand-black';
+    const bgCls = p.destacado ? 'bg-brand-green text-brand-black border-4 border-brand-black' : 'bg-brand-white text-brand-black border-4 border-brand-black hover:border-brand-black focus:border-brand-black active:border-brand-black';
     let priceHTML = p.destacado 
       ? `<p class="text-5xl sm:text-6xl font-display font-bold mb-6 text-brand-black group-hover:text-brand-green group-focus:text-brand-green group-active:text-brand-green tracking-tighter">${p.precio}<span class="text-xl sm:text-2xl text-current tracking-normal">mxn</span></p>`
       : `<p class="text-5xl sm:text-6xl font-display font-bold mb-6 bg-brand-green text-brand-black inline-block px-3 py-1 tracking-tighter -ml-3">${p.precio}<span class="text-xl sm:text-2xl text-current tracking-normal">mxn</span></p>`;
@@ -740,7 +737,7 @@ function memberFormHTML(m) {
         ${m ? `
           <div class="border-4 border-brand-black p-4 flex flex-col sm:flex-row gap-4 justify-between items-center bg-brand-white">
             <span class="font-display font-bold text-sm tracking-widest text-brand-black/60 uppercase">CONTRASEÑA CONFIGURADA</span>
-            <button type="button" onclick="resetMemberPIN(${m.id})" class="w-full sm:w-auto text-center font-display font-bold uppercase tracking-widest text-xs px-4 py-3 bg-brand-black text-brand-white hover:bg-brand-green hover:text-brand-black transition-colors focus:outline-none">Restablecer PIN</button>
+            <button type="button" onclick="resetMemberPIN(${m.id})" class="w-full sm:w-auto text-center font-display font-bold uppercase tracking-widest text-xs px-6 py-4 bg-brand-black text-brand-white hover:bg-brand-green hover:text-brand-black transition-colors focus:outline-none">Restablecer PIN</button>
           </div>
         ` : `
           <div class="border-4 border-brand-black p-4 bg-brand-green">
@@ -1283,7 +1280,7 @@ function renderAccesos() {
   tb.innerHTML = accesosData.map(log => {
     let estadoHTML = '';
     if (log.estado === 'permitido') {
-      estadoHTML = '<span class="bg-brand-green text-brand-black font-display font-bold uppercase tracking-widest text-xs px-2 py-1 inline-block border-4 border-brand-green">Concedido</span>';
+      estadoHTML = '<span class="bg-brand-green text-brand-black font-display font-bold uppercase tracking-widest text-xs px-2 py-1 inline-block border-4 border-brand-black">Concedido</span>';
     } else if (log.estado === 'denegado') {
       estadoHTML = '<span class="bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest text-xs px-2 py-1 inline-block border-4 border-brand-black"><i class="ph-bold ph-warning text-sm"></i> Denegado</span>';
     } else {
@@ -1404,6 +1401,10 @@ async function processPago(e) {
 
 function openHistorial(id) {
   const m = membersData.find(x => x.id === id);
+  if (!m) return;
+  m.historialPagos = m.historialPagos || [];
+  
+  const btnDangerClasses = "font-display font-bold uppercase tracking-widest px-6 py-3 text-xs bg-brand-white text-brand-black border-4 border-brand-black hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white active:bg-brand-black active:text-brand-white transition-colors focus:outline-none";
   let tablaHtml = '';
   
   if (m.historialPagos.length === 0) {
@@ -1515,14 +1516,14 @@ function showKioskAlert(log) {
     if (m && m.activo === false) {
       reason = 'MEMBRESÍA SUSPENDIDA';
       actionHTML = `
-        <button onclick="openModal('member-edit', ${m.id}); document.getElementById('${alertId}').remove();" class="w-full mt-4 text-center bg-brand-white text-brand-black font-display font-bold uppercase tracking-widest px-4 py-3 text-sm hover:bg-brand-green focus:bg-brand-green transition-colors border-4 border-brand-white focus:outline-none active:bg-brand-green active:border-brand-green">
+        <button onclick="openModal('member-edit', ${m.id}); document.getElementById('${alertId}').remove();" class="w-full mt-4 text-center bg-brand-white text-brand-black font-display font-bold uppercase tracking-widest px-6 py-4 text-sm hover:bg-brand-green focus:bg-brand-green transition-colors border-4 border-brand-white focus:outline-none active:bg-brand-green active:border-brand-green">
           Revisar Perfil
         </button>
       `;
     } else {
       reason = 'PAGOS PENDIENTES';
       actionHTML = m ? `
-        <button onclick="openPagoForm(${m.id}); document.getElementById('${alertId}').remove();" class="w-full mt-4 text-center bg-brand-white text-brand-black font-display font-bold uppercase tracking-widest px-4 py-3 text-sm hover:bg-brand-green focus:bg-brand-green transition-colors border-4 border-brand-white focus:outline-none active:bg-brand-green active:border-brand-green">
+        <button onclick="openPagoForm(${m.id}); document.getElementById('${alertId}').remove();" class="w-full mt-4 text-center bg-brand-white text-brand-black font-display font-bold uppercase tracking-widest px-6 py-4 text-sm hover:bg-brand-green focus:bg-brand-green transition-colors border-4 border-brand-white focus:outline-none active:bg-brand-green active:border-brand-green">
           Cobrar Ahora
         </button>
       ` : '';
@@ -1534,14 +1535,14 @@ function showKioskAlert(log) {
     iconClass = 'ph-question';
     reason = 'ROSTRO NO RECONOCIDO';
     actionHTML = `
-      <button onclick="openModal('member-form'); document.getElementById('${alertId}').remove();" class="w-full mt-4 text-center bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-4 py-3 text-sm hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black transition-colors border-4 border-brand-black focus:outline-none active:bg-brand-green active:border-brand-green active:text-brand-black">
+      <button onclick="openModal('member-form'); document.getElementById('${alertId}').remove();" class="w-full mt-4 text-center bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-6 py-4 text-sm hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black transition-colors border-4 border-brand-black focus:outline-none active:bg-brand-green active:border-brand-green active:text-brand-black">
         Enrolar Nuevo
       </button>
     `;
   }
 
   const html = `
-    <div id="${alertId}" class="${bgClass} ${textClass} border-4 ${borderClass} p-6 pointer-events-auto transform translate-x-full transition-transform duration-300 relative group">
+    <div id="${alertId}" class="${bgClass} ${textClass} border-4 ${borderClass} p-6 pointer-events-auto relative group">
       <button onclick="document.getElementById('${alertId}').remove()" class="absolute top-4 right-4 text-current hover:text-brand-green focus:outline-none transition-colors border-4 border-transparent focus:border-current hover:border-current p-1 flex items-center justify-center z-10 bg-[inherit]" aria-label="Cerrar alerta">
         <i class="ph-bold ph-x text-2xl"></i>
       </button>
@@ -1565,19 +1566,10 @@ function showKioskAlert(log) {
   container.insertAdjacentHTML('beforeend', html);
   const el = document.getElementById(alertId);
   
- 
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      el.classList.remove('translate-x-full');
-    });
-  });
-
- 
   const duration = isPermitted ? 5000 : (isDenied ? 10000 : 8000);
   setTimeout(() => {
     if (document.getElementById(alertId)) {
-      el.classList.add('translate-x-full');
-      setTimeout(() => { if (el) el.remove(); }, 300);
+      el.remove();
     }
   }, duration);
 }
@@ -1661,7 +1653,7 @@ function renderPOS() {
           <p class="font-display font-bold text-3xl tracking-tighter mb-4">$${item.precio}</p>
           <button
             ${agotado ? 'disabled' : `onclick="addToCart('${item.id}')"`}
-            class="w-full text-center font-display font-bold uppercase tracking-widest px-4 py-3 text-xs focus:outline-none border-4 border-brand-black ${agotado ? 'bg-brand-white opacity-50' : 'bg-brand-black text-brand-white hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black transition-colors'}"
+            class="w-full text-center font-display font-bold uppercase tracking-widest px-6 py-4 text-xs focus:outline-none border-4 border-brand-black ${agotado ? 'bg-brand-white opacity-50' : 'bg-brand-black text-brand-white hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black transition-colors'}"
           >${agotado ? 'AGOTADO' : 'Añadir'}</button>
         </div>
       </div>
@@ -1958,14 +1950,52 @@ window.deleteProduct = function(id) {
 
 window.openCameraScanner = function(targetInputId) {
   const overlayHtml = `
-    <div id="sys-scanner-overlay" class="fixed inset-0 bg-brand-black z-[999999] flex flex-col items-center justify-center p-6 sm:p-12 overflow-y-auto">
-      <div class="w-full max-w-lg bg-brand-white border-4 border-brand-black flex flex-col shadow-[16px_16px_0_0_rgba(0,0,0,1)]">
+    <div id="sys-scanner-overlay" class="fixed inset-0 bg-black/90 z-[999999] flex flex-col items-center justify-center p-6 sm:p-12 overflow-y-auto">
+      <style>
+        #qr-reader { border: none !important; }
+        #qr-reader__dashboard_section_csr span { color: #1a1a1a !important; font-family: 'Space Grotesk', sans-serif; font-weight: 700; display: block; margin-bottom: 8px; }
+        #qr-reader button { 
+          background-color: #1a1a1a !important; 
+          color: #fff !important; 
+          border: 4px solid #1a1a1a !important; 
+          padding: 12px 24px !important; 
+          font-weight: 700 !important; 
+          text-transform: uppercase !important; 
+          letter-spacing: 0.1em !important; 
+          font-family: 'Space Grotesk', sans-serif !important; 
+          cursor: pointer !important;
+          margin: 4px;
+        }
+        #qr-reader button:hover {
+          background-color: #CCFF00 !important;
+          color: #1a1a1a !important;
+        }
+        #qr-reader select {
+          border: 4px solid #1a1a1a !important;
+          padding: 12px !important;
+          font-weight: 700 !important;
+          font-family: 'Space Grotesk', sans-serif !important;
+          margin: 8px 0 !important;
+          background: #fff !important;
+          color: #1a1a1a !important;
+          outline: none !important;
+          width: 100%;
+          cursor: pointer;
+        }
+        #qr-reader select:focus {
+          background-color: #CCFF00 !important;
+        }
+        #qr-reader a { display: none !important; }
+        #qr-reader__scan_region { background: #fff !important; }
+        #qr-reader__dashboard_section_swaplink { display: none !important; }
+      </style>
+      <div class="w-full max-w-lg bg-brand-white border-4 border-brand-black flex flex-col">
         <div class="p-6 border-b-4 border-brand-black flex justify-between items-center bg-brand-black text-brand-white">
           <h3 class="font-display font-bold uppercase tracking-widest text-lg sm:text-xl">Escanear Código</h3>
           <button onclick="closeCameraScanner()" class="text-brand-white hover:text-brand-green focus:outline-none text-3xl"><i class="ph-bold ph-x"></i></button>
         </div>
         <div class="p-6 bg-brand-white flex-1 flex flex-col items-center">
-          <div id="qr-reader" class="w-full border-4 border-brand-black bg-brand-black" style="min-height: 300px;"></div>
+          <div id="qr-reader" class="w-full border-4 border-brand-black bg-brand-white" style="min-height: 300px;"></div>
           <p class="mt-6 font-display font-bold uppercase tracking-widest text-xs text-center opacity-70">Apunta la cámara de tu dispositivo hacia el código de barras o QR.</p>
         </div>
       </div>
