@@ -925,10 +925,14 @@ function productFormHTML(p) {
         <label class="${labelCls}">Nombre del Producto</label>
         <input type="text" id="pr-nombre" value="${p.nombre || ''}" class="${inputCls}" required>
       </div>
+      <div>
+        <label class="${labelCls}">Foto (URL de la imagen)</label>
+        <input type="text" id="pr-img" value="${p.img || 'assets/img/pos_snack.png'}" class="${inputCls}" placeholder="ej: assets/img/pos_snack.png" required>
+      </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
           <label class="${labelCls}">Precio ($)</label>
-          <input type="number" id="pr-precio" value="${p.precio || ''}" min="0" class="${inputCls}" required>
+          <input type="number" id="pr-precio" value="${p.precio !== undefined ? p.precio : ''}" min="0" step="0.01" class="${inputCls}" required>
         </div>
         <div>
           <label class="${labelCls}">Stock Inicial</label>
@@ -961,6 +965,7 @@ window.saveProduct = async function(e) {
   const nombre = document.getElementById('pr-nombre').value.trim();
   const precio = parseFloat(document.getElementById('pr-precio').value);
   const stock = parseInt(document.getElementById('pr-stock').value, 10);
+  const img = document.getElementById('pr-img').value.trim();
   const barcode = document.getElementById('pr-barcode').value.trim();
 
   if (!nombre || isNaN(precio) || isNaN(stock)) {
@@ -974,7 +979,7 @@ window.saveProduct = async function(e) {
 
   try {
     if (id) {
-      const payload = { nombre, precio, stock, barcode: barcode || null };
+      const payload = { nombre, precio, stock, barcode: barcode || null, img: img || 'assets/img/pos_snack.png' };
       const { error } = await window.supabaseClient.from('inventory').update(payload).eq('id', id);
       if (error) throw error;
       const prod = inventoryData.find(x => x.id === id);
@@ -983,10 +988,11 @@ window.saveProduct = async function(e) {
         prod.precio = precio;
         prod.stock = stock;
         prod.barcode = barcode || null;
+        prod.img = img || 'assets/img/pos_snack.png';
       }
       if(window.showToast) window.showToast('PRODUCTO ACTUALIZADO CON ÉXITO');
     } else {
-      const payload = { nombre, precio, stock, barcode: barcode || null, img: 'assets/img/pos_snack.png' };
+      const payload = { nombre, precio, stock, barcode: barcode || null, img: img || 'assets/img/pos_snack.png' };
       const { data, error } = await window.supabaseClient.from('inventory').insert([payload]).select();
       if (error) throw error;
       if (data && data.length > 0) inventoryData.push(data[0]);
@@ -1839,32 +1845,37 @@ window.renderInventoryTableBody = function(query = '') {
     `;
   }
 
-  return filtered.map(p => `
-    <div class="border-4 border-brand-black bg-brand-white flex flex-col group relative ${p.stock <= 5 ? 'bg-brand-black text-brand-white' : 'text-brand-black'}">
-      <div class="absolute top-4 right-4 text-xs font-bold uppercase tracking-widest px-2 py-1 border-2 ${p.stock <= 5 ? 'border-brand-white text-brand-white' : 'border-brand-black text-brand-black'}">
-        Stock: ${p.stock}
+  return filtered.map(p => {
+    const safeStock = Number(p.stock) || 0;
+    const safePrecio = Number(p.precio) || 0;
+    const isLowStock = safeStock <= 5;
+    
+    return `
+    <div class="border-4 border-brand-black bg-brand-white flex flex-col group relative ${isLowStock ? 'bg-brand-black text-brand-white' : 'text-brand-black'}">
+      <div class="absolute top-4 right-4 text-xs font-bold uppercase tracking-widest px-2 py-1 border-2 ${isLowStock ? 'border-brand-white text-brand-white' : 'border-brand-black text-brand-black'} z-10">
+        Stock: ${safeStock}
       </div>
-      <div class="w-full h-48 sm:h-56 p-6 flex justify-center items-center border-b-4 ${p.stock <= 5 ? 'border-brand-white' : 'border-brand-black'}">
-        <img src="${p.img}" class="max-w-full max-h-full object-contain filter ${p.stock <= 5 ? 'invert' : ''}">
+      <div class="w-full h-48 sm:h-56 p-6 flex justify-center items-center border-b-4 ${isLowStock ? 'border-brand-white' : 'border-brand-black'}">
+        <img src="${p.img || 'assets/img/pos_snack.png'}" class="max-w-full max-h-full object-contain filter ${isLowStock ? 'invert' : ''}" onerror="this.src='assets/img/pos_snack.png'">
       </div>
       <div class="p-6 flex flex-col flex-grow">
         <h3 class="font-display font-bold uppercase tracking-widest text-lg sm:text-xl leading-tight mb-2">${p.nombre}</h3>
-        <p class="font-bold text-2xl tracking-tighter mb-6">$${p.precio.toFixed(2)}</p>
+        <p class="font-bold text-2xl tracking-tighter mb-6">$${safePrecio.toFixed(2)}</p>
         
         <div class="mt-auto flex flex-col gap-4">
-          <div class="flex items-center justify-between border-4 ${p.stock <= 5 ? 'border-brand-white' : 'border-brand-black'} p-2">
-            <button onclick="updateStock('${p.id}', -1)" class="w-10 h-10 flex items-center justify-center hover:bg-brand-green hover:text-brand-black text-2xl font-bold transition-colors focus:outline-none ${p.stock <= 5 ? 'hover:bg-brand-white text-brand-white hover:text-brand-black' : ''}">-</button>
-            <span class="font-display font-bold text-2xl tracking-tighter w-12 text-center">${p.stock}</span>
-            <button onclick="updateStock('${p.id}', 1)" class="w-10 h-10 flex items-center justify-center hover:bg-brand-green hover:text-brand-black text-2xl font-bold transition-colors focus:outline-none ${p.stock <= 5 ? 'hover:bg-brand-white text-brand-white hover:text-brand-black' : ''}">+</button>
+          <div class="flex items-center justify-between border-4 ${isLowStock ? 'border-brand-white' : 'border-brand-black'} p-2">
+            <button onclick="updateStock('${p.id}', -1)" class="w-10 h-10 flex items-center justify-center hover:bg-brand-green hover:text-brand-black text-2xl font-bold transition-colors focus:outline-none ${isLowStock ? 'hover:bg-brand-white text-brand-white hover:text-brand-black border-2 border-transparent hover:border-brand-white' : 'border-2 border-transparent hover:border-brand-black'}">-</button>
+            <span class="font-display font-bold text-2xl tracking-tighter w-12 text-center">${safeStock}</span>
+            <button onclick="updateStock('${p.id}', 1)" class="w-10 h-10 flex items-center justify-center hover:bg-brand-green hover:text-brand-black text-2xl font-bold transition-colors focus:outline-none ${isLowStock ? 'hover:bg-brand-white text-brand-white hover:text-brand-black border-2 border-transparent hover:border-brand-white' : 'border-2 border-transparent hover:border-brand-black'}">+</button>
           </div>
           
-          <button onclick="openModal('product-form', '${p.id}')" class="w-full py-3 border-4 ${p.stock <= 5 ? 'border-brand-white text-brand-white hover:bg-brand-white hover:text-brand-black focus:bg-brand-white focus:text-brand-black' : 'border-brand-black text-brand-black hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white'} font-display font-bold uppercase tracking-widest text-sm transition-colors focus:outline-none">
+          <button onclick="openModal('product-form', '${p.id}')" class="w-full py-3 border-4 ${isLowStock ? 'border-brand-white text-brand-white hover:bg-brand-white hover:text-brand-black focus:bg-brand-white focus:text-brand-black' : 'border-brand-black text-brand-black hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white'} font-display font-bold uppercase tracking-widest text-sm transition-colors focus:outline-none">
             Editar
           </button>
         </div>
       </div>
     </div>
-  `).join('');
+  `}).join('');
 };
 
 window.filterInventoryList = function(query) {
