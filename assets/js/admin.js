@@ -597,35 +597,7 @@ function renderPlanes() {
 }
 
 
-function barcodeAssignmentHTML(prefillCode) {
-  const code = prefillCode || '';
-  const cancelClasses = "font-display font-bold uppercase tracking-widest px-6 py-3 text-xs bg-brand-white text-brand-black border-4 border-brand-black hover:bg-brand-black hover:text-brand-white focus:outline-none transition-colors";
-  return `
-    <div class="flex flex-col gap-8 text-brand-black">
-      <div class="bg-brand-black text-brand-white p-6 border-4 border-brand-black">
-        <label class="block font-display font-bold uppercase tracking-widest text-xs opacity-70 mb-2">Código a Asignar</label>
-        <input type="text" id="assign-barcode-input" value="${code}" placeholder="ESCANEA O ESCRIBE EL CÓDIGO..." class="w-full bg-transparent text-2xl font-bold uppercase tracking-widest focus:outline-none placeholder:opacity-30">
-      </div>
-      <div>
-        <h3 class="font-display font-bold uppercase tracking-widest text-sm mb-4">Selecciona el Producto:</h3>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-[40vh] overflow-y-auto pr-2">
-          ${inventoryData.map(p => `
-            <button onclick="saveBarcodeAssignment('${p.id}')" class="text-left bg-brand-white border-4 border-brand-black p-4 hover:bg-brand-green focus:bg-brand-green focus:outline-none transition-colors group flex items-center gap-4">
-              <img src="${p.img}" class="w-12 h-12 object-contain bg-brand-white border-2 border-brand-black">
-              <div>
-                <span class="block font-bold uppercase text-sm">${p.nombre}</span>
-                <span class="block font-bold opacity-50 text-xs mt-1">CÓDIGO: ${p.barcode || 'NINGUNO'}</span>
-              </div>
-            </button>
-          `).join('')}
-        </div>
-      </div>
-      <div class="mt-4 flex justify-end">
-        <button type="button" onclick="closeModal()" class="${cancelClasses}">Cerrar</button>
-      </div>
-    </div>
-  `;
-}
+
 
 window.saveBarcodeAssignment = function(productId) {
   const codeInput = document.getElementById('assign-barcode-input');
@@ -672,9 +644,10 @@ function openModal(type, idOrName) {
     const m = membersData.find(x => x.id === idOrName);
     title.textContent = 'Editar Miembro.';
     body.innerHTML = memberFormHTML(m);
-  } else if (type === 'assign-barcode') {
-    title.textContent = 'Asignar Código.';
-    body.innerHTML = barcodeAssignmentHTML(idOrName);
+  } else if (type === 'product-form') {
+    const p = inventoryData.find(x => x.id === idOrName);
+    title.textContent = p ? 'Editar Producto.' : 'Añadir Producto.';
+    body.innerHTML = productFormHTML(p);
   } else if (type === 'plan-form') {
     const p = planesData.find(x => x.id === idOrName);
     title.textContent = p ? 'Editar Plan — ' + p.nombre + '.' : 'Añadir Plan.';
@@ -1769,6 +1742,7 @@ window.renderInventoryTableBody = function(query = '') {
             ${p.stock}
           </span>
           <button onclick="updateStock('${p.id}', 1)" class="w-10 h-10 flex items-center justify-center border-4 border-brand-black hover:bg-brand-green hover:text-brand-black text-xl font-bold transition-colors ${p.stock <= 5 ? 'bg-brand-white text-brand-black' : ''}">+</button>
+          <button onclick="openModal('product-form', '${p.id}')" class="h-10 px-4 flex items-center justify-center border-4 border-brand-black hover:bg-brand-black hover:text-brand-white font-display font-bold uppercase tracking-widest text-xs transition-colors ${p.stock <= 5 ? 'bg-brand-white text-brand-black' : ''}">Editar</button>
         </div>
       </td>
     </tr>
@@ -1845,6 +1819,85 @@ window.renderInventoryStats = function() {
   }
 };
 
+
+window.deleteProduct = function(id) {
+  sysModal('confirm', 'ELIMINAR PRODUCTO', '¿ESTÁS SEGURO DE ELIMINAR ESTE PRODUCTO? ESTO NO SE PUEDE DESHACER.').then(confirmed => {
+    if (!confirmed) return;
+    const idx = inventoryData.findIndex(x => x.id === id);
+    if (idx !== -1) {
+      inventoryData.splice(idx, 1);
+      saveInventory();
+      // Limpiar el carrito POS por seguridad si tenía este producto
+      posCart = posCart.filter(item => item.id !== id);
+      renderCart();
+      renderPOS();
+      renderInventoryStats();
+      const searchInput = document.getElementById('inventory-search');
+      filterInventoryList(searchInput ? searchInput.value : '');
+      closeModal();
+      showToast('PRODUCTO ELIMINADO');
+    }
+  });
+};
+
+window.openCameraScanner = function(targetInputId) {
+  const overlayHtml = `
+    <div id="sys-scanner-overlay" class="fixed inset-0 bg-brand-black z-[999999] flex flex-col items-center justify-center p-6 sm:p-12 overflow-y-auto">
+      <div class="w-full max-w-lg bg-brand-white border-4 border-brand-black flex flex-col shadow-[16px_16px_0_0_rgba(0,0,0,1)]">
+        <div class="p-6 border-b-4 border-brand-black flex justify-between items-center bg-brand-black text-brand-white">
+          <h3 class="font-display font-bold uppercase tracking-widest text-lg sm:text-xl">Escanear Código</h3>
+          <button onclick="closeCameraScanner()" class="text-brand-white hover:text-brand-green focus:outline-none text-3xl"><i class="ph-bold ph-x"></i></button>
+        </div>
+        <div class="p-6 bg-brand-white flex-1 flex flex-col items-center">
+          <div id="qr-reader" class="w-full border-4 border-brand-black min-h-[300px]"></div>
+          <p class="mt-6 font-display font-bold uppercase tracking-widest text-xs text-center opacity-70">Apunta la cámara de tu dispositivo hacia el código de barras o QR.</p>
+        </div>
+      </div>
+    </div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', overlayHtml);
+  document.body.style.overflow = 'hidden';
+
+  // Html5QrcodeScanner instanciación usando html5-qrcode
+  if (typeof Html5QrcodeScanner !== 'undefined') {
+    const html5QrcodeScanner = new Html5QrcodeScanner(
+      "qr-reader",
+      { fps: 10, qrbox: {width: 250, height: 250} },
+      /* verbose= */ false
+    );
+
+    window.closeCameraScanner = function() {
+      html5QrcodeScanner.clear().catch(error => {
+        console.error("Failed to clear html5QrcodeScanner. ", error);
+      });
+      const overlay = document.getElementById('sys-scanner-overlay');
+      if (overlay) overlay.remove();
+      document.body.style.overflow = '';
+    };
+
+    html5QrcodeScanner.render((decodedText, decodedResult) => {
+      // Escaneo exitoso
+      const input = document.getElementById(targetInputId);
+      if (input) {
+        input.value = decodedText;
+        // Disparar evento para actualizar
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+        input.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+      showToast('CÓDIGO ESCANEADO: ' + decodedText);
+      closeCameraScanner();
+    }, (error) => {
+      // Ignorar errores de escaneo temporal
+    });
+  } else {
+    sysModal('error', 'ERROR', 'Librería de escáner no cargada.');
+    window.closeCameraScanner = function() {
+      const overlay = document.getElementById('sys-scanner-overlay');
+      if (overlay) overlay.remove();
+      document.body.style.overflow = '';
+    };
+  }
+};
 
 fetchData();
 setScreen('dashboard');
