@@ -79,29 +79,27 @@
   <div id="screen-dashboard" class="screen block p-6 lg:p-12">
 
     <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-8 mb-12">
-      <div class="bg-brand-white text-brand-black border-4 border-brand-black p-8 hover:bg-brand-black hover:text-brand-white group transition-colors flex flex-col items-start">
+      <div class="bg-brand-white text-brand-black border-4 border-brand-black p-8 hover:bg-brand-black hover:text-brand-white group transition-colors flex flex-col items-start overflow-hidden w-full">
         <i class="ph-bold ph-users text-4xl mb-4 group-hover:text-brand-green transition-colors"></i>
         <p class="text-xs font-display font-bold uppercase tracking-widest mb-4 bg-brand-black text-brand-white group-hover:bg-brand-white group-hover:text-brand-black inline-block px-2 py-1">Miembros Activos</p>
         <p id="stat-miembros" class="text-6xl lg:text-7xl font-display font-bold tracking-tighter">0</p>
       </div>
-      <div class="bg-brand-green text-brand-black border-4 border-brand-black p-8 hover:bg-brand-black hover:text-brand-white group transition-colors flex flex-col items-start">
+      <div class="bg-brand-green text-brand-black border-4 border-brand-black p-8 hover:bg-brand-black hover:text-brand-white group transition-colors flex flex-col items-start overflow-hidden w-full">
         <i class="ph-bold ph-user-circle-gear text-4xl mb-4 group-hover:text-brand-green transition-colors"></i>
         <p class="text-xs font-display font-bold uppercase tracking-widest mb-4 bg-brand-black text-brand-white group-hover:bg-brand-white group-hover:text-brand-black inline-block px-2 py-1">Staff</p>
         <p id="stat-staff" class="text-6xl lg:text-7xl font-display font-bold tracking-tighter">0</p>
       </div>
-      <div class="bg-brand-white text-brand-black border-4 border-brand-black p-8 hover:bg-brand-black hover:text-brand-white group transition-colors flex flex-col items-start">
-        <i class="ph-bold ph-currency-dollar text-4xl mb-4 group-hover:text-brand-green transition-colors"></i>
-        <p class="text-xs font-display font-bold uppercase tracking-widest mb-4 bg-brand-black text-brand-white group-hover:bg-brand-white group-hover:text-brand-black inline-block px-2 py-1">Ingresos (Mes)</p>
-        <div class="flex items-baseline gap-2">
-          <p id="stat-ingresos" class="text-6xl lg:text-7xl font-display font-bold tracking-tighter">$0</p>
-        </div>
+      <div class="bg-brand-white text-brand-black border-4 border-brand-black p-8 hover:bg-brand-black hover:text-brand-white group transition-colors flex flex-col items-start overflow-hidden w-full">
+        <i class="ph-bold ph-currency-dollar text-4xl mb-4 group-hover:text-brand-green transition-colors flex-shrink-0"></i>
+        <p class="text-xs font-display font-bold uppercase tracking-widest mb-4 bg-brand-black text-brand-white group-hover:bg-brand-white group-hover:text-brand-black inline-block px-2 py-1 flex-shrink-0">Ingresos (Mes)</p>
+        <p id="stat-ingresos" class="text-4xl lg:text-5xl font-display font-bold tracking-tighter truncate w-full" title="$0">$0</p>
       </div>
-      <div class="bg-brand-black text-brand-white border-4 border-brand-black p-8 hover:bg-brand-green hover:text-brand-black group transition-colors flex flex-col items-start">
+      <div class="bg-brand-black text-brand-white border-4 border-brand-black p-8 hover:bg-brand-green hover:text-brand-black group transition-colors flex flex-col items-start overflow-hidden w-full">
         <i class="ph-bold ph-person-simple-walk text-4xl mb-4 group-hover:text-brand-black transition-colors"></i>
         <p class="text-xs font-display font-bold uppercase tracking-widest mb-4 bg-brand-white text-brand-black group-hover:bg-brand-black group-hover:text-brand-white inline-block px-2 py-1">Afluencia (Hoy)</p>
         <p id="stat-afluencia" class="text-6xl lg:text-7xl font-display font-bold tracking-tighter">0</p>
       </div>
-      <div class="bg-brand-white text-brand-black border-4 border-brand-black p-8 hover:bg-brand-black hover:text-brand-white group transition-colors flex flex-col items-start">
+      <div class="bg-brand-white text-brand-black border-4 border-brand-black p-8 hover:bg-brand-black hover:text-brand-white group transition-colors flex flex-col items-start overflow-hidden w-full">
         <i class="ph-bold ph-clock text-4xl mb-4 group-hover:text-brand-green transition-colors"></i>
         <p class="text-xs font-display font-bold uppercase tracking-widest mb-4 bg-brand-black text-brand-white group-hover:bg-brand-white group-hover:text-brand-black inline-block px-2 py-1">Hora Pico</p>
         <p id="stat-horapico" class="text-4xl lg:text-5xl font-display font-bold tracking-tighter uppercase mt-auto">--:--</p>
@@ -385,9 +383,12 @@
         </div>
       </div>
       <div class="flex">
-        <div class="relative w-full flex items-center bg-brand-white border-b-4 border-brand-black focus-within:bg-brand-green transition-colors">
-          <input type="text" id="inventory-search" placeholder="BUSCAR PRODUCTO O ESCANEAR..." class="peer w-full min-w-0 py-6 pl-6 pr-12 font-display font-bold uppercase tracking-widest text-xl bg-transparent focus:outline-none placeholder:text-brand-black/50 text-brand-black" oninput="filterInventoryList(this.value)">
-          <button type="button" onclick="document.getElementById('inventory-search').value=''; filterInventoryList('');" class="peer-placeholder-shown:hidden absolute right-4 text-brand-black hover:opacity-60 transition-opacity focus:outline-none flex-shrink-0" aria-label="Limpiar búsqueda" title="Limpiar"><i class="ph-bold ph-x text-2xl"></i></button>
+        <div class="flex items-center w-full bg-brand-white border-b-4 border-brand-black focus-within:bg-brand-green transition-colors group">
+          <div class="pl-4 pr-2 flex items-center justify-center pointer-events-none text-brand-black/50 group-focus-within:text-brand-black transition-colors">
+            <i class="ph-bold ph-magnifying-glass text-xl"></i>
+          </div>
+          <input type="text" id="inventory-search" placeholder="BUSCAR PRODUCTO O ESCANEAR..." class="peer block w-full min-w-0 py-4 pr-2 bg-transparent text-brand-black font-display font-bold tracking-wide focus:outline-none placeholder:text-brand-black/50 placeholder:uppercase text-sm" oninput="filterInventoryList(this.value)">
+          <button type="button" onclick="document.getElementById('inventory-search').value=''; filterInventoryList('');" class="peer-placeholder-shown:hidden pr-4 text-brand-black hover:opacity-60 transition-opacity focus:outline-none flex-shrink-0" aria-label="Limpiar búsqueda" title="Limpiar"><i class="ph-bold ph-x text-xl"></i></button>
         </div>
         <button onclick="openCameraScanner('inventory-search')" class="border-b-4 border-l-4 border-brand-black bg-brand-white text-brand-black hover:bg-brand-black hover:text-brand-white px-6 focus:outline-none transition-colors flex-shrink-0" aria-label="Escanear producto">
           <i class="ph-bold ph-camera text-3xl"></i>
