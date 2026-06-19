@@ -9,40 +9,97 @@ const audioMap = {
   notification: 'assets/audio/rollover6.wav'
 };
 
-const audioInstances = {};
-let currentAudioNode = null;
+const audioBuffers = {};
+let audioCtx = null;
+let audioUnlocked = false;
+let currentSource = null;
 
-// Pre-load audio elements
+function initAudioContext() {
+  if (!audioCtx) {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (AudioContextClass) {
+      audioCtx = new AudioContextClass();
+    }
+  }
+}
+
+// Desbloquear AudioContext en la primera interacción (crítico para iOS/Android)
+function unlockAudioContext() {
+  if (audioUnlocked) return;
+  initAudioContext();
+  if (!audioCtx) return;
+  
+  if (audioCtx.state === 'suspended') {
+    audioCtx.resume();
+  }
+  
+  // Reproducir un buffer vacío instantáneamente para "engañar" al navegador y desbloquear el contexto
+  const buffer = audioCtx.createBuffer(1, 1, 22050);
+  const source = audioCtx.createBufferSource();
+  source.buffer = buffer;
+  source.connect(audioCtx.destination);
+  source.start(0);
+  
+  audioUnlocked = true;
+  
+  // Limpiar listeners una vez desbloqueado
+  document.removeEventListener('touchstart', unlockAudioContext, true);
+  document.removeEventListener('touchend', unlockAudioContext, true);
+  document.removeEventListener('click', unlockAudioContext, true);
+}
+
+// Adjuntar eventos de desbloqueo en fase de captura para que se ejecuten antes que cualquier otra cosa
+document.addEventListener('touchstart', unlockAudioContext, { once: true, capture: true });
+document.addEventListener('touchend', unlockAudioContext, { once: true, capture: true });
+document.addEventListener('click', unlockAudioContext, { once: true, capture: true });
+
+// Precargar audios en buffers
+async function loadAudio(key, url) {
+  try {
+    const response = await fetch(url);
+    const arrayBuffer = await response.arrayBuffer();
+    initAudioContext();
+    if (!audioCtx) return;
+    const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+    audioBuffers[key] = audioBuffer;
+  } catch (e) {
+    console.warn(`No se pudo cargar el audio ${key}:`, e);
+  }
+}
+
 Object.keys(audioMap).forEach(key => {
-  const audio = new Audio(audioMap[key]);
-  audio.preload = 'auto';
-  // Ajuste de volumen base global
-  audio.volume = 0.5;
-  audioInstances[key] = audio;
+  loadAudio(key, audioMap[key]);
 });
 
 window.sysAudio = function(type) {
-  const audio = audioInstances[type];
-  if (!audio) return;
+  if (!audioCtx) initAudioContext();
+  if (!audioCtx) return; // Fallback silencioso si no hay soporte Web Audio API
   
-  // Para evitar saturación y cumplir con la regla de "nunca dos sonidos solapados",
-  // detenemos cualquier sonido en curso.
-  if (currentAudioNode && !currentAudioNode.paused) {
-    currentAudioNode.pause();
-    currentAudioNode.currentTime = 0;
+  if (audioCtx.state === 'suspended') {
+    audioCtx.resume().catch(() => {});
   }
   
-  // Reiniciar el sonido por si se invoca rápidamente de nuevo
-  audio.currentTime = 0;
+  const buffer = audioBuffers[type];
+  if (!buffer) return;
   
-  // Guardamos la referencia y reproducimos (catch para autoplay preventions)
-  currentAudioNode = audio;
-  const playPromise = audio.play();
-  if (playPromise !== undefined) {
-    playPromise.catch(error => {
-      // Ignorar errores silenciosamente (ej. falta de interacción previa del usuario)
-    });
+  // Detener el sonido anterior si existe para evitar solapamiento (tu regla de "nunca dos sonidos")
+  if (currentSource) {
+    try {
+      currentSource.stop();
+    } catch(e) {}
   }
+  
+  const source = audioCtx.createBufferSource();
+  source.buffer = buffer;
+  
+  const gainNode = audioCtx.createGain();
+  gainNode.gain.value = 0.5; // Ajuste de volumen base global
+  
+  source.connect(gainNode);
+  gainNode.connect(audioCtx.destination);
+  
+  source.start(0);
+  currentSource = source;
 };
 
 // Delegación global de eventos de audio para asegurar 100% de consistencia
