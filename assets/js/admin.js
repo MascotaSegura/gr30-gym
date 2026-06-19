@@ -178,22 +178,7 @@ document.querySelectorAll('.nav-btn').forEach(btn => {
   btn.addEventListener('click', () => setScreen(btn.dataset.screen));
 });
 
-document.getElementById('mobileMenuBtn').addEventListener('click', function() {
-  const nav = document.getElementById('sidebar-nav');
-  const icon = document.getElementById('adminMenuIcon');
-  const isHidden = nav.classList.contains('hidden');
-  if (isHidden) {
-    nav.classList.remove('hidden');
-    nav.classList.add('flex');
-    icon.className = "ph-bold ph-x text-3xl";
-    this.setAttribute('aria-expanded', 'true');
-  } else {
-    nav.classList.add('hidden');
-    nav.classList.remove('flex');
-    icon.className = "ph-bold ph-list text-3xl";
-    this.setAttribute('aria-expanded', 'false');
-  }
-});
+
 
 let barcodeBuffer = '';
 let barcodeTimeout;

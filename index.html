@@ -136,19 +136,19 @@
     <div class="marquee-container flex whitespace-nowrap">
       <div class="marquee-content flex">
         <div class="marquee-group flex gap-8 pr-8 items-center">
-          <div class="w-[300px] sm:w-[450px] bg-brand-white p-8 sm:p-12 flex-shrink-0 whitespace-normal">
+          <div class="w-[300px] sm:w-[450px] bg-brand-white border-4 border-brand-black p-8 sm:p-12 flex-shrink-0 whitespace-normal">
             <p class="text-brand-black font-display font-bold text-xl sm:text-2xl leading-tight">"El mejor ambiente, el equipo no falla. Puro entrenamiento serio."</p>
             <p class="mt-6 bg-brand-black text-brand-white px-2 py-1 inline-block font-bold tracking-widest uppercase text-xs -ml-2">— Mario C.</p>
           </div>
-          <div class="w-[300px] sm:w-[450px] bg-brand-black p-8 sm:p-12 flex-shrink-0 whitespace-normal">
+          <div class="w-[300px] sm:w-[450px] bg-brand-black border-4 border-brand-black p-8 sm:p-12 flex-shrink-0 whitespace-normal">
             <p class="text-brand-white font-display font-bold text-xl sm:text-2xl leading-tight">"Entrenadores de verdad que te corrigen y te exigen."</p>
             <p class="mt-6 bg-brand-green text-brand-black px-2 py-1 inline-block font-bold tracking-widest uppercase text-xs -ml-2">— Lucía S.</p>
           </div>
-          <div class="w-[300px] sm:w-[450px] bg-brand-white p-8 sm:p-12 flex-shrink-0 whitespace-normal">
+          <div class="w-[300px] sm:w-[450px] bg-brand-white border-4 border-brand-black p-8 sm:p-12 flex-shrink-0 whitespace-normal">
             <p class="text-brand-black font-display font-bold text-xl sm:text-2xl leading-tight">"Máquinas limpias y peso suficiente. No tienes que hacer fila."</p>
             <p class="mt-6 bg-brand-black text-brand-white px-2 py-1 inline-block font-bold tracking-widest uppercase text-xs -ml-2">— David V.</p>
           </div>
-          <div class="w-[300px] sm:w-[450px] bg-brand-black p-8 sm:p-12 flex-shrink-0 whitespace-normal">
+          <div class="w-[300px] sm:w-[450px] bg-brand-black border-4 border-brand-black p-8 sm:p-12 flex-shrink-0 whitespace-normal">
             <p class="text-brand-white font-display font-bold text-xl sm:text-2xl leading-tight">"Desde que entré a GR30 mis levantamientos se han duplicado."</p>
             <p class="mt-6 bg-brand-green text-brand-black px-2 py-1 inline-block font-bold tracking-widest uppercase text-xs -ml-2">— Ana B.</p>
           </div>
@@ -302,6 +302,7 @@
     start: "top -50",
     end: "max",
     onUpdate: (self) => {
+      if (typeof menuOpen !== 'undefined' && menuOpen) return;
       if (self.direction === 1) {
         gsap.to(header, { yPercent: -100, duration: 0.3, ease: "power2.out", overwrite: true });
       } else {
@@ -325,6 +326,7 @@
     menuBtn.setAttribute('aria-expanded', menuOpen);
     const menuIcon = document.getElementById('menuIcon');
     if (menuOpen) {
+      gsap.to(header, { yPercent: 0, duration: 0.3, ease: "power2.out", overwrite: true });
       mobileMenu.setAttribute('aria-hidden', 'false');
       document.querySelector('main').setAttribute('inert', '');
       menuIcon.className = "ph-bold ph-x text-3xl";
