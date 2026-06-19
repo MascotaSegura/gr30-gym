@@ -888,6 +888,7 @@ function deleteStaff(id) {
       const idx = staffData.findIndex(x => x.id === id);
       if (idx !== -1) staffData.splice(idx, 1);
       showToast('STAFF ELIMINADO');
+      closeModal(true);
       renderAll();
     } catch (err) {
       if(window.sysModal) window.sysModal('error', 'ERROR', 'Fallo al eliminar en la base de datos.');
@@ -1096,6 +1097,7 @@ function deleteMember(id) {
       const idx = membersData.findIndex(x => x.id === id);
       if (idx !== -1) membersData.splice(idx, 1);
       showToast('MIEMBRO ELIMINADO');
+      closeModal(true);
       if (window.broadcastDBUpdate) window.broadcastDBUpdate();
       renderAll();
     } catch (err) {
