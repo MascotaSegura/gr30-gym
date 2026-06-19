@@ -464,13 +464,20 @@ const btnClasses = "font-display font-bold uppercase tracking-widest px-6 py-3 t
   const searchInput = document.getElementById('search-miembros');
   if (searchInput) mTerm = searchInput.value.toLowerCase().trim();
   
+  let estadoFiltro = '';
+  const estadoInput = document.getElementById('filter-estado-miembros');
+  if (estadoInput) estadoFiltro = estadoInput.value.toLowerCase().trim();
+  
   let mHtml = '';
   let prevHtml = '';
   let filteredMembers = membersData.filter(m => {
     const n = m.nombre ? m.nombre.toLowerCase() : '';
     const t = m.telefono ? m.telefono : '';
     const e = m.estado_pago ? m.estado_pago.toLowerCase() : '';
-    return n.includes(mTerm) || t.includes(mTerm) || e.includes(mTerm);
+    
+    const textMatch = n.includes(mTerm) || t.includes(mTerm) || e.includes(mTerm);
+    const estadoMatch = estadoFiltro === '' || e === estadoFiltro;
+    return textMatch && estadoMatch;
   });
 
   filteredMembers.forEach((m, i) => {
@@ -1182,10 +1189,18 @@ function renderPagos() {
   const rowClasses = "border-b-4 border-brand-black hover:bg-brand-green focus-within:bg-brand-green transition-colors group";
   
   const term = document.getElementById('search-pagos').value.toLowerCase().trim();
+  let estadoFiltroPagos = '';
+  const estadoInputPagos = document.getElementById('filter-estado-pagos');
+  if (estadoInputPagos) estadoFiltroPagos = estadoInputPagos.value.toLowerCase().trim();
+
   const filtered = membersData.filter(m => {
     const n = m.nombre ? m.nombre.toLowerCase() : '';
     const t = m.telefono ? m.telefono : '';
-    return n.includes(term) || t.includes(term);
+    const e = m.estado_pago ? m.estado_pago.toLowerCase() : '';
+    
+    const textMatch = n.includes(term) || t.includes(term) || e.includes(term);
+    const estadoMatch = estadoFiltroPagos === '' || e === estadoFiltroPagos;
+    return textMatch && estadoMatch;
   });
 
  
