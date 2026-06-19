@@ -822,7 +822,7 @@ function planFormHTML(p) {
       <div>
         <label class="flex items-center gap-4 cursor-pointer font-display font-bold uppercase tracking-widest text-xs sm:text-sm text-brand-black group focus-within:text-brand-green transition-colors">
           <div class="relative w-8 h-8 border-4 border-brand-black bg-brand-white group-hover:bg-brand-green group-focus-within:bg-brand-green transition-colors flex-shrink-0 flex items-center justify-center">
-            <input type="checkbox" id="pf-destacado" class="peer sr-only" ${destacado ? 'checked' : ''} onchange="if(window.sysAudio) window.sysAudio('click')">
+            <input type="checkbox" id="pf-destacado" class="peer sr-only" ${destacado ? 'checked' : ''}>
             <div class="w-4 h-4 hidden peer-checked:block pointer-events-none bg-brand-black"></div>
           </div>
           Destacar Plan (Color Verde)
@@ -1641,7 +1641,7 @@ function renderPOS() {
         <div>
           <p class="font-display font-bold text-3xl tracking-tighter mb-4">$${item.precio}</p>
           <button
-            ${agotado ? 'disabled' : `onclick="addToCart('${item.id}')"`}
+            ${agotado ? 'disabled' : `onclick="addToCart('${item.id}')" data-sys-audio="increment"`}
             class="w-full text-center font-display font-bold uppercase tracking-widest px-6 py-4 text-xs focus:outline-none border-4 border-brand-black ${agotado ? 'bg-brand-white opacity-50' : 'bg-brand-black text-brand-white hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black transition-colors'}"
           >${agotado ? 'AGOTADO' : 'Añadir'}</button>
         </div>
@@ -1669,14 +1669,12 @@ window.addToCart = function(id) {
   const existingItem = posCart.find(i => i.id === id);
   if (existingItem) {
     if (existingItem.qty < product.stock) {
-      if (window.sysAudio) window.sysAudio('increment');
       existingItem.qty += 1;
     } else {
       showToast('STOCK MÁXIMO ALCANZADO');
       return;
     }
   } else {
-    if (window.sysAudio) window.sysAudio('increment');
     posCart.push({ id: id, qty: 1 });
   }
   renderCart();
@@ -2034,11 +2032,9 @@ window.openCameraScanner = function(targetInputId) {
     });
 
     select.onchange = () => {
-      if (window.sysAudio) window.sysAudio('click');
     };
 
     btnStart.onclick = () => {
-      if (window.sysAudio) window.sysAudio('click');
       const cameraId = select.value;
       if (!cameraId) return;
       
@@ -2067,7 +2063,6 @@ window.openCameraScanner = function(targetInputId) {
     };
 
     btnStop.onclick = () => {
-      if (window.sysAudio) window.sysAudio('click');
       html5QrCode.stop().then(() => {
         currentStream = false;
         btnStop.classList.add('hidden');

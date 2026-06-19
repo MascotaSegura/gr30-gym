@@ -8,7 +8,7 @@ window.sysModal = function(type, title, message) {
             <div id="sys-modal-header" class="px-6 py-4 flex items-center gap-4 border-b-4 border-brand-black relative">
               <i id="sys-modal-icon" class="ph-bold text-3xl"></i>
               <h3 id="sys-modal-title" class="font-display font-bold uppercase tracking-widest text-lg sm:text-xl leading-none mt-1 pr-12"></h3>
-              <button id="sys-modal-close-btn" aria-label="Cerrar" class="absolute top-4 right-4 text-current hover:text-brand-green focus:text-brand-green active:text-brand-green transition-colors focus:outline-none text-2xl bg-transparent p-1 z-10"><i class="ph-bold ph-x"></i></button>
+              <button id="sys-modal-close-btn" data-sys-audio-ignore="true" aria-label="Cerrar" class="absolute top-4 right-4 text-current hover:text-brand-green focus:text-brand-green active:text-brand-green transition-colors focus:outline-none text-2xl bg-transparent p-1 z-10"><i class="ph-bold ph-x"></i></button>
             </div>
             <div class="p-6 sm:p-8 overflow-y-auto max-h-[60vh]">
               <div id="sys-modal-msg" class="font-medium text-lg leading-relaxed text-brand-black"></div>
@@ -69,11 +69,13 @@ window.sysModal = function(type, title, message) {
     if (type === 'confirm') {
       const btnCancel = document.createElement('button');
       btnCancel.className = btnBase + " bg-brand-white text-brand-black hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white active:bg-brand-black active:text-brand-white";
+      btnCancel.setAttribute('data-sys-audio-ignore', 'true');
       btnCancel.textContent = "Cancelar";
       btnCancel.onclick = () => closeAndResolve(false);
       
       const btnOk = document.createElement('button');
       btnOk.className = btnBase + " bg-brand-black text-brand-white hover:bg-brand-green hover:border-brand-black hover:text-brand-black focus:bg-brand-green focus:border-brand-black focus:text-brand-black active:bg-brand-green active:border-brand-black active:text-brand-black";
+      btnOk.setAttribute('data-sys-audio-ignore', 'true');
       btnOk.textContent = "Confirmar";
       btnOk.onclick = () => closeAndResolve(true);
       
@@ -82,6 +84,7 @@ window.sysModal = function(type, title, message) {
     } else {
       const btnOk = document.createElement('button');
       btnOk.className = btnBase + " bg-brand-black text-brand-white hover:bg-brand-green hover:border-brand-black hover:text-brand-black focus:bg-brand-green focus:border-brand-black focus:text-brand-black active:bg-brand-green active:border-brand-black active:text-brand-black";
+      btnOk.setAttribute('data-sys-audio-ignore', 'true');
       btnOk.textContent = "Entendido";
       btnOk.onclick = () => closeAndResolve(true);
       footer.appendChild(btnOk);
