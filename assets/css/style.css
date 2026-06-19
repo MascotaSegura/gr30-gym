@@ -57,7 +57,7 @@
     --default-mono-font-family: var(--font-mono);
     --font-display: "Space Grotesk", sans-serif;
     --color-brand-black: #0f172a;
-    --color-brand-white: rgba(255, 255, 255, 0.99);
+    --color-brand-white: #ffffff;
     --color-brand-green: #22c55e;
   }
 }
