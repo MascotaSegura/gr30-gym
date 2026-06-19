@@ -1848,10 +1848,19 @@ window.updateStock = function(id, delta) {
 
 window.renderInventoryTableBody = function(query = '') {
   const normalizedQuery = query.toLowerCase().trim();
-  const filtered = inventoryData.filter(p => 
-    p.nombre.toLowerCase().includes(normalizedQuery) || 
-    (p.barcode && p.barcode.includes(normalizedQuery))
-  );
+  let filterStock = '';
+  const stockInput = document.getElementById('filter-stock-inventario');
+  if (stockInput) filterStock = stockInput.value;
+
+  const filtered = inventoryData.filter(p => {
+    const textMatch = p.nombre.toLowerCase().includes(normalizedQuery) || 
+                      (p.barcode && p.barcode.includes(normalizedQuery));
+    let stockMatch = true;
+    if (filterStock === 'bajo_stock') {
+      stockMatch = p.stock <= 5;
+    }
+    return textMatch && stockMatch;
+  });
 
   if (filtered.length === 0) {
     return `
