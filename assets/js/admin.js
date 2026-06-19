@@ -469,7 +469,8 @@ const btnClasses = "font-display font-bold uppercase tracking-widest px-6 py-3 t
   let filteredMembers = membersData.filter(m => {
     const n = m.nombre ? m.nombre.toLowerCase() : '';
     const t = m.telefono ? m.telefono : '';
-    return n.includes(mTerm) || t.includes(mTerm);
+    const e = m.estado_pago ? m.estado_pago.toLowerCase() : '';
+    return n.includes(mTerm) || t.includes(mTerm) || e.includes(mTerm);
   });
 
   filteredMembers.forEach((m, i) => {
@@ -590,6 +591,15 @@ function renderPlanes() {
 
 var currentModalType = null;
 var currentModalId   = null;
+
+window.viewFilteredMembers = function(filterTerm) {
+  setScreen('miembros');
+  const searchInput = document.getElementById('search-miembros');
+  if (searchInput) {
+    searchInput.value = filterTerm;
+  }
+  renderTables();
+};
 
 function openModal(type, idOrName) {
   if (window.sysAudio) window.sysAudio('modalOpen');
