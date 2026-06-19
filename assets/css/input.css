@@ -9,6 +9,13 @@
   --color-brand-green: #22c55e;
 }
 
+@layer base {
+  :root, html {
+    color-scheme: light;
+    background-color: #ffffff;
+  }
+}
+
 body { background-color: #ffffff; color: #0f172a; overflow-x: hidden; }
 
 
