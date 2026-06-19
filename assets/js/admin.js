@@ -1729,16 +1729,19 @@ function renderCart() {
   const cartContainer = document.getElementById('pos-cart-container');
   const totalEl = document.getElementById('pos-total');
   const btnCobrar = document.getElementById('btn-cobrar-pos');
+  const btnVaciar = document.getElementById('btn-vaciar-pos');
   if (!cartContainer || !totalEl) return;
 
   if (posCart.length === 0) {
     cartContainer.innerHTML = `<div class="flex flex-col items-center justify-center py-12 opacity-50"><i class="ph-bold ph-shopping-cart text-5xl mb-4"></i><p class="font-display font-bold uppercase tracking-widest text-sm text-center">Carrito Vacío</p></div>`;
     totalEl.textContent = '$0';
     if (btnCobrar) { btnCobrar.disabled = true; btnCobrar.classList.add('opacity-50'); }
+    if (btnVaciar) { btnVaciar.disabled = true; btnVaciar.classList.add('opacity-50'); }
     return;
   }
 
   if (btnCobrar) { btnCobrar.disabled = false; btnCobrar.classList.remove('opacity-50'); }
+  if (btnVaciar) { btnVaciar.disabled = false; btnVaciar.classList.remove('opacity-50'); }
 
   let total = 0;
   cartContainer.innerHTML = posCart.map(item => {

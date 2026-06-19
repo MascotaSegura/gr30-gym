@@ -196,8 +196,8 @@
             <div class="pl-4 pr-2 flex items-center justify-center pointer-events-none text-brand-black/50 group-focus-within:text-brand-black transition-colors">
               <i class="ph-bold ph-magnifying-glass text-xl"></i>
             </div>
-            <input type="text" id="search-miembros" placeholder="Buscar miembro..." class="block w-full py-4 pr-2 bg-transparent text-brand-black font-display font-bold tracking-wide focus:outline-none placeholder:text-brand-black/50 text-sm">
-            <button type="button" onclick="document.getElementById('search-miembros').value=''; renderTables();" class="pr-4 text-brand-black hover:opacity-60 transition-opacity focus:outline-none flex-shrink-0" aria-label="Limpiar búsqueda" title="Limpiar"><i class="ph-bold ph-x text-xl"></i></button>
+            <input type="text" id="search-miembros" placeholder="Buscar miembro..." class="peer block w-full min-w-0 py-4 pr-2 bg-transparent text-brand-black font-display font-bold tracking-wide focus:outline-none placeholder:text-brand-black/50 text-sm">
+            <button type="button" onclick="document.getElementById('search-miembros').value=''; renderTables();" class="peer-placeholder-shown:hidden pr-4 text-brand-black hover:opacity-60 transition-opacity focus:outline-none flex-shrink-0" aria-label="Limpiar búsqueda" title="Limpiar"><i class="ph-bold ph-x text-xl"></i></button>
           </div>
           <button onclick="openModal('member-form')" class="w-full sm:w-auto text-center bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors flex items-center justify-center gap-2 flex-shrink-0">
             <i class="ph-bold ph-plus text-base mt-[-2px]"></i> Añadir Miembro
@@ -229,8 +229,8 @@
           <div class="pl-4 pr-2 flex items-center justify-center pointer-events-none text-brand-black/50 group-focus-within:text-brand-black transition-colors">
             <i class="ph-bold ph-magnifying-glass text-xl"></i>
           </div>
-          <input type="text" id="search-pagos" placeholder="Buscar por nombre o teléfono..." class="block w-full py-4 pr-2 bg-transparent text-brand-black font-display font-bold tracking-wide focus:outline-none placeholder:text-brand-black/50 text-sm">
-          <button type="button" onclick="document.getElementById('search-pagos').value=''; renderPagos();" class="pr-4 text-brand-black hover:opacity-60 transition-opacity focus:outline-none flex-shrink-0" aria-label="Limpiar búsqueda" title="Limpiar"><i class="ph-bold ph-x text-xl"></i></button>
+          <input type="text" id="search-pagos" placeholder="Buscar por nombre o teléfono..." class="peer block w-full min-w-0 py-4 pr-2 bg-transparent text-brand-black font-display font-bold tracking-wide focus:outline-none placeholder:text-brand-black/50 text-sm">
+          <button type="button" onclick="document.getElementById('search-pagos').value=''; renderPagos();" class="peer-placeholder-shown:hidden pr-4 text-brand-black hover:opacity-60 transition-opacity focus:outline-none flex-shrink-0" aria-label="Limpiar búsqueda" title="Limpiar"><i class="ph-bold ph-x text-xl"></i></button>
         </div>
       </div>
 
@@ -331,8 +331,8 @@
           <div class="pl-4 pr-2 flex items-center justify-center pointer-events-none text-brand-black/50 group-focus-within:text-brand-black transition-colors">
             <i class="ph-bold ph-magnifying-glass text-xl"></i>
           </div>
-          <input type="text" id="search-pos" placeholder="BUSCAR PRODUCTO O ESCANEAR..." class="block w-full py-4 pr-2 bg-transparent text-brand-black font-display font-bold tracking-wide focus:outline-none placeholder:text-brand-black/50 placeholder:uppercase text-sm">
-          <button type="button" onclick="document.getElementById('search-pos').value=''; renderPOS();" class="pr-4 text-brand-black hover:opacity-60 transition-opacity focus:outline-none flex-shrink-0" aria-label="Limpiar búsqueda" title="Limpiar"><i class="ph-bold ph-x text-xl"></i></button>
+          <input type="text" id="search-pos" placeholder="BUSCAR PRODUCTO O ESCANEAR..." class="peer block w-full min-w-0 py-4 pr-2 bg-transparent text-brand-black font-display font-bold tracking-wide focus:outline-none placeholder:text-brand-black/50 placeholder:uppercase text-sm">
+          <button type="button" onclick="document.getElementById('search-pos').value=''; renderPOS();" class="peer-placeholder-shown:hidden pr-4 text-brand-black hover:opacity-60 transition-opacity focus:outline-none flex-shrink-0" aria-label="Limpiar búsqueda" title="Limpiar"><i class="ph-bold ph-x text-xl"></i></button>
           <button onclick="openCameraScanner('search-pos')" class="border-l-4 border-brand-black bg-brand-white text-brand-black hover:bg-brand-black hover:text-brand-white px-6 py-4 focus:outline-none transition-colors flex-shrink-0 group-focus-within:bg-brand-black group-focus-within:text-brand-white" aria-label="Escanear producto">
             <i class="ph-bold ph-camera text-xl"></i>
           </button>
@@ -356,7 +356,7 @@
             <span id="pos-total" class="font-display font-bold text-4xl tracking-tighter text-brand-black">$0</span>
           </div>
           <div class="flex gap-4">
-            <button type="button" onclick="vaciarCarrito()" class="w-16 flex-shrink-0 text-center bg-brand-white text-brand-black font-display font-bold uppercase tracking-widest py-5 text-sm hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white active:bg-brand-black active:text-brand-white transition-colors focus:outline-none border-4 border-brand-black flex justify-center items-center" aria-label="Vaciar Carrito" title="Vaciar Carrito">
+            <button type="button" id="btn-vaciar-pos" onclick="vaciarCarrito()" class="w-16 flex-shrink-0 text-center bg-brand-white text-brand-black font-display font-bold uppercase tracking-widest py-5 text-sm hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white active:bg-brand-black active:text-brand-white transition-colors focus:outline-none border-4 border-brand-black flex justify-center items-center" aria-label="Vaciar Carrito" title="Vaciar Carrito">
               <i class="ph-bold ph-trash text-xl"></i>
             </button>
             <button type="button" onclick="procesarVenta()" id="btn-cobrar-pos" class="flex-1 text-center bg-brand-green text-brand-black font-display font-bold uppercase tracking-widest px-2 sm:px-6 py-5 text-sm hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white active:bg-brand-black active:text-brand-white transition-colors focus:outline-none border-4 border-brand-black flex justify-center items-center gap-2">
@@ -386,8 +386,8 @@
       </div>
       <div class="flex">
         <div class="relative w-full flex items-center bg-brand-white border-b-4 border-brand-black focus-within:bg-brand-green transition-colors">
-          <input type="text" id="inventory-search" placeholder="BUSCAR PRODUCTO O ESCANEAR..." class="w-full py-6 pl-6 pr-12 font-display font-bold uppercase tracking-widest text-xl bg-transparent focus:outline-none placeholder:text-brand-black/50 text-brand-black" oninput="filterInventoryList(this.value)">
-          <button type="button" onclick="document.getElementById('inventory-search').value=''; filterInventoryList('');" class="absolute right-4 text-brand-black hover:opacity-60 transition-opacity focus:outline-none flex-shrink-0" aria-label="Limpiar búsqueda" title="Limpiar"><i class="ph-bold ph-x text-2xl"></i></button>
+          <input type="text" id="inventory-search" placeholder="BUSCAR PRODUCTO O ESCANEAR..." class="peer w-full min-w-0 py-6 pl-6 pr-12 font-display font-bold uppercase tracking-widest text-xl bg-transparent focus:outline-none placeholder:text-brand-black/50 text-brand-black" oninput="filterInventoryList(this.value)">
+          <button type="button" onclick="document.getElementById('inventory-search').value=''; filterInventoryList('');" class="peer-placeholder-shown:hidden absolute right-4 text-brand-black hover:opacity-60 transition-opacity focus:outline-none flex-shrink-0" aria-label="Limpiar búsqueda" title="Limpiar"><i class="ph-bold ph-x text-2xl"></i></button>
         </div>
         <button onclick="openCameraScanner('inventory-search')" class="border-b-4 border-l-4 border-brand-black bg-brand-white text-brand-black hover:bg-brand-black hover:text-brand-white px-6 focus:outline-none transition-colors flex-shrink-0" aria-label="Escanear producto">
           <i class="ph-bold ph-camera text-3xl"></i>
