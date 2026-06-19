@@ -912,7 +912,7 @@ function productFormHTML(p) {
       <div>
         <label class="${labelCls}">Código de Barras (Opcional)</label>
         <div class="flex">
-          <input type="text" id="pr-barcode" value="${p.barcode || ''}" class="${inputCls} border-r-0 placeholder:text-brand-black/30" placeholder="ESCANEA O ESCRIBE">
+          <input type="text" id="pr-barcode" value="${p.barcode || ''}" class="${inputCls} border-r-0" placeholder="ESCANEA O ESCRIBE">
           <button type="button" onclick="openCameraScanner('pr-barcode')" class="flex-shrink-0 w-16 sm:w-20 border-4 border-brand-black flex items-center justify-center bg-brand-white text-brand-black hover:bg-brand-black hover:text-brand-white focus:outline-none transition-colors" aria-label="Escanear con cámara">
             <i class="ph-bold ph-camera text-2xl sm:text-3xl"></i>
           </button>
@@ -1816,7 +1816,7 @@ window.renderInventoryTableBody = function(query = '') {
     
     return `
     <div class="border-4 border-brand-black bg-brand-white flex flex-col group relative text-brand-black">
-      <div class="absolute top-4 right-4 text-xs font-bold uppercase tracking-widest px-2 py-1 border-2 border-brand-black bg-brand-white text-brand-black z-10">
+      <div class="absolute top-4 right-4 text-xs font-bold uppercase tracking-widest px-2 py-1 border-4 border-brand-black bg-brand-white text-brand-black z-10">
         Stock: ${safeStock}
       </div>
       <div class="w-full h-48 sm:h-56 p-6 flex justify-center items-center border-b-4 border-brand-black">
@@ -1828,9 +1828,9 @@ window.renderInventoryTableBody = function(query = '') {
         
         <div class="mt-auto flex flex-col gap-4">
           <div class="flex items-center justify-between border-4 border-brand-black p-2">
-            <button onclick="updateStock('${p.id}', -1)" class="w-10 h-10 flex items-center justify-center hover:bg-brand-green hover:text-brand-black text-2xl font-bold transition-colors focus:outline-none border-2 border-transparent hover:border-brand-black">-</button>
+            <button onclick="updateStock('${p.id}', -1)" class="w-10 h-10 flex items-center justify-center hover:bg-brand-green hover:text-brand-black text-2xl font-bold transition-colors focus:outline-none border-4 border-transparent hover:border-brand-black">-</button>
             <span class="font-display font-bold text-2xl tracking-tighter w-12 text-center">${safeStock}</span>
-            <button onclick="updateStock('${p.id}', 1)" class="w-10 h-10 flex items-center justify-center hover:bg-brand-green hover:text-brand-black text-2xl font-bold transition-colors focus:outline-none border-2 border-transparent hover:border-brand-black">+</button>
+            <button onclick="updateStock('${p.id}', 1)" class="w-10 h-10 flex items-center justify-center hover:bg-brand-green hover:text-brand-black text-2xl font-bold transition-colors focus:outline-none border-4 border-transparent hover:border-brand-black">+</button>
           </div>
           
           <button onclick="openModal('product-form', '${p.id}')" class="w-full py-3 border-4 border-brand-black text-brand-black hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white font-display font-bold uppercase tracking-widest text-sm transition-colors focus:outline-none">
