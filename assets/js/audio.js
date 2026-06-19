@@ -44,3 +44,19 @@ window.sysAudio = function(type) {
     });
   }
 };
+
+// Delegación global de eventos de audio para asegurar 100% de consistencia
+document.addEventListener('click', function(e) {
+  if (!e.isTrusted) return; // Ignore synthetic events
+  
+  // Find the closest interactive element
+  const target = e.target.closest('a, button, summary, input[type="submit"], input[type="checkbox"], input[type="radio"], select');
+  
+  if (target) {
+    if (target.dataset.sysAudioIgnore === "true") return;
+    
+    // Some buttons specify custom sounds, like '+' or '-'
+    const audioType = target.dataset.sysAudio || 'click';
+    if (window.sysAudio) window.sysAudio(audioType);
+  }
+});

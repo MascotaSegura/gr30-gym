@@ -127,7 +127,6 @@ if (!isSeeded) {
 }
 
 window.toggleMobileMenu = function() {
-  if (window.sysAudio) window.sysAudio('click');
   const nav = document.getElementById('sidebar-nav');
   const icon = document.getElementById('adminMenuIcon');
   const btn = document.getElementById('mobileMenuBtn');
@@ -840,7 +839,6 @@ function planFormHTML(p) {
 
 async function saveStaff(e) {
   if (e) e.preventDefault();
-  if (window.sysAudio) window.sysAudio('click');
   const nombre      = document.getElementById('sf-nombre').value.trim();
   const especialidad= document.getElementById('sf-esp').value.trim();
   const turno       = document.getElementById('sf-turno').value;
@@ -936,7 +934,6 @@ function productFormHTML(p) {
 
 window.saveProduct = async function(e) {
   if (e) e.preventDefault();
-  if (window.sysAudio) window.sysAudio('click');
   const id = document.getElementById('pr-id').value;
   const nombre = document.getElementById('pr-nombre').value.trim();
   const precio = parseFloat(document.getElementById('pr-precio').value);
@@ -1028,7 +1025,6 @@ window.resetMemberPIN = async function(id) {
 
 async function saveMember(e) {
   if (e) e.preventDefault();
-  if (window.sysAudio) window.sysAudio('click');
   const nombre   = document.getElementById('mf-nombre').value.trim();
   const telefono = document.getElementById('mf-tel').value.trim();
   const plan     = document.getElementById('mf-plan').value;
@@ -1104,7 +1100,6 @@ function deleteMember(id) {
 
 async function savePlan(e) {
   if (e) e.preventDefault();
-  if (window.sysAudio) window.sysAudio('click');
   const nombre = document.getElementById('pf-nombre').value.trim();
   const precio = document.getElementById('pf-precio').value.trim();
   const periodo = document.getElementById('pf-periodo').value;
@@ -1335,7 +1330,6 @@ function openPagoForm(id) {
 
 async function processPago(e) {
   if (e) e.preventDefault();
-  if (window.sysAudio) window.sysAudio('click');
   const m = membersData.find(x => x.id === currentModalId);
   if (!m) return;
   const metodo = document.getElementById('pago-metodo').value;
@@ -1697,15 +1691,10 @@ window.updateCartQty = function(id, change) {
   
   const newQty = item.qty + change;
   if (newQty <= 0) {
-    if (window.sysAudio) window.sysAudio('decrement');
     posCart.splice(itemIndex, 1);
   } else if (newQty > product.stock) {
     showToast('STOCK MÁXIMO ALCANZADO');
   } else {
-    if (window.sysAudio) {
-      if (change > 0) window.sysAudio('increment');
-      else window.sysAudio('decrement');
-    }
     item.qty = newQty;
   }
   renderCart();
@@ -1748,9 +1737,9 @@ function renderCart() {
         </div>
         <div class="flex items-center justify-between border-t-4 border-brand-black pt-4 mt-2">
           <div class="flex items-center gap-2 border-4 border-brand-black bg-brand-white px-2 py-1">
-            <button onclick="updateCartQty('${item.id}', -1)" class="flex items-center justify-center hover:bg-brand-black hover:text-brand-white focus:outline-none transition-colors w-8 h-8"><i class="ph-bold ph-minus text-xs"></i></button>
+            <button onclick="updateCartQty('${item.id}', -1)" data-sys-audio="decrement" class="flex items-center justify-center hover:bg-brand-black hover:text-brand-white focus:outline-none transition-colors w-8 h-8"><i class="ph-bold ph-minus text-xs"></i></button>
             <span class="font-display font-bold text-center text-sm px-2">${item.qty}</span>
-            <button onclick="updateCartQty('${item.id}', 1)" class="flex items-center justify-center hover:bg-brand-black hover:text-brand-white focus:outline-none transition-colors w-8 h-8"><i class="ph-bold ph-plus text-xs"></i></button>
+            <button onclick="updateCartQty('${item.id}', 1)" data-sys-audio="increment" class="flex items-center justify-center hover:bg-brand-black hover:text-brand-white focus:outline-none transition-colors w-8 h-8"><i class="ph-bold ph-plus text-xs"></i></button>
           </div>
           <button onclick="removeFromCart('${item.id}')" class="flex items-center justify-center bg-brand-black text-brand-white hover:bg-brand-green hover:text-brand-black focus:outline-none transition-colors w-10 h-10 flex-shrink-0" title="Eliminar">
             <i class="ph-bold ph-x text-sm"></i>
@@ -1765,7 +1754,6 @@ function renderCart() {
 
 window.procesarVenta = function() {
   if (posCart.length === 0) return;
-  if (window.sysAudio) window.sysAudio('click');
   
   let totalVenta = 0;
   const saleItems = [];
@@ -1800,10 +1788,6 @@ window.procesarVenta = function() {
 };
 
 window.updateStock = function(id, delta) {
-  if (window.sysAudio) {
-    if (delta > 0) window.sysAudio('increment');
-    else window.sysAudio('decrement');
-  }
   const product = inventoryData.find(p => p.id === id);
   if (product) {
     product.stock += delta;
@@ -1850,9 +1834,9 @@ window.renderInventoryTableBody = function(query = '') {
         
         <div class="mt-auto flex flex-col gap-4">
           <div class="flex items-center justify-between border-4 border-brand-black p-2">
-            <button onclick="updateStock('${p.id}', -1)" class="w-10 h-10 flex items-center justify-center hover:bg-brand-green hover:text-brand-black text-2xl font-bold transition-colors focus:outline-none border-4 border-transparent hover:border-brand-black">-</button>
+            <button onclick="updateStock('${p.id}', -1)" data-sys-audio="decrement" class="w-10 h-10 flex items-center justify-center hover:bg-brand-green hover:text-brand-black text-2xl font-bold transition-colors focus:outline-none border-4 border-transparent hover:border-brand-black">-</button>
             <span class="font-display font-bold text-2xl tracking-tighter w-12 text-center">${safeStock}</span>
-            <button onclick="updateStock('${p.id}', 1)" class="w-10 h-10 flex items-center justify-center hover:bg-brand-green hover:text-brand-black text-2xl font-bold transition-colors focus:outline-none border-4 border-transparent hover:border-brand-black">+</button>
+            <button onclick="updateStock('${p.id}', 1)" data-sys-audio="increment" class="w-10 h-10 flex items-center justify-center hover:bg-brand-green hover:text-brand-black text-2xl font-bold transition-colors focus:outline-none border-4 border-transparent hover:border-brand-black">+</button>
           </div>
           
           <button onclick="openModal('product-form', '${p.id}')" class="w-full py-3 border-4 border-brand-black text-brand-black hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white font-display font-bold uppercase tracking-widest text-sm transition-colors focus:outline-none">
