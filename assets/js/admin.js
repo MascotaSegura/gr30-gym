@@ -1673,12 +1673,14 @@ window.addToCart = function(id) {
   const existingItem = posCart.find(i => i.id === id);
   if (existingItem) {
     if (existingItem.qty < product.stock) {
+      if (window.sysAudio) window.sysAudio('increment');
       existingItem.qty += 1;
     } else {
       showToast('STOCK MÁXIMO ALCANZADO');
       return;
     }
   } else {
+    if (window.sysAudio) window.sysAudio('increment');
     posCart.push({ id: id, qty: 1 });
   }
   renderCart();
@@ -1693,10 +1695,15 @@ window.updateCartQty = function(id, change) {
   
   const newQty = item.qty + change;
   if (newQty <= 0) {
+    if (window.sysAudio) window.sysAudio('decrement');
     posCart.splice(itemIndex, 1);
   } else if (newQty > product.stock) {
     showToast('STOCK MÁXIMO ALCANZADO');
   } else {
+    if (window.sysAudio) {
+      if (change > 0) window.sysAudio('increment');
+      else window.sysAudio('decrement');
+    }
     item.qty = newQty;
   }
   renderCart();
