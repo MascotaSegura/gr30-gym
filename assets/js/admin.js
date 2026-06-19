@@ -127,6 +127,7 @@ if (!isSeeded) {
 }
 
 window.toggleMobileMenu = function() {
+  if (window.sysAudio) window.sysAudio('click');
   const nav = document.getElementById('sidebar-nav');
   const icon = document.getElementById('adminMenuIcon');
   const btn = document.getElementById('mobileMenuBtn');
@@ -1333,7 +1334,8 @@ function openPagoForm(id) {
 }
 
 async function processPago(e) {
-  e.preventDefault();
+  if (e) e.preventDefault();
+  if (window.sysAudio) window.sysAudio('click');
   const m = membersData.find(x => x.id === currentModalId);
   if (!m) return;
   const metodo = document.getElementById('pago-metodo').value;
@@ -1467,8 +1469,8 @@ function revertPago(memberId, pagoId) {
 }
 
 let toastTimeout;
-function showToast(msg) {
-  if (window.sysAudio) window.sysAudio('notification');
+function showToast(msg, silent = false) {
+  if (window.sysAudio && !silent) window.sysAudio('notification');
   const t = document.getElementById('toast');
   t.textContent = msg;
   t.classList.remove('translate-y-24', 'opacity-0');
@@ -1954,54 +1956,37 @@ window.deleteProduct = function(id) {
 };
 
 window.openCameraScanner = function(targetInputId) {
+  if (window.sysAudio) window.sysAudio('modalOpen');
+  
   const overlayHtml = `
     <div id="sys-scanner-overlay" class="fixed inset-0 bg-black/90 z-[999999] flex flex-col items-center justify-center p-6 sm:p-12 overflow-y-auto">
-      <style>
-        #qr-reader { border: none !important; }
-        #qr-reader__dashboard_section_csr span { color: #1a1a1a !important; font-family: 'Space Grotesk', sans-serif; font-weight: 700; display: block; margin-bottom: 8px; }
-        #qr-reader button { 
-          background-color: #1a1a1a !important; 
-          color: #fff !important; 
-          border: 4px solid #1a1a1a !important; 
-          padding: 12px 24px !important; 
-          font-weight: 700 !important; 
-          text-transform: uppercase !important; 
-          letter-spacing: 0.1em !important; 
-          font-family: 'Space Grotesk', sans-serif !important; 
-          cursor: pointer !important;
-          margin: 4px;
-        }
-        #qr-reader button:hover {
-          background-color: #CCFF00 !important;
-          color: #1a1a1a !important;
-        }
-        #qr-reader select {
-          border: 4px solid #1a1a1a !important;
-          padding: 12px !important;
-          font-weight: 700 !important;
-          font-family: 'Space Grotesk', sans-serif !important;
-          margin: 8px 0 !important;
-          background: #fff !important;
-          color: #1a1a1a !important;
-          outline: none !important;
-          width: 100%;
-          cursor: pointer;
-        }
-        #qr-reader select:focus {
-          background-color: #CCFF00 !important;
-        }
-        #qr-reader a { display: none !important; }
-        #qr-reader__scan_region { background: #fff !important; }
-        #qr-reader__dashboard_section_swaplink { display: none !important; }
-      </style>
       <div class="w-full max-w-lg bg-brand-white border-4 border-brand-black flex flex-col">
         <div class="p-6 border-b-4 border-brand-black flex justify-between items-center bg-brand-black text-brand-white">
           <h3 class="font-display font-bold uppercase tracking-widest text-lg sm:text-xl">Escanear Código</h3>
           <button onclick="closeCameraScanner()" class="text-brand-white hover:text-brand-green focus:outline-none text-3xl"><i class="ph-bold ph-x"></i></button>
         </div>
         <div class="p-6 bg-brand-white flex-1 flex flex-col items-center">
-          <div id="qr-reader" class="w-full border-4 border-brand-black bg-brand-white" style="min-height: 300px;"></div>
-          <p class="mt-6 font-display font-bold uppercase tracking-widest text-xs text-center opacity-70">Apunta la cámara de tu dispositivo hacia el código de barras o QR.</p>
+          <div class="w-full mb-4">
+            <label class="block font-display font-bold uppercase tracking-widest text-xs mb-2 text-brand-black">Seleccionar Cámara</label>
+            <div class="relative">
+              <select id="camera-select" class="w-full bg-brand-white text-brand-black border-4 border-brand-black px-4 py-3 font-display font-bold uppercase text-sm focus:outline-none focus:bg-brand-green transition-colors appearance-none cursor-pointer">
+                <option value="">Cargando cámaras...</option>
+              </select>
+              <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none text-brand-black">
+                <i class="ph-bold ph-caret-down text-xl"></i>
+              </div>
+            </div>
+          </div>
+          
+          <div id="qr-reader" class="w-full border-4 border-brand-black bg-brand-black" style="min-height: 300px; display:flex; align-items:center; justify-content:center; overflow:hidden;">
+             <span class="text-brand-white font-display font-bold tracking-widest uppercase text-xs opacity-50">Cámara inactiva</span>
+          </div>
+          
+          <div class="w-full flex gap-4 mt-6">
+            <button id="btn-start-scan" class="flex-1 bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-4 py-3 border-4 border-brand-black hover:bg-brand-green hover:text-brand-black focus:outline-none transition-colors">Iniciar</button>
+            <button id="btn-stop-scan" class="flex-1 bg-brand-white text-brand-black font-display font-bold uppercase tracking-widest px-4 py-3 border-4 border-brand-black hover:bg-brand-black hover:text-brand-white focus:outline-none transition-colors hidden">Detener</button>
+          </div>
+          <p class="mt-6 font-display font-bold uppercase tracking-widest text-xs text-center opacity-70">Apunta la cámara hacia el código.</p>
         </div>
       </div>
     </div>
@@ -2009,35 +1994,109 @@ window.openCameraScanner = function(targetInputId) {
   document.body.insertAdjacentHTML('beforeend', overlayHtml);
   document.body.style.overflow = 'hidden';
 
-  if (typeof Html5QrcodeScanner !== 'undefined') {
-    const html5QrcodeScanner = new Html5QrcodeScanner(
-      "qr-reader",
-      { fps: 10, qrbox: {width: 250, height: 250} },
-      false
-    );
+  if (typeof Html5Qrcode !== 'undefined') {
+    let html5QrCode;
+    try {
+      html5QrCode = new Html5Qrcode("qr-reader");
+    } catch(e) {
+      console.error(e);
+      return;
+    }
+    
+    let currentStream = false;
 
-    window.closeCameraScanner = function() {
-      html5QrcodeScanner.clear().catch(error => {
-        console.error("Failed to clear html5QrcodeScanner. ", error);
-      });
+    window.closeCameraScanner = function(silent = false) {
+      if (window.sysAudio && !silent) window.sysAudio('modalClose');
+      if (currentStream) {
+        html5QrCode.stop().then(() => {
+          html5QrCode.clear();
+        }).catch(() => {
+          html5QrCode.clear();
+        }).finally(() => {
+          cleanupOverlay();
+        });
+      } else {
+        html5QrCode.clear();
+        cleanupOverlay();
+      }
+    };
+
+    function cleanupOverlay() {
       const overlay = document.getElementById('sys-scanner-overlay');
       if (overlay) overlay.remove();
       document.body.style.overflow = '';
+    }
+
+    const select = document.getElementById('camera-select');
+    const btnStart = document.getElementById('btn-start-scan');
+    const btnStop = document.getElementById('btn-stop-scan');
+
+    Html5Qrcode.getCameras().then(devices => {
+      if (devices && devices.length) {
+        select.innerHTML = '';
+        devices.forEach(device => {
+          const opt = document.createElement('option');
+          opt.value = device.id;
+          opt.text = device.label || `Cámara ${device.id}`;
+          select.appendChild(opt);
+        });
+      } else {
+        select.innerHTML = '<option value="">No se encontraron cámaras</option>';
+        btnStart.disabled = true;
+      }
+    }).catch(err => {
+      select.innerHTML = '<option value="">Error al acceder a cámaras</option>';
+      btnStart.disabled = true;
+    });
+
+    select.onchange = () => {
+      if (window.sysAudio) window.sysAudio('click');
     };
 
-    html5QrcodeScanner.render((decodedText, decodedResult) => {
-      const input = document.getElementById(targetInputId);
-      if (input) {
-        input.value = decodedText;
-        input.dispatchEvent(new Event('input', { bubbles: true }));
-        input.dispatchEvent(new Event('change', { bubbles: true }));
-      }
-      if(window.showToast) window.showToast('CÓDIGO ESCANEADO: ' + decodedText);
-      closeCameraScanner();
-    }, (error) => {});
+    btnStart.onclick = () => {
+      if (window.sysAudio) window.sysAudio('click');
+      const cameraId = select.value;
+      if (!cameraId) return;
+      
+      html5QrCode.start(
+        cameraId,
+        { fps: 10, qrbox: { width: 250, height: 250 } },
+        (decodedText, decodedResult) => {
+          if (window.sysAudio) window.sysAudio('success');
+          const input = document.getElementById(targetInputId);
+          if (input) {
+            input.value = decodedText;
+            input.dispatchEvent(new Event('input', { bubbles: true }));
+            input.dispatchEvent(new Event('change', { bubbles: true }));
+          }
+          if(window.showToast) window.showToast('CÓDIGO ESCANEADO', true);
+          closeCameraScanner(true);
+        },
+        (errorMessage) => { }
+      ).then(() => {
+        currentStream = true;
+        btnStart.classList.add('hidden');
+        btnStop.classList.remove('hidden');
+      }).catch(err => {
+        if(window.sysModal) window.sysModal('error', 'ERROR', 'Fallo al iniciar cámara.');
+      });
+    };
+
+    btnStop.onclick = () => {
+      if (window.sysAudio) window.sysAudio('click');
+      html5QrCode.stop().then(() => {
+        currentStream = false;
+        btnStop.classList.add('hidden');
+        btnStart.classList.remove('hidden');
+      }).catch(err => {
+        console.error(err);
+      });
+    };
+
   } else {
     if(window.sysModal) window.sysModal('error', 'ERROR', 'Librería de escáner no cargada.');
-    window.closeCameraScanner = function() {
+    window.closeCameraScanner = function(silent = false) {
+      if (window.sysAudio && !silent) window.sysAudio('modalClose');
       const overlay = document.getElementById('sys-scanner-overlay');
       if (overlay) overlay.remove();
       document.body.style.overflow = '';
