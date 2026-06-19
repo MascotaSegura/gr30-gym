@@ -87,6 +87,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="assets/js/supabase.js"></script>
+  <script src="assets/js/audio.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@vladmandic/face-api/dist/face-api.min.js"></script>
   <script type="module">
     let modelsLoaded = false;
@@ -293,6 +294,7 @@
       let speechText = "";
 
       if (type === 'CONCEDIDO') {
+        if (window.sysAudio) window.sysAudio('success');
         banner.classList.add("bg-brand-green");
         icon.className = "ph-bold ph-check-circle text-6xl mb-4 text-brand-black";
         title.innerText = "ACCESO CONCEDIDO";
@@ -303,6 +305,7 @@
         broadcastAccess(member, 'permitido');
       } 
       else if (type === 'DENEGADO') {
+        if (window.sysAudio) window.sysAudio('error');
         banner.classList.add("bg-brand-black");
         icon.className = "ph-bold ph-warning-circle text-6xl mb-4 text-brand-white";
         title.innerText = "ACCESO DENEGADO";
@@ -313,6 +316,7 @@
         broadcastAccess(member, 'denegado');
       }
       else if (type === 'DESCONOCIDO') {
+        if (window.sysAudio) window.sysAudio('error');
         banner.classList.add("bg-brand-white");
         icon.className = "ph-bold ph-question text-6xl mb-4 text-brand-black";
         title.innerText = "ROSTRO DESCONOCIDO";
@@ -323,6 +327,7 @@
         broadcastAccess(null, 'desconocido');
       }
       else if (type === 'DENEGADO_AMBIGUO') {
+        if (window.sysAudio) window.sysAudio('error');
         banner.classList.add("bg-brand-black");
         icon.className = "ph-bold ph-warning text-6xl mb-4 text-brand-white";
         title.innerText = "AMBIGÜEDAD DETECTADA";

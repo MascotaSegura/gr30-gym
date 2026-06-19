@@ -32,15 +32,19 @@ window.sysModal = function(type, title, message) {
     if (type === 'error') {
       icon.classList.add('ph-warning');
       header.classList.add('bg-brand-black', 'text-brand-white');
+      if (window.sysAudio) window.sysAudio('error');
     } else if (type === 'success') {
       icon.classList.add('ph-check-circle');
       header.classList.add('bg-brand-green', 'text-brand-black');
+      if (window.sysAudio) window.sysAudio('success');
     } else if (type === 'info') {
       icon.classList.add('ph-info');
       header.classList.add('bg-brand-black', 'text-brand-white');
+      if (window.sysAudio) window.sysAudio('notification');
     } else if (type === 'confirm') {
       icon.classList.add('ph-question');
       header.classList.add('bg-brand-black', 'text-brand-white');
+      if (window.sysAudio) window.sysAudio('modalOpen');
     }
     
     titleEl.textContent = title;
@@ -53,6 +57,7 @@ window.sysModal = function(type, title, message) {
       overlay.classList.remove('flex');
       overlay.classList.add('hidden');
       document.body.style.overflow = '';
+      if (window.sysAudio) window.sysAudio('modalClose');
       resolve(val);
     }
 

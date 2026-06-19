@@ -125,6 +125,7 @@ if (!isSeeded) {
 } else {
   posSalesHistory = JSON.parse(localStorage.getItem('gr30_pos_history')) || [];
 }
+
 window.toggleMobileMenu = function() {
   const nav = document.getElementById('sidebar-nav');
   const icon = document.getElementById('adminMenuIcon');
@@ -410,7 +411,7 @@ function renderDashboardStats() {
     }
   }
 }
-
+
 const searchMiembrosEl = document.getElementById('search-miembros');
 if (searchMiembrosEl) searchMiembrosEl.addEventListener('input', renderTables);
 
@@ -591,6 +592,7 @@ var currentModalType = null;
 var currentModalId   = null;
 
 function openModal(type, idOrName) {
+  if (window.sysAudio) window.sysAudio('modalOpen');
   try {
     currentModalType = type;
     currentModalId   = idOrName;
@@ -638,6 +640,7 @@ function openModal(type, idOrName) {
 }
 
 function closeModal() {
+  if (window.sysAudio) window.sysAudio('modalClose');
   const overlay = document.getElementById('modal-overlay');
   overlay.classList.remove('flex');
   overlay.classList.add('hidden');
@@ -835,7 +838,8 @@ function planFormHTML(p) {
 
 
 async function saveStaff(e) {
-  e.preventDefault();
+  if (e) e.preventDefault();
+  if (window.sysAudio) window.sysAudio('click');
   const nombre      = document.getElementById('sf-nombre').value.trim();
   const especialidad= document.getElementById('sf-esp').value.trim();
   const turno       = document.getElementById('sf-turno').value;
@@ -930,7 +934,8 @@ function productFormHTML(p) {
 }
 
 window.saveProduct = async function(e) {
-  e.preventDefault();
+  if (e) e.preventDefault();
+  if (window.sysAudio) window.sysAudio('click');
   const id = document.getElementById('pr-id').value;
   const nombre = document.getElementById('pr-nombre').value.trim();
   const precio = parseFloat(document.getElementById('pr-precio').value);
@@ -1021,7 +1026,8 @@ window.resetMemberPIN = async function(id) {
 };
 
 async function saveMember(e) {
-  e.preventDefault();
+  if (e) e.preventDefault();
+  if (window.sysAudio) window.sysAudio('click');
   const nombre   = document.getElementById('mf-nombre').value.trim();
   const telefono = document.getElementById('mf-tel').value.trim();
   const plan     = document.getElementById('mf-plan').value;
@@ -1096,7 +1102,8 @@ function deleteMember(id) {
 }
 
 async function savePlan(e) {
-  e.preventDefault();
+  if (e) e.preventDefault();
+  if (window.sysAudio) window.sysAudio('click');
   const nombre = document.getElementById('pf-nombre').value.trim();
   const precio = document.getElementById('pf-precio').value.trim();
   const periodo = document.getElementById('pf-periodo').value;
@@ -1217,7 +1224,7 @@ function renderPagos() {
     `).join('');
   }
 }
-
+
 
 function renderAccesos() {
   const statHoy = document.getElementById('stat-accesos-hoy');
@@ -1461,6 +1468,7 @@ function revertPago(memberId, pagoId) {
 
 let toastTimeout;
 function showToast(msg) {
+  if (window.sysAudio) window.sysAudio('notification');
   const t = document.getElementById('toast');
   t.textContent = msg;
   t.classList.remove('translate-y-24', 'opacity-0');
@@ -1607,7 +1615,7 @@ window.broadcastDBUpdate = async function() {
     payload: {}
   });
 };
-
+
 function renderPOS() {
   const container = document.getElementById('pos-catalog-container');
   if (!container) return;
@@ -1748,6 +1756,7 @@ function renderCart() {
 
 window.procesarVenta = function() {
   if (posCart.length === 0) return;
+  if (window.sysAudio) window.sysAudio('click');
   
   let totalVenta = 0;
   const saleItems = [];
@@ -1782,6 +1791,10 @@ window.procesarVenta = function() {
 };
 
 window.updateStock = function(id, delta) {
+  if (window.sysAudio) {
+    if (delta > 0) window.sysAudio('increment');
+    else window.sysAudio('decrement');
+  }
   const product = inventoryData.find(p => p.id === id);
   if (product) {
     product.stock += delta;
