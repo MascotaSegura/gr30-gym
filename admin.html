@@ -113,8 +113,8 @@
       <section class="bg-brand-white  ">
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-6">
           <h2 class="text-3xl font-display font-bold uppercase tracking-tighter">Staff Registrado.</h2>
-          <button onclick="openModal('staff-form')" class="w-full sm:w-auto text-center bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors flex items-center justify-center gap-2 flex-shrink-0">
-            <i class="ph-bold ph-plus text-base mt-[-2px]"></i> Añadir
+          <button onclick="setScreen('staff')" class="w-full sm:w-auto text-center border-4 border-brand-black bg-brand-white text-brand-black font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white focus:outline-none active:bg-brand-black active:text-brand-white transition-colors">
+            Ver Todos
           </button>
         </div>
         <div class="overflow-x-auto border-4 border-brand-black">
@@ -196,7 +196,8 @@
             <div class="pl-4 pr-2 flex items-center justify-center pointer-events-none text-brand-black/50 group-focus-within:text-brand-black transition-colors">
               <i class="ph-bold ph-magnifying-glass text-xl"></i>
             </div>
-            <input type="text" id="search-miembros" placeholder="Buscar miembro..." class="block w-full py-4 pr-4 bg-transparent text-brand-black font-display font-bold tracking-wide focus:outline-none placeholder:text-brand-black/50 text-sm">
+            <input type="text" id="search-miembros" placeholder="Buscar miembro..." class="block w-full py-4 pr-2 bg-transparent text-brand-black font-display font-bold tracking-wide focus:outline-none placeholder:text-brand-black/50 text-sm">
+            <button onclick="document.getElementById('search-miembros').value=''; renderTables();" class="pr-4 text-brand-black hover:text-brand-white focus:outline-none" aria-label="Limpiar búsqueda" title="Limpiar"><i class="ph-bold ph-x text-xl"></i></button>
           </div>
           <button onclick="openModal('member-form')" class="w-full sm:w-auto text-center bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors flex items-center justify-center gap-2 flex-shrink-0">
             <i class="ph-bold ph-plus text-base mt-[-2px]"></i> Añadir Miembro
@@ -228,7 +229,8 @@
           <div class="pl-4 pr-2 flex items-center justify-center pointer-events-none text-brand-black/50 group-focus-within:text-brand-black transition-colors">
             <i class="ph-bold ph-magnifying-glass text-xl"></i>
           </div>
-          <input type="text" id="search-pagos" placeholder="Buscar por nombre o teléfono..." class="block w-full py-4 pr-4 bg-transparent text-brand-black font-display font-bold tracking-wide focus:outline-none placeholder:text-brand-black/50 text-sm">
+          <input type="text" id="search-pagos" placeholder="Buscar por nombre o teléfono..." class="block w-full py-4 pr-2 bg-transparent text-brand-black font-display font-bold tracking-wide focus:outline-none placeholder:text-brand-black/50 text-sm">
+          <button onclick="document.getElementById('search-pagos').value=''; renderPagos();" class="pr-4 text-brand-black hover:text-brand-white focus:outline-none" aria-label="Limpiar búsqueda" title="Limpiar"><i class="ph-bold ph-x text-xl"></i></button>
         </div>
       </div>
 
@@ -329,7 +331,8 @@
           <div class="pl-4 pr-2 flex items-center justify-center pointer-events-none text-brand-black/50 group-focus-within:text-brand-black transition-colors">
             <i class="ph-bold ph-magnifying-glass text-xl"></i>
           </div>
-          <input type="text" id="search-pos" placeholder="BUSCAR PRODUCTO O ESCANEAR..." class="block w-full py-4 pr-4 bg-transparent text-brand-black font-display font-bold tracking-wide focus:outline-none placeholder:text-brand-black/50 placeholder:uppercase text-sm">
+          <input type="text" id="search-pos" placeholder="BUSCAR PRODUCTO O ESCANEAR..." class="block w-full py-4 pr-2 bg-transparent text-brand-black font-display font-bold tracking-wide focus:outline-none placeholder:text-brand-black/50 placeholder:uppercase text-sm">
+          <button onclick="document.getElementById('search-pos').value=''; renderPOS();" class="pr-4 text-brand-black hover:text-brand-white focus:outline-none" aria-label="Limpiar búsqueda" title="Limpiar"><i class="ph-bold ph-x text-xl"></i></button>
           <button onclick="openCameraScanner('search-pos')" class="border-l-4 border-brand-black bg-brand-white text-brand-black hover:bg-brand-black hover:text-brand-white px-6 py-4 focus:outline-none transition-colors flex-shrink-0 group-focus-within:bg-brand-black group-focus-within:text-brand-white" aria-label="Escanear producto">
             <i class="ph-bold ph-camera text-xl"></i>
           </button>
@@ -352,9 +355,14 @@
             <span class="font-display font-bold uppercase tracking-widest text-sm">Total</span>
             <span id="pos-total" class="font-display font-bold text-4xl tracking-tighter text-brand-black">$0</span>
           </div>
-          <button onclick="procesarVenta()" id="btn-cobrar-pos" class="w-full text-center bg-brand-green text-brand-black font-display font-bold uppercase tracking-widest px-6 py-5 text-sm hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white active:bg-brand-black active:text-brand-white transition-colors focus:outline-none border-4 border-brand-black flex justify-center items-center gap-2">
-            <i class="ph-bold ph-check-circle text-xl"></i> Procesar Venta
-          </button>
+          <div class="flex gap-4">
+            <button onclick="vaciarCarrito()" class="w-1/3 text-center bg-brand-white text-brand-black font-display font-bold uppercase tracking-widest py-5 text-sm hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white active:bg-brand-black active:text-brand-white transition-colors focus:outline-none border-4 border-brand-black flex justify-center items-center" aria-label="Vaciar Carrito" title="Vaciar Carrito">
+              <i class="ph-bold ph-trash text-xl"></i>
+            </button>
+            <button onclick="procesarVenta()" id="btn-cobrar-pos" class="w-2/3 text-center bg-brand-green text-brand-black font-display font-bold uppercase tracking-widest px-6 py-5 text-sm hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white active:bg-brand-black active:text-brand-white transition-colors focus:outline-none border-4 border-brand-black flex justify-center items-center gap-2">
+              <i class="ph-bold ph-check-circle text-xl"></i> Procesar Venta
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -377,7 +385,10 @@
         </div>
       </div>
       <div class="flex">
-        <input type="text" id="inventory-search" placeholder="BUSCAR PRODUCTO O ESCANEAR..." class="w-full p-6 border-b-4 border-brand-black font-display font-bold uppercase tracking-widest text-xl bg-brand-white focus:outline-none focus:bg-brand-green transition-colors placeholder:text-brand-black/50 text-brand-black" oninput="filterInventoryList(this.value)">
+        <div class="relative w-full flex items-center bg-brand-white border-b-4 border-brand-black focus-within:bg-brand-green transition-colors">
+          <input type="text" id="inventory-search" placeholder="BUSCAR PRODUCTO O ESCANEAR..." class="w-full py-6 pl-6 pr-12 font-display font-bold uppercase tracking-widest text-xl bg-transparent focus:outline-none placeholder:text-brand-black/50 text-brand-black" oninput="filterInventoryList(this.value)">
+          <button onclick="document.getElementById('inventory-search').value=''; filterInventoryList('');" class="absolute right-4 text-brand-black hover:text-brand-white focus:outline-none" aria-label="Limpiar búsqueda" title="Limpiar"><i class="ph-bold ph-x text-2xl"></i></button>
+        </div>
         <button onclick="openCameraScanner('inventory-search')" class="border-b-4 border-l-4 border-brand-black bg-brand-white text-brand-black hover:bg-brand-black hover:text-brand-white px-6 focus:outline-none transition-colors flex-shrink-0" aria-label="Escanear producto">
           <i class="ph-bold ph-camera text-3xl"></i>
         </button>

@@ -702,9 +702,12 @@ function staffFormHTML(s) {
           </div>
         </div>
       </div>
-      <div class="flex flex-col sm:flex-row gap-4 mt-4">
-        <button type="button" onclick="closeModal()" class="${cancelBtnCls}">Cancelar</button>
-        <button type="submit" class="${saveBtnCls}">Guardar</button>
+      <div class="flex flex-col sm:flex-row justify-between gap-4 mt-4">
+        ${s ? `<button type="button" onclick="deleteStaff(${s.id})" class="${deleteBtnCls} w-full sm:w-auto">Eliminar</button>` : '<div></div>'}
+        <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+          <button type="button" onclick="closeModal()" class="${cancelBtnCls}">Cancelar</button>
+          <button type="submit" class="${saveBtnCls}">Guardar</button>
+        </div>
       </div>
     </form>`;
 }
@@ -776,9 +779,12 @@ function memberFormHTML(m) {
           </button>
         </div>
       </div>
-      <div class="flex flex-col sm:flex-row gap-4 mt-4">
-        <button type="button" onclick="closeModal()" class="${cancelBtnCls}">Cancelar</button>
-        <button type="submit" class="${saveBtnCls}">Guardar</button>
+      <div class="flex flex-col sm:flex-row justify-between gap-4 mt-4">
+        ${m ? `<button type="button" onclick="deleteMember(${m.id})" class="${deleteBtnCls} w-full sm:w-auto">Eliminar Miembro</button>` : '<div></div>'}
+        <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+          <button type="button" onclick="closeModal()" class="${cancelBtnCls}">Cancelar</button>
+          <button type="submit" class="${saveBtnCls}">Guardar</button>
+        </div>
       </div>
     </form>`;
 }
@@ -1703,6 +1709,17 @@ window.removeFromCart = function(id) {
   if (itemIndex > -1) {
     posCart.splice(itemIndex, 1);
     renderCart();
+  }
+};
+
+window.vaciarCarrito = function() {
+  if (posCart.length === 0) return;
+  if (window.sysModal) {
+    window.sysModal('confirm', 'VACIAR CARRITO', '¿ESTÁS SEGURO DE VACIAR EL CARRITO?').then(confirmed => {
+      if (confirmed) { posCart = []; renderCart(); }
+    });
+  } else {
+    posCart = []; renderCart();
   }
 };
 
