@@ -639,8 +639,8 @@ function openModal(type, idOrName) {
   }
 }
 
-function closeModal() {
-  if (window.sysAudio) window.sysAudio('modalClose');
+function closeModal(silent = false) {
+  if (window.sysAudio && !silent) window.sysAudio('modalClose');
   const overlay = document.getElementById('modal-overlay');
   overlay.classList.remove('flex');
   overlay.classList.add('hidden');
@@ -822,7 +822,7 @@ function planFormHTML(p) {
       <div>
         <label class="flex items-center gap-4 cursor-pointer font-display font-bold uppercase tracking-widest text-xs sm:text-sm text-brand-black group focus-within:text-brand-green transition-colors">
           <div class="relative w-8 h-8 border-4 border-brand-black bg-brand-white group-hover:bg-brand-green group-focus-within:bg-brand-green transition-colors flex-shrink-0 flex items-center justify-center">
-            <input type="checkbox" id="pf-destacado" class="peer sr-only" ${destacado ? 'checked' : ''}>
+            <input type="checkbox" id="pf-destacado" class="peer sr-only" ${destacado ? 'checked' : ''} onchange="if(window.sysAudio) window.sysAudio('click')">
             <div class="w-4 h-4 hidden peer-checked:block pointer-events-none bg-brand-black"></div>
           </div>
           Destacar Plan (Color Verde)
@@ -864,7 +864,7 @@ async function saveStaff(e) {
       if (data && data.length > 0) staffData.push(data[0]);
       showToast('STAFF AÑADIDO CON ÉXITO');
     }
-    closeModal();
+    closeModal(true);
     renderAll();
   } catch (err) {
     if(window.sysModal) window.sysModal('error', 'ERROR', 'Fallo al guardar en la base de datos.');
@@ -973,7 +973,7 @@ window.saveProduct = async function(e) {
       if (data && data.length > 0) inventoryData.push(data[0]);
       if(window.showToast) window.showToast('PRODUCTO AÑADIDO CON ÉXITO');
     }
-    closeModal();
+    closeModal(true);
     const searchInput = document.getElementById('inventory-search');
     if(window.filterInventoryList) window.filterInventoryList(searchInput ? searchInput.value : '');
     if(window.renderPOS) window.renderPOS();
@@ -1074,7 +1074,7 @@ async function saveMember(e) {
       sysModal('success', 'NUEVO MIEMBRO REGISTRADO', `El PIN de activación para ${nombre} es:<br><br><div class="text-center mt-4"><span class="text-4xl font-display font-bold tracking-tighter bg-brand-green text-brand-black px-6 py-3 border-4 border-brand-black inline-block">${generatedPIN}</span></div><br>Indícale al cliente que inicie sesión con este PIN para crear su contraseña.`);
       if (window.broadcastDBUpdate) window.broadcastDBUpdate();
     }
-    closeModal();
+    closeModal(true);
     renderAll();
   } catch (err) {
     if(window.sysModal) window.sysModal('error', 'ERROR', 'Fallo al guardar en la base de datos.');
@@ -1154,7 +1154,7 @@ function deletePlan(id) {
       const idx = planesData.findIndex(x => x.id === id);
       if (idx !== -1) planesData.splice(idx, 1);
       showToast('PLAN ELIMINADO CON ÉXITO');
-      closeModal();
+      closeModal(true);
       renderAll();
     } catch(err) {
       if(window.sysModal) window.sysModal('error', 'ERROR', 'Fallo al eliminar plan en base de datos.');
@@ -1381,7 +1381,7 @@ async function processPago(e) {
 
     showToast('PAGO REGISTRADO CON ÉXITO');
     if (window.broadcastDBUpdate) window.broadcastDBUpdate();
-    closeModal();
+    closeModal(true);
     renderAll();
   } catch (err) {
     if(window.sysModal) window.sysModal('error', 'ERROR', 'Fallo al procesar pago en base de datos.');
@@ -1940,7 +1940,7 @@ window.deleteProduct = function(id) {
       renderInventoryStats();
       const searchInput = document.getElementById('inventory-search');
       filterInventoryList(searchInput ? searchInput.value : '');
-      closeModal();
+      closeModal(true);
       showToast('PRODUCTO ELIMINADO');
     }
   });
