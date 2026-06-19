@@ -769,6 +769,9 @@
   .border-transparent {
     border-color: transparent;
   }
+  .bg-\[\#ffffff\] {
+    background-color: #ffffff;
+  }
   .bg-\[inherit\] {
     background-color: inherit;
   }
