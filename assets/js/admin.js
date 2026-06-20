@@ -1953,19 +1953,19 @@ window.renderInventoryStats = function() {
   const statsContainer = document.getElementById('stats-inventario-container');
   if (statsContainer) {
     statsContainer.innerHTML = `
-      <div class="bg-brand-black text-brand-white p-8 border-4 border-brand-black flex flex-col items-start hover:bg-brand-green hover:text-brand-black transition-colors group">
-        <i class="ph-bold ph-currency-dollar text-4xl mb-4 text-brand-green group-hover:text-brand-black transition-colors"></i>
-        <p class="text-xs font-display font-bold uppercase tracking-widest mb-2 bg-brand-white text-brand-black group-hover:bg-brand-black group-hover:text-brand-white inline-block px-2 py-1">Ingresos Totales POS</p>
+      <div class="bg-brand-black text-brand-white p-8 border-4 border-brand-black flex flex-col items-start">
+        <i class="ph-bold ph-currency-dollar text-4xl mb-4 text-brand-green"></i>
+        <p class="text-xs font-display font-bold uppercase tracking-widest mb-2 bg-brand-white text-brand-black inline-block px-2 py-1">Ingresos Totales POS</p>
         <p class="text-5xl font-display font-bold tracking-tighter">$${totalIngresos}</p>
       </div>
-      <div class="bg-brand-white text-brand-black p-8 border-4 border-brand-black flex flex-col items-start hover:bg-brand-black hover:text-brand-white transition-colors group">
-        <i class="ph-bold ph-receipt text-4xl mb-4 group-hover:text-brand-green transition-colors"></i>
-        <p class="text-xs font-display font-bold uppercase tracking-widest mb-2 bg-brand-black text-brand-white group-hover:bg-brand-white group-hover:text-brand-black inline-block px-2 py-1">Ventas Realizadas</p>
+      <div class="bg-brand-white text-brand-black p-8 border-4 border-brand-black flex flex-col items-start">
+        <i class="ph-bold ph-receipt text-4xl mb-4"></i>
+        <p class="text-xs font-display font-bold uppercase tracking-widest mb-2 bg-brand-black text-brand-white inline-block px-2 py-1">Ventas Realizadas</p>
         <p class="text-5xl font-display font-bold tracking-tighter">${posSalesHistory.length}</p>
       </div>
-      <div class="bg-brand-green text-brand-black p-8 border-4 border-brand-black flex flex-col items-start hover:bg-brand-black hover:text-brand-white transition-colors group">
-        <i class="ph-bold ph-trend-up text-4xl mb-4 text-brand-black group-hover:text-brand-green transition-colors"></i>
-        <p class="text-xs font-display font-bold uppercase tracking-widest mb-2 bg-brand-black text-brand-white group-hover:bg-brand-white group-hover:text-brand-black inline-block px-2 py-1">Top Producto</p>
+      <div class="bg-brand-green text-brand-black p-8 border-4 border-brand-black flex flex-col items-start">
+        <i class="ph-bold ph-trend-up text-4xl mb-4 text-brand-black"></i>
+        <p class="text-xs font-display font-bold uppercase tracking-widest mb-2 bg-brand-black text-brand-white inline-block px-2 py-1">Top Producto</p>
         <p class="text-3xl font-display font-bold tracking-tighter uppercase mt-auto leading-tight">${topSellerName}</p>
       </div>
     `;

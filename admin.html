@@ -79,29 +79,29 @@
   <div id="screen-dashboard" class="screen block p-6 lg:p-12">
 
     <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-8 mb-12">
-      <div class="bg-brand-white text-brand-black border-4 border-brand-black p-8 hover:bg-brand-black hover:text-brand-white group transition-colors flex flex-col items-start overflow-hidden w-full">
-        <i class="ph-bold ph-users text-4xl mb-4 group-hover:text-brand-green transition-colors"></i>
-        <p class="text-xs font-display font-bold uppercase tracking-widest mb-4 bg-brand-black text-brand-white group-hover:bg-brand-white group-hover:text-brand-black inline-block px-2 py-1">Miembros Activos</p>
+      <div class="bg-brand-white text-brand-black border-4 border-brand-black p-8 flex flex-col items-start overflow-hidden w-full">
+        <i class="ph-bold ph-users text-4xl mb-4"></i>
+        <p class="text-xs font-display font-bold uppercase tracking-widest mb-4 bg-brand-black text-brand-white inline-block px-2 py-1">Miembros Activos</p>
         <p id="stat-miembros" class="text-6xl lg:text-7xl font-display font-bold tracking-tighter">0</p>
       </div>
-      <div class="bg-brand-green text-brand-black border-4 border-brand-black p-8 hover:bg-brand-black hover:text-brand-white group transition-colors flex flex-col items-start overflow-hidden w-full">
-        <i class="ph-bold ph-user-circle-gear text-4xl mb-4 group-hover:text-brand-green transition-colors"></i>
-        <p class="text-xs font-display font-bold uppercase tracking-widest mb-4 bg-brand-black text-brand-white group-hover:bg-brand-white group-hover:text-brand-black inline-block px-2 py-1">Staff</p>
+      <div class="bg-brand-green text-brand-black border-4 border-brand-black p-8 flex flex-col items-start overflow-hidden w-full">
+        <i class="ph-bold ph-user-circle-gear text-4xl mb-4"></i>
+        <p class="text-xs font-display font-bold uppercase tracking-widest mb-4 bg-brand-black text-brand-white inline-block px-2 py-1">Staff</p>
         <p id="stat-staff" class="text-6xl lg:text-7xl font-display font-bold tracking-tighter">0</p>
       </div>
-      <div class="bg-brand-white text-brand-black border-4 border-brand-black p-8 hover:bg-brand-black hover:text-brand-white group transition-colors flex flex-col items-start overflow-hidden w-full">
-        <i class="ph-bold ph-currency-dollar text-4xl mb-4 group-hover:text-brand-green transition-colors flex-shrink-0"></i>
-        <p class="text-xs font-display font-bold uppercase tracking-widest mb-4 bg-brand-black text-brand-white group-hover:bg-brand-white group-hover:text-brand-black inline-block px-2 py-1 flex-shrink-0">Ingresos (Mes)</p>
+      <div class="bg-brand-white text-brand-black border-4 border-brand-black p-8 flex flex-col items-start overflow-hidden w-full">
+        <i class="ph-bold ph-currency-dollar text-4xl mb-4 flex-shrink-0"></i>
+        <p class="text-xs font-display font-bold uppercase tracking-widest mb-4 bg-brand-black text-brand-white inline-block px-2 py-1 flex-shrink-0">Ingresos (Mes)</p>
         <p id="stat-ingresos" class="text-4xl lg:text-5xl font-display font-bold tracking-tighter truncate w-full" title="$0">$0</p>
       </div>
-      <div class="bg-brand-black text-brand-white border-4 border-brand-black p-8 hover:bg-brand-green hover:text-brand-black group transition-colors flex flex-col items-start overflow-hidden w-full">
-        <i class="ph-bold ph-person-simple-walk text-4xl mb-4 group-hover:text-brand-black transition-colors"></i>
-        <p class="text-xs font-display font-bold uppercase tracking-widest mb-4 bg-brand-white text-brand-black group-hover:bg-brand-black group-hover:text-brand-white inline-block px-2 py-1">Afluencia (Hoy)</p>
+      <div class="bg-brand-black text-brand-white border-4 border-brand-black p-8 flex flex-col items-start overflow-hidden w-full">
+        <i class="ph-bold ph-person-simple-walk text-4xl mb-4"></i>
+        <p class="text-xs font-display font-bold uppercase tracking-widest mb-4 bg-brand-white text-brand-black inline-block px-2 py-1">Afluencia (Hoy)</p>
         <p id="stat-afluencia" class="text-6xl lg:text-7xl font-display font-bold tracking-tighter">0</p>
       </div>
-      <div class="bg-brand-white text-brand-black border-4 border-brand-black p-8 hover:bg-brand-black hover:text-brand-white group transition-colors flex flex-col items-start overflow-hidden w-full">
-        <i class="ph-bold ph-clock text-4xl mb-4 group-hover:text-brand-green transition-colors"></i>
-        <p class="text-xs font-display font-bold uppercase tracking-widest mb-4 bg-brand-black text-brand-white group-hover:bg-brand-white group-hover:text-brand-black inline-block px-2 py-1">Hora Pico</p>
+      <div class="bg-brand-white text-brand-black border-4 border-brand-black p-8 flex flex-col items-start overflow-hidden w-full">
+        <i class="ph-bold ph-clock text-4xl mb-4"></i>
+        <p class="text-xs font-display font-bold uppercase tracking-widest mb-4 bg-brand-black text-brand-white inline-block px-2 py-1">Hora Pico</p>
         <p id="stat-horapico" class="text-4xl lg:text-5xl font-display font-bold tracking-tighter uppercase mt-auto">--:--</p>
       </div>
     </div>
@@ -255,16 +255,16 @@
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-        <div class="border-4 border-brand-black p-6 bg-brand-white text-brand-black hover:bg-brand-black hover:text-brand-white transition-colors group overflow-hidden w-full">
-          <p class="font-bold uppercase tracking-widest text-xs opacity-60 mb-2 group-hover:opacity-100 transition-opacity flex-shrink-0">Ingresos (Mes)</p>
+        <div class="border-4 border-brand-black p-6 bg-brand-white text-brand-black overflow-hidden w-full">
+          <p class="font-bold uppercase tracking-widest text-xs opacity-60 mb-2 flex-shrink-0">Ingresos (Mes)</p>
           <p class="text-4xl lg:text-5xl font-display font-bold tracking-tighter truncate w-full" id="stat-pagos-ingresos">--</p>
         </div>
-        <div class="border-4 border-brand-black p-6 bg-brand-white text-brand-black hover:bg-brand-black hover:text-brand-white transition-colors group overflow-hidden w-full">
+        <div class="border-4 border-brand-black p-6 bg-brand-white text-brand-black overflow-hidden w-full">
           <p class="font-bold uppercase tracking-widest text-xs opacity-60 mb-2 flex-shrink-0">Miembros Al Día</p>
           <p class="text-4xl lg:text-5xl font-display font-bold tracking-tighter truncate w-full" id="stat-pagos-aldia">--</p>
         </div>
-        <div class="border-4 border-brand-black p-6 bg-brand-black text-brand-white hover:bg-brand-white hover:text-brand-black transition-colors group overflow-hidden w-full">
-          <p class="font-bold uppercase tracking-widest text-xs opacity-60 mb-2 group-hover:opacity-100 transition-opacity flex-shrink-0">Miembros Atrasados</p>
+        <div class="border-4 border-brand-black p-6 bg-brand-black text-brand-white overflow-hidden w-full">
+          <p class="font-bold uppercase tracking-widest text-xs opacity-60 mb-2 flex-shrink-0">Miembros Atrasados</p>
           <p class="text-4xl lg:text-5xl font-display font-bold tracking-tighter truncate w-full" id="stat-pagos-atrasados">--</p>
         </div>
       </div>
@@ -309,11 +309,11 @@
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        <div class="border-4 border-brand-black p-6 bg-brand-white text-brand-black flex flex-col hover:bg-brand-black hover:text-brand-white transition-colors group">
-          <p class="font-bold uppercase tracking-widest text-xs opacity-60 mb-2 group-hover:opacity-100 transition-opacity">Afluencia Total Hoy</p>
+        <div class="border-4 border-brand-black p-6 bg-brand-white text-brand-black flex flex-col">
+          <p class="font-bold uppercase tracking-widest text-xs opacity-60 mb-2">Afluencia Total Hoy</p>
           <p class="text-5xl font-display font-bold tracking-tighter" id="stat-accesos-hoy">--</p>
         </div>
-        <div class="border-4 border-brand-black p-6 bg-brand-black text-brand-white flex flex-col hover:bg-brand-white hover:text-brand-black transition-colors group">
+        <div class="border-4 border-brand-black p-6 bg-brand-black text-brand-white flex flex-col">
           <p class="font-bold uppercase tracking-widest text-xs opacity-60 mb-2">Hora más concurrida</p>
           <p class="text-5xl font-display font-bold tracking-tighter" id="stat-accesos-horapico">--:--</p>
         </div>
