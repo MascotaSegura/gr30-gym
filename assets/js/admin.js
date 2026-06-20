@@ -425,7 +425,7 @@ const btnClasses = "font-display font-bold uppercase tracking-widest px-6 py-3 t
 
  const stb = document.getElementById('staff-table-body');
  if (stb) {
- stb.innerHTML = staffData.length === 0 ? '<tr><td colspan="3" class="p-6 text-center font-display font-bold uppercase tracking-widest text-sm opacity-50">NO HAY STAFF REGISTRADO</td></tr>' : staffData.slice(0,4).map(s => `
+ stb.innerHTML = staffData.length === 0 ? '<tr><td colspan="3" class="p-6 text-center font-display font-bold uppercase tracking-widest text-sm ">NO HAY STAFF REGISTRADO</td></tr>' : staffData.slice(0,4).map(s => `
  <tr class="${rowClasses}">
  <td class="p-6 flex items-center gap-4 ">
  <div class="w-10 h-10 bg-brand-white text-brand-black flex items-center justify-center font-display font-bold text-sm select-none flex-shrink-0 overflow-hidden">
@@ -442,7 +442,7 @@ const btnClasses = "font-display font-bold uppercase tracking-widest px-6 py-3 t
 
  const sfb = document.getElementById('staff-full-table-body');
  if (sfb) {
- sfb.innerHTML = staffData.length === 0 ? '<tr><td colspan="3" class="p-6 text-center font-display font-bold uppercase tracking-widest text-sm opacity-50">NO HAY STAFF REGISTRADO</td></tr>' : staffData.map(s => `
+ sfb.innerHTML = staffData.length === 0 ? '<tr><td colspan="3" class="p-6 text-center font-display font-bold uppercase tracking-widest text-sm ">NO HAY STAFF REGISTRADO</td></tr>' : staffData.map(s => `
  <tr class="${rowClasses}">
  <td class="p-6 flex items-center gap-4 ">
  <div class="w-10 h-10 bg-brand-white text-brand-black flex items-center justify-center font-display font-bold text-sm select-none flex-shrink-0 overflow-hidden">
@@ -489,7 +489,7 @@ const btnClasses = "font-display font-bold uppercase tracking-widest px-6 py-3 t
  <div class="w-10 h-10 bg-brand-black text-brand-white flex-shrink-0 flex items-center justify-center font-display font-bold text-sm select-none">${getInitials(m.nombre)}</div>
  <div>
  <span class="font-bold uppercase block leading-tight">${m.nombre}</span>
- <span class="text-xs tracking-widest opacity-60">${m.telefono}</span>
+ <span class="text-xs tracking-widest ">${m.telefono}</span>
  </div>
  </div>
  </td>
@@ -539,31 +539,31 @@ const btnClasses = "font-display font-bold uppercase tracking-widest px-6 py-3 t
 
  statsContainer.innerHTML = `
  <div class="border-4 border-brand-black p-6 bg-brand-white text-brand-black flex flex-col">
- <p class="font-bold uppercase tracking-widest text-xs opacity-60 mb-2">Miembros Al Día</p>
+ <p class="font-bold uppercase tracking-widest text-xs mb-2">Miembros Al Día</p>
  <p class="text-5xl font-display font-bold tracking-tighter">${activos}</p>
  </div>
  <div class="border-4 border-brand-black p-6 bg-brand-black text-brand-white flex flex-col">
- <p class="font-bold uppercase tracking-widest text-xs opacity-60 mb-2">Miembros Atrasados</p>
+ <p class="font-bold uppercase tracking-widest text-xs mb-2">Miembros Atrasados</p>
  <p class="text-5xl font-display font-bold tracking-tighter">${inactivos}</p>
  </div>
  <div class="border-4 border-brand-black p-6 bg-brand-green text-brand-black flex flex-col">
- <p class="font-bold uppercase tracking-widest text-xs opacity-60 mb-2">Plan Más Popular</p>
+ <p class="font-bold uppercase tracking-widest text-xs mb-2">Plan Más Popular</p>
  <p class="text-3xl font-display font-bold tracking-tighter uppercase mt-auto">${topPlan}</p>
  </div>
  `;
  }
 
  const mfb = document.getElementById('members-full-table-body');
- if (mfb) mfb.innerHTML = membersData.length === 0 ? '<tr><td colspan="4" class="p-6 text-center font-display font-bold uppercase tracking-widest text-sm opacity-50">NO HAY MIEMBROS REGISTRADOS</td></tr>' : mHtml;
+ if (mfb) mfb.innerHTML = membersData.length === 0 ? '<tr><td colspan="4" class="p-6 text-center font-display font-bold uppercase tracking-widest text-sm ">NO HAY MIEMBROS REGISTRADOS</td></tr>' : mHtml;
  
  const mpb = document.getElementById('members-preview-body');
- if (mpb) mpb.innerHTML = membersData.length === 0 ? '<tr><td colspan="4" class="p-6 text-center font-display font-bold uppercase tracking-widest text-sm opacity-50">NO HAY MIEMBROS REGISTRADOS</td></tr>' : prevHtml;
+ if (mpb) mpb.innerHTML = membersData.length === 0 ? '<tr><td colspan="4" class="p-6 text-center font-display font-bold uppercase tracking-widest text-sm ">NO HAY MIEMBROS REGISTRADOS</td></tr>' : prevHtml;
 }
 
 function renderPlanes() {
  const container = document.getElementById('planes-container');
  if (!planesData || planesData.length === 0) {
- container.innerHTML = '<div class="col-span-full p-8 text-center border-4 border-brand-black bg-brand-white"><p class="font-display font-bold uppercase tracking-widest opacity-50">NO HAY PLANES REGISTRADOS</p></div>';
+ container.innerHTML = '<div class="col-span-full p-8 text-center border-4 border-brand-black bg-brand-white"><p class="font-display font-bold uppercase tracking-widest ">NO HAY PLANES REGISTRADOS</p></div>';
  return;
  }
  container.innerHTML = planesData.map(p => {
@@ -788,7 +788,7 @@ function memberFormHTML(m) {
  <p class="font-display font-bold uppercase tracking-widest text-brand-black text-sm">Estado del Rostro</p>
  ${m && m.biometria && Array.isArray(m.biometria) && m.biometria.length > 0 
  ? '<p class="font-bold text-xs text-brand-green bg-brand-black inline-block px-2 py-1 uppercase tracking-widest mt-1"><i class="ph-bold ph-check"></i> ENROLADO</p>' 
- : '<p class="font-bold text-xs opacity-60 mt-1 uppercase tracking-widest">NO ENROLADO</p>'}
+ : '<p class="font-bold text-xs mt-1 uppercase tracking-widest">NO ENROLADO</p>'}
  </div>
  </div>
  <button type="button" onclick="requestRemoteEnrollment(${m ? m.id : 'null'})" class="w-full sm:w-auto text-center border-4 border-brand-black bg-brand-white text-brand-black font-display font-bold uppercase tracking-widest px-6 py-3 text-xs hover:bg-brand-green focus:bg-brand-green active:bg-brand-green flex items-center justify-center gap-2">
@@ -1232,14 +1232,14 @@ function renderPagos() {
 
  const ptb = document.getElementById('pagos-table-body');
  if (ptb) {
- ptb.innerHTML = filtered.length === 0 ? '<tr><td colspan="4" class="p-6 text-center font-display font-bold uppercase tracking-widest text-sm opacity-50">NO SE ENCONTRARON PAGOS</td></tr>' : filtered.map(m => `
+ ptb.innerHTML = filtered.length === 0 ? '<tr><td colspan="4" class="p-6 text-center font-display font-bold uppercase tracking-widest text-sm ">NO SE ENCONTRARON PAGOS</td></tr>' : filtered.map(m => `
  <tr class="${rowClasses}">
  <td class="p-6">
  <div class="flex items-center gap-4">
  <div class="w-10 h-10 bg-brand-black text-brand-white flex-shrink-0 flex items-center justify-center font-display font-bold text-sm select-none">${getInitials(m.nombre || '')}</div>
  <div>
  <span class="font-bold uppercase block leading-tight">${m.nombre}</span>
- <span class="text-xs tracking-widest opacity-60">${m.telefono}</span>
+ <span class="text-xs tracking-widest ">${m.telefono}</span>
  </div>
  </div>
  </td>
@@ -1292,7 +1292,7 @@ function renderAccesos() {
  if (!tb) return;
  
  if (accesosData.length === 0) {
- tb.innerHTML = `<tr class="border-b-4 border-brand-black opacity-50"><td colspan="4" class="p-6 text-center font-display font-bold uppercase tracking-widest text-sm">Esperando escaneo biométrico...</td></tr>`;
+ tb.innerHTML = `<tr class="border-b-4 border-brand-black "><td colspan="4" class="p-6 text-center font-display font-bold uppercase tracking-widest text-sm">Esperando escaneo biométrico...</td></tr>`;
  return;
  }
  
@@ -1332,7 +1332,7 @@ function openPagoForm(id) {
  <h3 class="text-2xl font-display font-bold uppercase tracking-tighter mb-6 text-brand-black">Registrar Pago</h3>
  <div class="mb-6">
  <p class="font-bold text-lg uppercase">${m.nombre}</p>
- <p class="text-sm opacity-60">Plan: ${m.plan}</p>
+ <p class="text-sm ">Plan: ${m.plan}</p>
  <p class="text-3xl font-display font-bold mt-2 bg-brand-black text-brand-white inline-block px-3 py-1">${planInfo.precio}</p>
  </div>
  <form onsubmit="processPago(event)" class="flex flex-col gap-6">
@@ -1497,16 +1497,16 @@ function revertPago(memberId, pagoId) {
 
 let toastTimeout;
 function showToast(msg, silent = false) {
- if (window.sysAudio && !silent) window.sysAudio('notification');
- const t = document.getElementById('toast');
- t.textContent = msg;
- t.classList.remove('translate-y-24', 'opacity-0');
- t.classList.add('translate-y-0', 'opacity-100');
- clearTimeout(toastTimeout);
- toastTimeout = setTimeout(() => {
- t.classList.add('translate-y-24', 'opacity-0');
- t.classList.remove('translate-y-0', 'opacity-100');
- }, 2800);
+  if (window.sysAudio && !silent) window.sysAudio('notification');
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.remove('hidden');
+  t.classList.add('flex');
+  clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(() => {
+    t.classList.add('hidden');
+    t.classList.remove('flex');
+  }, 2800);
 }
 
 function showKioskAlert(log) {
@@ -1569,12 +1569,12 @@ function showKioskAlert(log) {
  <i class="ph-bold ph-x text-2xl"></i>
  </button>
  <div class="pr-12 min-w-0">
- <p class="font-display font-bold uppercase tracking-widest text-xs opacity-70 mb-1">Kiosco Biométrico</p>
+ <p class="font-display font-bold uppercase tracking-widest text-xs mb-1">Kiosco Biométrico</p>
  <h4 class="font-display font-bold text-2xl sm:text-3xl uppercase tracking-tighter leading-none mb-3 break-words">${log.nombre || 'DESCONOCIDO'}</h4>
  <div class="flex flex-col gap-1.5 mb-4">
- ${log.telefono ? `<p class="font-bold tracking-widest uppercase text-xs opacity-90"><i class="ph-bold ph-phone mr-1"></i> ${log.telefono}</p>` : ''}
- ${log.plan && log.plan !== '-' ? `<p class="font-bold tracking-widest uppercase text-xs opacity-90"><i class="ph-bold ph-clipboard-text mr-1"></i> ${log.plan}</p>` : ''}
- ${log.fechaVencimiento ? `<p class="font-bold tracking-widest uppercase text-xs opacity-90"><i class="ph-bold ph-calendar mr-1"></i> Vence: ${log.fechaVencimiento}</p>` : ''}
+ ${log.telefono ? `<p class="font-bold tracking-widest uppercase text-xs "><i class="ph-bold ph-phone mr-1"></i> ${log.telefono}</p>` : ''}
+ ${log.plan && log.plan !== '-' ? `<p class="font-bold tracking-widest uppercase text-xs "><i class="ph-bold ph-clipboard-text mr-1"></i> ${log.plan}</p>` : ''}
+ ${log.fechaVencimiento ? `<p class="font-bold tracking-widest uppercase text-xs "><i class="ph-bold ph-calendar mr-1"></i> Vence: ${log.fechaVencimiento}</p>` : ''}
  </div>
  <div class="border-t-4 border-current pt-4 flex items-center justify-between gap-4">
  <p class="font-display font-bold uppercase tracking-widest text-sm">${reason}</p>
@@ -1669,7 +1669,7 @@ function renderPOS() {
  return `
  <div class="bg-brand-white border-4 border-brand-black flex flex-col">
  <div class="w-full aspect-[3/4] bg-brand-white border-b-4 border-brand-black flex items-center justify-center overflow-hidden relative p-8">
- <img src="${item.img}" alt="${item.nombre}" class="w-full ${agotado ? 'opacity-50' : ''}">
+ <img src="${item.img}" alt="${item.nombre}" class="w-full ${agotado ? '' : ''}">
  ${agotado ? '<div class="absolute inset-0 flex items-center justify-center bg-brand-white"><p class="font-display font-bold uppercase tracking-widest text-sm">Agotado</p></div>' : ''}
  </div>
  <div class="p-6 flex flex-col justify-between flex-1">
@@ -1678,7 +1678,7 @@ function renderPOS() {
  <p class="font-display font-bold text-3xl tracking-tighter mb-4">$${item.precio}</p>
  <button
  ${agotado ? 'disabled' : `onclick="addToCart('${item.id}')" data-sys-audio="increment"`}
- class="w-full text-center font-display font-bold uppercase tracking-widest px-6 py-4 text-xs focus:outline-none border-4 border-brand-black ${agotado ? 'bg-brand-white opacity-50' : 'bg-brand-black text-brand-white hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black '}"
+ class="w-full text-center font-display font-bold uppercase tracking-widest px-6 py-4 text-xs focus:outline-none border-4 border-brand-black ${agotado ? 'bg-brand-white ' : 'bg-brand-black text-brand-white hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black '}"
  >${agotado ? 'AGOTADO' : 'Añadir'}</button>
  </div>
  </div>
@@ -1761,15 +1761,15 @@ function renderCart() {
  if (!cartContainer || !totalEl) return;
 
  if (posCart.length === 0) {
- cartContainer.innerHTML = `<div class="flex flex-col items-center justify-center py-12 opacity-50"><i class="ph-bold ph-shopping-cart text-5xl mb-4"></i><p class="font-display font-bold uppercase tracking-widest text-sm text-center">Carrito Vacío</p></div>`;
+ cartContainer.innerHTML = `<div class="flex flex-col items-center justify-center py-12 "><i class="ph-bold ph-shopping-cart text-5xl mb-4"></i><p class="font-display font-bold uppercase tracking-widest text-sm text-center">Carrito Vacío</p></div>`;
  totalEl.textContent = '$0';
- if (btnCobrar) { btnCobrar.disabled = true; btnCobrar.classList.add('opacity-50'); }
- if (btnVaciar) { btnVaciar.disabled = true; btnVaciar.classList.add('opacity-50'); }
+ if (btnCobrar) { btnCobrar.disabled = true; btnCobrar.classList.add(''); }
+ if (btnVaciar) { btnVaciar.disabled = true; btnVaciar.classList.add(''); }
  return;
  }
 
- if (btnCobrar) { btnCobrar.disabled = false; btnCobrar.classList.remove('opacity-50'); }
- if (btnVaciar) { btnVaciar.disabled = false; btnVaciar.classList.remove('opacity-50'); }
+ if (btnCobrar) { btnCobrar.disabled = false; btnCobrar.classList.remove(''); }
+ if (btnVaciar) { btnVaciar.disabled = false; btnVaciar.classList.remove(''); }
 
  let total = 0;
  cartContainer.innerHTML = posCart.map(item => {
@@ -1807,7 +1807,7 @@ window.procesarVenta = function() {
  if (btn) {
  btn.disabled = true;
  btn.innerHTML = '<i class="ph-bold ph-spinner animate-spin text-xl"></i> PROCESANDO...';
- btn.classList.add('cursor-not-allowed', 'opacity-80');
+ btn.classList.add('cursor-not-allowed', '');
  }
  
  let totalVenta = 0;
@@ -1836,7 +1836,7 @@ window.procesarVenta = function() {
  if (btn) {
  btn.disabled = false;
  btn.innerHTML = '<i class="ph-bold ph-check-circle text-xl"></i> Procesar Venta';
- btn.classList.remove('cursor-not-allowed', 'opacity-80');
+ btn.classList.remove('cursor-not-allowed', '');
  }
  });
  } else {
@@ -1846,7 +1846,7 @@ window.procesarVenta = function() {
  if (btn) {
  btn.disabled = false;
  btn.innerHTML = '<i class="ph-bold ph-check-circle text-xl"></i> Procesar Venta';
- btn.classList.remove('cursor-not-allowed', 'opacity-80');
+ btn.classList.remove('cursor-not-allowed', '');
  }
  }
  }, 600);
@@ -1961,7 +1961,7 @@ window.renderInventoryStats = function() {
  <i class="ph-bold ph-warning text-4xl text-brand-white"></i>
  <div>
  <p class="font-display font-bold uppercase tracking-widest text-xl">Alerta Crítica de Escasez</p>
- <p class="font-bold uppercase opacity-80 text-sm mt-1">${lowStockItems.length} producto(s) con stock crítico. Reabastecer inmediatamente.</p>
+ <p class="font-bold uppercase text-sm mt-1">${lowStockItems.length} producto(s) con stock crítico. Reabastecer inmediatamente.</p>
  </div>
  </div>
  `;
@@ -2037,14 +2037,14 @@ window.openCameraScanner = function(targetInputId) {
  </div>
  
  <div id="qr-reader" class="w-full border-4 border-brand-black bg-brand-black" style="min-height: 300px; display:flex; align-items:center; justify-content:center; overflow:hidden;">
- <span class="text-brand-white font-display font-bold tracking-widest uppercase text-xs opacity-50">Cámara inactiva</span>
+ <span class="text-brand-white font-display font-bold tracking-widest uppercase text-xs ">Cámara inactiva</span>
  </div>
  
  <div class="w-full flex gap-4 mt-6">
  <button id="btn-start-scan" class="flex-1 bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-4 py-3 border-4 border-brand-black hover:bg-brand-green hover:text-brand-black focus:outline-none ">Iniciar</button>
  <button id="btn-stop-scan" class="flex-1 bg-brand-white text-brand-black font-display font-bold uppercase tracking-widest px-4 py-3 border-4 border-brand-black hover:bg-brand-black hover:text-brand-white focus:outline-none hidden">Detener</button>
  </div>
- <p class="mt-6 font-display font-bold uppercase tracking-widest text-xs text-center opacity-70">Apunta la cámara hacia el código.</p>
+ <p class="mt-6 font-display font-bold uppercase tracking-widest text-xs text-center ">Apunta la cámara hacia el código.</p>
  </div>
  </div>
  </div>
