@@ -16,397 +16,397 @@
 <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
 <script>
-    if (localStorage.getItem('gr30_admin_token') !== 'SECURE_ADMIN_GRANTED') {
-      window.location.href = 'login.html';
-    }
-    function logoutAdmin() {
-      localStorage.removeItem('gr30_admin_token');
-      window.location.href = 'login.html';
-    }
-  </script>
+ if (localStorage.getItem('gr30_admin_token') !== 'SECURE_ADMIN_GRANTED') {
+ window.location.href = 'login.html';
+ }
+ function logoutAdmin() {
+ localStorage.removeItem('gr30_admin_token');
+ window.location.href = 'login.html';
+ }
+ </script>
 </head>
 <body class="font-sans antialiased selection:bg-brand-green selection:text-brand-black bg-brand-white text-brand-black min-h-[100svh] flex flex-col md:flex-row overflow-x-hidden">
 
 <aside class="w-full md:w-64 bg-brand-white border-b-4 md:border-b-0 md:border-r-4 border-brand-black flex flex-col md:min-h-[100svh] flex-shrink-0 z-[100] sticky top-0 md:relative md:top-auto">
-  <div class="p-6 flex justify-between items-center md:block bg-brand-white relative z-50">
-    <a href="index.html" class="text-3xl font-display font-bold tracking-tighter uppercase flex items-center gap-3 group focus:outline-none" aria-label="Ir al inicio">
-      <div class="w-10 h-10 bg-brand-green text-brand-black flex items-center justify-center flex-shrink-0 group-hover:bg-brand-black group-hover:text-brand-white group-active:bg-brand-black group-active:text-brand-white transition-colors">
-        <span class="text-2xl leading-none">G</span>
-      </div>
-      <span class="text-brand-black">GR30<span class="text-brand-green group-hover:text-brand-black group-active:text-brand-black transition-colors">.</span></span>
-    </a>
-    
-    <button id="mobileMenuBtn" onclick="toggleMobileMenu()" aria-label="Abrir menú" aria-expanded="false" class="md:hidden w-12 h-12 flex items-center justify-center bg-brand-black text-brand-white hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black transition-colors focus:outline-none">
-      <i id="adminMenuIcon" class="ph-bold ph-list text-3xl"></i>
-    </button>
-  </div>
+ <div class="p-6 flex justify-between items-center md:block bg-brand-white relative z-50">
+ <a href="index.html" class="text-3xl font-display font-bold tracking-tighter uppercase flex items-center gap-3 group focus:outline-none" aria-label="Ir al inicio">
+ <div class="w-10 h-10 bg-brand-green text-brand-black flex items-center justify-center flex-shrink-0 group-hover:bg-brand-black group-hover:text-brand-white group-active:bg-brand-black group-active:text-brand-white ">
+ <span class="text-2xl leading-none">G</span>
+ </div>
+ <span class="text-brand-black">GR30<span class="text-brand-green group-hover:text-brand-black group-active:text-brand-black ">.</span></span>
+ </a>
+ 
+ <button id="mobileMenuBtn" onclick="toggleMobileMenu()" aria-label="Abrir menú" aria-expanded="false" class="md:hidden w-12 h-12 flex items-center justify-center bg-brand-black text-brand-white hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black focus:outline-none">
+ <i id="adminMenuIcon" class="ph-bold ph-list text-3xl"></i>
+ </button>
+ </div>
 
-  <nav id="sidebar-nav" class="hidden md:flex flex-col p-6 gap-4 absolute top-full left-0 w-full bg-brand-white border-b-4 border-brand-black z-[999] max-h-[calc(100dvh-88px)] overflow-y-auto overscroll-contain md:static md:w-auto md:border-b-0 md:flex-1 md:z-auto md:max-h-none md:overflow-visible">
-    <button data-screen="dashboard" class="nav-btn w-full text-left px-6 py-4 border-4 border-transparent hover:border-brand-black font-display font-bold text-sm tracking-widest uppercase transition-colors focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center gap-3" aria-current="page"><i class="ph-bold ph-squares-four text-xl"></i> Dashboard</button>
-    <button data-screen="staff" class="nav-btn w-full text-left px-6 py-4 border-4 border-transparent hover:border-brand-black font-display font-bold text-sm tracking-widest uppercase transition-colors focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center gap-3"><i class="ph-bold ph-users text-xl"></i> Staff</button>
-    <button data-screen="miembros" class="nav-btn w-full text-left px-6 py-4 border-4 border-transparent hover:border-brand-black font-display font-bold text-sm tracking-widest uppercase transition-colors focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center gap-3"><i class="ph-bold ph-identification-card text-xl"></i> Miembros</button>
-    <button data-screen="accesos" class="nav-btn w-full text-left px-6 py-4 border-4 border-transparent hover:border-brand-black font-display font-bold text-sm tracking-widest uppercase transition-colors focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center gap-3"><i class="ph-bold ph-door text-xl"></i> Accesos</button>
-    <button data-screen="pagos" class="nav-btn w-full text-left px-6 py-4 border-4 border-transparent hover:border-brand-black font-display font-bold text-sm tracking-widest uppercase transition-colors focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center gap-3"><i class="ph-bold ph-currency-dollar text-xl"></i> Pagos</button>
-    <button data-screen="planes" class="nav-btn w-full text-left px-6 py-4 border-4 border-transparent hover:border-brand-black font-display font-bold text-sm tracking-widest uppercase transition-colors focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center gap-3"><i class="ph-bold ph-clipboard-text text-xl"></i> Planes</button>
-    <button data-screen="pos" class="nav-btn w-full text-left px-6 py-4 border-4 border-transparent hover:border-brand-black font-display font-bold text-sm tracking-widest uppercase transition-colors focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center gap-3"><i class="ph-bold ph-shopping-cart text-xl"></i> Tienda</button>
-    <button data-screen="inventario" class="nav-btn w-full text-left px-6 py-4 border-4 border-transparent hover:border-brand-black font-display font-bold text-sm tracking-widest uppercase transition-colors focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center gap-3"><i class="ph-bold ph-package text-xl"></i> Inventario</button>
-    <div class="mt-auto pt-6 flex flex-col gap-4">
-      <a href="kiosco.html" target="_blank" class="w-full text-left px-6 py-4 border-4 border-brand-black font-display font-bold text-sm tracking-widest uppercase transition-colors focus:outline-none bg-brand-black text-brand-white hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center justify-between gap-3">
-        Kiosco <i class="ph-bold ph-arrow-square-out text-xl"></i>
-      </a>
-      <button onclick="logoutAdmin()" class="w-full text-left px-6 py-4 border-4 border-transparent hover:border-brand-black font-display font-bold text-sm tracking-widest uppercase transition-colors focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center gap-3">
-        <i class="ph-bold ph-sign-out text-xl"></i> Cerrar Sesión
-      </button>
-    </div>
-  </nav>
+ <nav id="sidebar-nav" class="hidden md:flex flex-col p-6 gap-4 absolute top-full left-0 w-full bg-brand-white border-b-4 border-brand-black z-[999] max-h-[calc(100dvh-88px)] overflow-y-auto overscroll-contain md:static md:w-auto md:border-b-0 md:flex-1 md:z-auto md:max-h-none md:overflow-visible">
+ <button data-screen="dashboard" class="nav-btn w-full text-left px-6 py-4 border-4 border-transparent hover:border-brand-black font-display font-bold text-sm tracking-widest uppercase focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center gap-3" aria-current="page"><i class="ph-bold ph-squares-four text-xl"></i> Dashboard</button>
+ <button data-screen="staff" class="nav-btn w-full text-left px-6 py-4 border-4 border-transparent hover:border-brand-black font-display font-bold text-sm tracking-widest uppercase focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center gap-3"><i class="ph-bold ph-users text-xl"></i> Staff</button>
+ <button data-screen="miembros" class="nav-btn w-full text-left px-6 py-4 border-4 border-transparent hover:border-brand-black font-display font-bold text-sm tracking-widest uppercase focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center gap-3"><i class="ph-bold ph-identification-card text-xl"></i> Miembros</button>
+ <button data-screen="accesos" class="nav-btn w-full text-left px-6 py-4 border-4 border-transparent hover:border-brand-black font-display font-bold text-sm tracking-widest uppercase focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center gap-3"><i class="ph-bold ph-door text-xl"></i> Accesos</button>
+ <button data-screen="pagos" class="nav-btn w-full text-left px-6 py-4 border-4 border-transparent hover:border-brand-black font-display font-bold text-sm tracking-widest uppercase focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center gap-3"><i class="ph-bold ph-currency-dollar text-xl"></i> Pagos</button>
+ <button data-screen="planes" class="nav-btn w-full text-left px-6 py-4 border-4 border-transparent hover:border-brand-black font-display font-bold text-sm tracking-widest uppercase focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center gap-3"><i class="ph-bold ph-clipboard-text text-xl"></i> Planes</button>
+ <button data-screen="pos" class="nav-btn w-full text-left px-6 py-4 border-4 border-transparent hover:border-brand-black font-display font-bold text-sm tracking-widest uppercase focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center gap-3"><i class="ph-bold ph-shopping-cart text-xl"></i> Tienda</button>
+ <button data-screen="inventario" class="nav-btn w-full text-left px-6 py-4 border-4 border-transparent hover:border-brand-black font-display font-bold text-sm tracking-widest uppercase focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center gap-3"><i class="ph-bold ph-package text-xl"></i> Inventario</button>
+ <div class="mt-auto pt-6 flex flex-col gap-4">
+ <a href="kiosco.html" target="_blank" class="w-full text-left px-6 py-4 border-4 border-brand-black font-display font-bold text-sm tracking-widest uppercase focus:outline-none bg-brand-black text-brand-white hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center justify-between gap-3">
+ Kiosco <i class="ph-bold ph-arrow-square-out text-xl"></i>
+ </a>
+ <button onclick="logoutAdmin()" class="w-full text-left px-6 py-4 border-4 border-transparent hover:border-brand-black font-display font-bold text-sm tracking-widest uppercase focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center gap-3">
+ <i class="ph-bold ph-sign-out text-xl"></i> Cerrar Sesión
+ </button>
+ </div>
+ </nav>
 
-  <div class="p-6 hidden md:block">
-    <p class="font-display font-bold uppercase tracking-widest text-xs bg-brand-black text-brand-white inline-block px-2 py-1">Admin Demo V1.0</p>
-  </div>
+ <div class="p-6 hidden md:block">
+    <p class="font-display font-bold uppercase tracking-widest text-xs bg-brand-black text-brand-white inline-block px-2 py-1 border-4 border-brand-black">Admin Demo V1.0</p>
+ </div>
 </aside>
 
 <main class="flex-1 flex flex-col min-w-0 overflow-x-hidden">
 
-  <header style="background-color: #ffffff !important;" class="bg-brand-white border-b-4 border-brand-black p-6 lg:p-8 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-6 flex-shrink-0">
-    <h1 id="page-title" class="text-4xl sm:text-5xl lg:text-6xl font-display font-bold uppercase tracking-tighter text-brand-black leading-none">Dashboard.</h1>
-    <div class="flex items-center gap-4">
-      <span class="font-display font-bold uppercase tracking-widest text-xs hidden sm:inline-block bg-brand-black text-brand-white px-2 py-1"><i class="ph-bold ph-shield-check mr-1 text-sm align-middle pb-[2px]"></i> Administrador</span>
-      <div class="w-12 h-12 bg-brand-green text-brand-black flex items-center justify-center font-display font-bold text-xl select-none">A</div>
-    </div>
-  </header>
+ <header style="background-color: #ffffff !important;" class="bg-brand-white border-b-4 border-brand-black p-6 lg:p-8 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-6 flex-shrink-0">
+ <h1 id="page-title" class="text-4xl sm:text-5xl lg:text-6xl font-display font-bold uppercase tracking-tighter text-brand-black leading-none">Dashboard.</h1>
+ <div class="flex items-center gap-4">
+      <span class="font-display font-bold uppercase tracking-widest text-xs hidden sm:inline-block bg-brand-black text-brand-white px-2 py-1 border-4 border-brand-black"><i class="ph-bold ph-shield-check mr-1 text-sm align-middle pb-[2px]"></i> Administrador</span>
+ <div class="w-12 h-12 bg-brand-green text-brand-black flex items-center justify-center font-display font-bold text-xl select-none">A</div>
+ </div>
+ </header>
 
 
-  <div id="screen-dashboard" class="screen block p-6 lg:p-12">
+ <div id="screen-dashboard" class="screen block p-6 lg:p-12">
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-8 mb-12">
-      <div class="bg-brand-white text-brand-black border-4 border-brand-black p-8 flex flex-col items-start overflow-hidden w-full">
-        <i class="ph-bold ph-users text-4xl mb-4"></i>
-        <p class="text-xs font-display font-bold uppercase tracking-widest mb-4 bg-brand-black text-brand-white inline-block px-2 py-1">Miembros Activos</p>
-        <p id="stat-miembros" class="text-6xl lg:text-7xl font-display font-bold tracking-tighter">0</p>
-      </div>
-      <div class="bg-brand-green text-brand-black border-4 border-brand-black p-8 flex flex-col items-start overflow-hidden w-full">
-        <i class="ph-bold ph-user-circle-gear text-4xl mb-4"></i>
-        <p class="text-xs font-display font-bold uppercase tracking-widest mb-4 bg-brand-black text-brand-white inline-block px-2 py-1">Staff</p>
-        <p id="stat-staff" class="text-6xl lg:text-7xl font-display font-bold tracking-tighter">0</p>
-      </div>
-      <div class="bg-brand-white text-brand-black border-4 border-brand-black p-8 flex flex-col items-start overflow-hidden w-full">
-        <i class="ph-bold ph-currency-dollar text-4xl mb-4 flex-shrink-0"></i>
-        <p class="text-xs font-display font-bold uppercase tracking-widest mb-4 bg-brand-black text-brand-white inline-block px-2 py-1 flex-shrink-0">Ingresos (Mes)</p>
-        <p id="stat-ingresos" class="text-4xl lg:text-5xl font-display font-bold tracking-tighter truncate w-full" title="$0">$0</p>
-      </div>
-      <div class="bg-brand-black text-brand-white border-4 border-brand-black p-8 flex flex-col items-start overflow-hidden w-full">
-        <i class="ph-bold ph-person-simple-walk text-4xl mb-4"></i>
-        <p class="text-xs font-display font-bold uppercase tracking-widest mb-4 bg-brand-white text-brand-black inline-block px-2 py-1">Afluencia (Hoy)</p>
-        <p id="stat-afluencia" class="text-6xl lg:text-7xl font-display font-bold tracking-tighter">0</p>
-      </div>
-      <div class="bg-brand-white text-brand-black border-4 border-brand-black p-8 flex flex-col items-start overflow-hidden w-full">
-        <i class="ph-bold ph-clock text-4xl mb-4"></i>
-        <p class="text-xs font-display font-bold uppercase tracking-widest mb-4 bg-brand-black text-brand-white inline-block px-2 py-1">Hora Pico</p>
-        <p id="stat-horapico" class="text-4xl lg:text-5xl font-display font-bold tracking-tighter uppercase mt-auto">--:--</p>
-      </div>
-    </div>
+ <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-8 mb-12">
+ <div class="bg-brand-white text-brand-black border-4 border-brand-black p-8 flex flex-col items-start overflow-hidden w-full">
+ <i class="ph-bold ph-users text-4xl mb-4"></i>
+ <p class="text-xs font-display font-bold uppercase tracking-widest mb-4 bg-brand-black text-brand-white inline-block px-2 py-1 border-4 border-brand-black">Miembros Activos</p>
+ <p id="stat-miembros" class="text-6xl lg:text-7xl font-display font-bold tracking-tighter">0</p>
+ </div>
+ <div class="bg-brand-green text-brand-black border-4 border-brand-black p-8 flex flex-col items-start overflow-hidden w-full">
+ <i class="ph-bold ph-user-circle-gear text-4xl mb-4"></i>
+ <p class="text-xs font-display font-bold uppercase tracking-widest mb-4 bg-brand-black text-brand-white inline-block px-2 py-1 border-4 border-brand-black">Staff</p>
+ <p id="stat-staff" class="text-6xl lg:text-7xl font-display font-bold tracking-tighter">0</p>
+ </div>
+ <div class="bg-brand-white text-brand-black border-4 border-brand-black p-8 flex flex-col items-start overflow-hidden w-full">
+ <i class="ph-bold ph-currency-dollar text-4xl mb-4 flex-shrink-0"></i>
+ <p class="text-xs font-display font-bold uppercase tracking-widest mb-4 bg-brand-black text-brand-white inline-block px-2 py-1 flex-shrink-0 border-4 border-brand-black">Ingresos (Mes)</p>
+ <p id="stat-ingresos" class="text-4xl lg:text-5xl font-display font-bold tracking-tighter truncate w-full" title="$0">$0</p>
+ </div>
+ <div class="bg-brand-black text-brand-white border-4 border-brand-black p-8 flex flex-col items-start overflow-hidden w-full">
+ <i class="ph-bold ph-person-simple-walk text-4xl mb-4"></i>
+ <p class="text-xs font-display font-bold uppercase tracking-widest mb-4 bg-brand-white text-brand-black inline-block px-2 py-1 border-4 border-brand-black">Afluencia (Hoy)</p>
+ <p id="stat-afluencia" class="text-6xl lg:text-7xl font-display font-bold tracking-tighter">0</p>
+ </div>
+ <div class="bg-brand-white text-brand-black border-4 border-brand-black p-8 flex flex-col items-start overflow-hidden w-full">
+ <i class="ph-bold ph-clock text-4xl mb-4"></i>
+ <p class="text-xs font-display font-bold uppercase tracking-widest mb-4 bg-brand-black text-brand-white inline-block px-2 py-1 border-4 border-brand-black">Hora Pico</p>
+ <p id="stat-horapico" class="text-4xl lg:text-5xl font-display font-bold tracking-tighter uppercase mt-auto">--:--</p>
+ </div>
+ </div>
 
-    <div class="grid grid-cols-1 xl:grid-cols-2 gap-12">
+ <div class="grid grid-cols-1 xl:grid-cols-2 gap-12">
 
-      <section class="bg-brand-white  ">
-        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-6">
-          <h2 class="text-3xl font-display font-bold uppercase tracking-tighter">Staff Registrado.</h2>
-          <button onclick="setScreen('staff')" class="w-full sm:w-auto text-center border-4 border-brand-black bg-brand-white text-brand-black font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white focus:outline-none active:bg-brand-black active:text-brand-white transition-colors">
-            Ver Todos
-          </button>
-        </div>
-        <div class="overflow-x-auto border-4 border-brand-black">
-          <table class="w-full text-left border-collapse min-w-[420px]">
-            <thead>
-              <tr class="bg-brand-black text-brand-white  ">
-                <th class="p-6 font-display font-bold text-lg uppercase tracking-widest  ">Staff</th>
-                <th class="p-6 font-display font-bold text-lg uppercase tracking-widest  ">Especialidad</th>
-                <th class="p-6 font-display font-bold text-lg uppercase tracking-widest text-right">Acción</th>
-              </tr>
-            </thead>
-            <tbody id="staff-table-body" class="font-medium text-lg text-brand-black">
+ <section class="bg-brand-white ">
+ <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-6">
+ <h2 class="text-3xl font-display font-bold uppercase tracking-tighter">Staff Registrado.</h2>
+ <button onclick="setScreen('staff')" class="w-full sm:w-auto text-center border-4 border-brand-black bg-brand-white text-brand-black font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white focus:outline-none active:bg-brand-black active:text-brand-white ">
+ Ver Todos
+ </button>
+ </div>
+ <div class="overflow-x-auto border-4 border-brand-black">
+ <table class="w-full text-left border-collapse min-w-[420px]">
+ <thead>
+ <tr class="bg-brand-black text-brand-white ">
+ <th class="p-6 font-display font-bold text-lg uppercase tracking-widest ">Staff</th>
+ <th class="p-6 font-display font-bold text-lg uppercase tracking-widest ">Especialidad</th>
+ <th class="p-6 font-display font-bold text-lg uppercase tracking-widest text-right">Acción</th>
+ </tr>
+ </thead>
+ <tbody id="staff-table-body" class="font-medium text-lg text-brand-black">
 
-            </tbody>
-          </table>
-        </div>
-      </section>
+ </tbody>
+ </table>
+ </div>
+ </section>
 
-      <section class="bg-brand-white  ">
-        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-6">
-          <h2 class="text-3xl font-display font-bold uppercase tracking-tighter">Miembros</h2>
-          <button onclick="setScreen('miembros')" class="w-full sm:w-auto text-center border-4 border-brand-black bg-brand-white text-brand-black font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white focus:outline-none active:bg-brand-black active:text-brand-white transition-colors">
-            Ver Todos
-          </button>
-        </div>
-        <div class="overflow-x-auto border-4 border-brand-black">
-          <table class="w-full text-left border-collapse min-w-[420px]">
-            <thead>
-              <tr class="bg-brand-black text-brand-white  ">
-                <th class="p-6 font-display font-bold text-lg uppercase tracking-widest  ">Miembro</th>
-                <th class="p-6 font-display font-bold text-lg uppercase tracking-widest  ">Plan</th>
-                <th class="p-6 font-display font-bold text-lg uppercase tracking-widest text-left">Estado</th>
-              </tr>
-            </thead>
-            <tbody id="members-preview-body" class="font-medium text-lg text-brand-black">
-                          </tbody>
-          </table>
-        </div>
-      </section>
+ <section class="bg-brand-white ">
+ <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-6">
+ <h2 class="text-3xl font-display font-bold uppercase tracking-tighter">Miembros</h2>
+ <button onclick="setScreen('miembros')" class="w-full sm:w-auto text-center border-4 border-brand-black bg-brand-white text-brand-black font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white focus:outline-none active:bg-brand-black active:text-brand-white ">
+ Ver Todos
+ </button>
+ </div>
+ <div class="overflow-x-auto border-4 border-brand-black">
+ <table class="w-full text-left border-collapse min-w-[420px]">
+ <thead>
+ <tr class="bg-brand-black text-brand-white ">
+ <th class="p-6 font-display font-bold text-lg uppercase tracking-widest ">Miembro</th>
+ <th class="p-6 font-display font-bold text-lg uppercase tracking-widest ">Plan</th>
+ <th class="p-6 font-display font-bold text-lg uppercase tracking-widest text-left">Estado</th>
+ </tr>
+ </thead>
+ <tbody id="members-preview-body" class="font-medium text-lg text-brand-black">
+ </tbody>
+ </table>
+ </div>
+ </section>
 
-    </div>
-  </div>
-
-
-  <div id="screen-staff" class="screen hidden p-6 lg:p-12">
-    <div class="bg-brand-white  ">
-      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-6">
-        <h2 class="text-4xl font-display font-bold uppercase tracking-tighter text-brand-black">Staff Registrado.</h2>
-        <button onclick="openModal('staff-form')" class="w-full sm:w-auto text-center bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors flex items-center justify-center gap-2 flex-shrink-0">
-          <i class="ph-bold ph-plus text-base mt-[-2px]"></i> Añadir Staff
-        </button>
-      </div>
-      <div class="overflow-x-auto border-4 border-brand-black">
-        <table class="w-full text-left border-collapse min-w-[600px]">
-          <thead>
-            <tr class="bg-brand-black text-brand-white  ">
-              <th class="p-6 font-display font-bold text-lg uppercase tracking-widest  ">Staff</th>
-              <th class="p-6 font-display font-bold text-lg uppercase tracking-widest  ">Especialidad</th>
-              <th class="p-6 font-display font-bold text-lg uppercase tracking-widest  ">Turno</th>
-              <th class="p-6 font-display font-bold text-lg uppercase tracking-widest text-right">Acciones</th>
-            </tr>
-          </thead>
-          <tbody id="staff-full-table-body" class="font-medium text-lg text-brand-black">
-                      </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
+ </div>
+ </div>
 
 
-  <div id="screen-miembros" class="screen hidden p-6 lg:p-12">
-    <div class="bg-brand-white">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8" id="stats-miembros-container">
-
-      </div>
-      <div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-6 gap-6">
-        <div class="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
-          <div class="flex items-center w-full sm:w-64 bg-brand-white border-4 border-brand-black focus-within:bg-brand-green transition-colors group">
-            <div class="pl-4 pr-2 flex items-center justify-center pointer-events-none text-brand-black/50 group-focus-within:text-brand-black transition-colors">
-              <i class="ph-bold ph-funnel text-xl"></i>
-            </div>
-            <select id="filter-estado-miembros" class="peer block w-full min-w-0 py-4 pr-2 bg-transparent text-brand-black font-display font-bold tracking-wide focus:outline-none text-sm appearance-none cursor-pointer" onchange="renderTables()">
-              <option value="">TODOS</option>
-              <option value="al_dia">AL DÍA</option>
-              <option value="atrasado">ATRASADOS</option>
-            </select>
-          </div>
-          <div class="flex items-center w-full sm:w-64 bg-brand-white border-4 border-brand-black focus-within:bg-brand-green transition-colors group">
-            <div class="pl-4 pr-2 flex items-center justify-center pointer-events-none text-brand-black/50 group-focus-within:text-brand-black transition-colors">
-              <i class="ph-bold ph-magnifying-glass text-xl"></i>
-            </div>
-            <input type="text" id="search-miembros" placeholder="Buscar miembro..." class="peer block w-full min-w-0 py-4 pr-2 bg-transparent text-brand-black font-display font-bold tracking-wide focus:outline-none placeholder:text-brand-black/50 text-sm">
-            <button type="button" onclick="document.getElementById('search-miembros').value=''; renderTables();" class="peer-placeholder-shown:hidden pr-4 text-brand-black hover:opacity-60 transition-opacity focus:outline-none flex-shrink-0" aria-label="Limpiar bǧsqueda" title="Limpiar"><i class="ph-bold ph-x text-xl"></i></button>
-          </div>
-        </div>
-        <button onclick="openModal('member-form')" class="w-full sm:w-auto text-center bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors flex items-center justify-center gap-2 flex-shrink-0">
-          <i class="ph-bold ph-plus text-base mt-[-2px]"></i> Añadir Miembro
-        </button>
-      </div>
-      <div class="overflow-x-auto border-4 border-brand-black">
-        <table class="w-full text-left border-collapse min-w-[700px]">
-          <thead>
-            <tr class="bg-brand-black text-brand-white  ">
-              <th class="p-6 font-display font-bold text-lg uppercase tracking-widest  ">Miembro</th>
-              <th class="p-6 font-display font-bold text-lg uppercase tracking-widest  ">Plan</th>
-              <th class="p-6 font-display font-bold text-lg uppercase tracking-widest   text-left">Estado</th>
-              <th class="p-6 font-display font-bold text-lg uppercase tracking-widest text-right">Acción</th>
-            </tr>
-          </thead>
-          <tbody id="members-full-table-body" class="font-medium text-lg text-brand-black">
-                      </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
+ <div id="screen-staff" class="screen hidden p-6 lg:p-12">
+ <div class="bg-brand-white ">
+ <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-6">
+ <h2 class="text-4xl font-display font-bold uppercase tracking-tighter text-brand-black">Staff Registrado.</h2>
+ <button onclick="openModal('staff-form')" class="border-4 border-brand-black w-full sm:w-auto text-center bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black flex items-center justify-center gap-2 flex-shrink-0">
+ <i class="ph-bold ph-plus text-base mt-[-2px]"></i> Añadir Staff
+ </button>
+ </div>
+ <div class="overflow-x-auto border-4 border-brand-black">
+ <table class="w-full text-left border-collapse min-w-[600px]">
+ <thead>
+ <tr class="bg-brand-black text-brand-white ">
+ <th class="p-6 font-display font-bold text-lg uppercase tracking-widest ">Staff</th>
+ <th class="p-6 font-display font-bold text-lg uppercase tracking-widest ">Especialidad</th>
+ <th class="p-6 font-display font-bold text-lg uppercase tracking-widest ">Turno</th>
+ <th class="p-6 font-display font-bold text-lg uppercase tracking-widest text-right">Acciones</th>
+ </tr>
+ </thead>
+ <tbody id="staff-full-table-body" class="font-medium text-lg text-brand-black">
+ </tbody>
+ </table>
+ </div>
+ </div>
+ </div>
 
 
-  <div id="screen-pagos" class="screen hidden p-6 lg:p-12">
-    <div class="bg-brand-white">
-      <div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-6 gap-6">
-        <div class="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
-          <div class="flex items-center w-full sm:w-64 bg-brand-white border-4 border-brand-black focus-within:bg-brand-green transition-colors group">
-            <div class="pl-4 pr-2 flex items-center justify-center pointer-events-none text-brand-black/50 group-focus-within:text-brand-black transition-colors">
-              <i class="ph-bold ph-funnel text-xl"></i>
-            </div>
-            <select id="filter-estado-pagos" class="peer block w-full min-w-0 py-4 pr-2 bg-transparent text-brand-black font-display font-bold tracking-wide focus:outline-none text-sm appearance-none cursor-pointer" onchange="renderPagos()">
-              <option value="">TODOS</option>
-              <option value="al_dia">AL DÍA</option>
-              <option value="atrasado">ATRASADOS</option>
-            </select>
-          </div>
-          <div class="flex items-center w-full sm:w-64 bg-brand-white border-4 border-brand-black focus-within:bg-brand-green transition-colors group">
-            <div class="pl-4 pr-2 flex items-center justify-center pointer-events-none text-brand-black/50 group-focus-within:text-brand-black transition-colors">
-              <i class="ph-bold ph-magnifying-glass text-xl"></i>
-            </div>
-            <input type="text" id="search-pagos" placeholder="Buscar por nombre o teléfono..." class="peer block w-full min-w-0 py-4 pr-2 bg-transparent text-brand-black font-display font-bold tracking-wide focus:outline-none placeholder:text-brand-black/50 text-sm">
-            <button type="button" onclick="document.getElementById('search-pagos').value=''; renderPagos();" class="peer-placeholder-shown:hidden pr-4 text-brand-black hover:opacity-60 transition-opacity focus:outline-none flex-shrink-0" aria-label="Limpiar búsqueda" title="Limpiar"><i class="ph-bold ph-x text-xl"></i></button>
-          </div>
-        </div>
-      </div>
+ <div id="screen-miembros" class="screen hidden p-6 lg:p-12">
+ <div class="bg-brand-white">
+ <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8" id="stats-miembros-container">
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-        <div class="border-4 border-brand-black p-6 bg-brand-white text-brand-black overflow-hidden w-full">
-          <p class="font-bold uppercase tracking-widest text-xs opacity-60 mb-2 flex-shrink-0">Ingresos (Mes)</p>
-          <p class="text-4xl lg:text-5xl font-display font-bold tracking-tighter truncate w-full" id="stat-pagos-ingresos">--</p>
-        </div>
-        <div class="border-4 border-brand-black p-6 bg-brand-white text-brand-black overflow-hidden w-full">
-          <p class="font-bold uppercase tracking-widest text-xs opacity-60 mb-2 flex-shrink-0">Miembros Al Día</p>
-          <p class="text-4xl lg:text-5xl font-display font-bold tracking-tighter truncate w-full" id="stat-pagos-aldia">--</p>
-        </div>
-        <div class="border-4 border-brand-black p-6 bg-brand-black text-brand-white overflow-hidden w-full">
-          <p class="font-bold uppercase tracking-widest text-xs opacity-60 mb-2 flex-shrink-0">Miembros Atrasados</p>
-          <p class="text-4xl lg:text-5xl font-display font-bold tracking-tighter truncate w-full" id="stat-pagos-atrasados">--</p>
-        </div>
-      </div>
-
-      <div class="overflow-x-auto border-4 border-brand-black">
-        <table class="w-full text-left border-collapse min-w-[600px]">
-          <thead>
-            <tr class="bg-brand-black text-brand-white">
-              <th class="p-6 font-display font-bold text-lg uppercase tracking-widest">Miembro</th>
-              <th class="p-6 font-display font-bold text-lg uppercase tracking-widest">Estado</th>
-              <th class="p-6 font-display font-bold text-lg uppercase tracking-widest">Vencimiento</th>
-              <th class="p-6 font-display font-bold text-lg uppercase tracking-widest text-right">Acción</th>
-            </tr>
-          </thead>
-          <tbody id="pagos-table-body" class="font-medium text-lg text-brand-black">
-                      </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
+ </div>
+ <div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-6 gap-6">
+ <div class="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
+ <div class="flex items-center w-full sm:w-64 bg-brand-white border-4 border-brand-black focus-within:bg-brand-green group">
+ <div class="pl-4 pr-2 flex items-center justify-center pointer-events-none text-brand-black/50 group-focus-within:text-brand-black ">
+ <i class="ph-bold ph-funnel text-xl"></i>
+ </div>
+ <select id="filter-estado-miembros" class="peer block w-full min-w-0 py-4 pr-2 bg-transparent text-brand-black font-display font-bold tracking-wide focus:outline-none text-sm appearance-none cursor-pointer" onchange="renderTables()">
+ <option value="">TODOS</option>
+ <option value="al_dia">AL DÍA</option>
+ <option value="atrasado">ATRASADOS</option>
+ </select>
+ </div>
+ <div class="flex items-center w-full sm:w-64 bg-brand-white border-4 border-brand-black focus-within:bg-brand-green group">
+ <div class="pl-4 pr-2 flex items-center justify-center pointer-events-none text-brand-black/50 group-focus-within:text-brand-black ">
+ <i class="ph-bold ph-magnifying-glass text-xl"></i>
+ </div>
+ <input type="text" id="search-miembros" placeholder="Buscar miembro..." class="peer block w-full min-w-0 py-4 pr-2 bg-transparent text-brand-black font-display font-bold tracking-wide focus:outline-none placeholder:text-brand-black/50 text-sm">
+ <button type="button" onclick="document.getElementById('search-miembros').value=''; renderTables();" class="peer-placeholder-shown:hidden pr-4 text-brand-black hover:opacity-60 focus:outline-none flex-shrink-0" aria-label="Limpiar bǧsqueda" title="Limpiar"><i class="ph-bold ph-x text-xl"></i></button>
+ </div>
+ </div>
+ <button onclick="openModal('member-form')" class="border-4 border-brand-black w-full sm:w-auto text-center bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black flex items-center justify-center gap-2 flex-shrink-0">
+ <i class="ph-bold ph-plus text-base mt-[-2px]"></i> Añadir Miembro
+ </button>
+ </div>
+ <div class="overflow-x-auto border-4 border-brand-black">
+ <table class="w-full text-left border-collapse min-w-[700px]">
+ <thead>
+ <tr class="bg-brand-black text-brand-white ">
+ <th class="p-6 font-display font-bold text-lg uppercase tracking-widest ">Miembro</th>
+ <th class="p-6 font-display font-bold text-lg uppercase tracking-widest ">Plan</th>
+ <th class="p-6 font-display font-bold text-lg uppercase tracking-widest text-left">Estado</th>
+ <th class="p-6 font-display font-bold text-lg uppercase tracking-widest text-right">Acción</th>
+ </tr>
+ </thead>
+ <tbody id="members-full-table-body" class="font-medium text-lg text-brand-black">
+ </tbody>
+ </table>
+ </div>
+ </div>
+ </div>
 
 
-  <div id="screen-planes" class="screen hidden p-6 lg:p-12">
-    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 sm:mb-12 gap-6">
-      <h2 class="text-4xl sm:text-5xl font-display font-bold uppercase tracking-tighter text-brand-black flex items-center gap-3"><i class="ph-bold ph-clipboard-text"></i> Planes Disponibles</h2>
-      <button onclick="openModal('plan-form', null)" class="w-full sm:w-auto text-center bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors flex items-center justify-center gap-2 flex-shrink-0">
-        <i class="ph-bold ph-plus text-base mt-[-2px]"></i> Crear Plan
-      </button>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="planes-container">
-          </div>
-  </div>
+ <div id="screen-pagos" class="screen hidden p-6 lg:p-12">
+ <div class="bg-brand-white">
+ <div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-6 gap-6">
+ <div class="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
+ <div class="flex items-center w-full sm:w-64 bg-brand-white border-4 border-brand-black focus-within:bg-brand-green group">
+ <div class="pl-4 pr-2 flex items-center justify-center pointer-events-none text-brand-black/50 group-focus-within:text-brand-black ">
+ <i class="ph-bold ph-funnel text-xl"></i>
+ </div>
+ <select id="filter-estado-pagos" class="peer block w-full min-w-0 py-4 pr-2 bg-transparent text-brand-black font-display font-bold tracking-wide focus:outline-none text-sm appearance-none cursor-pointer" onchange="renderPagos()">
+ <option value="">TODOS</option>
+ <option value="al_dia">AL DÍA</option>
+ <option value="atrasado">ATRASADOS</option>
+ </select>
+ </div>
+ <div class="flex items-center w-full sm:w-64 bg-brand-white border-4 border-brand-black focus-within:bg-brand-green group">
+ <div class="pl-4 pr-2 flex items-center justify-center pointer-events-none text-brand-black/50 group-focus-within:text-brand-black ">
+ <i class="ph-bold ph-magnifying-glass text-xl"></i>
+ </div>
+ <input type="text" id="search-pagos" placeholder="Buscar por nombre o teléfono..." class="peer block w-full min-w-0 py-4 pr-2 bg-transparent text-brand-black font-display font-bold tracking-wide focus:outline-none placeholder:text-brand-black/50 text-sm">
+ <button type="button" onclick="document.getElementById('search-pagos').value=''; renderPagos();" class="peer-placeholder-shown:hidden pr-4 text-brand-black hover:opacity-60 focus:outline-none flex-shrink-0" aria-label="Limpiar búsqueda" title="Limpiar"><i class="ph-bold ph-x text-xl"></i></button>
+ </div>
+ </div>
+ </div>
 
-  <div id="screen-accesos" class="screen hidden p-6 lg:p-12">
-    <div class="bg-brand-white">
-      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-6">
-        <h2 class="text-4xl font-display font-bold uppercase tracking-tighter text-brand-black flex items-center gap-3"><i class="ph-bold ph-door"></i> Registro de Entradas</h2>
+ <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+ <div class="border-4 border-brand-black p-6 bg-brand-white text-brand-black overflow-hidden w-full">
+ <p class="font-bold uppercase tracking-widest text-xs opacity-60 mb-2 flex-shrink-0">Ingresos (Mes)</p>
+ <p class="text-4xl lg:text-5xl font-display font-bold tracking-tighter truncate w-full" id="stat-pagos-ingresos">--</p>
+ </div>
+ <div class="border-4 border-brand-black p-6 bg-brand-white text-brand-black overflow-hidden w-full">
+ <p class="font-bold uppercase tracking-widest text-xs opacity-60 mb-2 flex-shrink-0">Miembros Al Día</p>
+ <p class="text-4xl lg:text-5xl font-display font-bold tracking-tighter truncate w-full" id="stat-pagos-aldia">--</p>
+ </div>
+ <div class="border-4 border-brand-black p-6 bg-brand-black text-brand-white overflow-hidden w-full">
+ <p class="font-bold uppercase tracking-widest text-xs opacity-60 mb-2 flex-shrink-0">Miembros Atrasados</p>
+ <p class="text-4xl lg:text-5xl font-display font-bold tracking-tighter truncate w-full" id="stat-pagos-atrasados">--</p>
+ </div>
+ </div>
+
+ <div class="overflow-x-auto border-4 border-brand-black">
+ <table class="w-full text-left border-collapse min-w-[600px]">
+ <thead>
+ <tr class="bg-brand-black text-brand-white">
+ <th class="p-6 font-display font-bold text-lg uppercase tracking-widest">Miembro</th>
+ <th class="p-6 font-display font-bold text-lg uppercase tracking-widest">Estado</th>
+ <th class="p-6 font-display font-bold text-lg uppercase tracking-widest">Vencimiento</th>
+ <th class="p-6 font-display font-bold text-lg uppercase tracking-widest text-right">Acción</th>
+ </tr>
+ </thead>
+ <tbody id="pagos-table-body" class="font-medium text-lg text-brand-black">
+ </tbody>
+ </table>
+ </div>
+ </div>
+ </div>
+
+
+ <div id="screen-planes" class="screen hidden p-6 lg:p-12">
+ <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 sm:mb-12 gap-6">
+ <h2 class="text-4xl sm:text-5xl font-display font-bold uppercase tracking-tighter text-brand-black flex items-center gap-3"><i class="ph-bold ph-clipboard-text"></i> Planes Disponibles</h2>
+ <button onclick="openModal('plan-form', null)" class="border-4 border-brand-black w-full sm:w-auto text-center bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black flex items-center justify-center gap-2 flex-shrink-0">
+ <i class="ph-bold ph-plus text-base mt-[-2px]"></i> Crear Plan
+ </button>
+ </div>
+ <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="planes-container">
+ </div>
+ </div>
+
+ <div id="screen-accesos" class="screen hidden p-6 lg:p-12">
+ <div class="bg-brand-white">
+ <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-6">
+ <h2 class="text-4xl font-display font-bold uppercase tracking-tighter text-brand-black flex items-center gap-3"><i class="ph-bold ph-door"></i> Registro de Entradas</h2>
         <div class="flex items-center gap-3 bg-brand-black text-brand-white px-6 py-4 border-4 border-brand-black">
-          <div class="w-3 h-3 bg-brand-green animate-pulse"></div>
-          <span class="font-display font-bold uppercase tracking-widest text-xs">Radar Biométrico Activo</span>
-        </div>
-      </div>
+ <div class="w-3 h-3 bg-brand-green animate-pulse"></div>
+ <span class="font-display font-bold uppercase tracking-widest text-xs">Radar Biométrico Activo</span>
+ </div>
+ </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        <div class="border-4 border-brand-black p-6 bg-brand-white text-brand-black flex flex-col">
-          <p class="font-bold uppercase tracking-widest text-xs opacity-60 mb-2">Afluencia Total Hoy</p>
-          <p class="text-5xl font-display font-bold tracking-tighter" id="stat-accesos-hoy">--</p>
-        </div>
-        <div class="border-4 border-brand-black p-6 bg-brand-black text-brand-white flex flex-col">
-          <p class="font-bold uppercase tracking-widest text-xs opacity-60 mb-2">Hora más concurrida</p>
-          <p class="text-5xl font-display font-bold tracking-tighter" id="stat-accesos-horapico">--:--</p>
-        </div>
-      </div>
+ <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+ <div class="border-4 border-brand-black p-6 bg-brand-white text-brand-black flex flex-col">
+ <p class="font-bold uppercase tracking-widest text-xs opacity-60 mb-2">Afluencia Total Hoy</p>
+ <p class="text-5xl font-display font-bold tracking-tighter" id="stat-accesos-hoy">--</p>
+ </div>
+ <div class="border-4 border-brand-black p-6 bg-brand-black text-brand-white flex flex-col">
+ <p class="font-bold uppercase tracking-widest text-xs opacity-60 mb-2">Hora más concurrida</p>
+ <p class="text-5xl font-display font-bold tracking-tighter" id="stat-accesos-horapico">--:--</p>
+ </div>
+ </div>
 
-      <div class="overflow-x-auto border-4 border-brand-black">
-        <table class="w-full text-left border-collapse min-w-[600px]">
-          <thead>
-            <tr class="bg-brand-black text-brand-white">
-              <th class="p-6 font-display font-bold text-lg uppercase tracking-widest">Hora</th>
-              <th class="p-6 font-display font-bold text-lg uppercase tracking-widest">Miembro</th>
-              <th class="p-6 font-display font-bold text-lg uppercase tracking-widest">Plan</th>
-              <th class="p-6 font-display font-bold text-lg uppercase tracking-widest">Estado</th>
-            </tr>
-          </thead>
-          <tbody id="accesos-table-body" class="font-medium text-lg text-brand-black">
-                        <tr class="border-b-4 border-brand-black">
-              <td colspan="4" class="p-6 text-center font-display font-bold uppercase tracking-widest text-sm text-brand-black">--- ESPERANDO LECTURA BIOMÉTRICA ---</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
+ <div class="overflow-x-auto border-4 border-brand-black">
+ <table class="w-full text-left border-collapse min-w-[600px]">
+ <thead>
+ <tr class="bg-brand-black text-brand-white">
+ <th class="p-6 font-display font-bold text-lg uppercase tracking-widest">Hora</th>
+ <th class="p-6 font-display font-bold text-lg uppercase tracking-widest">Miembro</th>
+ <th class="p-6 font-display font-bold text-lg uppercase tracking-widest">Plan</th>
+ <th class="p-6 font-display font-bold text-lg uppercase tracking-widest">Estado</th>
+ </tr>
+ </thead>
+ <tbody id="accesos-table-body" class="font-medium text-lg text-brand-black">
+ <tr class="border-b-4 border-brand-black">
+ <td colspan="4" class="p-6 text-center font-display font-bold uppercase tracking-widest text-sm text-brand-black">--- ESPERANDO LECTURA BIOMÉTRICA ---</td>
+ </tr>
+ </tbody>
+ </table>
+ </div>
+ </div>
+ </div>
 
-  <div id="screen-pos" class="screen hidden p-6 lg:p-12">
-    <div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-6">
-      <h2 class="text-3xl font-display font-bold uppercase tracking-tighter">Punto de Venta</h2>
+ <div id="screen-pos" class="screen hidden p-6 lg:p-12">
+ <div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-6">
+ <h2 class="text-3xl font-display font-bold uppercase tracking-tighter">Punto de Venta</h2>
 
-    </div>
+ </div>
 
-    <div class="flex flex-col lg:flex-row gap-8 w-full items-start">
-            <div class="flex-1 w-full flex flex-col gap-8 min-w-0">
-        <div class="flex items-center w-full bg-brand-white border-4 border-brand-black focus-within:bg-brand-green transition-colors group">
-          <div class="pl-4 pr-2 flex items-center justify-center pointer-events-none text-brand-black/50 group-focus-within:text-brand-black transition-colors">
-            <i class="ph-bold ph-magnifying-glass text-xl"></i>
-          </div>
-          <input type="text" id="search-pos" placeholder="BUSCAR PRODUCTO O ESCANEAR..." class="peer block w-full min-w-0 py-4 pr-2 bg-transparent text-brand-black font-display font-bold tracking-wide focus:outline-none placeholder:text-brand-black/50 placeholder:uppercase text-sm">
-          <button type="button" onclick="document.getElementById('search-pos').value=''; renderPOS();" class="peer-placeholder-shown:hidden pr-4 text-brand-black hover:opacity-60 transition-opacity focus:outline-none flex-shrink-0" aria-label="Limpiar búsqueda" title="Limpiar"><i class="ph-bold ph-x text-xl"></i></button>
-          <button onclick="openCameraScanner('search-pos')" class="border-l-4 border-brand-black bg-brand-white text-brand-black hover:bg-brand-black hover:text-brand-white px-6 py-4 focus:outline-none transition-colors flex-shrink-0 group-focus-within:bg-brand-black group-focus-within:text-brand-white" aria-label="Escanear producto">
-            <i class="ph-bold ph-camera text-xl"></i>
-          </button>
-        </div>
+ <div class="flex flex-col lg:flex-row gap-8 w-full items-start">
+ <div class="flex-1 w-full flex flex-col gap-8 min-w-0">
+ <div class="flex items-center w-full bg-brand-white border-4 border-brand-black focus-within:bg-brand-green group">
+ <div class="pl-4 pr-2 flex items-center justify-center pointer-events-none text-brand-black/50 group-focus-within:text-brand-black ">
+ <i class="ph-bold ph-magnifying-glass text-xl"></i>
+ </div>
+ <input type="text" id="search-pos" placeholder="BUSCAR PRODUCTO O ESCANEAR..." class="peer block w-full min-w-0 py-4 pr-2 bg-transparent text-brand-black font-display font-bold tracking-wide focus:outline-none placeholder:text-brand-black/50 placeholder:uppercase text-sm">
+ <button type="button" onclick="document.getElementById('search-pos').value=''; renderPOS();" class="peer-placeholder-shown:hidden pr-4 text-brand-black hover:opacity-60 focus:outline-none flex-shrink-0" aria-label="Limpiar búsqueda" title="Limpiar"><i class="ph-bold ph-x text-xl"></i></button>
+ <button onclick="openCameraScanner('search-pos')" class="border-4 border-brand-black border-l-4 border-brand-black bg-brand-white text-brand-black hover:bg-brand-black hover:text-brand-white px-6 py-4 focus:outline-none flex-shrink-0 group-focus-within:bg-brand-black group-focus-within:text-brand-white" aria-label="Escanear producto">
+ <i class="ph-bold ph-camera text-xl"></i>
+ </button>
+ </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6" id="pos-catalog-container">
-                  </div>
-      </div>
+ <div class="grid grid-cols-1 sm:grid-cols-2 gap-6" id="pos-catalog-container">
+ </div>
+ </div>
 
-            <div id="pos-cart-panel" class="bg-brand-white border-4 border-brand-black flex flex-col overflow-hidden w-full md:w-80 flex-shrink-0 sticky top-6 max-h-[calc(100dvh-88px)]">
-        <div class="bg-brand-black text-brand-white p-6 border-b-4 border-brand-black">
-          <h3 class="font-display font-bold uppercase tracking-widest text-xl">Ticket Actual</h3>
-        </div>
+ <div id="pos-cart-panel" class="bg-brand-white border-4 border-brand-black flex flex-col overflow-hidden w-full md:w-80 flex-shrink-0 sticky top-6 max-h-[calc(100dvh-88px)]">
+ <div class="bg-brand-black text-brand-white p-6 border-b-4 border-brand-black">
+ <h3 class="font-display font-bold uppercase tracking-widest text-xl">Ticket Actual</h3>
+ </div>
 
-        <div class="p-6 flex flex-col gap-4 overflow-y-auto flex-1" id="pos-cart-container">
-                  </div>
+ <div class="p-6 flex flex-col gap-4 overflow-y-auto flex-1" id="pos-cart-container">
+ </div>
 
-        <div class="p-6 bg-brand-white border-t-4 border-brand-black flex flex-col gap-4">
-          <div class="flex justify-between items-end mb-2">
-            <span class="font-display font-bold uppercase tracking-widest text-sm">Total</span>
-            <span id="pos-total" class="font-display font-bold text-4xl tracking-tighter text-brand-black">$0</span>
-          </div>
-          <div class="flex gap-4">
-            <button type="button" id="btn-vaciar-pos" onclick="vaciarCarrito()" class="w-16 flex-shrink-0 text-center bg-brand-white text-brand-black font-display font-bold uppercase tracking-widest py-5 text-sm hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white active:bg-brand-black active:text-brand-white transition-colors focus:outline-none border-4 border-brand-black flex justify-center items-center" aria-label="Vaciar Carrito" title="Vaciar Carrito">
-              <i class="ph-bold ph-trash text-xl"></i>
-            </button>
-            <button type="button" onclick="procesarVenta()" id="btn-cobrar-pos" class="flex-1 text-center bg-brand-green text-brand-black font-display font-bold uppercase tracking-widest px-2 sm:px-6 py-5 text-sm hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white active:bg-brand-black active:text-brand-white transition-colors focus:outline-none border-4 border-brand-black flex justify-center items-center gap-2">
-              <i class="ph-bold ph-check-circle text-xl"></i> Procesar Venta
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+ <div class="p-6 bg-brand-white border-t-4 border-brand-black flex flex-col gap-4">
+ <div class="flex justify-between items-end mb-2">
+ <span class="font-display font-bold uppercase tracking-widest text-sm">Total</span>
+ <span id="pos-total" class="font-display font-bold text-4xl tracking-tighter text-brand-black">$0</span>
+ </div>
+ <div class="flex gap-4">
+ <button type="button" id="btn-vaciar-pos" onclick="vaciarCarrito()" class="w-16 flex-shrink-0 text-center bg-brand-white text-brand-black font-display font-bold uppercase tracking-widest py-5 text-sm hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white active:bg-brand-black active:text-brand-white focus:outline-none border-4 border-brand-black flex justify-center items-center" aria-label="Vaciar Carrito" title="Vaciar Carrito">
+ <i class="ph-bold ph-trash text-xl"></i>
+ </button>
+ <button type="button" onclick="procesarVenta()" id="btn-cobrar-pos" class="flex-1 text-center bg-brand-green text-brand-black font-display font-bold uppercase tracking-widest px-2 sm:px-6 py-5 text-sm hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white active:bg-brand-black active:text-brand-white focus:outline-none border-4 border-brand-black flex justify-center items-center gap-2">
+ <i class="ph-bold ph-check-circle text-xl"></i> Procesar Venta
+ </button>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
 
-  <div id="screen-inventario" class="screen hidden p-6 lg:p-12">
-    <div id="inventario-alert-container"></div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8" id="stats-inventario-container">
+ <div id="screen-inventario" class="screen hidden p-6 lg:p-12">
+ <div id="inventario-alert-container"></div>
+ <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8" id="stats-inventario-container">
 
-    </div>
-    <div class="bg-brand-white border-4 border-brand-black flex flex-col">
-      <div class="p-6 border-b-4 border-brand-black flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <h3 class="font-display font-bold uppercase tracking-widest text-xl flex items-center gap-2 text-brand-black">
-          Control de Stock <span class="text-xs bg-brand-green text-brand-black px-2 py-1 ml-4 hidden sm:inline-block">ESCANEA PARA AÑADIR +1</span>
-        </h3>
-        <div class="flex items-center gap-4 w-full sm:w-auto">
-          <button onclick="openModal('product-form')" class="bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-6 py-4 text-xs hover:bg-brand-green hover:text-brand-black focus:outline-none transition-colors border-4 border-brand-black flex items-center justify-center gap-2 w-full sm:w-auto">
-            <i class="ph-bold ph-plus text-xl"></i> Añadir Producto
-          </button>
-        </div>
-      </div>
-      <div class="flex flex-col md:flex-row bg-brand-black gap-1 border-b-4 border-brand-black">
-        <div class="flex items-center w-full md:w-64 bg-brand-white focus-within:bg-brand-green transition-colors group flex-shrink-0">
-          <div class="pl-4 pr-2 flex items-center justify-center pointer-events-none text-brand-black/50 group-focus-within:text-brand-black transition-colors">
+ </div>
+ <div class="bg-brand-white border-4 border-brand-black flex flex-col">
+ <div class="p-6 border-b-4 border-brand-black flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+ <h3 class="font-display font-bold uppercase tracking-widest text-xl flex items-center gap-2 text-brand-black">
+ Control de Stock <span class="text-xs bg-brand-green text-brand-black px-2 py-1 ml-4 hidden sm:inline-block border-4 border-brand-black">ESCANEA PARA AÑADIR +1</span>
+ </h3>
+ <div class="flex items-center gap-4 w-full sm:w-auto">
+ <button onclick="openModal('product-form')" class="bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-6 py-4 text-xs hover:bg-brand-green hover:text-brand-black focus:outline-none border-4 border-brand-black flex items-center justify-center gap-2 w-full sm:w-auto">
+ <i class="ph-bold ph-plus text-xl"></i> Añadir Producto
+ </button>
+ </div>
+ </div>
+      <div class="flex flex-col md:flex-row gap-4 p-6 border-b-4 border-brand-black bg-brand-white">
+        <div class="flex items-center w-full md:w-64 bg-brand-white border-4 border-brand-black focus-within:bg-brand-green group flex-shrink-0">
+          <div class="pl-4 pr-2 flex items-center justify-center pointer-events-none text-brand-black/50 group-focus-within:text-brand-black">
             <i class="ph-bold ph-funnel text-xl"></i>
           </div>
           <select id="filter-stock-inventario" class="peer block w-full min-w-0 py-4 pr-4 bg-transparent text-brand-black font-display font-bold tracking-wide focus:outline-none text-sm appearance-none cursor-pointer" onchange="filterInventoryList(document.getElementById('inventory-search').value)">
@@ -414,43 +414,43 @@
             <option value="bajo_stock">BAJO STOCK</option>
           </select>
         </div>
-        <div class="flex items-center flex-1 bg-brand-white focus-within:bg-brand-green transition-colors group">
-          <div class="pl-4 pr-2 flex items-center justify-center pointer-events-none text-brand-black/50 group-focus-within:text-brand-black transition-colors">
+        <div class="flex items-center flex-1 bg-brand-white border-4 border-brand-black focus-within:bg-brand-green group">
+          <div class="pl-4 pr-2 flex items-center justify-center pointer-events-none text-brand-black/50 group-focus-within:text-brand-black">
             <i class="ph-bold ph-magnifying-glass text-xl"></i>
           </div>
           <input type="text" id="inventory-search" placeholder="BUSCAR PRODUCTO O ESCANEAR..." class="peer block w-full min-w-0 py-4 pr-2 bg-transparent text-brand-black font-display font-bold tracking-wide focus:outline-none placeholder:text-brand-black/50 placeholder:uppercase text-sm" oninput="filterInventoryList(this.value)">
-          <button type="button" onclick="document.getElementById('inventory-search').value=''; filterInventoryList('');" class="peer-placeholder-shown:hidden pr-4 text-brand-black hover:opacity-60 transition-opacity focus:outline-none flex-shrink-0" aria-label="Limpiar búsqueda" title="Limpiar"><i class="ph-bold ph-x text-xl"></i></button>
+          <button type="button" onclick="document.getElementById('inventory-search').value=''; filterInventoryList('');" class="peer-placeholder-shown:hidden pr-4 text-brand-black hover:opacity-60 focus:outline-none flex-shrink-0" aria-label="Limpiar búsqueda" title="Limpiar"><i class="ph-bold ph-x text-xl"></i></button>
+          <button onclick="openCameraScanner('inventory-search')" class="border-4 border-brand-black border-l-4 border-brand-black bg-brand-white text-brand-black hover:bg-brand-black hover:text-brand-white px-6 py-4 focus:outline-none flex-shrink-0 group-focus-within:bg-brand-black group-focus-within:text-brand-white" aria-label="Escanear producto">
+            <i class="ph-bold ph-camera text-xl"></i>
+          </button>
         </div>
-        <button onclick="openCameraScanner('inventory-search')" class="bg-brand-white text-brand-black hover:bg-brand-black hover:text-brand-white px-6 py-4 focus:outline-none transition-colors flex-shrink-0" aria-label="Escanear producto">
-          <i class="ph-bold ph-camera text-3xl"></i>
-        </button>
       </div>
-      <div id="inventory-tbody" class="p-6 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-8 bg-brand-white">
-        <!-- Renderizado por JS -->
-      </div>
-    </div>
-  </div>
+ <div id="inventory-tbody" class="p-6 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-8 bg-brand-white">
+ <!-- Renderizado por JS -->
+ </div>
+ </div>
+ </div>
 
 </main>
 
 <div id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" onclick="handleOverlayClick(event)" class="fixed inset-0 hidden items-start justify-center p-4 sm:p-6 overflow-y-auto pt-12 sm:pt-[10vh] bg-black/90 z-[999999]">
-  <div id="modal-box" class="bg-brand-white w-full flex flex-col border-4 border-brand-black mb-12 max-w-2xl">
-    
-    <div class="p-6 sm:p-8 flex items-center justify-between bg-brand-black text-brand-white border-b-4 border-brand-black">
-      <h2 id="modal-title" class="text-2xl sm:text-3xl font-display font-bold uppercase tracking-tighter">Modal</h2>
-      <button onclick="closeModal()" aria-label="Cerrar modal" class="text-brand-white hover:text-brand-green focus:text-brand-green active:text-brand-green transition-colors focus:outline-none text-3xl font-display font-bold leading-none flex-shrink-0 bg-brand-black p-1 ml-4 border-4 border-transparent hover:border-brand-green">
-        <i class="ph-bold ph-x"></i>
-      </button>
-    </div>
-    
-    <div id="modal-body" class="p-6 sm:p-8">
-    </div>
-  </div>
+ <div id="modal-box" class="bg-brand-white w-full flex flex-col border-4 border-brand-black mb-12 max-w-2xl">
+ 
+ <div class="p-6 sm:p-8 flex items-center justify-between bg-brand-black text-brand-white border-b-4 border-brand-black">
+ <h2 id="modal-title" class="text-2xl sm:text-3xl font-display font-bold uppercase tracking-tighter">Modal</h2>
+ <button onclick="closeModal()" aria-label="Cerrar modal" class="text-brand-white hover:text-brand-green focus:text-brand-green active:text-brand-green focus:outline-none text-3xl font-display font-bold leading-none flex-shrink-0 bg-brand-black p-1 ml-4 border-4 border-transparent hover:border-brand-green">
+ <i class="ph-bold ph-x"></i>
+ </button>
+ </div>
+ 
+ <div id="modal-body" class="p-6 sm:p-8">
+ </div>
+ </div>
 </div>
 
 <div id="kiosk-alert-container" class="fixed top-4 right-4 sm:top-8 sm:right-8 w-auto sm:w-[450px] flex flex-col gap-4 z-[999999] pointer-events-none items-end"></div>
 
-<div id="toast" role="status" aria-live="polite" class="fixed bottom-4 right-4 sm:right-8 sm:bottom-8 sm:max-w-md bg-brand-green text-brand-black font-display font-bold uppercase tracking-widest text-sm sm:text-lg px-6 py-4 sm:px-8 sm:py-5 translate-y-24 opacity-0 transition-all duration-300 pointer-events-none text-center sm:text-left border-4 border-brand-black z-[999999]"></div>
+<div id="toast" role="status" aria-live="polite" class="fixed bottom-4 right-4 sm:right-8 sm:bottom-8 sm:max-w-md bg-brand-green text-brand-black font-display font-bold uppercase tracking-widest text-sm sm:text-lg px-6 py-4 sm:px-8 sm:py-5 translate-y-24 opacity-0 duration-300 pointer-events-none text-center sm:text-left border-4 border-brand-black z-[999999]"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>

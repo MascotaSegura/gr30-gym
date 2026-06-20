@@ -1,678 +1,678 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#ffffff">
-  <meta name="color-scheme" content="only light">
-  <title>GR30 Gym - Kiosco Autónomo</title>
-  
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta name="theme-color" content="#ffffff">
+ <meta name="color-scheme" content="only light">
+ <title>GR30 Gym - Kiosco Autónomo</title>
+ 
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Inter:wght@400;600;900&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/@phosphor-icons/web"></script>
-  
-  <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
-  <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png">
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Inter:wght@400;600;900&display=swap" rel="stylesheet">
+ <script src="https://unpkg.com/@phosphor-icons/web"></script>
+ 
+ <link rel="stylesheet" href="assets/css/style.css">
+ <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+ <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
+ <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png">
 </head>
 <body class="bg-brand-white font-sans antialiased selection:bg-brand-green selection:text-brand-black text-brand-black min-h-screen flex flex-col overflow-x-hidden min-h-[100dvh]">
 
-  <header style="background-color: #ffffff !important;" class="w-full bg-brand-white border-b-4 border-brand-black flex items-center justify-between px-6 lg:px-12 py-5 flex-shrink-0 z-50 relative">
-    <a href="index.html" class="text-3xl font-display font-bold tracking-tighter uppercase flex items-center gap-3 group focus:outline-none" aria-label="Ir al inicio">
-      <div class="w-10 h-10 bg-brand-green text-brand-black flex items-center justify-center flex-shrink-0 group-hover:bg-brand-black group-hover:text-brand-white group-focus:bg-brand-black group-focus:text-brand-white group-active:bg-brand-black group-active:text-brand-white transition-colors">
-        <span class="text-2xl leading-none">G</span>
-      </div>
-      <span class="text-brand-black">GR30<span class="text-brand-green group-hover:text-brand-black group-active:text-brand-black transition-colors">.</span></span>
-    </a>
-  </header>
+ <header style="background-color: #ffffff !important;" class="w-full bg-brand-white border-b-4 border-brand-black flex items-center justify-between px-6 lg:px-12 py-5 flex-shrink-0 z-50 relative">
+ <a href="index.html" class="text-3xl font-display font-bold tracking-tighter uppercase flex items-center gap-3 group focus:outline-none" aria-label="Ir al inicio">
+ <div class="w-10 h-10 bg-brand-green text-brand-black flex items-center justify-center flex-shrink-0 group-hover:bg-brand-black group-hover:text-brand-white group-focus:bg-brand-black group-focus:text-brand-white group-active:bg-brand-black group-active:text-brand-white ">
+ <span class="text-2xl leading-none">G</span>
+ </div>
+ <span class="text-brand-black">GR30<span class="text-brand-green group-hover:text-brand-black group-active:text-brand-black ">.</span></span>
+ </a>
+ </header>
 
-  <main class="flex-1 flex flex-col justify-center items-center px-6 py-12 relative w-full max-w-lg mx-auto">
-    <div class="w-full relative z-10">
-      
-            <div id="screen-activation" class="screen flex flex-col text-center">
-        <h1 class="text-[clamp(3.5rem,8vw,5rem)] leading-none font-display font-bold uppercase tracking-tighter text-brand-black mb-10">Kiosco.</h1>
-        <form id="form-activation" class="flex flex-col gap-6 mb-8 text-left">
-          <div>
-            <label class="block font-display font-bold uppercase tracking-widest text-xs sm:text-sm text-brand-black mb-2" for="act-pass">Clave Admin</label>
-            <input type="password" id="act-pass" class="w-full bg-brand-white border-4 border-brand-black px-4 py-4 sm:px-6 sm:py-5 text-lg sm:text-xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green text-brand-black placeholder:text-brand-black/50 placeholder:uppercase transition-all" placeholder="INGRESA CLAVE" required>
-          </div>
-          <button type="submit" class="w-full sm:w-auto text-center bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors mt-2">Encender Kiosco</button>
-        </form>
-      </div>
+ <main class="flex-1 flex flex-col justify-center items-center px-6 py-12 relative w-full max-w-lg mx-auto">
+ <div class="w-full relative z-10">
+ 
+ <div id="screen-activation" class="screen flex flex-col text-center">
+ <h1 class="text-[clamp(3.5rem,8vw,5rem)] leading-none font-display font-bold uppercase tracking-tighter text-brand-black mb-10">Kiosco.</h1>
+ <form id="form-activation" class="flex flex-col gap-6 mb-8 text-left">
+ <div>
+ <label class="block font-display font-bold uppercase tracking-widest text-xs sm:text-sm text-brand-black mb-2" for="act-pass">Clave Admin</label>
+ <input type="password" id="act-pass" class="w-full bg-brand-white border-4 border-brand-black px-6 py-5 text-xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green text-brand-black placeholder:text-brand-black/50 placeholder:uppercase" placeholder="INGRESA CLAVE" required>
+ </div>
+ <button type="submit" class="border-4 border-brand-black w-full sm:w-auto text-center bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black mt-2">Encender Kiosco</button>
+ </form>
+ </div>
 
-    </div>
-  </main>
+ </div>
+ </main>
 
-    <div id="screen-kiosco" class="screen hidden fixed top-0 left-0 w-full h-screen bg-brand-black flex-col h-[100dvh] z-[9999]">
-    
-        <div class="absolute inset-0 w-full h-full overflow-hidden bg-brand-black flex justify-center items-center z-[1]">
-      <video id="webcam" class="absolute inset-0 w-full h-full object-cover transform scale-x-[-1]" autoplay playsinline muted></video>
-      
-            <div class="relative border-4 border-brand-black pointer-events-none z-10 aspect-[3/4] h-[50vh] max-h-[400px] max-w-[80vw]"></div>
-    </div>
+ <div id="screen-kiosco" class="screen hidden fixed top-0 left-0 w-full h-screen bg-brand-black flex-col h-[100dvh] z-[9999]">
+ 
+ <div class="absolute inset-0 w-full h-full overflow-hidden bg-brand-black flex justify-center items-center z-[1]">
+ <video id="webcam" class="absolute inset-0 w-full h-full object-cover transform scale-x-[-1]" autoplay playsinline muted></video>
+ 
+ <div class="relative border-4 border-brand-black pointer-events-none z-10 aspect-[3/4] h-[50vh] max-h-[400px] max-w-[80vw]"></div>
+ </div>
 
-        <div class="absolute top-0 left-0 w-full bg-brand-white border-b-4 border-brand-black flex items-center justify-between px-6 lg:px-12 py-5 z-20">
-      <div class="flex items-center gap-4">
-        <h1 class="text-3xl sm:text-4xl leading-none font-display font-bold uppercase tracking-tighter text-brand-black">Escáner.</h1>
-        <div class="hidden sm:flex items-center gap-2 bg-brand-black text-brand-white px-3 py-1 border-4 border-brand-black">
-          <div class="w-2 h-2 bg-brand-green animate-pulse"></div>
-          <span class="font-bold tracking-widest uppercase text-xs">Activo</span>
-        </div>
-      </div>
-      <button id="btn-exit" class="w-12 h-12 bg-brand-black text-brand-white hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center justify-center transition-colors focus:outline-none flex-shrink-0" title="Apagar Kiosco">
-        <i class="ph-bold ph-power text-2xl"></i>
-      </button>
-    </div>
+ <div class="absolute top-0 left-0 w-full bg-brand-white border-b-4 border-brand-black flex items-center justify-between px-6 lg:px-12 py-5 z-20">
+ <div class="flex items-center gap-4">
+ <h1 class="text-3xl sm:text-4xl leading-none font-display font-bold uppercase tracking-tighter text-brand-black">Escáner.</h1>
+ <div class="hidden sm:flex items-center gap-2 bg-brand-black text-brand-white px-3 py-1 border-4 border-brand-black">
+ <div class="w-2 h-2 bg-brand-green animate-pulse"></div>
+ <span class="font-bold tracking-widest uppercase text-xs">Activo</span>
+ </div>
+ </div>
+ <button id="btn-exit" class="w-12 h-12 bg-brand-black text-brand-white hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center justify-center focus:outline-none flex-shrink-0" title="Apagar Kiosco">
+ <i class="ph-bold ph-power text-2xl"></i>
+ </button>
+ </div>
 
-        <div id="kiosk-banner" class="absolute bottom-0 left-0 w-full bg-brand-white border-t-4 border-brand-black p-6 sm:p-8 flex flex-col items-center justify-center transform translate-y-full opacity-0 z-30">
-        <i id="kiosk-icon" class="ph-bold text-6xl mb-4"></i>
-        <h2 id="kiosk-title" class="text-4xl sm:text-6xl font-display font-bold uppercase tracking-tighter leading-none mb-2 text-center"></h2>
-        <p id="kiosk-msg" class="text-xl sm:text-2xl font-bold uppercase tracking-widest text-center"></p>
-    </div>
-
-
-    <div id="kiosk-custom-modal" class="hidden absolute inset-0 bg-brand-black z-[99999] flex flex-col items-center justify-center p-6 text-brand-white">
-      <div class="bg-brand-white text-brand-black border-4 border-brand-black w-full max-w-md p-8 flex flex-col gap-6">
-        <h3 id="kiosk-modal-title" class="text-2xl font-display font-bold uppercase tracking-tighter"></h3>
-        <p id="kiosk-modal-msg" class="font-bold tracking-widest uppercase"></p>
-        <input type="password" id="kiosk-modal-input" class="hidden w-full border-4 border-brand-black bg-brand-white text-brand-black px-6 py-5 font-bold focus:outline-none focus:bg-brand-green" placeholder="***">
-        <div class="flex gap-4 w-full">
-          <button id="btn-kiosk-modal-cancel" class="flex-1 bg-brand-white border-4 border-brand-black font-bold uppercase tracking-widest py-4 hover:bg-brand-black hover:text-brand-white transition-colors">Cancelar</button>
-          <button id="btn-kiosk-modal-ok" class="flex-1 bg-brand-green border-4 border-brand-black font-bold uppercase tracking-widest py-4 hover:bg-brand-black hover:text-brand-white transition-colors">Aceptar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="assets/js/supabase.js"></script>
-  <script src="assets/js/audio.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@vladmandic/face-api/dist/face-api.min.js"></script>
-  <script type="module">
-    let modelsLoaded = false;
-    let video = document.getElementById("webcam");
-    let reqAnimId;
-    let lastVideoTime = -1;
-    
-   
-    let isScanning = false;
-    let membersDB = [];
-    let lastUnknownTime = 0;
-    let matchBufferId = null;
-    let matchBufferCount = 0;
-    let missFrames = 0;
-    let emaDescriptor = new Float32Array(128);
-    let emaFrames = 0;
-    
-
-    function showKioskModal(title, msg, isPrompt) {
-      return new Promise(resolve => {
-        const modal = document.getElementById('kiosk-custom-modal');
-        const titleEl = document.getElementById('kiosk-modal-title');
-        const msgEl = document.getElementById('kiosk-modal-msg');
-        const inputEl = document.getElementById('kiosk-modal-input');
-        const btnCancel = document.getElementById('btn-kiosk-modal-cancel');
-        const btnOk = document.getElementById('btn-kiosk-modal-ok');
-        
-        titleEl.innerText = title;
-        msgEl.innerText = msg;
-        inputEl.value = '';
-        
-        if (isPrompt) {
-          inputEl.classList.remove('hidden');
-          inputEl.focus();
-        } else {
-          inputEl.classList.add('hidden');
-        }
-        
-        modal.classList.remove('hidden');
-        
-        const cleanup = () => {
-          btnOk.onclick = null;
-          btnCancel.onclick = null;
-          modal.classList.add('hidden');
-        };
-        
-        btnOk.onclick = () => {
-          cleanup();
-          resolve(isPrompt ? inputEl.value : true);
-        };
-        
-        btnCancel.onclick = () => {
-          cleanup();
-          resolve(isPrompt ? null : false);
-        };
-      });
-    }
-    window.setScreen = function(screenName) {
-      document.querySelectorAll('.screen').forEach(el => {
-        el.classList.add('hidden');
-        el.classList.remove('flex');
-      });
-      const target = document.getElementById('screen-' + screenName);
-      if (target) {
-        target.classList.remove('hidden');
-        target.classList.add('flex');
-      }
-    };
-
-   
-    function speak(text) {
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'es-MX';
-      utterance.rate = 1.0;
-      utterance.pitch = 1.0;
-      window.speechSynthesis.speak(utterance);
-    }
-
-   
-    async function initAI() {
-      const MODEL_URL = 'https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model/';
-      await Promise.all([
-        faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
-        faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL),
-        faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL)
-      ]);
-      modelsLoaded = true;
-
-    }
-
-   
-    async function loadDB() {
-      const [planesRes, miembrosRes, pagosRes] = await Promise.all([
-        window.supabaseClient.from('planes').select('*'),
-        window.supabaseClient.from('miembros').select('id, nombre, biometria, plan, activo'),
-        window.supabaseClient.from('pagos').select('*')
-      ]);
-      
-      const planesData = planesRes.data || [];
-      const pagos = pagosRes.data || [];
-      const miembros = miembrosRes.data || [];
-      
-      const fullMembers = miembros.map(m => {
-        const historial = pagos.filter(p => p.miembro_id === m.id).sort((a,b) => new Date(b.fecha) - new Date(a.fecha));
-        let estado_pago = 'pendiente';
-        
-        if (historial.length > 0) {
-          const planInfo = planesData.find(p => p.nombre === m.plan) || { periodo: 'Mes' };
-          const lastDate = new Date(historial[0].fecha);
-          if (planInfo.periodo === 'Mes') lastDate.setMonth(lastDate.getMonth() + 1);
-          else if (planInfo.periodo === 'Año') lastDate.setFullYear(lastDate.getFullYear() + 1);
-          
-          const fechaVenc = lastDate.toISOString().split('T')[0];
-          const hoy = new Date().toISOString().split('T')[0];
-          estado_pago = (fechaVenc < hoy) ? 'atrasado' : 'al_dia';
-        }
-        return { ...m, estado_pago };
-      });
-
-     
-      membersDB = fullMembers
-        .filter(m => m.biometria && Array.isArray(m.biometria) && m.biometria.length === 128)
-        .map(m => ({ ...m, biometria: new Float32Array(m.biometria) }));
+ <div id="kiosk-banner" class="absolute bottom-0 left-0 w-full bg-brand-white border-t-4 border-brand-black p-6 sm:p-8 flex flex-col items-center justify-center transform translate-y-full opacity-0 z-30">
+ <i id="kiosk-icon" class="ph-bold text-6xl mb-4"></i>
+ <h2 id="kiosk-title" class="text-4xl sm:text-6xl font-display font-bold uppercase tracking-tighter leading-none mb-2 text-center"></h2>
+ <p id="kiosk-msg" class="text-xl sm:text-2xl font-bold uppercase tracking-widest text-center"></p>
+ </div>
 
 
-    }
+ <div id="kiosk-custom-modal" class="hidden absolute inset-0 bg-brand-black z-[99999] flex flex-col items-center justify-center p-6 text-brand-white">
+ <div class="bg-brand-white text-brand-black border-4 border-brand-black w-full max-w-md p-8 flex flex-col gap-6">
+ <h3 id="kiosk-modal-title" class="text-2xl font-display font-bold uppercase tracking-tighter"></h3>
+ <p id="kiosk-modal-msg" class="font-bold tracking-widest uppercase"></p>
+ <input type="password" id="kiosk-modal-input" class="hidden w-full border-4 border-brand-black bg-brand-white text-brand-black px-6 py-5 font-bold focus:outline-none focus:bg-brand-green" placeholder="***">
+ <div class="flex gap-4 w-full">
+ <button id="btn-kiosk-modal-cancel" class="flex-1 bg-brand-white border-4 border-brand-black font-bold uppercase tracking-widest py-4 hover:bg-brand-black hover:text-brand-white ">Cancelar</button>
+ <button id="btn-kiosk-modal-ok" class="flex-1 bg-brand-green border-4 border-brand-black font-bold uppercase tracking-widest py-4 hover:bg-brand-black hover:text-brand-white ">Aceptar</button>
+ </div>
+ </div>
+ </div>
+ </div>
 
-   
-    async function startKiosk() {
-      await loadDB();
-      if (!modelsLoaded) {
-        document.querySelector('#form-activation button').textContent = 'CARGANDO IA NEURONAL...';
-        await initAI();
-      }
-      
-      window.setScreen('kiosco');
-      
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({ 
-          video: { 
-            facingMode: "user",
-            width: { ideal: 640, max: 720 },
-            height: { ideal: 480, max: 1280 }
-          } 
-        });
-        video.setAttribute('autoplay', '');
-        video.setAttribute('muted', '');
-        video.setAttribute('playsinline', '');
-        video.srcObject = stream;
-        
-        video.onloadedmetadata = () => {
-          video.play().catch(() => {});
-          video.width = video.videoWidth;
-          video.height = video.videoHeight;
-        };
+ <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+ <script src="assets/js/supabase.js"></script>
+ <script src="assets/js/audio.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/@vladmandic/face-api/dist/face-api.min.js"></script>
+ <script type="module">
+ let modelsLoaded = false;
+ let video = document.getElementById("webcam");
+ let reqAnimId;
+ let lastVideoTime = -1;
+ 
+ 
+ let isScanning = false;
+ let membersDB = [];
+ let lastUnknownTime = 0;
+ let matchBufferId = null;
+ let matchBufferCount = 0;
+ let missFrames = 0;
+ let emaDescriptor = new Float32Array(128);
+ let emaFrames = 0;
+ 
 
-        video.addEventListener("loadeddata", () => {
-          isScanning = true;
-          predictWebcam();
-        });
-      } catch (err) {
-        showKioskModal("ERROR DE CÁMARA", "Permisos denegados o cámara no encontrada.", false);
-      }
-    }
+ function showKioskModal(title, msg, isPrompt) {
+ return new Promise(resolve => {
+ const modal = document.getElementById('kiosk-custom-modal');
+ const titleEl = document.getElementById('kiosk-modal-title');
+ const msgEl = document.getElementById('kiosk-modal-msg');
+ const inputEl = document.getElementById('kiosk-modal-input');
+ const btnCancel = document.getElementById('btn-kiosk-modal-cancel');
+ const btnOk = document.getElementById('btn-kiosk-modal-ok');
+ 
+ titleEl.innerText = title;
+ msgEl.innerText = msg;
+ inputEl.value = '';
+ 
+ if (isPrompt) {
+ inputEl.classList.remove('hidden');
+ inputEl.focus();
+ } else {
+ inputEl.classList.add('hidden');
+ }
+ 
+ modal.classList.remove('hidden');
+ 
+ const cleanup = () => {
+ btnOk.onclick = null;
+ btnCancel.onclick = null;
+ modal.classList.add('hidden');
+ };
+ 
+ btnOk.onclick = () => {
+ cleanup();
+ resolve(isPrompt ? inputEl.value : true);
+ };
+ 
+ btnCancel.onclick = () => {
+ cleanup();
+ resolve(isPrompt ? null : false);
+ };
+ });
+ }
+ window.setScreen = function(screenName) {
+ document.querySelectorAll('.screen').forEach(el => {
+ el.classList.add('hidden');
+ el.classList.remove('flex');
+ });
+ const target = document.getElementById('screen-' + screenName);
+ if (target) {
+ target.classList.remove('hidden');
+ target.classList.add('flex');
+ }
+ };
 
-    function stopKiosk() {
-      isScanning = false;
-      if (reqAnimId) cancelAnimationFrame(reqAnimId);
-      if (video.srcObject) {
-        video.srcObject.getTracks().forEach(t => t.stop());
-      }
-      if (document.fullscreenElement) {
-        document.exitFullscreen().catch(() => {});
-      }
-      window.setScreen('activation');
-    }
+ 
+ function speak(text) {
+ window.speechSynthesis.cancel();
+ const utterance = new SpeechSynthesisUtterance(text);
+ utterance.lang = 'es-MX';
+ utterance.rate = 1.0;
+ utterance.pitch = 1.0;
+ window.speechSynthesis.speak(utterance);
+ }
 
-   
-    async function broadcastAccess(member, status) {
-      const channel = window.supabaseClient.channel('public:accesos');
-      await channel.send({
-        type: 'broadcast',
-        event: 'acceso',
-        payload: {
-          nombre: member ? member.nombre : 'Desconocido',
-          plan: member ? member.plan : '-',
-          estado: status,
-          tiempo: new Date().toISOString()
-        }
-      });
-    }
+ 
+ async function initAI() {
+ const MODEL_URL = 'https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model/';
+ await Promise.all([
+ faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
+ faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL),
+ faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL)
+ ]);
+ modelsLoaded = true;
 
-   
-    function showBanner(type, member) {
-      isScanning = false;
-      const banner = document.getElementById("kiosk-banner");
-      const icon = document.getElementById("kiosk-icon");
-      const title = document.getElementById("kiosk-title");
-      const msg = document.getElementById("kiosk-msg");
-      
-      banner.classList.remove("translate-y-full", "opacity-0", "bg-brand-green", "bg-brand-white", "bg-brand-black");
-      
-      let speechText = "";
+ }
 
-      if (type === 'CONCEDIDO') {
-        if (window.sysAudio) window.sysAudio('success');
-        banner.classList.add("bg-brand-green");
-        icon.className = "ph-bold ph-check-circle text-6xl mb-4 text-brand-black";
-        title.innerText = "ACCESO CONCEDIDO";
-        title.className = "text-4xl sm:text-6xl font-display font-bold uppercase tracking-tighter leading-none mb-2 text-center text-brand-black";
-        msg.innerText = `BIENVENIDO, ${member.nombre}`;
-        msg.className = "text-xl sm:text-2xl font-bold uppercase tracking-widest text-center text-brand-black";
-        speechText = `Bienvenido al gimnasio, ${member.nombre}.`;
-        broadcastAccess(member, 'permitido');
-      } 
-      else if (type === 'DENEGADO') {
-        if (window.sysAudio) window.sysAudio('error');
-        banner.classList.add("bg-brand-black");
-        icon.className = "ph-bold ph-warning-circle text-6xl mb-4 text-brand-white";
-        title.innerText = "ACCESO DENEGADO";
-        title.className = "text-4xl sm:text-6xl font-display font-bold uppercase tracking-tighter leading-none mb-2 text-center text-brand-white";
-        msg.innerText = "PAGOS PENDIENTES";
-        msg.className = "text-xl sm:text-2xl font-bold uppercase tracking-widest text-center text-brand-white";
-        speechText = `Acceso denegado, ${member.nombre}. Tienes pagos pendientes.`;
-        broadcastAccess(member, 'denegado');
-      }
-      else if (type === 'DESCONOCIDO') {
-        if (window.sysAudio) window.sysAudio('error');
-        banner.classList.add("bg-brand-white");
-        icon.className = "ph-bold ph-question text-6xl mb-4 text-brand-black";
-        title.innerText = "ROSTRO DESCONOCIDO";
-        title.className = "text-4xl sm:text-6xl font-display font-bold uppercase tracking-tighter leading-none mb-2 text-center text-brand-black";
-        msg.innerText = "POR FAVOR REGÍSTRATE EN RECEPCIÓN";
-        msg.className = "text-xl sm:text-2xl font-bold uppercase tracking-widest text-center text-brand-black";
-        speechText = "Rostro no reconocido. Por favor regístrate.";
-        broadcastAccess(null, 'desconocido');
-      }
-      else if (type === 'DENEGADO_AMBIGUO') {
-        if (window.sysAudio) window.sysAudio('error');
-        banner.classList.add("bg-brand-black");
-        icon.className = "ph-bold ph-warning text-6xl mb-4 text-brand-white";
-        title.innerText = "AMBIGÜEDAD DETECTADA";
-        title.className = "text-4xl sm:text-6xl font-display font-bold uppercase tracking-tighter leading-none mb-2 text-center text-brand-white";
-        msg.innerText = "GEMELOS/SIMILITUD EXTREMA. ACUDE A RECEPCIÓN.";
-        msg.className = "text-xl sm:text-2xl font-bold uppercase tracking-widest text-center text-brand-white";
-        speechText = "Similitud biométrica ambigua detectada. Por seguridad, acude a recepción.";
-        broadcastAccess(null, 'ambiguo');
-      }
+ 
+ async function loadDB() {
+ const [planesRes, miembrosRes, pagosRes] = await Promise.all([
+ window.supabaseClient.from('planes').select('*'),
+ window.supabaseClient.from('miembros').select('id, nombre, biometria, plan, activo'),
+ window.supabaseClient.from('pagos').select('*')
+ ]);
+ 
+ const planesData = planesRes.data || [];
+ const pagos = pagosRes.data || [];
+ const miembros = miembrosRes.data || [];
+ 
+ const fullMembers = miembros.map(m => {
+ const historial = pagos.filter(p => p.miembro_id === m.id).sort((a,b) => new Date(b.fecha) - new Date(a.fecha));
+ let estado_pago = 'pendiente';
+ 
+ if (historial.length > 0) {
+ const planInfo = planesData.find(p => p.nombre === m.plan) || { periodo: 'Mes' };
+ const lastDate = new Date(historial[0].fecha);
+ if (planInfo.periodo === 'Mes') lastDate.setMonth(lastDate.getMonth() + 1);
+ else if (planInfo.periodo === 'Año') lastDate.setFullYear(lastDate.getFullYear() + 1);
+ 
+ const fechaVenc = lastDate.toISOString().split('T')[0];
+ const hoy = new Date().toISOString().split('T')[0];
+ estado_pago = (fechaVenc < hoy) ? 'atrasado' : 'al_dia';
+ }
+ return { ...m, estado_pago };
+ });
 
-      speak(speechText);
-      
-     
-      setTimeout(() => {
-        banner.classList.remove("translate-y-full", "opacity-0");
-      }, 50);
+ 
+ membersDB = fullMembers
+ .filter(m => m.biometria && Array.isArray(m.biometria) && m.biometria.length === 128)
+ .map(m => ({ ...m, biometria: new Float32Array(m.biometria) }));
 
-     
-      setTimeout(() => {
-        banner.classList.add("translate-y-full", "opacity-0");
-        setTimeout(() => { isScanning = true; predictWebcam(); }, 500);
-      }, 5000);
-    }
 
-    async function predictWebcam() {
-      if (!isScanning || !modelsLoaded) return;
+ }
 
-      if (video.readyState >= 2 && video.videoWidth > 0) {
-        try {
-         
-          if (video.width !== video.videoWidth) {
-            video.width = video.videoWidth;
-            video.height = video.videoHeight;
-          }
+ 
+ async function startKiosk() {
+ await loadDB();
+ if (!modelsLoaded) {
+ document.querySelector('#form-activation button').textContent = 'CARGANDO IA NEURONAL...';
+ await initAI();
+ }
+ 
+ window.setScreen('kiosco');
+ 
+ try {
+ const stream = await navigator.mediaDevices.getUserMedia({ 
+ video: { 
+ facingMode: "user",
+ width: { ideal: 640, max: 720 },
+ height: { ideal: 480, max: 1280 }
+ } 
+ });
+ video.setAttribute('autoplay', '');
+ video.setAttribute('muted', '');
+ video.setAttribute('playsinline', '');
+ video.srcObject = stream;
+ 
+ video.onloadedmetadata = () => {
+ video.play().catch(() => {});
+ video.width = video.videoWidth;
+ video.height = video.videoHeight;
+ };
 
-         
-          const result = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions({ scoreThreshold: 0.5, inputSize: 416 }))
-            .withFaceLandmarks()
-            .withFaceDescriptor();
-          
-          if (!isScanning) return;
-          
-          if (result) {
-           
-            const box = result.detection.box;
-            const minFaceWidth = (video.videoWidth || 640) * 0.10;
-            
-            if (box.width < minFaceWidth) {
-              matchBufferCount = 0;
-              matchBufferId = null;
-              emaFrames = 0;
-             
-              if (isScanning) reqAnimId = window.requestAnimationFrame(predictWebcam);
-              return;
-            }
+ video.addEventListener("loadeddata", () => {
+ isScanning = true;
+ predictWebcam();
+ });
+ } catch (err) {
+ showKioskModal("ERROR DE CÁMARA", "Permisos denegados o cámara no encontrada.", false);
+ }
+ }
 
-            const descriptor = result.descriptor;
-           
-            const EMA_WEIGHT = 0.6;
-            const distFromEMA = emaFrames > 0 ? faceapi.euclideanDistance(descriptor, emaDescriptor) : 0;
-            
-            if (emaFrames === 0 || distFromEMA > 0.35) {
-             
-              for (let i = 0; i < 128; i++) emaDescriptor[i] = descriptor[i];
-              emaFrames = 1;
-            } else {
-              for (let i = 0; i < 128; i++) {
-                emaDescriptor[i] = emaDescriptor[i] * EMA_WEIGHT + descriptor[i] * (1 - EMA_WEIGHT);
-              }
-              emaFrames++;
-            }
+ function stopKiosk() {
+ isScanning = false;
+ if (reqAnimId) cancelAnimationFrame(reqAnimId);
+ if (video.srcObject) {
+ video.srcObject.getTracks().forEach(t => t.stop());
+ }
+ if (document.fullscreenElement) {
+ document.exitFullscreen().catch(() => {});
+ }
+ window.setScreen('activation');
+ }
 
-            let minDistance = Infinity;
-            let secondMinDistance = Infinity;
-            let bestMatch = null;
-            
-           
-            for (const m of membersDB) {
-              const d = faceapi.euclideanDistance(emaDescriptor, m.biometria);
-              if (d < minDistance) {
-                secondMinDistance = minDistance;
-                minDistance = d;
-                bestMatch = m;
-              } else if (d < secondMinDistance) {
-                secondMinDistance = d;
-              }
-            }
-            
-           
-            const THRESHOLD = 0.35;
-            const AMBIGUITY_MARGIN = 0.08;
-            
-            if (bestMatch && minDistance < THRESHOLD) {
-             
-              if (membersDB.length > 1 && (secondMinDistance - minDistance) < AMBIGUITY_MARGIN) {
-                matchBufferCount = 0;
-                emaFrames = 0;
-                showBanner('DENEGADO_AMBIGUO', null);
-                return;
-              }
+ 
+ async function broadcastAccess(member, status) {
+ const channel = window.supabaseClient.channel('public:accesos');
+ await channel.send({
+ type: 'broadcast',
+ event: 'acceso',
+ payload: {
+ nombre: member ? member.nombre : 'Desconocido',
+ plan: member ? member.plan : '-',
+ estado: status,
+ tiempo: new Date().toISOString()
+ }
+ });
+ }
 
-              if (matchBufferId === bestMatch.id) {
-                matchBufferCount++;
-                missFrames = 0; 
-              } else {
-                matchBufferId = bestMatch.id;
-                matchBufferCount = 1;
-                missFrames = 0;
-              }
+ 
+ function showBanner(type, member) {
+ isScanning = false;
+ const banner = document.getElementById("kiosk-banner");
+ const icon = document.getElementById("kiosk-icon");
+ const title = document.getElementById("kiosk-title");
+ const msg = document.getElementById("kiosk-msg");
+ 
+ banner.classList.remove("translate-y-full", "opacity-0", "bg-brand-green", "bg-brand-white", "bg-brand-black");
+ 
+ let speechText = "";
 
-              if (matchBufferCount >= 3) { 
-                matchBufferCount = 0;
-                matchBufferId = null;
-                emaFrames = 0;
-                missFrames = 0;
-                if (bestMatch.estado_pago === 'al_dia' && bestMatch.activo !== false) {
-                  showBanner('CONCEDIDO', bestMatch);
-                } else {
-                  showBanner('DENEGADO', bestMatch);
-                }
-                return;
-              }
-            } else {
-              missFrames++;
-              if (missFrames >= 3) {
-                matchBufferCount = 0;
-                matchBufferId = null;
-                emaFrames = 0;
-                const now = Date.now();
-                if ((now - lastUnknownTime) > 5000) {
-                  lastUnknownTime = now;
-                  showBanner('DESCONOCIDO', null);
-                  return; 
-                }
-              }
-            }
-          } else {
-             missFrames++;
-             if (missFrames >= 3) {
-               matchBufferCount = 0;
-               matchBufferId = null;
-               emaFrames = 0;
-             }
-          }
-        } catch (err) {
+ if (type === 'CONCEDIDO') {
+ if (window.sysAudio) window.sysAudio('success');
+ banner.classList.add("bg-brand-green");
+ icon.className = "ph-bold ph-check-circle text-6xl mb-4 text-brand-black";
+ title.innerText = "ACCESO CONCEDIDO";
+ title.className = "text-4xl sm:text-6xl font-display font-bold uppercase tracking-tighter leading-none mb-2 text-center text-brand-black";
+ msg.innerText = `BIENVENIDO, ${member.nombre}`;
+ msg.className = "text-xl sm:text-2xl font-bold uppercase tracking-widest text-center text-brand-black";
+ speechText = `Bienvenido al gimnasio, ${member.nombre}.`;
+ broadcastAccess(member, 'permitido');
+ } 
+ else if (type === 'DENEGADO') {
+ if (window.sysAudio) window.sysAudio('error');
+ banner.classList.add("bg-brand-black");
+ icon.className = "ph-bold ph-warning-circle text-6xl mb-4 text-brand-white";
+ title.innerText = "ACCESO DENEGADO";
+ title.className = "text-4xl sm:text-6xl font-display font-bold uppercase tracking-tighter leading-none mb-2 text-center text-brand-white";
+ msg.innerText = "PAGOS PENDIENTES";
+ msg.className = "text-xl sm:text-2xl font-bold uppercase tracking-widest text-center text-brand-white";
+ speechText = `Acceso denegado, ${member.nombre}. Tienes pagos pendientes.`;
+ broadcastAccess(member, 'denegado');
+ }
+ else if (type === 'DESCONOCIDO') {
+ if (window.sysAudio) window.sysAudio('error');
+ banner.classList.add("bg-brand-white");
+ icon.className = "ph-bold ph-question text-6xl mb-4 text-brand-black";
+ title.innerText = "ROSTRO DESCONOCIDO";
+ title.className = "text-4xl sm:text-6xl font-display font-bold uppercase tracking-tighter leading-none mb-2 text-center text-brand-black";
+ msg.innerText = "POR FAVOR REGÍSTRATE EN RECEPCIÓN";
+ msg.className = "text-xl sm:text-2xl font-bold uppercase tracking-widest text-center text-brand-black";
+ speechText = "Rostro no reconocido. Por favor regístrate.";
+ broadcastAccess(null, 'desconocido');
+ }
+ else if (type === 'DENEGADO_AMBIGUO') {
+ if (window.sysAudio) window.sysAudio('error');
+ banner.classList.add("bg-brand-black");
+ icon.className = "ph-bold ph-warning text-6xl mb-4 text-brand-white";
+ title.innerText = "AMBIGÜEDAD DETECTADA";
+ title.className = "text-4xl sm:text-6xl font-display font-bold uppercase tracking-tighter leading-none mb-2 text-center text-brand-white";
+ msg.innerText = "GEMELOS/SIMILITUD EXTREMA. ACUDE A RECEPCIÓN.";
+ msg.className = "text-xl sm:text-2xl font-bold uppercase tracking-widest text-center text-brand-white";
+ speechText = "Similitud biométrica ambigua detectada. Por seguridad, acude a recepción.";
+ broadcastAccess(null, 'ambiguo');
+ }
 
-        }
-      }
-      
-      if (isScanning) {
-        reqAnimId = window.requestAnimationFrame(predictWebcam);
-      }
-    }
+ speak(speechText);
+ 
+ 
+ setTimeout(() => {
+ banner.classList.remove("translate-y-full", "opacity-0");
+ }, 50);
 
-   
-    document.getElementById('form-activation').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const pass = document.getElementById('act-pass').value;
-      if (pass === 'admin') {
-        if (document.documentElement.requestFullscreen) {
-          document.documentElement.requestFullscreen().catch(() => {});
-        }
-        const btn = e.target.querySelector('button[type="submit"]');
-        btn.textContent = 'CARGANDO BASE DE DATOS...';
-        btn.disabled = true;
-        document.getElementById('act-pass').value = '';
-        await startKiosk();
-        btn.textContent = 'Encender Kiosco';
-        btn.disabled = false;
-      } else {
-        await showKioskModal("ERROR", "Clave incorrecta.", false);
-      }
-    });
+ 
+ setTimeout(() => {
+ banner.classList.add("translate-y-full", "opacity-0");
+ setTimeout(() => { isScanning = true; predictWebcam(); }, 500);
+ }, 5000);
+ }
 
-    document.getElementById('btn-exit').addEventListener('click', async () => {
-      const pass = await showKioskModal("APAGAR KIOSCO", "INTRODUCE LA CLAVE DE SEGURIDAD:", true);
-      if (pass === 'admin') {
-        stopKiosk();
-      } else if (pass !== null) {
-        await showKioskModal("ERROR", "Clave incorrecta. El Kiosco sigue activo.", false);
-      }
-    });
-    
-   
-    let enrollTarget = null;
-    const kioscoChannel = window.supabaseClient.channel('kiosco-enroll');
-    
-    kioscoChannel.on('broadcast', { event: 'enroll_request' }, (payload) => {
-      const data = payload.payload;
-      if (!isScanning && !document.getElementById('screen-kiosco').classList.contains('flex')) return;
-      
-      enrollTarget = data;
-      isScanning = false;
-      
-      const banner = document.getElementById("kiosk-banner");
-      const icon = document.getElementById("kiosk-icon");
-      const title = document.getElementById("kiosk-title");
-      const msg = document.getElementById("kiosk-msg");
-      
-     
-      banner.className = "absolute bottom-0 left-0 w-full bg-brand-white border-t-4 border-brand-black p-6 sm:p-8 flex flex-col items-center justify-center transform translate-y-full opacity-0 z-30";
-     
-      void banner.offsetWidth;
-      banner.classList.remove("translate-y-full", "opacity-0");
-      
-      icon.className = "ph-bold ph-scan text-6xl mb-4 text-brand-black animate-pulse";
-      title.innerText = "ENROLAMIENTO: " + data.nombre;
-      title.className = "text-3xl sm:text-4xl font-display font-bold uppercase tracking-tighter leading-none mb-2 text-center text-brand-black";
-      msg.innerText = "MIRA DIRECTAMENTE A LA CÁMARA...";
-      msg.className = "text-xl sm:text-2xl font-bold uppercase tracking-widest text-center text-brand-black";
-      
-      speak("Por favor, mira directamente a la cámara.");
-      
-      setTimeout(() => { captureEnrollment(); }, 2000);
-    }).subscribe();
+ async function predictWebcam() {
+ if (!isScanning || !modelsLoaded) return;
 
-    async function captureEnrollment() {
-      if (!modelsLoaded || !video.srcObject || !enrollTarget) return;
-      
-      const MAX_ATTEMPTS = 100;
-      let attempts = 0;
-      
-      let accumulatedDescriptor = new Float32Array(128);
-      
-      const STAGES = [
-        { name: 'FRENTE', msg: 'MIRA AL FRENTE', check: (yaw) => yaw >= 0.42 && yaw <= 0.58 },
-        { name: 'DERECHA', msg: 'GIRA LIGERO A LA DERECHA', check: (yaw) => yaw < 0.40 },
-        { name: 'IZQUIERDA', msg: 'GIRA LIGERO A LA IZQUIERDA', check: (yaw) => yaw > 0.60 }
-      ];
-      let currentStage = 0;
-      let stageSuccessFrames = 0;
-      const REQUIRED_FRAMES_PER_STAGE = 3;
+ if (video.readyState >= 2 && video.videoWidth > 0) {
+ try {
+ 
+ if (video.width !== video.videoWidth) {
+ video.width = video.videoWidth;
+ video.height = video.videoHeight;
+ }
 
-      async function tryCapture() {
-        if (attempts >= MAX_ATTEMPTS) {
-          kioscoChannel.send({ type: 'broadcast', event: 'enroll_error', payload: { msg: 'Tiempo agotado. Sigue las instrucciones en pantalla.' }});
-          resumeNormal();
-          return;
-        }
-        attempts++;
-        
-        try {
-          const result = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions({ scoreThreshold: 0.65, inputSize: 416 }))
-            .withFaceLandmarks()
-            .withFaceDescriptor();
-            
-          if (!enrollTarget) return;
-            
-          if (result) {
-            const box = result.detection.box;
-            const minFaceWidth = (video.videoWidth || 640) * 0.20;
-            
-            if (box.width >= minFaceWidth) {
-              const landmarks = result.landmarks.positions;
-              const leftX = landmarks[0].x;
-              const rightX = landmarks[16].x;
-              const noseX = landmarks[30].x;
-              const faceWidth = rightX - leftX;
-              
-              if (faceWidth > 0) {
-               
-               
-                const yaw = (noseX - leftX) / faceWidth;
-                const stage = STAGES[currentStage];
-                
-                document.getElementById("kiosk-msg").innerText = `${stage.msg} (${currentStage + 1}/3)`;
-                
-                if (stage.check(yaw)) {
-                  stageSuccessFrames++;
-                  
-                 
-                  for (let i = 0; i < 128; i++) {
-                    accumulatedDescriptor[i] += result.descriptor[i];
-                  }
-                  
-                  if (stageSuccessFrames >= REQUIRED_FRAMES_PER_STAGE) {
-                    currentStage++;
-                    stageSuccessFrames = 0;
-                    attempts = 0;
-                    
-                    if (currentStage >= STAGES.length) {
-                     
-                      document.getElementById("kiosk-msg").innerText = "PROCESANDO BIOMETRÍA...";
-                      
-                      const totalFrames = STAGES.length * REQUIRED_FRAMES_PER_STAGE;
-                      for (let i = 0; i < 128; i++) {
-                        accumulatedDescriptor[i] /= totalFrames;
-                      }
-                      
-                      const descriptorArray = Array.from(accumulatedDescriptor);
-                      
-                      const {error} = await window.supabaseClient.from('miembros')
-                        .update({ biometria: descriptorArray })
-                        .eq('id', enrollTarget.memberId);
-                        
-                      if (error) {
-                        kioscoChannel.send({ type: 'broadcast', event: 'enroll_error', payload: { msg: 'Fallo al guardar en BD.' }});
-                      } else {
-                        speak("Identidad biométrica blindada con éxito.");
-                        kioscoChannel.send({ type: 'broadcast', event: 'enroll_success', payload: { memberId: enrollTarget.memberId }});
-                        loadDB(); 
-                      }
-                      resumeNormal();
-                      return;
-                    } else {
-                     
-                      speak(STAGES[currentStage].msg);
-                    }
-                  }
-                } else {
-                 
-                  stageSuccessFrames = Math.max(0, stageSuccessFrames - 1);
-                }
-              }
-            } else {
-              document.getElementById("kiosk-msg").innerText = "ACÉRCATE MÁS A LA CÁMARA";
-            }
-          } else {
-            document.getElementById("kiosk-msg").innerText = "NO SE DETECTA ROSTRO CLARO";
-          }
-        } catch (err) {
+ 
+ const result = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions({ scoreThreshold: 0.5, inputSize: 416 }))
+ .withFaceLandmarks()
+ .withFaceDescriptor();
+ 
+ if (!isScanning) return;
+ 
+ if (result) {
+ 
+ const box = result.detection.box;
+ const minFaceWidth = (video.videoWidth || 640) * 0.10;
+ 
+ if (box.width < minFaceWidth) {
+ matchBufferCount = 0;
+ matchBufferId = null;
+ emaFrames = 0;
+ 
+ if (isScanning) reqAnimId = window.requestAnimationFrame(predictWebcam);
+ return;
+ }
 
-        }
-        
-        setTimeout(tryCapture, 150);
-      }
-      tryCapture();
-    }
-    
-    function resumeNormal() {
-      const banner = document.getElementById("kiosk-banner");
-      banner.classList.add("translate-y-full", "opacity-0");
-      enrollTarget = null;
-      setTimeout(() => { isScanning = true; predictWebcam(); }, 500);
-    }
-    
-   
-    const kioscoMainChannel = window.supabaseClient.channel('public:accesos');
-    kioscoMainChannel.on('broadcast', { event: 'db_updated' }, () => {
-      loadDB();
-    }).subscribe();
+ const descriptor = result.descriptor;
+ 
+ const EMA_WEIGHT = 0.6;
+ const distFromEMA = emaFrames > 0 ? faceapi.euclideanDistance(descriptor, emaDescriptor) : 0;
+ 
+ if (emaFrames === 0 || distFromEMA > 0.35) {
+ 
+ for (let i = 0; i < 128; i++) emaDescriptor[i] = descriptor[i];
+ emaFrames = 1;
+ } else {
+ for (let i = 0; i < 128; i++) {
+ emaDescriptor[i] = emaDescriptor[i] * EMA_WEIGHT + descriptor[i] * (1 - EMA_WEIGHT);
+ }
+ emaFrames++;
+ }
 
-  </script>
+ let minDistance = Infinity;
+ let secondMinDistance = Infinity;
+ let bestMatch = null;
+ 
+ 
+ for (const m of membersDB) {
+ const d = faceapi.euclideanDistance(emaDescriptor, m.biometria);
+ if (d < minDistance) {
+ secondMinDistance = minDistance;
+ minDistance = d;
+ bestMatch = m;
+ } else if (d < secondMinDistance) {
+ secondMinDistance = d;
+ }
+ }
+ 
+ 
+ const THRESHOLD = 0.35;
+ const AMBIGUITY_MARGIN = 0.08;
+ 
+ if (bestMatch && minDistance < THRESHOLD) {
+ 
+ if (membersDB.length > 1 && (secondMinDistance - minDistance) < AMBIGUITY_MARGIN) {
+ matchBufferCount = 0;
+ emaFrames = 0;
+ showBanner('DENEGADO_AMBIGUO', null);
+ return;
+ }
+
+ if (matchBufferId === bestMatch.id) {
+ matchBufferCount++;
+ missFrames = 0; 
+ } else {
+ matchBufferId = bestMatch.id;
+ matchBufferCount = 1;
+ missFrames = 0;
+ }
+
+ if (matchBufferCount >= 3) { 
+ matchBufferCount = 0;
+ matchBufferId = null;
+ emaFrames = 0;
+ missFrames = 0;
+ if (bestMatch.estado_pago === 'al_dia' && bestMatch.activo !== false) {
+ showBanner('CONCEDIDO', bestMatch);
+ } else {
+ showBanner('DENEGADO', bestMatch);
+ }
+ return;
+ }
+ } else {
+ missFrames++;
+ if (missFrames >= 3) {
+ matchBufferCount = 0;
+ matchBufferId = null;
+ emaFrames = 0;
+ const now = Date.now();
+ if ((now - lastUnknownTime) > 5000) {
+ lastUnknownTime = now;
+ showBanner('DESCONOCIDO', null);
+ return; 
+ }
+ }
+ }
+ } else {
+ missFrames++;
+ if (missFrames >= 3) {
+ matchBufferCount = 0;
+ matchBufferId = null;
+ emaFrames = 0;
+ }
+ }
+ } catch (err) {
+
+ }
+ }
+ 
+ if (isScanning) {
+ reqAnimId = window.requestAnimationFrame(predictWebcam);
+ }
+ }
+
+ 
+ document.getElementById('form-activation').addEventListener('submit', async (e) => {
+ e.preventDefault();
+ const pass = document.getElementById('act-pass').value;
+ if (pass === 'admin') {
+ if (document.documentElement.requestFullscreen) {
+ document.documentElement.requestFullscreen().catch(() => {});
+ }
+ const btn = e.target.querySelector('button[type="submit"]');
+ btn.textContent = 'CARGANDO BASE DE DATOS...';
+ btn.disabled = true;
+ document.getElementById('act-pass').value = '';
+ await startKiosk();
+ btn.textContent = 'Encender Kiosco';
+ btn.disabled = false;
+ } else {
+ await showKioskModal("ERROR", "Clave incorrecta.", false);
+ }
+ });
+
+ document.getElementById('btn-exit').addEventListener('click', async () => {
+ const pass = await showKioskModal("APAGAR KIOSCO", "INTRODUCE LA CLAVE DE SEGURIDAD:", true);
+ if (pass === 'admin') {
+ stopKiosk();
+ } else if (pass !== null) {
+ await showKioskModal("ERROR", "Clave incorrecta. El Kiosco sigue activo.", false);
+ }
+ });
+ 
+ 
+ let enrollTarget = null;
+ const kioscoChannel = window.supabaseClient.channel('kiosco-enroll');
+ 
+ kioscoChannel.on('broadcast', { event: 'enroll_request' }, (payload) => {
+ const data = payload.payload;
+ if (!isScanning && !document.getElementById('screen-kiosco').classList.contains('flex')) return;
+ 
+ enrollTarget = data;
+ isScanning = false;
+ 
+ const banner = document.getElementById("kiosk-banner");
+ const icon = document.getElementById("kiosk-icon");
+ const title = document.getElementById("kiosk-title");
+ const msg = document.getElementById("kiosk-msg");
+ 
+ 
+ banner.className = "absolute bottom-0 left-0 w-full bg-brand-white border-t-4 border-brand-black p-6 sm:p-8 flex flex-col items-center justify-center transform translate-y-full opacity-0 z-30";
+ 
+ void banner.offsetWidth;
+ banner.classList.remove("translate-y-full", "opacity-0");
+ 
+ icon.className = "ph-bold ph-scan text-6xl mb-4 text-brand-black animate-pulse";
+ title.innerText = "ENROLAMIENTO: " + data.nombre;
+ title.className = "text-3xl sm:text-4xl font-display font-bold uppercase tracking-tighter leading-none mb-2 text-center text-brand-black";
+ msg.innerText = "MIRA DIRECTAMENTE A LA CÁMARA...";
+ msg.className = "text-xl sm:text-2xl font-bold uppercase tracking-widest text-center text-brand-black";
+ 
+ speak("Por favor, mira directamente a la cámara.");
+ 
+ setTimeout(() => { captureEnrollment(); }, 2000);
+ }).subscribe();
+
+ async function captureEnrollment() {
+ if (!modelsLoaded || !video.srcObject || !enrollTarget) return;
+ 
+ const MAX_ATTEMPTS = 100;
+ let attempts = 0;
+ 
+ let accumulatedDescriptor = new Float32Array(128);
+ 
+ const STAGES = [
+ { name: 'FRENTE', msg: 'MIRA AL FRENTE', check: (yaw) => yaw >= 0.42 && yaw <= 0.58 },
+ { name: 'DERECHA', msg: 'GIRA LIGERO A LA DERECHA', check: (yaw) => yaw < 0.40 },
+ { name: 'IZQUIERDA', msg: 'GIRA LIGERO A LA IZQUIERDA', check: (yaw) => yaw > 0.60 }
+ ];
+ let currentStage = 0;
+ let stageSuccessFrames = 0;
+ const REQUIRED_FRAMES_PER_STAGE = 3;
+
+ async function tryCapture() {
+ if (attempts >= MAX_ATTEMPTS) {
+ kioscoChannel.send({ type: 'broadcast', event: 'enroll_error', payload: { msg: 'Tiempo agotado. Sigue las instrucciones en pantalla.' }});
+ resumeNormal();
+ return;
+ }
+ attempts++;
+ 
+ try {
+ const result = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions({ scoreThreshold: 0.65, inputSize: 416 }))
+ .withFaceLandmarks()
+ .withFaceDescriptor();
+ 
+ if (!enrollTarget) return;
+ 
+ if (result) {
+ const box = result.detection.box;
+ const minFaceWidth = (video.videoWidth || 640) * 0.20;
+ 
+ if (box.width >= minFaceWidth) {
+ const landmarks = result.landmarks.positions;
+ const leftX = landmarks[0].x;
+ const rightX = landmarks[16].x;
+ const noseX = landmarks[30].x;
+ const faceWidth = rightX - leftX;
+ 
+ if (faceWidth > 0) {
+ 
+ 
+ const yaw = (noseX - leftX) / faceWidth;
+ const stage = STAGES[currentStage];
+ 
+ document.getElementById("kiosk-msg").innerText = `${stage.msg} (${currentStage + 1}/3)`;
+ 
+ if (stage.check(yaw)) {
+ stageSuccessFrames++;
+ 
+ 
+ for (let i = 0; i < 128; i++) {
+ accumulatedDescriptor[i] += result.descriptor[i];
+ }
+ 
+ if (stageSuccessFrames >= REQUIRED_FRAMES_PER_STAGE) {
+ currentStage++;
+ stageSuccessFrames = 0;
+ attempts = 0;
+ 
+ if (currentStage >= STAGES.length) {
+ 
+ document.getElementById("kiosk-msg").innerText = "PROCESANDO BIOMETRÍA...";
+ 
+ const totalFrames = STAGES.length * REQUIRED_FRAMES_PER_STAGE;
+ for (let i = 0; i < 128; i++) {
+ accumulatedDescriptor[i] /= totalFrames;
+ }
+ 
+ const descriptorArray = Array.from(accumulatedDescriptor);
+ 
+ const {error} = await window.supabaseClient.from('miembros')
+ .update({ biometria: descriptorArray })
+ .eq('id', enrollTarget.memberId);
+ 
+ if (error) {
+ kioscoChannel.send({ type: 'broadcast', event: 'enroll_error', payload: { msg: 'Fallo al guardar en BD.' }});
+ } else {
+ speak("Identidad biométrica blindada con éxito.");
+ kioscoChannel.send({ type: 'broadcast', event: 'enroll_success', payload: { memberId: enrollTarget.memberId }});
+ loadDB(); 
+ }
+ resumeNormal();
+ return;
+ } else {
+ 
+ speak(STAGES[currentStage].msg);
+ }
+ }
+ } else {
+ 
+ stageSuccessFrames = Math.max(0, stageSuccessFrames - 1);
+ }
+ }
+ } else {
+ document.getElementById("kiosk-msg").innerText = "ACÉRCATE MÁS A LA CÁMARA";
+ }
+ } else {
+ document.getElementById("kiosk-msg").innerText = "NO SE DETECTA ROSTRO CLARO";
+ }
+ } catch (err) {
+
+ }
+ 
+ setTimeout(tryCapture, 150);
+ }
+ tryCapture();
+ }
+ 
+ function resumeNormal() {
+ const banner = document.getElementById("kiosk-banner");
+ banner.classList.add("translate-y-full", "opacity-0");
+ enrollTarget = null;
+ setTimeout(() => { isScanning = true; predictWebcam(); }, 500);
+ }
+ 
+ 
+ const kioscoMainChannel = window.supabaseClient.channel('public:accesos');
+ kioscoMainChannel.on('broadcast', { event: 'db_updated' }, () => {
+ loadDB();
+ }).subscribe();
+
+ </script>
 </body>
 </html>
 

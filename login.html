@@ -14,139 +14,139 @@
 <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
 <script src="https://unpkg.com/@phosphor-icons/web"></script>
 <script>
-  if (localStorage.getItem('gr30_admin_token') === 'SECURE_ADMIN_GRANTED') {
-    window.location.href = 'admin.html';
-  } else if (localStorage.getItem('gr30_client_session')) {
-    window.location.href = 'cliente.html';
-  }
+ if (localStorage.getItem('gr30_admin_token') === 'SECURE_ADMIN_GRANTED') {
+ window.location.href = 'admin.html';
+ } else if (localStorage.getItem('gr30_client_session')) {
+ window.location.href = 'cliente.html';
+ }
 </script>
 </head>
 <body class="bg-brand-white font-sans antialiased selection:bg-brand-green selection:text-brand-black text-brand-black min-h-[100svh] flex flex-col overflow-x-hidden">
 
-  <header style="background-color: #ffffff !important;" class="w-full bg-brand-white border-b-4 border-brand-black flex items-center justify-between px-6 lg:px-12 py-5 flex-shrink-0 z-50 relative">
-    <a href="index.html" class="text-3xl font-display font-bold tracking-tighter uppercase flex items-center gap-3 group focus:outline-none" aria-label="Ir al inicio">
-      <div class="w-10 h-10 bg-brand-green text-brand-black flex items-center justify-center flex-shrink-0 group-hover:bg-brand-black group-hover:text-brand-white group-focus:bg-brand-black group-focus:text-brand-white group-active:bg-brand-black group-active:text-brand-white transition-colors">
-        <span class="text-2xl leading-none">G</span>
-      </div>
-      <span class="text-brand-black">GR30<span class="text-brand-green group-hover:text-brand-black group-active:text-brand-black transition-colors">.</span></span>
-    </a>
-  </header>
+ <header style="background-color: #ffffff !important;" class="w-full bg-brand-white border-b-4 border-brand-black flex items-center justify-between px-6 lg:px-12 py-5 flex-shrink-0 z-50 relative">
+ <a href="index.html" class="text-3xl font-display font-bold tracking-tighter uppercase flex items-center gap-3 group focus:outline-none" aria-label="Ir al inicio">
+ <div class="w-10 h-10 bg-brand-green text-brand-black flex items-center justify-center flex-shrink-0 group-hover:bg-brand-black group-hover:text-brand-white group-focus:bg-brand-black group-focus:text-brand-white group-active:bg-brand-black group-active:text-brand-white ">
+ <span class="text-2xl leading-none">G</span>
+ </div>
+ <span class="text-brand-black">GR30<span class="text-brand-green group-hover:text-brand-black group-active:text-brand-black ">.</span></span>
+ </a>
+ </header>
 
-  <main class="flex-1 flex flex-col justify-center items-center px-6 py-12 relative w-full max-w-lg mx-auto">
-    <div class="w-full relative z-10">
-      
-            <div id="screen-login" class="screen flex flex-col text-center">
-        <h1 class="text-[clamp(3.5rem,8vw,5rem)] leading-none font-display font-bold uppercase tracking-tighter text-brand-black mb-10">Acceso.</h1>
-        <form id="form-login" class="flex flex-col gap-6 mb-8 text-left">
-          <div>
-            <label class="block font-display font-bold uppercase tracking-widest text-xs sm:text-sm text-brand-black mb-2" for="log-phone">Número de Teléfono</label>
-            <input type="tel" id="log-phone" class="w-full bg-brand-white border-4 border-brand-black px-6 py-5 text-lg sm:text-xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green text-brand-black placeholder:text-brand-black/50 placeholder:uppercase transition-all" placeholder="EJ. 55 5555 0199" pattern="[0-9]{10}" title="Ingresa tus 10 dígitos numéricos sin espacios" required>
-          </div>
-          <div>
-            <label class="block font-display font-bold uppercase tracking-widest text-xs sm:text-sm text-brand-black mb-2" for="log-pass">Contraseña</label>
-            <input type="password" id="log-pass" class="w-full bg-brand-white border-4 border-brand-black px-6 py-5 text-lg sm:text-xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green text-brand-black placeholder:text-brand-black/50 placeholder:uppercase transition-all" placeholder="TU CONTRASEÑA" required>
-          </div>
-          <button type="submit" class="w-full sm:w-auto text-center bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors mt-2">Iniciar Sesión</button>
-        </form>
-        <div class="flex flex-col gap-4 items-center">
-          <p class="text-brand-black font-display font-bold uppercase tracking-widest text-sm">¿Eres nuevo? Regístrate físicamente en recepción.</p>
-        </div>
-      </div>
+ <main class="flex-1 flex flex-col justify-center items-center px-6 py-12 relative w-full max-w-lg mx-auto">
+ <div class="w-full relative z-10">
+ 
+ <div id="screen-login" class="screen flex flex-col text-center">
+ <h1 class="text-[clamp(3.5rem,8vw,5rem)] leading-none font-display font-bold uppercase tracking-tighter text-brand-black mb-10">Acceso.</h1>
+ <form id="form-login" class="flex flex-col gap-6 mb-8 text-left">
+ <div>
+ <label class="block font-display font-bold uppercase tracking-widest text-xs sm:text-sm text-brand-black mb-2" for="log-phone">Número de Teléfono</label>
+ <input type="tel" id="log-phone" class="w-full bg-brand-white border-4 border-brand-black px-6 py-5 text-lg sm:text-xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green text-brand-black placeholder:text-brand-black/50 placeholder:uppercase " placeholder="EJ. 55 5555 0199" pattern="[0-9]{10}" title="Ingresa tus 10 dígitos numéricos sin espacios" required>
+ </div>
+ <div>
+ <label class="block font-display font-bold uppercase tracking-widest text-xs sm:text-sm text-brand-black mb-2" for="log-pass">Contraseña</label>
+ <input type="password" id="log-pass" class="w-full bg-brand-white border-4 border-brand-black px-6 py-5 text-lg sm:text-xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green text-brand-black placeholder:text-brand-black/50 placeholder:uppercase " placeholder="TU CONTRASEÑA" required>
+ </div>
+ <button type="submit" class="border-4 border-brand-black w-full sm:w-auto text-center bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black mt-2">Iniciar Sesión</button>
+ </form>
+ <div class="flex flex-col gap-4 items-center">
+ <p class="text-brand-black font-display font-bold uppercase tracking-widest text-sm">¿Eres nuevo? Regístrate físicamente en recepción.</p>
+ </div>
+ </div>
 
-    </div>
-  </main>
+ </div>
+ </main>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="assets/js/supabase.js"></script>
-  <script src="assets/js/audio.js"></script>
-  <script src="assets/js/sysModal.js"></script>
-  <script>
-    document.getElementById('form-login').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const phone = document.getElementById('log-phone').value;
-      const pass = document.getElementById('log-pass').value;
-      
-      if (phone === '5500000000' && pass === 'admin') {
-        localStorage.setItem('gr30_admin_token', 'SECURE_ADMIN_GRANTED');
-        window.location.href = 'admin.html';
-        return;
-      }
-      
-     
-      const { data, error } = await window.supabaseClient.from('miembros').select('telefono, password').eq('telefono', phone).single();
-      
-      if (error || !data) {
-        sysModal('error', 'ERROR', 'Usuario no encontrado.');
-        return;
-      }
+ <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+ <script src="assets/js/supabase.js"></script>
+ <script src="assets/js/audio.js"></script>
+ <script src="assets/js/sysModal.js"></script>
+ <script>
+ document.getElementById('form-login').addEventListener('submit', async (e) => {
+ e.preventDefault();
+ const phone = document.getElementById('log-phone').value;
+ const pass = document.getElementById('log-pass').value;
+ 
+ if (phone === '5500000000' && pass === 'admin') {
+ localStorage.setItem('gr30_admin_token', 'SECURE_ADMIN_GRANTED');
+ window.location.href = 'admin.html';
+ return;
+ }
+ 
+ 
+ const { data, error } = await window.supabaseClient.from('miembros').select('telefono, password').eq('telefono', phone).single();
+ 
+ if (error || !data) {
+ sysModal('error', 'ERROR', 'Usuario no encontrado.');
+ return;
+ }
 
-     
-      if (!data.password || data.password.trim() === '') {
-        sysModal('error', 'ACCESO DENEGADO', 'Tu cuenta no tiene una contraseña asignada. Por favor, acude a recepción para que te generen una clave.');
-        return;
-      }
+ 
+ if (!data.password || data.password.trim() === '') {
+ sysModal('error', 'ACCESO DENEGADO', 'Tu cuenta no tiene una contraseña asignada. Por favor, acude a recepción para que te generen una clave.');
+ return;
+ }
 
-      if (data.password !== pass) {
-        sysModal('error', 'ERROR', 'Contraseña incorrecta.');
-        return;
-      }
-      
-     
-      if (/^\d{4}$/.test(data.password)) {
-        document.getElementById('screen-login').classList.add('hidden');
-        
-        let screenNewPass = document.getElementById('screen-new-pass');
-        if (!screenNewPass) {
-          document.querySelector('main > div.relative').insertAdjacentHTML('beforeend', `
-            <div id="screen-new-pass" class="flex flex-col text-center">
-              <h1 class="text-[clamp(3.5rem,8vw,5rem)] leading-none font-display font-bold uppercase tracking-tighter text-brand-black mb-4">Activación.</h1>
-              <p class="font-display font-bold uppercase tracking-widest text-xs sm:text-sm mb-10 opacity-70 text-brand-black">Establece tu contraseña permanente para continuar.</p>
-              <form id="form-new-pass" class="flex flex-col gap-6 mb-8 text-left">
-                <div>
-                  <label class="block font-display font-bold uppercase tracking-widest text-xs sm:text-sm text-brand-black mb-2" for="log-new-pass">Nueva Contraseña (Mín. 6 caracteres)</label>
-                  <input type="password" id="log-new-pass" class="w-full bg-brand-white border-4 border-brand-black px-6 py-5 text-lg sm:text-xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green text-brand-black placeholder:text-brand-black/50 transition-all" placeholder="CREA TU CONTRASEÑA" minlength="6" required>
-                </div>
-                <button type="submit" class="w-full sm:w-auto text-center bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black transition-colors mt-2">Guardar y Entrar</button>
-              </form>
-            </div>
-          `);
-          
-          document.getElementById('form-new-pass').addEventListener('submit', async (ev) => {
-            ev.preventDefault();
-            const newPass = document.getElementById('log-new-pass').value.trim();
-            if (/^\d{4}$/.test(newPass)) {
-              sysModal('error', 'ERROR', 'Tu nueva contraseña no puede ser un PIN de 4 dígitos. Usa algo más seguro.');
-              return;
-            }
-            
-            ev.submitter.textContent = 'Guardando...';
-            ev.submitter.disabled = true;
-            
-            const { error: updErr } = await window.supabaseClient.from('miembros').update({ password: newPass }).eq('telefono', phone);
-            
-            if (updErr) {
-              sysModal('error', 'ERROR', 'Fallo al conectar con la base de datos.');
-              ev.submitter.textContent = 'Guardar y Entrar';
-              ev.submitter.disabled = false;
-              return;
-            }
-            
-            const sessionPayload = JSON.stringify({ phone: phone, pass: newPass });
-            localStorage.setItem('gr30_client_session', sessionPayload);
-            window.location.href = 'cliente.html';
-          });
-        }
-        return;
-      }
+ if (data.password !== pass) {
+ sysModal('error', 'ERROR', 'Contraseña incorrecta.');
+ return;
+ }
+ 
+ 
+ if (/^\d{4}$/.test(data.password)) {
+ document.getElementById('screen-login').classList.add('hidden');
+ 
+ let screenNewPass = document.getElementById('screen-new-pass');
+ if (!screenNewPass) {
+ document.querySelector('main > div.relative').insertAdjacentHTML('beforeend', `
+ <div id="screen-new-pass" class="flex flex-col text-center">
+ <h1 class="text-[clamp(3.5rem,8vw,5rem)] leading-none font-display font-bold uppercase tracking-tighter text-brand-black mb-4">Activación.</h1>
+ <p class="font-display font-bold uppercase tracking-widest text-xs sm:text-sm mb-10 opacity-70 text-brand-black">Establece tu contraseña permanente para continuar.</p>
+ <form id="form-new-pass" class="flex flex-col gap-6 mb-8 text-left">
+ <div>
+ <label class="block font-display font-bold uppercase tracking-widest text-xs sm:text-sm text-brand-black mb-2" for="log-new-pass">Nueva Contraseña (Mín. 6 caracteres)</label>
+ <input type="password" id="log-new-pass" class="w-full bg-brand-white border-4 border-brand-black px-6 py-5 text-lg sm:text-xl font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green text-brand-black placeholder:text-brand-black/50 " placeholder="CREA TU CONTRASEÑA" minlength="6" required>
+ </div>
+ <button type="submit" class="border-4 border-brand-black w-full sm:w-auto text-center bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black focus:outline-none active:bg-brand-green active:text-brand-black mt-2">Guardar y Entrar</button>
+ </form>
+ </div>
+ `);
+ 
+ document.getElementById('form-new-pass').addEventListener('submit', async (ev) => {
+ ev.preventDefault();
+ const newPass = document.getElementById('log-new-pass').value.trim();
+ if (/^\d{4}$/.test(newPass)) {
+ sysModal('error', 'ERROR', 'Tu nueva contraseña no puede ser un PIN de 4 dígitos. Usa algo más seguro.');
+ return;
+ }
+ 
+ ev.submitter.textContent = 'Guardando...';
+ ev.submitter.disabled = true;
+ 
+ const { error: updErr } = await window.supabaseClient.from('miembros').update({ password: newPass }).eq('telefono', phone);
+ 
+ if (updErr) {
+ sysModal('error', 'ERROR', 'Fallo al conectar con la base de datos.');
+ ev.submitter.textContent = 'Guardar y Entrar';
+ ev.submitter.disabled = false;
+ return;
+ }
+ 
+ const sessionPayload = JSON.stringify({ phone: phone, pass: newPass });
+ localStorage.setItem('gr30_client_session', sessionPayload);
+ window.location.href = 'cliente.html';
+ });
+ }
+ return;
+ }
 
-     
-      const sessionPayload = JSON.stringify({ phone: data.telefono, pass: data.password });
-      localStorage.setItem('gr30_client_session', sessionPayload);
-      window.location.href = 'cliente.html';
-    });
+ 
+ const sessionPayload = JSON.stringify({ phone: data.telefono, pass: data.password });
+ localStorage.setItem('gr30_client_session', sessionPayload);
+ window.location.href = 'cliente.html';
+ });
 
 
-  </script>
+ </script>
 </body>
 </html>
 
