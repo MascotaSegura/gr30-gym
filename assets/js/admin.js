@@ -1651,7 +1651,10 @@ function renderPOS() {
 
   const searchTermInput = document.getElementById('search-pos');
   const searchTerm = searchTermInput ? searchTermInput.value.toLowerCase().trim() : '';
-  const filteredItems = inventoryData.filter(item => item.nombre.toLowerCase().includes(searchTerm));
+  const filteredItems = inventoryData.filter(item => {
+    return (item.nombre || '').toLowerCase().includes(searchTerm) || 
+           (item.barcode || '').toLowerCase().includes(searchTerm);
+  });
 
   if (filteredItems.length === 0) {
     container.innerHTML = `<div class="p-8 text-center border-4 border-brand-black bg-brand-white"><p class="font-display font-bold uppercase tracking-widest text-brand-black">No se encontraron productos.</p></div>`;
@@ -1800,10 +1803,16 @@ function renderCart() {
 window.procesarVenta = function() {
   if (posCart.length === 0) return;
   
+  const btn = document.getElementById('btn-cobrar-pos');
+  if (btn) {
+    btn.disabled = true;
+    btn.innerHTML = '<i class="ph-bold ph-spinner animate-spin text-xl"></i> PROCESANDO...';
+    btn.classList.add('cursor-not-allowed', 'opacity-80');
+  }
+  
   let totalVenta = 0;
   const saleItems = [];
   
- 
   posCart.forEach(item => {
     const product = inventoryData.find(p => p.id === item.id);
     if (product) {
@@ -1813,23 +1822,34 @@ window.procesarVenta = function() {
     }
   });
   
- 
   posSalesHistory.push({
     fecha: new Date().toISOString(),
     total: totalVenta,
     items: saleItems
   });
   
-  if (window.sysModal) {
-    window.sysModal('success', 'VENTA COMPLETADA', `Se ha registrado una venta por un total de <span class="bg-brand-black text-brand-white px-2 py-1">$${totalVenta}</span> y el inventario ha sido descontado.`).then(() => {
+  setTimeout(() => {
+    if (window.sysModal) {
+      window.sysModal('success', 'VENTA COMPLETADA', `Se ha registrado una venta por un total de <span class="bg-brand-black text-brand-white px-2 py-1">$${totalVenta}</span> y el inventario ha sido descontado.`).then(() => {
+        posCart = [];
+        renderPOS();
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="ph-bold ph-check-circle text-xl"></i> Procesar Venta';
+          btn.classList.remove('cursor-not-allowed', 'opacity-80');
+        }
+      });
+    } else {
+      alert('Venta completada por $' + totalVenta);
       posCart = [];
       renderPOS();
-    });
-  } else {
-    alert('Venta completada por $' + totalVenta);
-    posCart = [];
-    renderPOS();
-  }
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="ph-bold ph-check-circle text-xl"></i> Procesar Venta';
+        btn.classList.remove('cursor-not-allowed', 'opacity-80');
+      }
+    }
+  }, 600);
 };
 
 window.updateStock = function(id, delta) {
@@ -1853,8 +1873,8 @@ window.renderInventoryTableBody = function(query = '') {
   if (stockInput) filterStock = stockInput.value;
 
   const filtered = inventoryData.filter(p => {
-    const textMatch = p.nombre.toLowerCase().includes(normalizedQuery) || 
-                      (p.barcode && p.barcode.includes(normalizedQuery));
+    const textMatch = (p.nombre || '').toLowerCase().includes(normalizedQuery) || 
+                      (p.barcode || '').toLowerCase().includes(normalizedQuery);
     let stockMatch = true;
     if (filterStock === 'bajo_stock') {
       stockMatch = p.stock <= 5;
