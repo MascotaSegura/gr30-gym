@@ -2036,7 +2036,7 @@ window.openCameraScanner = function(targetInputId) {
  </div>
  </div>
  
- <div id="qr-reader" class="w-full border-4 border-brand-black bg-brand-black" style="min-height: 300px; display:flex; align-items:center; justify-content:center; overflow:hidden;">
+ <div id="qr-reader" class="w-full border-4 border-brand-black bg-brand-black min-h-[300px] flex items-center justify-center overflow-hidden">
  <span class="text-brand-white font-display font-bold tracking-widest uppercase text-xs ">Cámara inactiva</span>
  </div>
  
