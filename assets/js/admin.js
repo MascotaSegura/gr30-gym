@@ -1784,10 +1784,10 @@ function renderCart() {
  <p class="font-bold tracking-tighter text-xl">$${itemTotal}</p>
  </div>
  <div class="flex items-center justify-between border-t-4 border-brand-black pt-4 mt-2">
- <div class="flex items-center border-4 border-brand-black bg-brand-white">
- <button onclick="updateCartQty('${item.id}', -1)" data-sys-audio="decrement" class="w-10 h-10 flex items-center justify-center border-r-4 border-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:outline-none text-xl"><i class="ph-bold ph-minus"></i></button>
+ <div class="flex items-center border-4 border-brand-black bg-brand-white divide-x-4 divide-brand-black">
+ <button onclick="updateCartQty('${item.id}', -1)" data-sys-audio="decrement" class="w-10 h-10 flex items-center justify-center hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:outline-none text-xl"><i class="ph-bold ph-minus"></i></button>
  <span class="font-display font-bold text-center text-lg flex-1 px-2">${item.qty}</span>
- <button onclick="updateCartQty('${item.id}', 1)" data-sys-audio="increment" class="w-10 h-10 flex items-center justify-center border-l-4 border-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:outline-none text-xl"><i class="ph-bold ph-plus"></i></button>
+ <button onclick="updateCartQty('${item.id}', 1)" data-sys-audio="increment" class="w-10 h-10 flex items-center justify-center hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:outline-none text-xl"><i class="ph-bold ph-plus"></i></button>
  </div>
  <button onclick="removeFromCart('${item.id}')" class="flex items-center justify-center border-4 border-brand-black bg-brand-black text-brand-white hover:bg-brand-green hover:text-brand-black focus:outline-none w-10 h-10 flex-shrink-0" title="Eliminar">
  <i class="ph-bold ph-x text-sm"></i>
@@ -1907,10 +1907,10 @@ window.renderInventoryTableBody = function(query = '') {
  <p class="font-bold text-2xl tracking-tighter mb-6">$${safePrecio.toFixed(2)}</p>
  
  <div class="mt-auto flex flex-col gap-4">
- <div class="flex items-center border-4 border-brand-black bg-brand-white">
- <button onclick="updateStock('${p.id}', -1)" data-sys-audio="decrement" class="w-12 h-12 flex items-center justify-center border-r-4 border-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:outline-none text-xl"><i class="ph-bold ph-minus"></i></button>
+ <div class="flex items-center border-4 border-brand-black bg-brand-white divide-x-4 divide-brand-black">
+ <button onclick="updateStock('${p.id}', -1)" data-sys-audio="decrement" class="w-12 h-12 flex items-center justify-center hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:outline-none text-xl"><i class="ph-bold ph-minus"></i></button>
  <span class="font-display font-bold text-2xl tracking-tighter flex-1 text-center px-2">${safeStock}</span>
- <button onclick="updateStock('${p.id}', 1)" data-sys-audio="increment" class="w-12 h-12 flex items-center justify-center border-l-4 border-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:outline-none text-xl"><i class="ph-bold ph-plus"></i></button>
+ <button onclick="updateStock('${p.id}', 1)" data-sys-audio="increment" class="w-12 h-12 flex items-center justify-center hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:outline-none text-xl"><i class="ph-bold ph-plus"></i></button>
  </div>
  
  <button onclick="openModal('product-form', '${p.id}')" class="w-full py-3 border-4 border-brand-black text-brand-black hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white font-display font-bold uppercase tracking-widest text-sm focus:outline-none">
