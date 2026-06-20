@@ -328,12 +328,13 @@ async function fetchData() {
  
  renderAll();
  } catch (err) {
- if(window.sysModal) {
- window.sysModal('error', 'ERROR DE CONEXIÓN', 'No se pudo contactar al servidor o la base de datos. Verifica tu conexión a internet.');
- } else {
- alert("ERROR DE CONEXIÓN. Verifica tu conexión a internet.");
- }
- }
+    console.error("DEBUG ERROR DE CONEXION:", err);
+    if(window.sysModal) {
+      window.sysModal('error', 'ERROR DE CONEXIÓN', 'Detalle: ' + (err.message || String(err)) + '. Verifica tu conexión a internet.');
+    } else {
+      alert("ERROR DE CONEXIÓN. Detalle: " + (err.message || String(err)));
+    }
+  }
 }
 
 
@@ -1763,13 +1764,13 @@ function renderCart() {
  if (posCart.length === 0) {
  cartContainer.innerHTML = `<div class="flex flex-col items-center justify-center py-12 "><i class="ph-bold ph-shopping-cart text-5xl mb-4"></i><p class="font-display font-bold uppercase tracking-widest text-sm text-center">Carrito Vacío</p></div>`;
  totalEl.textContent = '$0';
- if (btnCobrar) { btnCobrar.disabled = true; btnCobrar.classList.add(''); }
- if (btnVaciar) { btnVaciar.disabled = true; btnVaciar.classList.add(''); }
+ if (btnCobrar) { btnCobrar.disabled = true; btnCobrar.classList.add('opacity-50', 'cursor-not-allowed'); }
+ if (btnVaciar) { btnVaciar.disabled = true; btnVaciar.classList.add('opacity-50', 'cursor-not-allowed'); }
  return;
  }
 
- if (btnCobrar) { btnCobrar.disabled = false; btnCobrar.classList.remove(''); }
- if (btnVaciar) { btnVaciar.disabled = false; btnVaciar.classList.remove(''); }
+ if (btnCobrar) { btnCobrar.disabled = false; btnCobrar.classList.remove('opacity-50', 'cursor-not-allowed'); }
+ if (btnVaciar) { btnVaciar.disabled = false; btnVaciar.classList.remove('opacity-50', 'cursor-not-allowed'); }
 
  let total = 0;
  cartContainer.innerHTML = posCart.map(item => {
@@ -1807,7 +1808,7 @@ window.procesarVenta = function() {
  if (btn) {
  btn.disabled = true;
  btn.innerHTML = '<i class="ph-bold ph-spinner animate-spin text-xl"></i> PROCESANDO...';
- btn.classList.add('cursor-not-allowed', '');
+ btn.classList.add('cursor-not-allowed', 'opacity-50');
  }
  
  let totalVenta = 0;
