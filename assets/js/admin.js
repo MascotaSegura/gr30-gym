@@ -647,6 +647,8 @@ function openModal(type, idOrName) {
  overlay.classList.remove('hidden');
  overlay.classList.add('flex');
  
+ if (window.initCustomSelects) window.initCustomSelects();
+ 
  setTimeout(() => {
  const first = body.querySelector('input, select, textarea');
  if (first) first.focus();
@@ -1360,6 +1362,7 @@ function openPagoForm(id) {
  document.getElementById('modal-body').innerHTML = html;
  document.getElementById('modal-overlay').classList.remove('hidden');
  document.getElementById('modal-overlay').classList.add('flex');
+ if (window.initCustomSelects) window.initCustomSelects();
 }
 
 async function processPago(e) {
@@ -2031,9 +2034,6 @@ window.openCameraScanner = function(targetInputId) {
  <select id="camera-select" class="w-full bg-brand-white text-brand-black border-4 border-brand-black px-4 py-3 font-display font-bold uppercase text-sm focus:outline-none focus:bg-brand-green appearance-none cursor-pointer">
  <option value="">Cargando cámaras...</option>
  </select>
- <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none text-brand-black">
- <i class="ph-bold ph-caret-down text-xl"></i>
- </div>
  </div>
  </div>
  
@@ -2099,13 +2099,16 @@ window.openCameraScanner = function(targetInputId) {
  opt.text = device.label || `Cámara ${device.id}`;
  select.appendChild(opt);
  });
+ select.dispatchEvent(new Event('change'));
  } else {
  select.innerHTML = '<option value="">No se encontraron cámaras</option>';
  btnStart.disabled = true;
+ select.dispatchEvent(new Event('change'));
  }
  }).catch(err => {
  select.innerHTML = '<option value="">Error al acceder a cámaras</option>';
  btnStart.disabled = true;
+ select.dispatchEvent(new Event('change'));
  });
 
  select.onchange = () => {
