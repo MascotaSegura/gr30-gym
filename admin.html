@@ -25,9 +25,9 @@
  }
  </script>
 </head>
-<body class="font-sans antialiased selection:bg-brand-green selection:text-brand-black bg-brand-white text-brand-black min-h-[100svh] flex flex-col md:flex-row overflow-x-hidden">
+<body class="font-sans antialiased selection:bg-brand-green selection:text-brand-black bg-brand-white text-brand-black h-screen flex flex-col md:flex-row overflow-hidden">
 
-<aside class="w-full md:w-64 bg-brand-white border-b-4 md:border-b-0 md:border-r-4 border-brand-black flex flex-col md:min-h-[100svh] flex-shrink-0 z-[100] sticky top-0 md:relative md:top-auto">
+<aside class="w-full md:w-64 bg-brand-white border-b-4 md:border-b-0 md:border-r-4 border-brand-black flex flex-col flex-shrink-0 z-[100]">
  <div class="p-6 flex justify-between items-center md:block bg-brand-white relative z-50">
  <a href="index.html" class="text-3xl font-display font-bold tracking-tighter uppercase flex items-center gap-3 group focus:outline-none" aria-label="Ir al inicio">
  <div class="w-10 h-10 bg-brand-green text-brand-black flex items-center justify-center flex-shrink-0 group-hover:bg-brand-black group-hover:text-brand-white group-active:bg-brand-black group-active:text-brand-white ">
@@ -41,7 +41,7 @@
  </button>
  </div>
 
- <nav id="sidebar-nav" class="hidden md:flex flex-col p-6 gap-4 absolute top-full left-0 w-full bg-brand-white border-b-4 border-brand-black z-[999] max-h-[calc(100dvh-88px)] overflow-y-auto overscroll-contain md:static md:w-auto md:border-b-0 md:flex-1 md:z-auto md:max-h-none md:overflow-visible">
+ <nav id="sidebar-nav" class="hidden md:flex flex-col p-6 gap-4 absolute top-full left-0 w-full bg-brand-white border-b-4 border-brand-black z-[999] max-h-[calc(100dvh-88px)] overflow-y-auto overscroll-contain md:static md:w-auto md:border-b-0 md:flex-1 md:z-auto md:max-h-none">
  <button data-screen="dashboard" class="nav-btn w-full text-left px-6 py-4 border-4 border-transparent hover:border-brand-black font-display font-bold text-sm tracking-widest uppercase focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center gap-3" aria-current="page"><i class="ph-bold ph-squares-four text-xl"></i> Dashboard</button>
  <button data-screen="staff" class="nav-btn w-full text-left px-6 py-4 border-4 border-transparent hover:border-brand-black font-display font-bold text-sm tracking-widest uppercase focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center gap-3"><i class="ph-bold ph-users text-xl"></i> Staff</button>
  <button data-screen="miembros" class="nav-btn w-full text-left px-6 py-4 border-4 border-transparent hover:border-brand-black font-display font-bold text-sm tracking-widest uppercase focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center gap-3"><i class="ph-bold ph-identification-card text-xl"></i> Miembros</button>
@@ -65,7 +65,7 @@
  </div>
 </aside>
 
-<main class="flex-1 flex flex-col min-w-0 overflow-x-hidden">
+<main class="flex-1 flex flex-col min-w-0 overflow-y-auto overflow-x-hidden">
 
  <header class="bg-brand-white border-b-4 border-brand-black p-6 lg:p-8 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-6 flex-shrink-0">
  <h1 id="page-title" class="text-4xl sm:text-5xl lg:text-6xl font-display font-bold uppercase tracking-tighter text-brand-black leading-none">Dashboard.</h1>
