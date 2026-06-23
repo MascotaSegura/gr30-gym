@@ -1416,6 +1416,15 @@ async function processPago(e) {
  if (window.broadcastDBUpdate) window.broadcastDBUpdate();
  closeModal(true);
  renderAll();
+ 
+ if (window.sysModal) {
+ window.sysModal('confirm', 'TICKET', '¿Deseas imprimir el ticket de este pago?').then(print => {
+ if (print) {
+ const d = new Date().toLocaleString('es-MX');
+ window.printTicket('PAGO DE MENSUALIDAD', [{qty: 1, desc: `Mensualidad - ${m.nombre}`, amount: monto}], monto, d);
+ }
+ });
+ }
  } catch (err) {
  if(window.sysModal) window.sysModal('error', 'ERROR', 'Fallo al procesar pago en base de datos.');
  } finally {
@@ -1835,6 +1844,12 @@ window.procesarVenta = function() {
  setTimeout(() => {
  if (window.sysModal) {
  window.sysModal('success', 'VENTA COMPLETADA', `Se ha registrado una venta por un total de <span class="bg-brand-black text-brand-white px-2 py-1">$${totalVenta}</span> y el inventario ha sido descontado.`).then(() => {
+ window.sysModal('confirm', 'TICKET', '¿Deseas imprimir el ticket de esta venta?').then(print => {
+ if (print) {
+ const ticketItems = saleItems.map(si => ({ qty: si.qty, desc: si.nombre, amount: si.subtotal }));
+ const d = new Date().toLocaleString('es-MX');
+ window.printTicket('VENTA EN KIOSCO', ticketItems, totalVenta, d);
+ }
  posCart = [];
  renderPOS();
  if (btn) {
@@ -1842,6 +1857,7 @@ window.procesarVenta = function() {
  btn.innerHTML = '<i class="ph-bold ph-check-circle text-xl"></i> Procesar Venta';
  btn.classList.remove('cursor-not-allowed', '');
  }
+ });
  });
  } else {
  alert('Venta completada por $' + totalVenta);
@@ -2165,3 +2181,55 @@ window.openCameraScanner = function(targetInputId) {
 
 fetchData();
 setScreen('dashboard');
+
+window.printTicket = function(title, items, total, date) {
+    const printContainer = document.createElement('div');
+    printContainer.id = 'sys-print-ticket';
+    printContainer.innerHTML = `
+        <div style="font-family: 'Space Grotesk', monospace; width: 300px; margin: 0; color: black; background: white; padding: 0; font-size: 12px; line-height: 1.2;">
+            <div style="text-align: center; margin-bottom: 15px;">
+                <h2 style="margin: 0; font-size: 20px; font-weight: bold; text-transform: uppercase; letter-spacing: 2px;">GR30 GYM</h2>
+                <p style="margin: 5px 0 0 0; text-transform: uppercase;">Ticket de Operación</p>
+                <p style="margin: 2px 0 0 0;">${date}</p>
+            </div>
+            <h3 style="text-transform: uppercase; border-bottom: 2px dashed black; padding-bottom: 5px; margin-bottom: 10px;">${title}</h3>
+            <table style="width: 100%; text-align: left; margin-bottom: 15px; border-collapse: collapse;">
+                ${items.map(i => `
+                    <tr>
+                        <td style="padding: 2px 0; vertical-align: top;">${i.qty}x</td>
+                        <td style="padding: 2px 5px; vertical-align: top;">${i.desc}</td>
+                        <td style="padding: 2px 0; text-align: right; vertical-align: top;">$${i.amount}</td>
+                    </tr>
+                `).join('')}
+            </table>
+            <div style="text-align: right; border-top: 2px dashed black; padding-top: 5px; font-weight: bold; font-size: 16px;">
+                TOTAL: $${total}
+            </div>
+            <div style="text-align: center; margin-top: 20px; font-size: 10px; text-transform: uppercase;">
+                ¡Gracias por su preferencia!<br>
+                Conservar este ticket.
+            </div>
+        </div>
+    `;
+    document.body.appendChild(printContainer);
+    
+    const style = document.createElement('style');
+    style.id = 'sys-print-style';
+    style.textContent = `
+        @media print {
+            body * { visibility: hidden !important; }
+            #sys-print-ticket, #sys-print-ticket * { visibility: visible !important; }
+            #sys-print-ticket { position: absolute; left: 0; top: 0; margin: 0; padding: 0; }
+            @page { margin: 0; size: auto; }
+        }
+    `;
+    document.head.appendChild(style);
+    
+    window.print();
+    
+    setTimeout(() => {
+        printContainer.remove();
+        style.remove();
+    }, 1000);
+};
+
