@@ -55,8 +55,8 @@ window.initCustomSelects = function() {
                     icon.classList.remove('rotate-180');
                     select.dispatchEvent(new Event('change'));
                     
-                    if (window.sysAudio && window.sysAudio.click) {
-                        window.sysAudio.click.play().catch(()=>{});
+                    if (window.sysAudio) {
+                        window.sysAudio('click');
                     }
                     renderOptions();
                 };
