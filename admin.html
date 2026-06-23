@@ -20,8 +20,19 @@
  window.location.href = 'login.html';
  }
  function logoutAdmin() {
+ if (window.sysModal) {
+ window.sysModal('confirm', 'CERRAR SESIÓN', '¿ESTÁS SEGURO DE QUE DESEAS SALIR DEL PANEL DE ADMINISTRACIÓN?').then(confirmed => {
+ if (confirmed) {
  localStorage.removeItem('gr30_admin_token');
  window.location.href = 'login.html';
+ }
+ });
+ } else {
+ if (confirm('¿Cerrar sesión?')) {
+ localStorage.removeItem('gr30_admin_token');
+ window.location.href = 'login.html';
+ }
+ }
  }
  </script>
 </head>

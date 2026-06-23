@@ -113,8 +113,19 @@
  }
 
  function logout() {
+ if (window.sysModal) {
+ window.sysModal('confirm', 'CERRAR SESIÓN', '¿ESTÁS SEGURO DE QUE DESEAS SALIR?').then(confirmed => {
+ if (confirmed) {
  localStorage.removeItem('gr30_client_session');
  window.location.href = 'login.html';
+ }
+ });
+ } else {
+ if (confirm('¿Cerrar sesión?')) {
+ localStorage.removeItem('gr30_client_session');
+ window.location.href = 'login.html';
+ }
+ }
  }
 
  function setTab(tab) {
