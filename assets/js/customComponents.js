@@ -43,7 +43,7 @@ window.initCustomSelects = function() {
             Array.from(select.options).forEach(opt => {
                 const li = document.createElement('li');
                 const isSelected = select.value === opt.value;
-                const activeCls = isSelected ? 'bg-brand-black text-brand-white' : 'bg-brand-white text-brand-black hover:bg-brand-green';
+                const activeCls = isSelected ? 'bg-brand-black text-brand-white' : 'bg-brand-white text-brand-black hover:bg-brand-green active:bg-brand-black active:text-brand-white';
                 
                 li.className = `px-6 py-4 border-b-4 border-brand-black last:border-b-0 cursor-pointer font-display font-bold uppercase tracking-widest text-sm transition-colors ${activeCls}`;
                 li.textContent = opt.text;

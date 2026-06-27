@@ -8,7 +8,7 @@ window.sysModal = function(type, title, message) {
  <div id="sys-modal-header" class="px-6 py-4 flex items-center gap-4 border-b-4 border-brand-black relative">
  <i id="sys-modal-icon" class="ph-bold text-3xl"></i>
  <h3 id="sys-modal-title" class="font-display font-bold uppercase tracking-widest text-lg sm:text-xl leading-none mt-1 pr-12"></h3>
- <button id="sys-modal-close-btn" data-sys-audio-ignore="true" aria-label="Cerrar" class="absolute top-4 right-4 text-current hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white focus:outline-none text-2xl bg-transparent border-4 border-brand-black w-10 h-10 flex items-center justify-center z-10"><i class="ph-bold ph-x"></i></button>
+ <button id="sys-modal-close-btn" data-sys-audio-ignore="true" aria-label="Cerrar" class="absolute top-4 right-4 text-current hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white focus:outline-none active:bg-brand-black active:text-brand-white text-2xl bg-transparent border-4 border-brand-black w-10 h-10 flex items-center justify-center z-10"><i class="ph-bold ph-x"></i></button>
  </div>
  <div class="p-6 sm:p-8 overflow-y-auto">
  <div id="sys-modal-msg" class="font-medium text-lg leading-relaxed text-brand-black"></div>
