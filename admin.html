@@ -52,7 +52,7 @@
  </button>
  </div>
 
- <nav id="sidebar-nav" class="hidden md:flex flex-col p-6 gap-4 fixed inset-0 top-[88px] w-full bg-brand-white border-b-4 border-brand-black z-[9999] overflow-y-auto overscroll-contain md:static md:w-auto md:border-b-0 md:flex-1 md:z-auto md:max-h-none" style="top: 88px;">
+ <nav id="sidebar-nav" class="hidden md:flex flex-col p-6 gap-4 fixed inset-0 top-[88px] w-full bg-brand-white border-b-4 border-brand-black z-[9999] overflow-y-auto overscroll-contain md:static md:w-auto md:border-b-0 md:flex-1 md:z-auto md:max-h-none">
  <button data-screen="dashboard" class="nav-btn w-full text-left px-6 py-4 border-4 border-transparent hover:border-brand-black font-display font-bold text-sm tracking-widest uppercase focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center gap-3" aria-current="page"><i class="ph-bold ph-squares-four text-xl"></i> Dashboard</button>
  <button data-screen="staff" class="nav-btn w-full text-left px-6 py-4 border-4 border-transparent hover:border-brand-black font-display font-bold text-sm tracking-widest uppercase focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center gap-3"><i class="ph-bold ph-users text-xl"></i> Staff</button>
  <button data-screen="miembros" class="nav-btn w-full text-left px-6 py-4 border-4 border-transparent hover:border-brand-black font-display font-bold text-sm tracking-widest uppercase focus:outline-none text-brand-black hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black flex items-center gap-3"><i class="ph-bold ph-identification-card text-xl"></i> Miembros</button>
@@ -72,7 +72,7 @@
  </nav>
 
  <div class="p-6 hidden md:block">
- <p class="font-display font-bold uppercase tracking-widest text-xs bg-brand-black text-brand-white inline-block px-2 py-1 border-4 border-brand-black">Admin Demo V1.0</p>
+ <p class="font-display font-bold uppercase tracking-widest text-xs bg-brand-black text-brand-white inline-block px-2 py-1">Admin Demo V1.0</p>
  </div>
 </aside>
 
@@ -81,7 +81,7 @@
  <header class="bg-brand-white border-b-4 border-brand-black p-6 lg:p-8 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-6 flex-shrink-0">
  <h1 id="page-title" class="text-4xl sm:text-5xl lg:text-6xl font-display font-bold uppercase tracking-tighter text-brand-black leading-none">Dashboard.</h1>
  <div class="flex items-center gap-4">
- <span class="font-display font-bold uppercase tracking-widest text-xs hidden sm:inline-block bg-brand-black text-brand-white px-2 py-1 border-4 border-brand-black"><i class="ph-bold ph-shield-check mr-1 text-sm align-middle pb-[2px]"></i> Administrador</span>
+ <span class="font-display font-bold uppercase tracking-widest text-xs hidden sm:inline-block bg-brand-black text-brand-white px-2 py-1"><i class="ph-bold ph-shield-check mr-1 text-sm align-middle pb-[2px]"></i> Administrador</span>
  <div class="w-12 h-12 bg-brand-green text-brand-black flex items-center justify-center font-display font-bold text-xl select-none">A</div>
  </div>
  </header>
@@ -92,17 +92,17 @@
  <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-8 mb-12">
  <div class="bg-brand-white text-brand-black border-4 border-brand-black p-8 flex flex-col items-start overflow-hidden w-full">
  <i class="ph-bold ph-users text-4xl mb-4"></i>
- <p class="text-xs font-display font-bold uppercase tracking-widest mb-4 bg-brand-black text-brand-white inline-block px-2 py-1 border-4 border-brand-black">Miembros Activos</p>
+ <p class="text-xs font-display font-bold uppercase tracking-widest mb-4 bg-brand-black text-brand-white inline-block px-2 py-1">Miembros Activos</p>
  <p id="stat-miembros" class="text-6xl lg:text-7xl font-display font-bold tracking-tighter">0</p>
  </div>
  <div class="bg-brand-green text-brand-black border-4 border-brand-black p-8 flex flex-col items-start overflow-hidden w-full">
  <i class="ph-bold ph-user-circle-gear text-4xl mb-4"></i>
- <p class="text-xs font-display font-bold uppercase tracking-widest mb-4 bg-brand-black text-brand-white inline-block px-2 py-1 border-4 border-brand-black">Staff</p>
+ <p class="text-xs font-display font-bold uppercase tracking-widest mb-4 bg-brand-black text-brand-white inline-block px-2 py-1">Staff</p>
  <p id="stat-staff" class="text-6xl lg:text-7xl font-display font-bold tracking-tighter">0</p>
  </div>
  <div class="bg-brand-white text-brand-black border-4 border-brand-black p-8 flex flex-col items-start overflow-hidden w-full">
  <i class="ph-bold ph-currency-dollar text-4xl mb-4 flex-shrink-0"></i>
- <p class="text-xs font-display font-bold uppercase tracking-widest mb-4 bg-brand-black text-brand-white inline-block px-2 py-1 flex-shrink-0 border-4 border-brand-black">Ingresos (Mes)</p>
+ <p class="text-xs font-display font-bold uppercase tracking-widest mb-4 bg-brand-black text-brand-white inline-block px-2 py-1 flex-shrink-0">Ingresos (Mes)</p>
  <p id="stat-ingresos" class="text-4xl lg:text-5xl font-display font-bold tracking-tighter truncate w-full" title="$0">$0</p>
  </div>
  <div class="bg-brand-black text-brand-white border-4 border-brand-black p-8 flex flex-col items-start overflow-hidden w-full">
@@ -112,7 +112,7 @@
  </div>
  <div class="bg-brand-white text-brand-black border-4 border-brand-black p-8 flex flex-col items-start overflow-hidden w-full">
  <i class="ph-bold ph-clock text-4xl mb-4"></i>
- <p class="text-xs font-display font-bold uppercase tracking-widest mb-4 bg-brand-black text-brand-white inline-block px-2 py-1 border-4 border-brand-black">Hora Pico</p>
+ <p class="text-xs font-display font-bold uppercase tracking-widest mb-4 bg-brand-black text-brand-white inline-block px-2 py-1">Hora Pico</p>
  <p id="stat-horapico" class="text-4xl lg:text-5xl font-display font-bold tracking-tighter uppercase mt-auto">--:--</p>
  </div>
  </div>
@@ -274,7 +274,7 @@
  <p class="font-bold uppercase tracking-widest text-xs mb-2 flex-shrink-0">Miembros Al Día</p>
  <p class="text-4xl lg:text-5xl font-display font-bold tracking-tighter truncate w-full" id="stat-pagos-aldia">--</p>
  </div>
- <div class="border-4 border-brand-black p-6 bg-brand-black text-brand-white overflow-hidden w-full">
+ <div class="p-6 bg-brand-black text-brand-white overflow-hidden w-full">
  <p class="font-bold uppercase tracking-widest text-xs mb-2 flex-shrink-0">Miembros Atrasados</p>
  <p class="text-4xl lg:text-5xl font-display font-bold tracking-tighter truncate w-full" id="stat-pagos-atrasados">--</p>
  </div>
@@ -313,7 +313,7 @@
  <div class="bg-brand-white">
  <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-6">
  <h2 class="text-4xl font-display font-bold uppercase tracking-tighter text-brand-black flex items-center gap-3"><i class="ph-bold ph-door"></i> Registro de Entradas</h2>
- <div class="flex items-center gap-3 bg-brand-black text-brand-white px-6 py-4 border-4 border-brand-black">
+ <div class="flex items-center gap-3 bg-brand-black text-brand-white px-6 py-4">
  <div class="w-3 h-3 bg-brand-green animate-pulse"></div>
  <span class="font-display font-bold uppercase tracking-widest text-xs">Radar Biométrico Activo</span>
  </div>
@@ -324,7 +324,7 @@
  <p class="font-bold uppercase tracking-widest text-xs mb-2">Afluencia Total Hoy</p>
  <p class="text-5xl font-display font-bold tracking-tighter" id="stat-accesos-hoy">--</p>
  </div>
- <div class="border-4 border-brand-black p-6 bg-brand-black text-brand-white flex flex-col">
+ <div class="p-6 bg-brand-black text-brand-white flex flex-col">
  <p class="font-bold uppercase tracking-widest text-xs mb-2">Hora más concurrida</p>
  <p class="text-5xl font-display font-bold tracking-tighter" id="stat-accesos-horapico">--:--</p>
  </div>

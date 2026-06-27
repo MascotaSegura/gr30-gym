@@ -345,7 +345,7 @@ async function fetchData() {
 
 function statusBadge(estadoPago) {
  if (estadoPago === 'al_dia') return '<span class="bg-brand-green text-brand-black font-display font-bold uppercase tracking-widest text-xs px-2 py-1 inline-block border-4 border-brand-black">Al Día</span>';
- if (estadoPago === 'atrasado') return '<span class="bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest text-xs px-2 py-1 inline-flex items-center gap-1 w-max border-4 border-brand-black"><i class="ph-bold ph-warning text-sm"></i> Atrasado</span>';
+ if (estadoPago === 'atrasado') return '<span class="bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest text-xs px-2 py-1 inline-flex items-center gap-1 w-max"><i class="ph-bold ph-warning text-sm"></i> Atrasado</span>';
  return '<span class="bg-brand-white text-brand-black font-display font-bold uppercase tracking-widest text-xs px-2 py-1 inline-block border-4 border-brand-black">Pendiente</span>';
 }
 
