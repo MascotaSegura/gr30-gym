@@ -67,7 +67,7 @@
  </button>
  </div>
 
- <div id="kiosk-banner" class="absolute bottom-0 left-0 w-full bg-brand-white border-t-4 border-brand-black p-6 sm:p-8 flex flex-col items-center justify-center transform translate-y-full hidden z-30">
+ <div id="kiosk-banner" class="absolute bottom-0 left-0 w-full bg-brand-white border-t-4 border-brand-black p-6 sm:p-8 flex flex-col items-center justify-center hidden z-30">
  <i id="kiosk-icon" class="ph-bold text-6xl mb-4"></i>
  <h2 id="kiosk-title" class="text-4xl sm:text-6xl font-display font-bold uppercase tracking-tighter leading-none mb-2 text-center"></h2>
  <p id="kiosk-msg" class="text-xl sm:text-2xl font-bold uppercase tracking-widest text-center"></p>
@@ -291,7 +291,7 @@
  const title = document.getElementById("kiosk-title");
  const msg = document.getElementById("kiosk-msg");
  
- banner.classList.remove("translate-y-full", "hidden", "bg-brand-green", "bg-brand-white", "bg-brand-black");
+ banner.classList.remove("hidden", "bg-brand-green", "bg-brand-white", "bg-brand-black");
  
  let speechText = "";
 
@@ -344,12 +344,12 @@
  
  
  setTimeout(() => {
- banner.classList.remove("translate-y-full", "hidden");
+ banner.classList.remove("hidden");
  }, 50);
 
  
  setTimeout(() => {
- banner.classList.add("translate-y-full", "hidden");
+ banner.classList.add("hidden");
  setTimeout(() => { isScanning = true; predictWebcam(); }, 500);
  }, 5000);
  }
@@ -530,10 +530,10 @@
  const msg = document.getElementById("kiosk-msg");
  
  
- banner.className = "absolute bottom-0 left-0 w-full bg-brand-white border-t-4 border-brand-black p-6 sm:p-8 flex flex-col items-center justify-center transform translate-y-full hidden z-30";
+ banner.className = "absolute bottom-0 left-0 w-full bg-brand-white border-t-4 border-brand-black p-6 sm:p-8 flex flex-col items-center justify-center hidden z-30";
  
  void banner.offsetWidth;
- banner.classList.remove("translate-y-full", "hidden");
+ banner.classList.remove("hidden");
  
  icon.className = "ph-bold ph-scan text-6xl mb-4 text-brand-black animate-pulse";
  title.innerText = "ENROLAMIENTO: " + data.nombre;
@@ -661,7 +661,7 @@
  
  function resumeNormal() {
  const banner = document.getElementById("kiosk-banner");
- banner.classList.add("translate-y-full", "hidden");
+ banner.classList.add("hidden");
  enrollTarget = null;
  setTimeout(() => { isScanning = true; predictWebcam(); }, 500);
  }

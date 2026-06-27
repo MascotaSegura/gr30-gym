@@ -7,9 +7,9 @@ let accesosData = [];
 const inputCls = 'w-full bg-brand-white text-brand-black border-4 border-brand-black px-6 py-5 text-lg font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green placeholder:text-brand-black/50 placeholder:uppercase ';
 const selectCls = 'w-full bg-brand-white text-brand-black border-4 border-brand-black px-6 py-5 pr-14 text-lg font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green cursor-pointer appearance-none';
 const labelCls = 'block font-display font-bold uppercase tracking-widest text-xs sm:text-sm text-brand-black mb-2';
-const saveBtnCls = 'w-full sm:w-auto px-8 py-4 font-display font-bold uppercase tracking-widest text-sm border-4 border-brand-black bg-brand-black text-brand-white hover:bg-brand-green hover:border-brand-black hover:text-brand-black focus:bg-brand-green focus:border-brand-black focus:text-brand-black active:bg-brand-green active:border-brand-black active:text-brand-black focus:outline-none';
+const saveBtnCls = 'w-full sm:w-auto px-8 py-4 font-display font-bold uppercase tracking-widest text-sm border-4 border-brand-black bg-brand-black text-brand-white hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black focus:outline-none';
 const cancelBtnCls = 'w-full sm:w-auto px-8 py-4 font-display font-bold uppercase tracking-widest text-sm border-4 border-brand-black bg-brand-white text-brand-black hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white active:bg-brand-black active:text-brand-white focus:outline-none';
-const deleteBtnCls = 'w-full sm:w-auto px-8 py-4 font-display font-bold uppercase tracking-widest text-sm border-4 border-brand-black bg-brand-black text-brand-white hover:bg-brand-white hover:border-brand-black hover:text-brand-black focus:bg-brand-white focus:border-brand-black focus:text-brand-black active:bg-brand-white active:border-brand-black active:text-brand-black focus:outline-none';
+const deleteBtnCls = 'w-full sm:w-auto px-8 py-4 font-display font-bold uppercase tracking-widest text-sm border-4 border-brand-black bg-brand-black text-brand-white hover:bg-brand-white hover:text-brand-black focus:bg-brand-white focus:text-brand-black active:bg-brand-white active:text-brand-black focus:outline-none';
 
 
 const isSeeded = localStorage.getItem('gr30_v3_seeded');
@@ -425,7 +425,7 @@ const searchPagosEl = document.getElementById('search-pagos');
 if (searchPagosEl) searchPagosEl.addEventListener('input', renderPagos);
 
 function renderTables() {
-const btnClasses = "font-display font-bold uppercase tracking-widest px-6 py-3 text-xs border-4 border-brand-black bg-brand-black text-brand-white hover:bg-brand-green hover:border-brand-black hover:text-brand-black focus:bg-brand-green focus:border-brand-black focus:text-brand-black active:bg-brand-green active:border-brand-black active:text-brand-black focus:outline-none";
+const btnClasses = "font-display font-bold uppercase tracking-widest px-6 py-3 text-xs border-4 border-brand-black bg-brand-black text-brand-white hover:bg-brand-green hover:text-brand-black focus:bg-brand-green focus:text-brand-black active:bg-brand-green active:text-brand-black focus:outline-none";
  const btnDangerClasses = "font-display font-bold uppercase tracking-widest px-6 py-3 text-xs bg-brand-white text-brand-black border-4 border-brand-black hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white active:bg-brand-black active:text-brand-white focus:outline-none";
  const rowClasses = "border-b-4 border-brand-black hover:bg-brand-green focus-within:bg-brand-green group";
 
@@ -440,8 +440,10 @@ const btnClasses = "font-display font-bold uppercase tracking-widest px-6 py-3 t
  <span class="font-bold uppercase">${s.nombre}</span>
  </td>
  <td class="p-6 "><span class="bg-brand-black text-brand-white inline-block px-2 py-1 text-xs font-bold uppercase tracking-widest">${s.especialidad}</span></td>
- <td class="p-6 text-right whitespace-nowrap">
- <button onclick="openModal('staff-edit',${s.id})" class="${btnClasses} mr-2">Editar</button>
+ <td class="p-6">
+ <div class="flex justify-end gap-2">
+ <button onclick="openModal('staff-edit',${s.id})" class="${btnClasses}">Editar</button>
+ </div>
  </td>
  </tr>`).join('');
  }
@@ -458,9 +460,11 @@ const btnClasses = "font-display font-bold uppercase tracking-widest px-6 py-3 t
  </td>
  <td class="p-6 "><span class="bg-brand-black text-brand-white inline-block px-2 py-1 text-xs font-bold uppercase tracking-widest">${s.especialidad}</span></td>
  <td class="p-6 ">${s.turno}</td>
- <td class="p-6 text-right whitespace-nowrap">
- <button onclick="openModal('staff-edit',${s.id})" class="${btnClasses} mr-2">Editar</button>
+ <td class="p-6">
+ <div class="flex justify-end gap-2">
+ <button onclick="openModal('staff-edit',${s.id})" class="${btnClasses}">Editar</button>
  <button onclick="deleteStaff(${s.id})" class="${btnDangerClasses}">Eliminar</button>
+ </div>
  </td>
  </tr>`).join('');
  }
@@ -501,10 +505,12 @@ const btnClasses = "font-display font-bold uppercase tracking-widest px-6 py-3 t
  </td>
  <td class="p-6 font-bold tracking-widest uppercase text-sm">${m.plan}</td>
  <td class="p-6 ">${sBadge}</td>
- <td class="p-6 text-right whitespace-nowrap">
- <button onclick="openHistorial(${m.id})" class="${btnClasses} mr-2">Historial</button>
- <button onclick="openModal('member-edit',${m.id})" class="${btnClasses} mr-2">Editar</button>
+ <td class="p-6">
+ <div class="flex justify-end gap-2">
+ <button onclick="openHistorial(${m.id})" class="${btnClasses}">Historial</button>
+ <button onclick="openModal('member-edit',${m.id})" class="${btnClasses}">Editar</button>
  <button onclick="deleteMember(${m.id})" class="${btnDangerClasses}"><i class="ph-bold ph-trash"></i></button>
+ </div>
  </td>
  </tr>
  `;
@@ -573,7 +579,7 @@ function renderPlanes() {
  return;
  }
  container.innerHTML = planesData.map(p => {
- const bgCls = p.destacado ? 'bg-brand-green text-brand-black border-4 border-brand-black' : 'bg-brand-white text-brand-black border-4 border-brand-black hover:border-brand-black focus:border-brand-black active:border-brand-black';
+ const bgCls = p.destacado ? 'bg-brand-green text-brand-black border-4 border-brand-black' : 'bg-brand-white text-brand-black border-4 border-brand-black';
  let priceHTML = p.destacado 
  ? `<p class="text-5xl sm:text-6xl font-display font-bold mb-6 text-brand-black group-hover:text-brand-green group-focus:text-brand-green group-active:text-brand-green tracking-tighter">${p.precio}<span class="text-xl sm:text-2xl text-current tracking-normal">mxn</span></p>`
  : `<p class="text-5xl sm:text-6xl font-display font-bold mb-6 bg-brand-green text-brand-black inline-block px-3 py-1 tracking-tighter -ml-3">${p.precio}<span class="text-xl sm:text-2xl text-current tracking-normal">mxn</span></p>`;
