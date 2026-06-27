@@ -170,6 +170,11 @@ function setScreen(name) {
  document.getElementById('sidebar-nav').classList.add('hidden');
  document.getElementById('sidebar-nav').classList.remove('flex');
  document.getElementById('mobileMenuBtn').setAttribute('aria-expanded', 'false');
+ const icon = document.getElementById('adminMenuIcon');
+ if (icon) {
+ icon.classList.remove('ph-x');
+ icon.classList.add('ph-list');
+ }
  }
  
  renderAll();
