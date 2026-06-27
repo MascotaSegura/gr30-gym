@@ -10,7 +10,7 @@ window.sysModal = function(type, title, message) {
  <h3 id="sys-modal-title" class="font-display font-bold uppercase tracking-widest text-lg sm:text-xl leading-none mt-1 pr-12"></h3>
  <button id="sys-modal-close-btn" data-sys-audio-ignore="true" aria-label="Cerrar" class="absolute top-4 right-4 text-current hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white focus:outline-none text-2xl bg-transparent border-4 border-brand-black w-10 h-10 flex items-center justify-center z-10"><i class="ph-bold ph-x"></i></button>
  </div>
- <div class="p-6 sm:p-8 overflow-y-auto max-h-[60vh]">
+ <div class="p-6 sm:p-8 overflow-y-auto">
  <div id="sys-modal-msg" class="font-medium text-lg leading-relaxed text-brand-black"></div>
  </div>
  <div id="sys-modal-footer" class="p-6 border-t-4 border-brand-black flex flex-col sm:flex-row justify-end gap-4 bg-brand-white"></div>
