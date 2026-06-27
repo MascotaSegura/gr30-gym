@@ -66,28 +66,37 @@
  const phone = document.getElementById('log-phone').value;
  const pass = document.getElementById('log-pass').value;
  
+ const submitBtn = e.submitter;
+ const originalBtnText = submitBtn.textContent;
+ submitBtn.textContent = 'Iniciando...';
+ submitBtn.disabled = true;
+ 
  if (phone === '5500000000' && pass === 'admin') {
  localStorage.setItem('gr30_admin_token', 'SECURE_ADMIN_GRANTED');
  window.location.href = 'admin.html';
  return;
  }
  
- 
  const { data, error } = await window.supabaseClient.from('miembros').select('telefono, password').eq('telefono', phone).single();
  
  if (error || !data) {
  sysModal('error', 'ERROR', 'Usuario no encontrado.');
+ submitBtn.textContent = originalBtnText;
+ submitBtn.disabled = false;
  return;
  }
 
- 
  if (!data.password || data.password.trim() === '') {
  sysModal('error', 'ACCESO DENEGADO', 'Tu cuenta no tiene una contraseña asignada. Por favor, acude a recepción para que te generen una clave.');
+ submitBtn.textContent = originalBtnText;
+ submitBtn.disabled = false;
  return;
  }
 
  if (data.password !== pass) {
  sysModal('error', 'ERROR', 'Contraseña incorrecta.');
+ submitBtn.textContent = originalBtnText;
+ submitBtn.disabled = false;
  return;
  }
  
