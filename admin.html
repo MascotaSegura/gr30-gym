@@ -359,6 +359,86 @@
  <div class="flex flex-col sm:flex-row gap-8 w-full items-start">
  <div class="flex-1 w-full flex flex-col gap-8 min-w-0">
  <div class="flex items-center w-full bg-brand-white border-4 border-brand-black focus-within:bg-brand-green group">
+ <div class="pl-4 pr-2 flex items-center justify-center pointer-events-none text-brand-black/50 group-focus-within:text-brand-black ">
+ <i class="ph-bold ph-magnifying-glass text-xl"></i>
+ </div>
+ <input type="text" id="search-pos" placeholder="BUSCAR PRODUCTO O ESCANEAR..." class="peer block w-full min-w-0 py-4 pr-2 bg-transparent text-brand-black font-display font-bold tracking-wide focus:outline-none placeholder:text-brand-black/50 placeholder:uppercase text-sm">
+ <button type="button" onclick="document.getElementById('search-pos').value=''; renderPOS();" class="peer-placeholder-shown:hidden pr-4 text-brand-black hover:text-brand-green focus:outline-none flex-shrink-0" aria-label="Limpiar b├║squeda" title="Limpiar"><i class="ph-bold ph-x text-xl"></i></button>
+ <button onclick="openCameraScanner('search-pos')" class="border-l-4 border-brand-black bg-brand-white text-brand-black hover:bg-brand-black hover:text-brand-white px-6 py-4 focus:outline-none flex-shrink-0 group-focus-within:bg-brand-black group-focus-within:text-brand-white" aria-label="Escanear producto">
+ <i class="ph-bold ph-camera text-xl"></i>
+ </button>
+ </div>
+
+ <div class="grid grid-cols-1 sm:grid-cols-2 gap-6" id="pos-catalog-container">
+ </div>
+ </div>
+
+ <div id="pos-cart-panel" class="bg-brand-white border-4 border-brand-black flex flex-col overflow-hidden w-full md:w-80 flex-shrink-0 sticky top-6 max-h-[calc(100dvh-88px)]">
+ <div class="bg-brand-black text-brand-white p-6 border-b-4 border-brand-black">
+ <h3 class="font-display font-bold uppercase tracking-widest text-xl">Ticket Actual</h3>
+ </div>
+
+ <div class="p-6 flex flex-col gap-4 overflow-y-auto flex-1" id="pos-cart-container">
+ </div>
+
+ <div class="p-6 bg-brand-white border-t-4 border-brand-black flex flex-col gap-4">
+ <div class="flex justify-between items-end mb-2">
+ <span class="font-display font-bold uppercase tracking-widest text-sm">Total</span>
+ <span id="pos-total" class="font-display font-bold text-4xl tracking-tighter text-brand-black">$0</span>
+ </div>
+ <div class="flex gap-4">
+ <button type="button" id="btn-vaciar-pos" onclick="vaciarCarrito()" class="w-16 flex-shrink-0 text-center bg-brand-white text-brand-black font-display font-bold uppercase tracking-widest py-5 text-sm hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white active:bg-brand-black active:text-brand-white focus:outline-none border-4 border-brand-black flex justify-center items-center" aria-label="Vaciar Carrito" title="Vaciar Carrito">
+ <i class="ph-bold ph-trash text-xl"></i>
+ </button>
+ <button type="button" onclick="procesarVenta()" id="btn-cobrar-pos" class="flex-1 text-center bg-brand-green text-brand-black font-display font-bold uppercase tracking-widest px-2 sm:px-6 py-5 text-sm hover:bg-brand-black hover:text-brand-white focus:bg-brand-black focus:text-brand-white active:bg-brand-black active:text-brand-white focus:outline-none border-4 border-brand-black flex justify-center items-center gap-2">
+ <i class="ph-bold ph-check-circle text-xl"></i> Procesar Venta
+ </button>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+
+ <div id="screen-inventario" class="screen hidden p-6 lg:p-12">
+ <div id="inventario-alert-container"></div>
+ <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8" id="stats-inventario-container">
+
+ </div>
+ <div class="bg-brand-white border-4 border-brand-black flex flex-col">
+ <div class="p-6 border-b-4 border-brand-black flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+ <h3 class="font-display font-bold uppercase tracking-widest text-xl flex items-center gap-2 text-brand-black">
+ Control de Stock <span class="text-xs bg-brand-green text-brand-black px-2 py-1 ml-4 hidden sm:inline-block border-4 border-brand-black">ESCANEA PARA A├æADIR +1</span>
+ </h3>
+ <div class="flex items-center gap-4 w-full sm:w-auto">
+ <button onclick="openModal('product-form')" class="bg-brand-black text-brand-white font-display font-bold uppercase tracking-widest px-6 py-4 text-xs hover:bg-brand-green hover:text-brand-black focus:outline-none border-4 border-brand-black flex items-center justify-center gap-2 w-full sm:w-auto">
+ <i class="ph-bold ph-plus text-xl"></i> A├▒adir Producto
+ </button>
+ </div>
+ </div>
+ <div class="flex flex-col md:flex-row gap-4 p-6 border-b-4 border-brand-black bg-brand-white">
+ <div class="flex items-center w-full md:w-64 bg-brand-white border-4 border-brand-black focus-within:bg-brand-green group flex-shrink-0">
+ <div class="pl-4 pr-2 flex items-center justify-center pointer-events-none text-brand-black/50 group-focus-within:text-brand-black">
+ <i class="ph-bold ph-funnel text-xl"></i>
+ </div>
+ <select id="filter-stock-inventario" class="peer block w-full min-w-0 py-4 pr-4 bg-transparent text-brand-black font-display font-bold tracking-wide focus:outline-none text-sm appearance-none cursor-pointer" onchange="filterInventoryList(document.getElementById('inventory-search').value)">
+ <option value="">TODOS</option>
+ <option value="bajo_stock">BAJO STOCK</option>
+ </select>
+ </div>
+ <div class="flex items-center flex-1 bg-brand-white border-4 border-brand-black focus-within:bg-brand-green group">
+ <div class="pl-4 pr-2 flex items-center justify-center pointer-events-none text-brand-black/50 group-focus-within:text-brand-black">
+ <i class="ph-bold ph-magnifying-glass text-xl"></i>
+ </div>
+ <input type="text" id="inventory-search" placeholder="BUSCAR PRODUCTO O ESCANEAR..." class="peer block w-full min-w-0 py-4 pr-2 bg-transparent text-brand-black font-display font-bold tracking-wide focus:outline-none placeholder:text-brand-black/50 placeholder:uppercase text-sm" oninput="filterInventoryList(this.value)">
+ <button type="button" onclick="document.getElementById('inventory-search').value=''; filterInventoryList('');" class="peer-placeholder-shown:hidden pr-4 text-brand-black hover:text-brand-green focus:outline-none flex-shrink-0" aria-label="Limpiar b├║squeda" title="Limpiar"><i class="ph-bold ph-x text-xl"></i></button>
+ <button onclick="openCameraScanner('inventory-search')" class="border-l-4 border-brand-black bg-brand-white text-brand-black hover:bg-brand-black hover:text-brand-white px-6 py-4 focus:outline-none flex-shrink-0 group-focus-within:bg-brand-black group-focus-within:text-brand-white" aria-label="Escanear producto">
+ <i class="ph-bold ph-camera text-xl"></i>
+ </button>
+ </div>
+ </div>
+ <div id="inventory-tbody" class="p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 bg-brand-white">
+ <!-- Renderizado por JS -->
+ </div>
  </div>
  </div>
 
