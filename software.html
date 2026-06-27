@@ -24,7 +24,7 @@
  <div class="w-10 h-10 bg-brand-green flex items-center justify-center text-brand-black group-hover:bg-brand-black group-hover:text-brand-white group-focus:bg-brand-black group-focus:text-brand-white group-active:bg-brand-black group-active:text-brand-white">
  <span class="text-2xl leading-none">G</span>
  </div>
- <span class="text-brand-black">GR30<span class="text-brand-green ">.</span> SOFWARE</span>
+ <span class="text-brand-black">GR30<span class="text-brand-green ">.</span> SOFTWARE</span>
  </a>
 
  <div class="flex items-center gap-4 sm:gap-6">
@@ -197,23 +197,23 @@
  <!-- Decoración esquina -->
  <div class="absolute -top-4 -right-4 w-8 h-8 bg-brand-green border-4 border-brand-black"></div>
  
- <form class="flex flex-col gap-6" onsubmit="event.preventDefault(); alert('Solicitud enviada. Nos comunicaremos pronto.');">
+ <form id="softwareForm" class="flex flex-col gap-6">
  <div>
- <label class="block font-display font-bold uppercase tracking-widest text-xs sm:text-sm text-brand-green mb-2">Nombre del Gimnasio</label>
- <input type="text" required class="w-full bg-brand-white text-brand-black border-4 border-brand-black px-6 py-5 text-lg font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green placeholder:text-brand-black/50 " placeholder="Ej. IRON TEMPLE">
+  <label for="gym-name" class="block font-display font-bold uppercase tracking-widest text-xs sm:text-sm text-brand-green mb-2">Nombre del Gimnasio</label>
+  <input type="text" id="gym-name" required class="w-full bg-brand-white text-brand-black border-4 border-brand-black px-6 py-5 text-lg font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green placeholder:text-brand-black/50 " placeholder="Ej. IRON TEMPLE">
  </div>
  <div>
- <label class="block font-display font-bold uppercase tracking-widest text-xs sm:text-sm text-brand-green mb-2">Teléfono de Contacto</label>
- <input type="tel" required class="w-full bg-brand-white text-brand-black border-4 border-brand-black px-6 py-5 text-lg font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green placeholder:text-brand-black/50 " placeholder="10 DÍGITOS">
+  <label for="gym-phone" class="block font-display font-bold uppercase tracking-widest text-xs sm:text-sm text-brand-green mb-2">Teléfono de Contacto</label>
+  <input type="tel" id="gym-phone" required class="w-full bg-brand-white text-brand-black border-4 border-brand-black px-6 py-5 text-lg font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green placeholder:text-brand-black/50 " placeholder="10 DÍGITOS">
  </div>
  <div>
- <label class="block font-display font-bold uppercase tracking-widest text-xs sm:text-sm text-brand-green mb-2">Volumen de Socios Aprox.</label>
- <select class="w-full bg-brand-white text-brand-black border-4 border-brand-black px-6 py-5 pr-12 text-lg font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green cursor-pointer appearance-none">
- <option>Menos de 100</option>
- <option>100 - 500</option>
- <option>500 - 1000</option>
- <option>Más de 1000</option>
- </select>
+  <label for="gym-volume" class="block font-display font-bold uppercase tracking-widest text-xs sm:text-sm text-brand-green mb-2">Volumen de Socios Aprox.</label>
+  <select id="gym-volume" class="w-full bg-brand-white text-brand-black border-4 border-brand-black px-6 py-5 pr-12 text-lg font-display font-bold tracking-wide focus:outline-none focus:bg-brand-green cursor-pointer appearance-none">
+  <option>Menos de 100</option>
+  <option>100 - 500</option>
+  <option>500 - 1000</option>
+  <option>Más de 1000</option>
+  </select>
  </div>
  <button type="submit" class="w-full px-8 py-4 mt-4 font-display font-bold uppercase tracking-widest text-lg border-4 border-brand-white bg-brand-green text-brand-black hover:bg-brand-white focus:bg-brand-white focus:outline-none">
  QUIERO EL SISTEMA
@@ -253,25 +253,61 @@
 </footer>
 
 <script>
- gsap.registerPlugin(ScrollTrigger);
- 
- // Animación simple de entrada
- gsap.from("h1", { y: 50, autoAlpha: 0, duration: 1, ease: "power4.out", delay: 0.2 });
- gsap.from("p", { y: 30, autoAlpha: 0, duration: 1, ease: "power4.out", delay: 0.4, stagger: 0.1 });
- 
- // Fade in on scroll para features
- gsap.utils.toArray("#funciones > div > div").forEach(feature => {
- gsap.from(feature, {
- scrollTrigger: {
- trigger: feature,
- start: "top 85%",
- },
- y: 50,
- autoAlpha: 0,
- duration: 0.8,
- ease: "power3.out"
- });
- });
+  gsap.registerPlugin(ScrollTrigger);
+  
+  // Animación simple de entrada
+  gsap.from("h1", { y: 50, autoAlpha: 0, duration: 1, ease: "power4.out", delay: 0.2 });
+  gsap.from("p", { y: 30, autoAlpha: 0, duration: 1, ease: "power4.out", delay: 0.4, stagger: 0.1 });
+  
+  // Fade in on scroll para features
+  gsap.utils.toArray("#funciones > div > div").forEach(feature => {
+  gsap.from(feature, {
+  scrollTrigger: {
+  trigger: feature,
+  start: "top 85%",
+  },
+  y: 50,
+  autoAlpha: 0,
+  duration: 0.8,
+  ease: "power3.out"
+  });
+  });
+
+  // Manejo del formulario
+  const form = document.getElementById('softwareForm');
+  if (form) {
+  form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const btn = form.querySelector('button[type="submit"]');
+  const inputs = form.querySelectorAll('input, select');
+  const originalText = btn.innerText;
+  
+  btn.innerText = "ENVIANDO...";
+  btn.disabled = true;
+  inputs.forEach(input => input.disabled = true);
+  
+  setTimeout(() => {
+  btn.innerText = "SOLICITUD ENVIADA";
+  btn.classList.remove('bg-brand-green', 'text-brand-black');
+  btn.classList.add('bg-brand-white', 'text-brand-black');
+  form.reset();
+  
+  // Actualizar el custom component select si existe
+  const customLabel = form.querySelector('.custom-select-wrapper span');
+  if (customLabel) {
+  customLabel.textContent = form.querySelector('select').options[0].text;
+  }
+  
+  setTimeout(() => {
+  btn.innerText = originalText;
+  btn.classList.remove('bg-brand-white', 'text-brand-black');
+  btn.classList.add('bg-brand-green', 'text-brand-black');
+  btn.disabled = false;
+  inputs.forEach(input => input.disabled = false);
+  }, 3000);
+  }, 1000);
+  });
+  }
 </script>
 <script src="assets/js/audio.js"></script>
 <script src="assets/js/customComponents.js"></script>

@@ -52,17 +52,24 @@ window.sysModal = function(type, title, message) {
  footer.innerHTML = '';
  
  const btnBase = "font-display font-bold uppercase tracking-widest px-8 py-4 border-4 border-brand-black focus:outline-none w-full sm:w-auto text-center text-sm";
- 
- function closeAndResolve(val) {
- overlay.classList.remove('flex');
- overlay.classList.add('hidden');
- document.body.style.overflow = '';
- if (window.sysAudio) window.sysAudio('modalClose');
- resolve(val);
- }
+  const handleEscape = (e) => {
+    if (e.key === 'Escape') {
+      closeAndResolve(false);
+    }
+  };
+  document.addEventListener('keydown', handleEscape);
 
- const closeBtn = document.getElementById('sys-modal-close-btn');
- if (closeBtn) closeBtn.onclick = () => closeAndResolve(false);
+  function closeAndResolve(val) {
+    document.removeEventListener('keydown', handleEscape);
+    overlay.classList.remove('flex');
+    overlay.classList.add('hidden');
+    document.body.style.overflow = '';
+    if (window.sysAudio) window.sysAudio('modalClose');
+    resolve(val);
+  }
+
+  const closeBtn = document.getElementById('sys-modal-close-btn');
+  if (closeBtn) closeBtn.onclick = () => closeAndResolve(false);
 
  document.body.style.overflow = 'hidden';
 

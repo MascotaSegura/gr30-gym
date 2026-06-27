@@ -1931,7 +1931,7 @@ window.renderInventoryTableBody = function(query = '') {
  Stock: ${safeStock}
  </div>
  <div class="w-full h-48 sm:h-56 p-6 flex justify-center items-center border-b-4 border-brand-black">
- <img src="${p.img || 'assets/img/pos_snack.png'}" class="max-w-full max-h-full object-contain" onerror="this.src='assets/img/pos_snack.png'">
+ <img src="${p.img || 'assets/img/pos_snack.png'}" alt="${p.nombre}" class="max-w-full max-h-full object-contain" onerror="this.src='assets/img/pos_snack.png'">
  </div>
  <div class="p-6 flex flex-col flex-grow">
  <h3 class="font-display font-bold uppercase tracking-widest text-lg sm:text-xl leading-tight mb-2">${p.nombre}</h3>
